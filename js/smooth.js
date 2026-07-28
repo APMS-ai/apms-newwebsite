@@ -25,12 +25,28 @@
 
   /* Let the rails keep their own gestures. Done here rather than in the
      markup so every page gets it without touching ten HTML files. */
+  var OWN_SCROLL = [
+    ".agp--native", ".agp__viewport", "[data-agp]", ".ptabs__scroll",
+    "pre", "textarea", ".chatbot__log", "[data-scrollable]"
+  ].join(",");
+
   function exempt() {
-    var own = document.querySelectorAll(
-      ".agp--native, .agp__viewport, [data-agp], .ptabs__scroll, pre, textarea, .chatbot__log, [data-scrollable]"
-    );
+    var own = document.querySelectorAll(OWN_SCROLL);
     for (var i = 0; i < own.length; i++) {
       own[i].setAttribute("data-lenis-prevent", "");
+    }
+    /* Catch anything a stylesheet has made scrollable that is not on the list
+       above. A container that scrolls but is not exempt is invisible to the
+       visitor: Lenis consumes the gesture and it never moves. This is how the
+       "Four modules" diagram ended up stuck showing only its left third. */
+    var all = document.querySelectorAll("main div, main section, main ul, main table");
+    for (var j = 0; j < all.length; j++) {
+      var el = all[j];
+      if (el.hasAttribute("data-lenis-prevent")) continue;
+      var ox = getComputedStyle(el).overflowX;
+      if ((ox === "auto" || ox === "scroll") && el.scrollWidth > el.clientWidth + 4) {
+        el.setAttribute("data-lenis-prevent", "");
+      }
     }
   }
   exempt();

@@ -87,10 +87,23 @@
   fill: var(--teal-deep); text-anchor: middle;
 }
 
-/* ---------- narrow screens: let it scroll rather than crush the labels ---------- */
+/* ---------- narrow screens ----------
+   This used to set min-width: 700px and let .modflow scroll sideways. Two
+   problems: on a 390px screen only the left third was ever visible, and
+   .modflow was not in smooth.js's data-lenis-prevent list, so with syncTouch
+   enabled Lenis consumed the horizontal swipe and the container never moved.
+   The diagram was effectively stuck.
+
+   A 900-unit-wide row of four cannot be made to fit a phone, so below 760px
+   the markup swaps to a second SVG laid out two by two with the hub beneath.
+   Same classes, so every style and animation above applies to both. Nothing
+   scrolls, and nothing is cut off. */
+.modflow__svg--tall { display: none; }
+
 @media (max-width: 760px) {
-  .modflow { overflow-x: auto; scrollbar-width: thin; padding-bottom: .6rem; }
-  .modflow__svg { min-width: 700px; }
+  .modflow { overflow: visible; }
+  .modflow__svg--wide { display: none; }
+  .modflow__svg--tall { display: block; max-width: 360px; margin-inline: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
