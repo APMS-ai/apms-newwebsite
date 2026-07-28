@@ -1,0 +1,63 @@
+/* ==========================================================================
+   APMS.ai — visioncmp.css
+   "Human-level accuracy, machine-level consistency" — vision-ai.html
+
+   Replaces four radial gauges with a different instrument: the same parts run
+   down two lanes. The sampling lane checks one in ten and lets defects
+   through; the inline lane checks every part and catches them. The point the
+   heading makes, shown rather than restated as more dials.
+   ========================================================================== */
+
+.cvcmp { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+.cvcmp svg { width: 100%; max-width: 700px; margin-inline: auto; height: auto; display: block; overflow: visible; }
+.cvcmp * { transform-box: view-box; }
+
+.cv__frame { fill: rgba(0,0,0,0.24); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.cv__lbl { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; fill: rgba(255,255,255,0.72); }
+.cv__sub { font-family: var(--text); font-size: 10px; fill: rgba(255,255,255,0.42); }
+.cv__gatelbl { font-family: var(--display); font-weight: 700; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; fill: var(--teal-bright); }
+
+.cv__belt { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.cv__gate { fill: rgba(255,255,255,0.35); }
+
+/* ---------- the parts ---------- */
+.cv__part { fill: rgba(255,255,255,0.16); }
+.cv__part--bad { fill: rgba(255,255,255,0.34); }
+
+/* caught: a teal box locks over the defect in the inline lane */
+.cv__caught {
+  fill: none; stroke: var(--teal-bright); stroke-width: 2.2;
+}
+
+/* escaped: the label rides along with the defect it belongs to */
+.cv__escape {
+  font-family: var(--display); font-weight: 800; font-size: 9px;
+  letter-spacing: .06em; text-transform: uppercase;
+  fill: rgba(255,255,255,0.5);
+}
+
+/* ---------- both lanes run the same parts at the same rate ---------- */
+.cvcmp[data-reveal].in .cv__flowA,
+.cvcmp[data-reveal].in .cv__flowB { animation: cvFlow 9s linear infinite; }
+@keyframes cvFlow {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-580px); }
+}
+
+/* the inline lane's scan field pulses, so it reads as always-on */
+.cv__scan {
+  fill: rgba(46,224,180,0.05); stroke: rgba(46,224,180,0.35); stroke-width: 1;
+}
+.cvcmp[data-reveal].in .cv__scan { animation: cvScan 2.4s ease-in-out infinite; }
+@keyframes cvScan {
+  0%, 100% { opacity: .5; }
+  50%      { opacity: 1; }
+}
+
+/* clip both lanes to the belt so parts enter and leave cleanly */
+.cvcmp svg { clip-path: inset(0 round 14px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cvcmp[data-reveal].in * { animation: none !important; }
+  .cv__scan { opacity: .7; }
+}

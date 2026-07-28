@@ -1,0 +1,168 @@
+/* ==========================================================================
+   APMS.ai — maint.css
+   "Maintenance & job management, built in" — solutions.html
+
+   Adds the closed-loop explainer strip above the two panels, animated panel
+   icons, and life in the job list. Dark section (.sec--darker), teal only.
+   ========================================================================== */
+
+/* ==========================================================================
+   1 · CLOSED-LOOP EXPLAINER
+   The headline says "close the loop from a live signal to the work that fixes
+   it". This shows those five stages, with a pulse handed along the chain.
+   ========================================================================== */
+.mloop {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin: clamp(1.8rem, 4vw, 2.8rem) auto clamp(2rem, 4vw, 3rem);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  --beat: 10s;
+}
+/* Five steps cannot tile in two columns, so the old 2-column breakpoint always
+   left a lone card with a wide hole beside it. It goes straight to one column. */
+@media (max-width: 900px) { .mloop { grid-template-columns: 1fr; } }
+
+.mstep {
+  position: relative;
+  padding: 1.35rem 1.15rem 1.4rem;
+  background: rgba(255,255,255,0.03);
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
+.mstep:first-child { border-left: none; }
+@media (max-width: 900px) {
+  .mstep { border-left: 1px solid rgba(255,255,255,0.08); border-top: 1px solid rgba(255,255,255,0.08); }
+}
+
+/* the live wash travels stage to stage, one fifth of the beat each */
+.mstep::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(23,201,155,0.16), rgba(23,201,155,0.02) 65%);
+  opacity: 0; animation: mLive var(--beat) ease-in-out infinite;
+}
+.mstep::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
+  opacity: 0; animation: mLive var(--beat) ease-in-out infinite;
+}
+.mstep:nth-child(1)::before, .mstep:nth-child(1)::after { animation-delay: 0s; }
+.mstep:nth-child(2)::before, .mstep:nth-child(2)::after { animation-delay: calc(var(--beat) * .2); }
+.mstep:nth-child(3)::before, .mstep:nth-child(3)::after { animation-delay: calc(var(--beat) * .4); }
+.mstep:nth-child(4)::before, .mstep:nth-child(4)::after { animation-delay: calc(var(--beat) * .6); }
+.mstep:nth-child(5)::before, .mstep:nth-child(5)::after { animation-delay: calc(var(--beat) * .8); }
+@keyframes mLive { 0% { opacity: 0; } 3% { opacity: 1; } 17% { opacity: 1; } 22%, 100% { opacity: 0; } }
+
+.mstep__n {
+  display: flex; align-items: center; gap: .5rem;
+  font-family: var(--display); font-weight: 900; font-size: .64rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--teal-bright); margin-bottom: .7rem;
+}
+.mstep__n i {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex: none;
+  animation: mDot var(--beat) ease-out infinite;
+}
+.mstep:nth-child(1) .mstep__n i { animation-delay: 0s; }
+.mstep:nth-child(2) .mstep__n i { animation-delay: calc(var(--beat) * .2); }
+.mstep:nth-child(3) .mstep__n i { animation-delay: calc(var(--beat) * .4); }
+.mstep:nth-child(4) .mstep__n i { animation-delay: calc(var(--beat) * .6); }
+.mstep:nth-child(5) .mstep__n i { animation-delay: calc(var(--beat) * .8); }
+@keyframes mDot {
+  0%, 20%, 100% { box-shadow: 0 0 0 0 rgba(23,201,155,0); }
+  3%  { box-shadow: 0 0 0 0 rgba(23,201,155,.75); }
+  16% { box-shadow: 0 0 0 11px rgba(23,201,155,0); }
+}
+.mstep h4 { color: #fff; font-size: .95rem; margin-bottom: .35rem; font-family: var(--display); font-weight: 800; }
+.mstep p { color: var(--on-dark-soft); font-size: .82rem; line-height: 1.55; }
+
+/* ==========================================================================
+   2 · ANIMATED PANEL ICONS
+   Replaces the two flat glyphs. Rotations use view-box units so origins hold
+   at any rendered size; base strokes are never animated away.
+   ========================================================================== */
+.fpanel__ico svg { overflow: visible; }
+.mico * { transform-box: view-box; }
+
+/* --- maintenance: gear turns, spanner nudges against it --- */
+.mico--wrench .mico__gear { transform-origin: 8.5px 15.5px; animation: mSpin 9s linear infinite; }
+@keyframes mSpin { to { transform: rotate(360deg); } }
+.mico--wrench .mico__spanner { transform-origin: 17px 7px; animation: mNudge 3.2s ease-in-out infinite; }
+@keyframes mNudge {
+  0%, 100% { transform: rotate(0deg); }
+  45%      { transform: rotate(-13deg); }
+}
+.mico--wrench .mico__spark {
+  transform-origin: 12px 11px; opacity: 0;
+  animation: mSpark 3.2s ease-out infinite;
+}
+@keyframes mSpark {
+  0%, 40%   { opacity: 0; transform: scale(.4); }
+  55%       { opacity: .9; transform: scale(1); }
+  75%, 100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* --- job sheet: rows fill in, tick lands --- */
+.mico--sheet .mico__row {
+  stroke-dasharray: 10; stroke-dashoffset: 10;
+  animation: mRow 3.6s cubic-bezier(.22,.61,.36,1) infinite;
+}
+.mico--sheet .mico__row:nth-of-type(1) { animation-delay: 0s; }
+.mico--sheet .mico__row:nth-of-type(2) { animation-delay: .25s; }
+.mico--sheet .mico__row:nth-of-type(3) { animation-delay: .5s; }
+@keyframes mRow {
+  0%       { stroke-dashoffset: 10; }
+  30%, 78% { stroke-dashoffset: 0; }
+  100%     { stroke-dashoffset: 10; }
+}
+.mico--sheet .mico__tick {
+  stroke-dasharray: 9; stroke-dashoffset: 9;
+  animation: mTick 3.6s cubic-bezier(.22,.61,.36,1) infinite .85s;
+}
+@keyframes mTick {
+  0%       { stroke-dashoffset: 9; }
+  25%, 80% { stroke-dashoffset: 0; }
+  100%     { stroke-dashoffset: 9; }
+}
+
+/* ==========================================================================
+   3 · LIVE JOB LIST
+   Rows arrive in sequence with the panel, and the in-progress pill breathes
+   so the list reads as live rather than a screenshot.
+   ========================================================================== */
+.fpanel[data-reveal] .job {
+  opacity: 0; transform: translateX(-14px);
+  transition: opacity .5s var(--ease-out), transform .5s var(--ease-out);
+}
+.fpanel[data-reveal].in .job { opacity: 1; transform: none; }
+.fpanel[data-reveal].in .job:nth-child(1) { transition-delay: .18s; }
+.fpanel[data-reveal].in .job:nth-child(2) { transition-delay: .30s; }
+.fpanel[data-reveal].in .job:nth-child(3) { transition-delay: .42s; }
+.fpanel[data-reveal].in .job:nth-child(4) { transition-delay: .54s; }
+
+.jpill--run i { animation: mBreathe 1.7s ease-in-out infinite; }
+@keyframes mBreathe {
+  0%, 100% { opacity: .45; transform: scale(.82); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+/* the newest row gets a brief highlight sweep once the panel lands */
+.fpanel[data-reveal].in .job--new::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(46,224,180,.14), transparent);
+  animation: mSweep 2.6s var(--ease-out) 1s 2;
+}
+.job { position: relative; overflow: hidden; }
+@keyframes mSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mstep::before, .mstep::after, .mstep__n i,
+  .mico *, .jpill--run i, .fpanel[data-reveal].in .job--new::after { animation: none !important; }
+  .mstep::before, .mstep::after { opacity: 0; }
+  .fpanel[data-reveal] .job { opacity: 1; transform: none; transition: none; }
+  .mico--sheet .mico__row, .mico--sheet .mico__tick { stroke-dashoffset: 0; }
+}

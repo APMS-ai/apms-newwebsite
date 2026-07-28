@@ -1,0 +1,75 @@
+/* ==========================================================================
+   APMS.ai — fx.css
+   Styles for scroll-text (Anime.js), mesh-gradient (Whatamesh) and icon pops.
+   Loaded LAST. Reduced-motion safe (JS skips; static text stays visible).
+   ========================================================================== */
+
+/* --- inline ticks row (Industrial IoT feature strip) --- */
+.ticks--inline {
+  display: flex; flex-wrap: wrap; gap: 0.7rem 2rem;
+  margin-top: clamp(1.6rem, 3vw, 2.4rem);
+  padding-top: clamp(1.4rem, 3vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+.ticks--inline li { font-weight: 500; }
+
+/* --- industries marquee (right to left, seamless) --- */
+.trust__marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.trust__row--marquee {
+  flex-wrap: nowrap; justify-content: flex-start;
+  width: max-content; will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .trust__row--marquee { animation: trustMarquee 34s linear infinite; }
+  .trust__marquee:hover .trust__row--marquee { animation-play-state: paused; }
+}
+@keyframes trustMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* --- split heading word units --- */
+.st-w { display: inline-block; will-change: transform, opacity, filter; }
+.st-split { position: relative; }
+
+/* --- Whatamesh mesh gradient background on flat sections --- */
+.mesh-canvas {
+  position: absolute; inset: 0;
+  width: 100% !important; height: 100% !important;
+  display: block; z-index: 0; pointer-events: none;
+}
+.has-mesh > *:not(.mesh-canvas) { position: relative; z-index: 1; }
+/* hide the static grid overlay so it doesn't fight the living gradient */
+.cta.has-mesh::before { opacity: 0; }
+/* soft vignette keeps white CTA copy crisp over brighter mesh zones */
+.cta.has-mesh::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 130% at 50% 40%, rgba(6,26,38,0) 45%, rgba(6,26,38,0.55));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* --- dashboard: status tiles + rows slide in on reveal (numbers count via data-count) --- */
+  .appwrap[data-reveal].in .app__tile,
+  .appwrap[data-reveal].in .app__row { animation: fxRowIn 0.5s var(--ease-out) both; }
+  .appwrap[data-reveal].in .app__tile:nth-child(2) { animation-delay: 0.08s; }
+  .appwrap[data-reveal].in .app__row:nth-child(1) { animation-delay: 0.16s; }
+  .appwrap[data-reveal].in .app__row:nth-child(2) { animation-delay: 0.22s; }
+  .appwrap[data-reveal].in .app__row:nth-child(3) { animation-delay: 0.28s; }
+  .appwrap[data-reveal].in .app__row:nth-child(4) { animation-delay: 0.34s; }
+  .appwrap[data-reveal].in .app__row:nth-child(5) { animation-delay: 0.40s; }
+  .appwrap[data-reveal].in .app__row:nth-child(6) { animation-delay: 0.46s; }
+  .appwrap[data-reveal].in .app__row:nth-child(7) { animation-delay: 0.52s; }
+  @keyframes fxRowIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+
+  /* --- icons pop in when their card reveals --- */
+  [data-reveal].in .tile__ico,
+  [data-reveal].in .cap__ico,
+  [data-reveal].in .mod__ico,
+  .mod[data-reveal].in .mod__ico { animation: fxIconPop 0.6s var(--ease-out) both; }
+  @keyframes fxIconPop {
+    0%   { transform: scale(0.55) rotate(-10deg); opacity: 0; }
+    55%  { transform: scale(1.1)  rotate(2deg);   opacity: 1; }
+    100% { transform: scale(1)    rotate(0deg); }
+  }
+}

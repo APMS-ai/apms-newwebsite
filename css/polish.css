@@ -1,0 +1,130 @@
+/* ==========================================================================
+   APMS.ai — polish layer
+   Additive premium micro-interactions. Loaded LAST. Reduced-motion safe.
+   Keyed off existing components only — no markup changes required.
+   ========================================================================== */
+
+/* on-brand text selection */
+::selection { background: rgba(23,201,155,0.22); color: inherit; }
+::-moz-selection { background: rgba(23,201,155,0.22); color: inherit; }
+
+/* when the Vanta network is active on a hero, fade the static grid so the
+   two patterns don't stack, and keep ALL hero content above the canvas */
+.phero.has-vanta::before, .hero.has-vanta::before { opacity: 0; }
+.vanta-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.has-vanta { position: relative; }
+.has-vanta > *:not(.vanta-bg) { position: relative; z-index: 1; }
+
+/* The moving network makes the hero heading hard to read. Sit a soft scrim
+   between the canvas and the copy: opaque under the words, fading to nothing
+   before the edges, so the web still animates freely all around it.
+   Vanta binds mousemove on window, so cursor interaction here is unaffected. */
+.phero.has-vanta .phero__wrap,
+.hero.has-vanta .hero__copy { position: relative; }
+.phero.has-vanta .phero__wrap::before,
+.hero.has-vanta .hero__copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -12% -7%;
+  pointer-events: none;
+  /* fully opaque ink-900 under the copy (matches the Vanta backgroundColor, so
+     it reads as blank section background), then a short fade so there is no
+     visible edge. Beyond the fade the network is completely untouched. */
+  background: radial-gradient(ellipse 62% 60% at 50% 50%,
+    rgba(7, 15, 25, 1) 0%,
+    rgba(7, 15, 25, 1) 56%,
+    rgba(7, 15, 25, 0.75) 71%,
+    rgba(7, 15, 25, 0.3) 86%,
+    rgba(7, 15, 25, 0) 100%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* --- button arrow glide (base only animates the card/link, not the btn arrow) --- */
+  .btn > svg { transition: transform 0.35s var(--ease-out); }
+  .btn:hover > svg { transform: translateX(4px); }
+
+  /* --- refined, consistent card lift + icon pop across every card family --- */
+  .tile, .cap, .mod, .ind, .case, .bento__c {
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+  }
+  .tile:hover .tile__ico,
+  .cap:hover  .cap__ico,
+  .mod:hover  .mod__ico,
+  .ind:hover  .ind__ico { transform: translateY(-3px) scale(1.06); }
+  .tile__ico, .cap__ico, .mod__ico, .ind__ico { transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1); }
+
+  /* --- media / screenshot hover zoom (opt-in via class) --- */
+  .shot, figure.zoom, .media--zoom { overflow: hidden; }
+  .shot > img, figure.zoom > img, .media--zoom > img { transition: transform 0.7s var(--ease-out); }
+  .shot:hover > img, figure.zoom:hover > img, .media--zoom:hover > img { transform: scale(1.04); }
+
+  /* --- reveal cascade: children fade up in sequence (delay set by polish.js) --- */
+  /* only while it still has somewhere to travel. Held permanently this was
+     pinning 100+ compositor layers, which showed up directly as dropped
+     frames while scrolling (see the note in perf.css). */
+  [data-reveal]:not(.in) { will-change: opacity, transform; }
+
+  /* --- cursor-follow spotlight on cards (Inspira / Animate-UI style) --- */
+  .tile::before, .cap::before, .mod::before, .ind::before, .case::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(46,224,180,0.16), rgba(46,224,180,0) 62%);
+    opacity: 0; transition: opacity 0.35s var(--ease-out);
+  }
+  .tile:hover::before, .cap:hover::before, .mod:hover::before,
+  .ind:hover::before, .case:hover::before { opacity: 1; }
+  /* keep card content above the spotlight layer */
+  .tile > *, .cap > *, .mod > *, .ind > *, .case > * { position: relative; z-index: 1; }
+}
+
+/* --- aurora accent: gentle animated teal gradient on emphasised words --- */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .accent {
+      background-image: linear-gradient(100deg,
+        var(--teal) 0%, var(--teal-bright) 42%, #86f2d6 52%, var(--teal-bright) 62%, var(--teal) 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      animation: accentFlow 9s linear infinite;
+    }
+    @keyframes accentFlow { to { background-position: -220% 0; } }
+
+    /* On a white section the bright stops above sit at roughly 1.8:1,
+       under the 3:1 WCAG needs even for large display text. Same shimmer,
+       deeper teals, so emphasised words stay legible on white. */
+    .sec--white .accent {
+      background-image: linear-gradient(100deg,
+        var(--teal-deep) 0%, var(--teal) 42%, #17c99b 52%, var(--teal) 62%, var(--teal-deep) 100%);
+    }
+  }
+}
+/* no-gradient fallback keeps the same intent */
+.sec--white .accent { color: var(--teal-deep); }
+
+/* --- Lenis smooth-scroll base styles --- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ==========================================================================
+   Responsive hardening (site-wide)
+   Fixes found by a headless layout audit at 360/390/768/1280/1920.
+   ========================================================================== */
+
+/* 1 · Horizontal scroll is already contained by `body { overflow-x: hidden }`
+      in redesign.css, which propagates to the viewport. Do NOT add
+      `overflow-x: clip` on <html>: it clamps how far the page can scroll,
+      which strands every scroll-triggered reveal below the fold.
+
+   2 · Side-entry reveals translate 42px horizontally before they fire.
+      On narrow screens the container is nearly viewport-wide, so that
+      pre-reveal offset pushed the page 3px sideways. Come in vertically
+      on mobile instead; identical effect, no sideways travel. */
+@media (max-width: 720px) {
+  [data-reveal="left"], [data-reveal="right"] { transform: translateY(20px); }
+  [data-reveal="left"].in, [data-reveal="right"].in { transform: none; }
+}

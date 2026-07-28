@@ -1,0 +1,228 @@
+/* ==========================================================================
+   APMS.ai — floorgrid.css
+   "Everything the shop floor needs, connected" — solutions.html
+
+   Six static boxes became six cards that pop in horizontally, each with a
+   working instrument for an icon.
+
+   Rule followed throughout: an icon is NEVER erased. Base strokes stay fully
+   drawn at all times and motion is layered on top as a tracer, sweep or
+   pulse. (Animating the base stroke's dashoffset made icons blink out to an
+   empty box for part of every cycle, which read as broken.)
+
+   Scoped to .floorgrid so .tile elsewhere on the site is untouched.
+   ========================================================================== */
+
+/* ==========================================================================
+   1 · ENTRANCE
+   The grid is now a pinned horizontal rail (css/rail.css + js/rail.js), and
+   in pinned mode rail.js owns each card's opacity/transform inline. This
+   pop-in therefore applies only when the rail falls back to native
+   swipe-scroll (touch / narrow / reduced-motion), where nothing else is
+   driving the cards.
+   ========================================================================== */
+.agp--native .floorgrid .tile[data-reveal],
+.floorgrid:not(.agp) .tile[data-reveal] {
+  opacity: 0;
+  transform: translate3d(-90px, 0, 0) scale(0.86);
+  transition:
+    opacity .62s cubic-bezier(.34, 1.5, .5, 1),
+    transform .62s cubic-bezier(.34, 1.5, .5, 1),
+    box-shadow .4s ease,
+    border-color .4s ease;
+}
+.agp--native .floorgrid .tile[data-reveal].in,
+.floorgrid:not(.agp) .tile[data-reveal].in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   2 · CARD SHELL + HOVER
+   ========================================================================== */
+.floorgrid .tile {
+  position: relative;
+  overflow: hidden;
+  transition: transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease, border-color .4s ease;
+}
+
+/* cursor-follow glow (ui-fx.js already feeds --mx / --my to every .tile) */
+.floorgrid .tile::before {
+  content: "";
+  position: absolute; inset: -1px; border-radius: inherit; z-index: 0;
+  background: radial-gradient(150px 110px at var(--mx, 50%) var(--my, 0%), rgba(23,201,155,0.20), transparent 70%);
+  opacity: 0; transition: opacity .4s ease;
+}
+.floorgrid .tile:hover::before { opacity: 1; }
+.floorgrid:not(.agp--pinned) .tile:hover {
+  transform: translateY(-8px);
+}
+.floorgrid .tile:hover {
+  box-shadow: 0 30px 60px -28px rgba(23,201,155,0.4);
+  border-color: rgba(23,201,155,0.45);
+}
+/* the card sitting at the centre of the rail reads as the live one */
+.floorgrid .tile.is-live { border-color: rgba(46,224,180,0.5); box-shadow: 0 26px 56px -30px rgba(0,0,0,0.7); }
+.floorgrid .tile > * { position: relative; z-index: 1; }
+
+/* fx.css runs `fxIconPop` on [data-reveal].in .tile__ico with fill-mode
+   `both`. A filling animation outranks normal declarations, so its final
+   `transform: scale(1)` would pin the icon and swallow everything below. */
+.floorgrid .tile[data-reveal].in .tile__ico { animation: none; }
+
+/* The instruments were unreadable at the stock 50px tile / 26px glyph, so the
+   motion simply did not register. Sized up for this grid only. */
+.floorgrid .tile__ico {
+  width: 68px; height: 68px;
+  border-radius: 16px;
+  margin-bottom: 1.15rem;
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1), background .35s ease, color .35s ease;
+  overflow: visible;
+}
+.floorgrid .tile__ico svg { width: 38px; height: 38px; overflow: visible; }
+.floorgrid .tile:hover .tile__ico {
+  transform: scale(1.12) rotate(-5deg);
+  color: var(--teal);
+  background: rgba(46,224,180,0.18);
+}
+
+/* ==========================================================================
+   3 · SVG INSTRUMENTS
+   Rotations use view-box units so origins stay exact at any rendered size.
+   Every animation is gated on .in so nothing runs off-screen.
+   ========================================================================== */
+.floorgrid .fgi * { transform-box: view-box; }
+.floorgrid .fgi__arc,
+.floorgrid .fgi__axis,
+.floorgrid .fgi__line,
+.floorgrid .fgi__face,
+.floorgrid .fgi__screen,
+.floorgrid .fgi__trend,
+.floorgrid .fgi__bulb,
+.floorgrid .fgi__base,
+.floorgrid .fgi__body,
+.floorgrid .fgi__head,
+.floorgrid .fgi__check { opacity: 1; }   /* base strokes never animate away */
+
+/* --- gauge: needle sweeps the dial, blip pings from the hub --- */
+.fgi--gauge .fgi__needle { transform-origin: 12px 16px; transform: rotate(-55deg); }
+.floorgrid .tile.in .fgi--gauge .fgi__needle,
+.floorgrid .tile.is-live .fgi--gauge .fgi__needle { animation: fgNeedle 3.6s ease-in-out infinite; }
+@keyframes fgNeedle {
+  0%, 100% { transform: rotate(-55deg); }
+  30%      { transform: rotate(48deg); }
+  55%      { transform: rotate(4deg); }
+  78%      { transform: rotate(30deg); }
+}
+.fgi--gauge .fgi__blip { transform-origin: 12px 16px; stroke-width: 1.2; }
+.floorgrid .tile.in .fgi--gauge .fgi__blip,
+.floorgrid .tile.is-live .fgi--gauge .fgi__blip { animation: fgBlip 2.4s ease-out infinite; }
+@keyframes fgBlip {
+  0%        { opacity: .8; transform: scale(.3); }
+  70%, 100% { opacity: 0;  transform: scale(1.6); }
+}
+
+/* --- chart: a bright tracer runs along the permanently drawn line --- */
+.fgi--chart .fgi__trace {
+  stroke: var(--teal-bright, #2ee0b4); stroke-width: 3;
+  stroke-dasharray: 6 23; stroke-dashoffset: 29;
+}
+.floorgrid .tile.in .fgi--chart .fgi__trace,
+.floorgrid .tile.is-live .fgi--chart .fgi__trace { animation: fgTrace 2.4s linear infinite; }
+@keyframes fgTrace { to { stroke-dashoffset: 0; } }
+.fgi--chart .fgi__tip { transform-origin: 17px 7px; }
+.floorgrid .tile.in .fgi--chart .fgi__tip,
+.floorgrid .tile.is-live .fgi--chart .fgi__tip { animation: fgBeat 2.4s ease-out infinite; }
+@keyframes fgBeat {
+  0%, 55%   { transform: scale(1); }
+  70%       { transform: scale(1.75); }
+  85%, 100% { transform: scale(1); }
+}
+
+/* --- clock: hands turn, alert ring pings out --- */
+.fgi--clock .fgi__hand { transform-origin: 12px 12px; }
+.floorgrid .tile.in .fgi--clock .fgi__hand--m,
+.floorgrid .tile.is-live .fgi--clock .fgi__hand--m { animation: fgSpin 3s linear infinite; }
+.floorgrid .tile.in .fgi--clock .fgi__hand--h,
+.floorgrid .tile.is-live .fgi--clock .fgi__hand--h { animation: fgSpin 12s linear infinite; }
+@keyframes fgSpin { to { transform: rotate(360deg); } }
+.fgi--clock .fgi__ring { transform-origin: 12px 12px; stroke-width: 1.4; }
+.floorgrid .tile.in .fgi--clock .fgi__ring,
+.floorgrid .tile.is-live .fgi--clock .fgi__ring { animation: fgPing 3s ease-out infinite; }
+@keyframes fgPing {
+  0%        { opacity: .8; transform: scale(1); }
+  60%, 100% { opacity: 0;  transform: scale(1.5); }
+}
+
+/* --- dashboard: scan sweeps the screen, tracer follows the trend --- */
+.fgi--dash .fgi__trendtrace {
+  stroke: var(--teal-bright, #2ee0b4); stroke-width: 3;
+  stroke-dasharray: 5 19; stroke-dashoffset: 24;
+}
+.floorgrid .tile.in .fgi--dash .fgi__trendtrace,
+.floorgrid .tile.is-live .fgi--dash .fgi__trendtrace { animation: fgTrace2 2.6s linear infinite; }
+@keyframes fgTrace2 { to { stroke-dashoffset: 0; } }
+.fgi--dash .fgi__scan { stroke: var(--teal-bright, #2ee0b4); stroke-width: 1.4; }
+.floorgrid .tile.in .fgi--dash .fgi__scan,
+.floorgrid .tile.is-live .fgi--dash .fgi__scan { animation: fgScan 2.6s ease-in-out infinite; }
+@keyframes fgScan {
+  0%   { transform: translateX(0);    opacity: 0; }
+  12%  { opacity: .85; }
+  88%  { opacity: .85; }
+  100% { transform: translateX(15px); opacity: 0; }
+}
+
+/* --- bulb: breathes, rays flick out at the peak --- */
+.fgi--bulb .fgi__bulb { transform-origin: 12px 12px; }
+.floorgrid .tile.in .fgi--bulb .fgi__bulb,
+.floorgrid .tile.is-live .fgi--bulb .fgi__bulb { animation: fgGlow 2.6s ease-in-out infinite; }
+@keyframes fgGlow {
+  0%, 100% { opacity: .55; transform: scale(.97); }
+  50%      { opacity: 1;   transform: scale(1.04); }
+}
+.fgi--bulb .fgi__rays { transform-origin: 12px 12px; opacity: 0; }
+.floorgrid .tile.in .fgi--bulb .fgi__rays,
+.floorgrid .tile.is-live .fgi--bulb .fgi__rays { animation: fgRays 2.6s ease-out infinite; }
+@keyframes fgRays {
+  0%, 28%   { opacity: 0;  transform: scale(.7); }
+  50%       { opacity: .95; transform: scale(1); }
+  76%, 100% { opacity: 0;  transform: scale(1.18); }
+}
+
+/* --- access: tick stays drawn, approval ring pulses around it --- */
+.fgi--user .fgi__okring { transform-origin: 19.5px 11px; stroke-width: 1.3; }
+.floorgrid .tile.in .fgi--user .fgi__okring,
+.floorgrid .tile.is-live .fgi--user .fgi__okring { animation: fgOk 2.8s ease-out infinite; }
+@keyframes fgOk {
+  0%        { opacity: .75; transform: scale(.45); }
+  65%, 100% { opacity: 0;   transform: scale(1.1); }
+}
+.fgi--user .fgi__check { transform-origin: 19.5px 11px; }
+.floorgrid .tile.in .fgi--user .fgi__check,
+.floorgrid .tile.is-live .fgi--user .fgi__check { animation: fgTick 2.8s ease-out infinite; }
+@keyframes fgTick {
+  0%, 55%   { transform: scale(1); }
+  68%       { transform: scale(1.2); }
+  82%, 100% { transform: scale(1); }
+}
+
+/* hover lifts the tempo across every instrument */
+.floorgrid .tile:hover .fgi * { animation-duration: 1.1s; }
+
+/* ==========================================================================
+   4 · REDUCED MOTION — resolve everything to a readable resting state
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .floorgrid .tile[data-reveal] { opacity: 1; transform: none; transition: none; }
+  .floorgrid .tile:hover { transform: none; }
+  .floorgrid .tile:hover .tile__ico { transform: none; }
+  .floorgrid .fgi * { animation: none !important; }
+  .floorgrid .fgi__needle { transform: rotate(-8deg); }
+  .floorgrid .fgi__trace,
+  .floorgrid .fgi__trendtrace,
+  .floorgrid .fgi__blip,
+  .floorgrid .fgi__ring,
+  .floorgrid .fgi__okring,
+  .floorgrid .fgi__scan,
+  .floorgrid .fgi__rays { opacity: 0; }
+}

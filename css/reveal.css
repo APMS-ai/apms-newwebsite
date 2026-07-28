@@ -1,0 +1,49 @@
+/* ==========================================================================
+   APMS.ai — reveal.css
+   Site-wide entrance motion: content fades and rises as it enters the
+   viewport, the hero plays on load. Elements are tagged by js/reveal.js,
+   and the hiding rules are gated behind html.has-reveal, so with JS off
+   (or if the script fails) everything stays visible.
+   ========================================================================== */
+
+.has-reveal [data-r] {
+  opacity: 0;
+  transform: translate3d(0, var(--r-y, 26px), 0);
+  filter: blur(var(--r-blur, 3px));
+  transition:
+    opacity   var(--r-dur, .78s) var(--r-ease, cubic-bezier(.22,.61,.36,1)) var(--r-delay, 0s),
+    transform var(--r-dur, .78s) var(--r-ease, cubic-bezier(.22,.61,.36,1)) var(--r-delay, 0s),
+    filter    var(--r-dur, .78s) var(--r-ease, cubic-bezier(.22,.61,.36,1)) var(--r-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.has-reveal [data-r].r-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* once it has played, stop reserving compositor memory */
+.has-reveal [data-r].r-done { will-change: auto; transition-delay: 0s; }
+
+/* --- variants ------------------------------------------------------------ */
+.has-reveal [data-r="up"]    { --r-y: 30px; }
+.has-reveal [data-r="soft"]  { --r-y: 16px; --r-blur: 2px; }
+.has-reveal [data-r="head"]  { --r-y: 34px; --r-dur: .9s; }
+.has-reveal [data-r="card"]  { --r-y: 28px; }
+
+/* hero plays on load rather than on scroll, a touch slower and further */
+.has-reveal [data-r="hero"] {
+  --r-y: 38px; --r-blur: 5px; --r-dur: 1.05s;
+  --r-ease: cubic-bezier(.16,1,.3,1);
+}
+
+/* --- honour the OS setting ----------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .has-reveal [data-r] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

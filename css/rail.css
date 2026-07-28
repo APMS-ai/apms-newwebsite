@@ -1,0 +1,77 @@
+/* ==========================================================================
+   APMS.ai — rail.css
+   Pinned horizontal card rail. The section pins and vertical scroll is
+   converted into sideways travel; the card nearest the centre reads at full
+   strength while the rest fade and shrink back.
+
+   Shared by:
+     · ai-agents.html  "Nine problems. Nine agents we'd build to order."
+     · solutions.html  "Everything the shop floor needs, connected"
+
+   Card visuals stay with each page's own stylesheet. This file owns only the
+   rail mechanics, so it is card-class agnostic: it sizes .agp__track > *.
+   Driven by js/rail.js.
+   ========================================================================== */
+
+.agp { position: relative; margin-top: clamp(2rem, 4vw, 3rem); }
+.agp__track {
+  display: flex; gap: 1.1rem; align-items: stretch;
+  will-change: transform;
+}
+/* every direct child of the track is a card, whatever class the page uses */
+.agp__track > * { flex: 0 0 clamp(292px, 27vw, 360px); }
+
+/* Pages were setting `height: 100%` on their rail cards to equalise them, but
+   that is self-defeating: giving a flex item a definite cross-size stops
+   `align-items: stretch` applying, and 100% of an auto-height track resolves
+   back to the card's own content. Cards then ended up different heights.
+   Forcing the cross-size back to auto lets stretch do the job properly. */
+.agp__track > * { align-self: stretch; height: auto; }
+
+/* fallback / touch: real horizontal scrolling with snap */
+.agp--native { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; }
+.agp--native .agp__track { padding-inline: 2px; }
+/* `center` centres card one on load, so the rail looks like it starts at
+   card two. `start` opens flush on the first card. */
+.agp--native .agp__track > * { scroll-snap-align: start; }
+.agp--native { scroll-padding-inline-start: 2px; }
+.agp--native::-webkit-scrollbar { height: 6px; }
+.agp--native::-webkit-scrollbar-thumb { background: rgba(23,201,155,0.45); border-radius: 99px; }
+.agp--native::-webkit-scrollbar-track { background: var(--line); border-radius: 99px; }
+
+/* pinned mode: the rail is driven by transform, so nothing overflows the page */
+.agp--pinned { overflow: hidden; }
+
+/* ---------- progress + hint ---------- */
+.agp__meta {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 1.4rem;
+}
+.agp__bar { flex: 1; height: 3px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.agp__bar i {
+  display: block; height: 100%; width: 100%; border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--teal-bright));
+  transform: scaleX(0); transform-origin: left center;
+}
+.agp__count {
+  font-family: var(--display); font-weight: 800; font-size: 0.78rem;
+  letter-spacing: 0.12em; color: var(--muted); white-space: nowrap;
+}
+.agp__count b { color: var(--teal-deep); }
+.agp__hint {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; color: var(--muted); white-space: nowrap;
+}
+.agp__hint svg { width: 15px; height: 15px; stroke: var(--teal-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; animation: agpNudge 2s var(--ease) infinite; }
+@keyframes agpNudge { 0%,100% { transform: translateX(-2px); opacity: .5; } 50% { transform: translateX(3px); opacity: 1; } }
+
+/* on dark sections the rail chrome needs the light-on-dark treatment */
+.sec--dark .agp__bar, .sec--darker .agp__bar { background: rgba(255,255,255,0.12); }
+.sec--dark .agp__count, .sec--darker .agp__count,
+.sec--dark .agp__hint,  .sec--darker .agp__hint { color: var(--on-dark-soft); }
+.sec--dark .agp__count b, .sec--darker .agp__count b,
+.sec--dark .agp__hint svg, .sec--darker .agp__hint svg { color: var(--teal-bright); stroke: var(--teal-bright); }
+
+@media (prefers-reduced-motion: reduce) {
+  .agp__hint svg { animation: none; }
+}

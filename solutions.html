@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>See Every Machine, Trust Every Number | APMS.ai</title>
+  <meta name="description" content="Connect any machine, new or decades old, and see real-time OEE, reason-tagged downtime and live production the moment it happens. APMS Industrial IoT.">
+  <meta property="og:title" content="See Every Machine, Trust Every Number | APMS.ai">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/apms-logo.png">
+  <link rel="icon" type="image/png" href="assets/apms-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/redesign.css?v=12">
+  <link rel="stylesheet" href="css/enhance.css?v=16">
+  <link rel="stylesheet" href="css/polish.css?v=2">
+  <link rel="stylesheet" href="css/iconlife.css?v=1">
+  <link rel="stylesheet" href="css/footer.css?v=4">
+  <link rel="stylesheet" href="css/reveal.css?v=1">
+  <link rel="stylesheet" href="css/loop.css?v=2">
+  <link rel="stylesheet" href="css/fx.css?v=2">
+  <link rel="stylesheet" href="css/rail.css?v=3">
+  <link rel="stylesheet" href="css/modflow.css?v=3">
+  <link rel="stylesheet" href="css/maint.css?v=2">
+  <link rel="stylesheet" href="css/maintui.css?v=5">
+  <link rel="stylesheet" href="css/bentofx.css?v=3">
+  <link rel="stylesheet" href="css/aiplus.css?v=4">
+  <link rel="stylesheet" href="css/floorgrid.css?v=6">
+  <link rel="stylesheet" href="css/perf.css?v=4">
+</head>
+<body data-fx="slide">
+  <div class="progress" aria-hidden="true"></div>
+  <header class="hdr is-stuck">
+    <div class="hdr__row">
+      <a class="hdr__logo" href="index.html" aria-label="APMS.ai home"><img src="assets/apms-logo.png" alt="APMS.ai" width="176" height="40"></a>
+      <nav class="hdr__nav" aria-label="Primary">
+        <a href="index.html">Platform</a>
+        <a href="solutions.html" class="is-active" aria-current="page">Industrial IoT</a>
+        <a href="vision-ai.html">Vision AI</a>
+        <a href="motion-ai.html">Motion AI</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="industries.html">Industries</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="hdr__cta">
+        <a class="btn btn--ghost" href="signin.html">Sign in</a>
+        <a class="btn btn--primary" href="contact.html">Book a Demo</a>
+      </div>
+      <button class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <nav class="mnav" aria-label="Mobile">
+    <button class="mnav__close" aria-label="Close menu">&times;</button>
+        <a href="index.html">Platform</a>
+        <a href="solutions.html">Industrial IoT</a>
+        <a href="vision-ai.html">Vision AI</a>
+        <a href="motion-ai.html">Motion AI</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="industries.html">Industries</a>
+        <a href="about.html">About</a>
+    <a href="signin.html">Sign in</a>
+    <a class="btn btn--primary" href="contact.html">Book a Demo</a>
+  </nav>
+  <main id="main">
+    <section class="phero">
+      <div class="container">
+        <div class="phero__wrap phero__wrap--center" data-reveal>
+          <span class="kicker">Industrial IoT &amp; Machine Monitoring</span>
+          <h1>Connect every machine.<br><span class="accent">Trust every number.</span></h1>
+          <p>Tap any make, age or protocol, whether CNC, PLC or sensor, and turn raw signals into live OEE, utilisation and reason-tagged downtime you can trust. No manual logging, no rip-and-replace.</p>
+        <div class="phero__actions"><a class="btn btn--primary btn--lg" href="contact.html">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn--ghost btn--lg" href="contact.html">Talk to an Engineer</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCT TOUR (pill tabs) ============ -->
+    <section class="sec sec--paper">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="h-eyebrow">Product tour</span>
+          <h2 data-clip>Four moves, one loop:<br><span class="accent">monitor, analyse, predict, act</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">The APMS loop never stops: every second of machine signal is captured, understood, forecast and acted on, then fed back in.</p>
+        </div>
+        <div data-ptabs data-reveal>
+          <div class="aloop">
+            <svg class="aloop__svg" viewBox="0 0 1040 250" role="img" aria-label="The APMS loop: monitor feeds analyse, analyse feeds predict, predict feeds act, and act feeds back into monitor">
+              <!-- racetrack -->
+              <path id="aloopPath" class="aloop__track" d="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+              <path class="aloop__flow" d="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+
+              <!-- travelling pulse -->
+              <g>
+                <circle class="aloop__comet-halo" r="9">
+                  <animateMotion dur="7s" repeatCount="indefinite" path="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+                </circle>
+                <circle class="aloop__comet" r="4">
+                  <animateMotion dur="7s" repeatCount="indefinite" path="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+                </circle>
+              </g>
+
+              <text class="aloop__num" x="520" y="228" text-anchor="middle">AND BACK ROUND AGAIN</text>
+
+              <!-- 01 MONITOR -->
+              <g class="aloop__n aloop__n--monitor is-live" data-goto="monitor">
+                <circle class="aloop__ring" cx="150" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="150" cy="78" r="30"/>
+                <g transform="translate(150,78)">
+                  <path class="aloop__glyph gl-wave" d="M-13 0 h5 l3 -9 l4 18 l3 -9 h9"/>
+                </g>
+                <text class="aloop__num" x="150" y="132" text-anchor="middle">01</text>
+                <text class="aloop__lbl" x="150" y="150" text-anchor="middle">Monitor</text>
+                <circle class="aloop__hit" cx="150" cy="110" r="46"/>
+              </g>
+
+              <!-- 02 ANALYSE -->
+              <g class="aloop__n aloop__n--analyse" data-goto="analyse">
+                <circle class="aloop__ring" cx="397" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="397" cy="78" r="30"/>
+                <g transform="translate(397,78)">
+                  <rect class="aloop__glyph-fill gl-bar1" x="-12" y="-2"  width="6" height="12" rx="1.5"/>
+                  <rect class="aloop__glyph-fill gl-bar2" x="-3"  y="-8"  width="6" height="18" rx="1.5"/>
+                  <rect class="aloop__glyph-fill gl-bar3" x="6"   y="-13" width="6" height="23" rx="1.5"/>
+                </g>
+                <text class="aloop__num" x="397" y="132" text-anchor="middle">02</text>
+                <text class="aloop__lbl" x="397" y="150" text-anchor="middle">Analyse</text>
+                <circle class="aloop__hit" cx="397" cy="110" r="46"/>
+              </g>
+
+              <!-- 03 PREDICT -->
+              <g class="aloop__n aloop__n--predict" data-goto="predict">
+                <circle class="aloop__ring" cx="643" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="643" cy="78" r="30"/>
+                <g transform="translate(643,78)">
+                  <path class="aloop__glyph" d="M-14 8 L-6 0 L0 4"/>
+                  <path class="aloop__glyph gl-fcast" d="M0 4 L7 -6 L14 -10" stroke-dasharray="30" stroke-dashoffset="30"/>
+                  <circle class="aloop__glyph-fill gl-dot" cx="14" cy="-10" r="3"/>
+                </g>
+                <text class="aloop__num" x="643" y="132" text-anchor="middle">03</text>
+                <text class="aloop__lbl" x="643" y="150" text-anchor="middle">Predict</text>
+                <circle class="aloop__hit" cx="643" cy="110" r="46"/>
+              </g>
+
+              <!-- 04 ACT -->
+              <g class="aloop__n aloop__n--act" data-goto="act">
+                <circle class="aloop__ring" cx="890" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="890" cy="78" r="30"/>
+                <g transform="translate(890,78)">
+                  <path class="aloop__glyph-fill gl-bolt" d="M2 -14 L-9 3 h7 l-2 11 L9 -3 h-7 z"/>
+                </g>
+                <text class="aloop__num" x="890" y="132" text-anchor="middle">04</text>
+                <text class="aloop__lbl" x="890" y="150" text-anchor="middle">Act</text>
+                <circle class="aloop__hit" cx="890" cy="110" r="46"/>
+              </g>
+            </svg>
+          </div>
+          <div class="ptabs" role="tablist">
+            <button class="ptab is-active" data-tab="monitor">01 · Monitor</button>
+            <button class="ptab" data-tab="analyse">02 · Analyse</button>
+            <button class="ptab" data-tab="predict">03 · Predict</button>
+            <button class="ptab" data-tab="act">04 · Act</button>
+          </div>
+          <div class="ppane is-active" data-pane="monitor">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">See every machine, every second</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Every asset reports its own status, whether it is running, idle, stopped or in setup, read straight from the controller with nothing for anyone to write down. OEE and utilisation build themselves from that same feed, so the whole plant sits in one view and the shift ends without any guesswork.</p>
+            </div>
+          </div>
+          <div class="ppane" data-pane="analyse">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">Every loss traced to its cause</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Downtime is tagged with its reason the moment it happens and ranked by what it actually costs, so recurring losses stop hiding in spreadsheets. You can cut the same picture by line or by shift, and watch MTBF and MTTR move as the fixes land.</p>
+            </div>
+          </div>
+          <div class="ppane" data-pane="predict">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">Catch failures before they cost a shift</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Vibration, load, temperature and cycle signatures feed anomaly detection, so wear and drift surface as an early warning rather than a breakdown. The same signals forecast tool life and usage, which turns maintenance into something you schedule instead of something that happens to you.</p>
+            </div>
+          </div>
+          <div class="ppane" data-pane="act">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">The right person, the right second</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Alerts and escalations fire the moment reality drifts from plan, reaching the right person for the job on their phone or the dashboard in front of them. The same events push into your ERP, MES, email and SMS, so the response starts without anyone relaying a message.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec sec--dark">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">Real-time machine &amp; process intelligence</span>
+          <h2>Everything the shop floor needs, <span class="accent">connected</span></h2>
+          <p>See your whole shop floor in real time, and turn connected machine and process data into the visibility, efficiency and operational control your teams act on.</p>
+        </div>
+        <div class="agp floorgrid" data-agp data-agp-native data-agp-cards=".tile">
+          <div class="agp__track">
+            <article class="tile" data-reveal><div class="tile__ico"><svg class="fgi fgi--gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="fgi__arc" d="M4 16a8 8 0 1 1 16 0"/><line class="fgi__needle" x1="12" y1="16" x2="12" y2="8"/><circle class="fgi__hub" cx="12" cy="16" r="1.6" fill="currentColor" stroke="none"/><circle class="fgi__blip" cx="12" cy="16" r="4" opacity="0"/></svg></div><h3>Live Machine Monitoring</h3><p>Know the real-time status of every asset, whether running, idle, stopped or in setup, captured automatically with no manual logging.</p></article>
+            <article class="tile" data-reveal><div class="tile__ico"><svg class="fgi fgi--chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="fgi__axis" d="M3 3v18h18"/><path class="fgi__line" d="M7 14l3-3 2 2 5-6"/><path class="fgi__trace" d="M7 14l3-3 2 2 5-6"/><circle class="fgi__tip" cx="17" cy="7" r="1.9" fill="currentColor" stroke="none"/></svg></div><h3>OEE Tracking &amp; Loss Analysis</h3><p>See availability, performance and quality by machine, line and shift, with loss analysis that pinpoints where your output slips.</p></article>
+            <article class="tile" data-reveal><div class="tile__ico"><svg class="fgi fgi--clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle class="fgi__face" cx="12" cy="12" r="9"/><line class="fgi__hand fgi__hand--h" x1="12" y1="12" x2="12" y2="8"/><line class="fgi__hand fgi__hand--m" x1="12" y1="12" x2="15.5" y2="13.5"/><circle class="fgi__ring" cx="12" cy="12" r="9" opacity="0"/></svg></div><h3>Downtime Classification &amp; Alerts</h3><p>Catch every stop, tagged by reason in real time, with instant alerts so the right person acts before it costs you a shift.</p></article>
+            <article class="tile" data-reveal><div class="tile__ico"><svg class="fgi fgi--dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect class="fgi__screen" x="3" y="4" width="18" height="14" rx="2"/><path class="fgi__trend" d="M7 14l3-3 2 2 4-5"/><path class="fgi__trendtrace" d="M7 14l3-3 2 2 4-5"/><line class="fgi__scan" x1="4.5" y1="5.5" x2="4.5" y2="16.5" opacity="0"/></svg></div><h3>Production Tracking &amp; Dashboards</h3><p>Track output against target, part counts and job progress, live on clean dashboards for everyone who needs them.</p></article>
+            <article class="tile" data-reveal><div class="tile__ico"><svg class="fgi fgi--bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="fgi__bulb" d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1M15 16.8c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/><path class="fgi__base" d="M9 18h6M10 22h4"/><g class="fgi__rays" stroke-width="1.5"><line x1="12" y1="1.2" x2="12" y2="-0.8"/><line x1="19.6" y1="4.4" x2="21" y2="3"/><line x1="4.4" y1="4.4" x2="3" y2="3"/></g></svg></div><h3>Data-Driven Decision Making</h3><p>Turn raw signals into the KPIs that matter, so you decide on live data, not yesterday's reports.</p></article>
+            <article class="tile" data-reveal><div class="tile__ico"><svg class="fgi fgi--user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="fgi__body" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle class="fgi__head" cx="9" cy="7" r="4"/><path class="fgi__check" d="M17 11l2 2 4-4"/><circle class="fgi__okring" cx="19.5" cy="11" r="5.5" opacity="0"/></svg></div><h3>Role-Based Access Control</h3><p>Give every role the right view. Operators, supervisors and management each see what matters to them, securely.</p></article>
+          </div>
+        </div>
+        <div class="agp__meta" data-reveal>
+          <span class="agp__count"><b>1</b> / 6</span>
+          <span class="agp__bar"><i></i></span>
+          <span class="agp__hint"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Keep scrolling</span>
+        </div>
+      </div>
+    </section>
+    <section class="sec sec--paper" id="modules">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">What you can do</span><h2>Four modules, one connected view</h2><p>Production, downtime, machine health and quality: each captured live from the floor, each configurable to how your teams actually work.</p></div>
+        <div class="modflow" data-reveal>
+          <svg class="modflow__svg" viewBox="0 0 900 290" role="img" aria-label="Production, downtime, machine health and quality each feed into one connected view">
+            <path class="modflow__wire" d="M120 112 C120 168, 450 158, 450 184"/>
+            <path class="modflow__flow" d="M120 112 C120 168, 450 158, 450 184"/>
+            <path class="modflow__wire" d="M340 112 C340 168, 450 158, 450 184"/>
+            <path class="modflow__flow" d="M340 112 C340 168, 450 158, 450 184"/>
+            <path class="modflow__wire" d="M560 112 C560 168, 450 158, 450 184"/>
+            <path class="modflow__flow" d="M560 112 C560 168, 450 158, 450 184"/>
+            <path class="modflow__wire" d="M780 112 C780 168, 450 158, 450 184"/>
+            <path class="modflow__flow" d="M780 112 C780 168, 450 158, 450 184"/>
+            <g><circle class="modflow__pulse-halo" r="7"><animateMotion dur="2.2s" begin="0.0s" repeatCount="indefinite" path="M120 112 C120 168, 450 158, 450 184"/></circle><circle class="modflow__pulse" r="3.2"><animateMotion dur="2.2s" begin="0.0s" repeatCount="indefinite" path="M120 112 C120 168, 450 158, 450 184"/></circle></g>
+            <g><circle class="modflow__pulse-halo" r="7"><animateMotion dur="2.2s" begin="0.55s" repeatCount="indefinite" path="M340 112 C340 168, 450 158, 450 184"/></circle><circle class="modflow__pulse" r="3.2"><animateMotion dur="2.2s" begin="0.55s" repeatCount="indefinite" path="M340 112 C340 168, 450 158, 450 184"/></circle></g>
+            <g><circle class="modflow__pulse-halo" r="7"><animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" path="M560 112 C560 168, 450 158, 450 184"/></circle><circle class="modflow__pulse" r="3.2"><animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" path="M560 112 C560 168, 450 158, 450 184"/></circle></g>
+            <g><circle class="modflow__pulse-halo" r="7"><animateMotion dur="2.2s" begin="1.6500000000000001s" repeatCount="indefinite" path="M780 112 C780 168, 450 158, 450 184"/></circle><circle class="modflow__pulse" r="3.2"><animateMotion dur="2.2s" begin="1.6500000000000001s" repeatCount="indefinite" path="M780 112 C780 168, 450 158, 450 184"/></circle></g>
+            <g class="modflow__n">
+              <text class="modflow__num" x="120" y="16">01</text>
+              <text class="modflow__lbl" x="120" y="38">Production</text>
+              <circle class="modflow__ring" cx="120" cy="84" r="28"/>
+              <circle class="modflow__disc" cx="120" cy="84" r="28"/>
+              <g transform="translate(120,84)"><path class="modflow__glyph" d="M-9 6v-9M0 6v-13M9 6v-5"/></g>
+            </g>
+            <g class="modflow__n">
+              <text class="modflow__num" x="340" y="16">02</text>
+              <text class="modflow__lbl" x="340" y="38">Downtime</text>
+              <circle class="modflow__ring" cx="340" cy="84" r="28"/>
+              <circle class="modflow__disc" cx="340" cy="84" r="28"/>
+              <g transform="translate(340,84)"><circle class="modflow__glyph" cx="0" cy="0" r="8"/><path class="modflow__glyph" d="M0 -4.5V0l3 2"/></g>
+            </g>
+            <g class="modflow__n">
+              <text class="modflow__num" x="560" y="16">03</text>
+              <text class="modflow__lbl" x="560" y="38">Machine health</text>
+              <circle class="modflow__ring" cx="560" cy="84" r="28"/>
+              <circle class="modflow__disc" cx="560" cy="84" r="28"/>
+              <g transform="translate(560,84)"><path class="modflow__glyph" d="M-10 0h4l2 5 4-11 2 6h6"/></g>
+            </g>
+            <g class="modflow__n">
+              <text class="modflow__num" x="780" y="16">04</text>
+              <text class="modflow__lbl" x="780" y="38">Quality</text>
+              <circle class="modflow__ring" cx="780" cy="84" r="28"/>
+              <circle class="modflow__disc" cx="780" cy="84" r="28"/>
+              <g transform="translate(780,84)"><path class="modflow__glyph" d="M0 9s7-3 7-8.5V-4L0-6.6-7-4v6.5C-7 6 0 9 0 9z"/><path class="modflow__glyph" d="m-3 0 2 2 4-4"/></g>
+            </g>
+            <circle class="modflow__hubring" cx="450" cy="212" r="30"/>
+            <circle class="modflow__hub" cx="450" cy="212" r="30"/>
+            <circle class="modflow__hubcore" cx="450" cy="212" r="9"/>
+            <text class="modflow__hublbl" x="450" y="268">One connected view</text>
+          </svg>
+        </div>
+        <div class="agp agp--wide mods" data-agp data-agp-native data-agp-cards=".mod">
+          <div class="agp__track">
+            <article class="mod" data-reveal>
+              <div class="mod__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 2 2 5-6"/></svg></div>
+              <div class="mod__body">
+                <span class="mod__tag">Module 01</span>
+                <h3>Production Monitoring</h3>
+                <p>Track output against target in real time, every part, every job, every shift. See run-rate and throughput as they happen, so you know whether you'll hit the number long before the shift ends.</p>
+                <div class="mod__sub">Tracked live</div>
+                <ul class="mod__params">
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Good vs reject part counts</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Target vs actual output</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cycle time: ideal vs actual</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Throughput / parts per hour</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Run rate &amp; production pace</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Job / work-order progress</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>On-time-delivery risk</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Shift, line &amp; operator comparison</li>
+                </ul>
+              </div>
+            </article>
+            <article class="mod" data-reveal>
+              <div class="mod__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+              <div class="mod__body">
+                <span class="mod__tag">Module 02</span>
+                <h3>Downtime Tracking</h3>
+                <p>Capture every stop automatically, classified by reason the moment it happens. Recurring losses stop hiding in spreadsheets: they surface, ranked by cost, so you fix the ones that actually matter.</p>
+                <div class="mod__sub">Tracked live</div>
+                <ul class="mod__params">
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Automatic stop start / end capture</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reason codes: tool change, material wait, setup, breakdown</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Planned vs unplanned downtime</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Downtime Pareto &amp; top loss drivers</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>MTBF (mean time between failures)</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>MTTR (mean time to repair)</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Response &amp; acknowledgement time</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Downtime by machine, shift &amp; reason</li>
+                </ul>
+              </div>
+            </article>
+            <article class="mod" data-reveal>
+              <div class="mod__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 5 4-13 2 8h6"/></svg></div>
+              <div class="mod__body">
+                <span class="mod__tag">Module 03</span>
+                <h3>Machine Health &amp; Condition</h3>
+                <p>Read the vital signs of every asset directly from its controller and sensors. Catch wear, overheating and abnormal load before they become a breakdown, and move from reactive repairs to predictive maintenance.</p>
+                <div class="mod__sub">Monitored parameters</div>
+                <ul class="mod__params">
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Spindle load &amp; motor current</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Temperature: spindle, motor, ambient</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vibration &amp; abnormal signatures</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Hydraulic &amp; pneumatic pressure</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Coolant level &amp; flow</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tool life &amp; usage counts</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cycle &amp; power-on hours</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Anomaly &amp; predictive-maintenance alerts</li>
+                </ul>
+              </div>
+            </article>
+            <article class="mod" data-reveal>
+              <div class="mod__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+              <div class="mod__body">
+                <span class="mod__tag">Module 04</span>
+                <h3>Quality Monitoring</h3>
+                <p>Tie quality to the machine and the moment it was made. Track scrap, rework and first-pass yield live and trace each to its cause, with SPC trends and an optional feed from Vision AI for 100% inline inspection.</p>
+                <div class="mod__sub">Tracked live</div>
+                <ul class="mod__params">
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>First-pass yield (FPY)</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Scrap &amp; rework rate</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Defect reason codes &amp; reject Pareto</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>In-spec % against tolerance</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>SPC trends &amp; control limits</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Quality by machine, shift &amp; part</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vision AI defect feed (optional)</li>
+                  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Audit-ready quality records</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="agp__meta" data-reveal>
+          <span class="agp__count"><b>1</b> / 4</span>
+          <span class="agp__bar"><i></i></span>
+          <span class="agp__hint"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Keep scrolling</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--darker">
+      <div class="container">
+        <div class="split">
+          <div data-reveal>
+            <span class="kicker">Real-Time Machine &amp; Process Intelligence</span>
+            <h2 style="font-size:clamp(2rem,4vw,3rem);text-transform:uppercase;margin:0.8rem 0 1rem;">One platform, complete <span class="accent">shopfloor visibility</span></h2>
+            <p style="color:var(--on-dark-soft);font-size:1.1rem;margin-bottom:1.4rem;">Get complete, real-time visibility across your shop floor, and turn connected machine and process data into the efficiency and operational control your teams act on.</p>
+            <ul class="ticks">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live machine monitoring: running, idle, stop, setup</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>OEE tracking &amp; loss analysis</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Downtime classification &amp; alerts</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Production tracking &amp; dashboards</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Data-driven decision making</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Role-based access control</li>
+            </ul>
+          </div>
+          <div data-reveal data-reveal-delay="1">
+            <div class="arch" style="margin-bottom:1.2rem;">
+              <div style="font-family:var(--display);font-weight:700;color:#fff;font-size:1.05rem;margin-bottom:0.9rem;">Scalable Coverage</div>
+              <div class="arch__layer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><b>Connects across multiple machines, lines &amp; plant locations</b></div>
+              <div class="arch__layer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg><b>Scales from single-machine monitoring to enterprise-wide</b></div>
+              <div class="arch__layer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><b>Adapts to different machine types, protocols &amp; setups</b></div>
+            </div>
+            <div class="grid2" style="gap:1rem;">
+              <article class="tile" style="background:rgba(255,255,255,0.03);border-color:var(--line-dark);"><h3 style="color:#fff;font-size:1.05rem;">Complete Shopfloor Visibility</h3><p style="color:var(--on-dark-soft);">See the entire plant in real time, for everyone who needs it.</p></article>
+              <article class="tile" style="background:rgba(255,255,255,0.03);border-color:var(--line-dark);"><h3 style="color:#fff;font-size:1.05rem;">Reduced Downtime &amp; Reliability</h3><p style="color:var(--on-dark-soft);">Catch losses early and keep production running at full capacity.</p></article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--dark">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">How it works</span><h2>From machine to dashboard</h2></div>
+        <div class="steps">
+          <div class="step" data-reveal><h3>Connect</h3><p>Edge hardware taps your controllers and sensors securely, with no production stoppage.</p></div>
+          <div class="step" data-reveal data-reveal-delay="1"><h3>Integrate</h3><p>Open APIs and standard protocols push clean data into your ERP, MES and BI tools.</p></div>
+          <div class="step" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Live dashboards and alerts put the right number in front of the right person, instantly.</p></div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ MAINTENANCE & JOB MANAGEMENT ============ -->
+    <section class="sec sec--darker">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">Beyond monitoring</span>
+          <h2 data-clip>Maintenance &amp; job management,<br><span class="accent">built in</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Monitoring tells you something is wrong. This is the half that fixes it. A stop detected on the floor becomes a work order, an assignment and a closed job with its history intact, without anyone re-typing it into a second system.</p>
+        </div>
+        <div class="mloop" data-reveal>
+          <article class="mstep">
+            <div class="mstep__n"><i></i>Step 01</div>
+            <h4>Signal</h4>
+            <p>A stop, an alarm or a condition threshold is captured the moment it happens, straight from the controller.</p>
+          </article>
+          <article class="mstep">
+            <div class="mstep__n"><i></i>Step 02</div>
+            <h4>Raise</h4>
+            <p>It becomes a work order automatically, tagged to the machine, the reason and the shift that saw it.</p>
+          </article>
+          <article class="mstep">
+            <div class="mstep__n"><i></i>Step 03</div>
+            <h4>Assign</h4>
+            <p>The right technician gets it by role, with the checklist, spare parts and history already attached.</p>
+          </article>
+          <article class="mstep">
+            <div class="mstep__n"><i></i>Step 04</div>
+            <h4>Fix</h4>
+            <p>Work is logged on the floor from a phone or panel. No paper, no end-of-shift catch-up.</p>
+          </article>
+          <article class="mstep">
+            <div class="mstep__n"><i></i>Step 05</div>
+            <h4>Learn</h4>
+            <p>Every job feeds MTBF, MTTR and cost, so the next schedule is built on what actually happened.</p>
+          </article>
+        </div>
+        <div class="mgrid">
+          <article class="mpanel" data-reveal>
+            <header class="mpanel__head">
+              <span class="mpanel__ico"><svg class="mico mico--wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><g class="mico__gear"><circle cx="8.5" cy="15.5" r="4"/><path d="M8.5 9.5v-2M8.5 23.5v-2M2.5 15.5h-2M16.5 15.5h-2M4.3 11.3 2.9 9.9M14.1 21.1l-1.4-1.4M12.7 11.3l1.4-1.4M4.3 19.7 2.9 21.1"/></g><path class="mico__spanner" d="M20.5 3.5a3.4 3.4 0 0 0-4.7 4.5l-5.6 5.6 2.2 2.2 5.6-5.6a3.4 3.4 0 0 0 4.5-4.7l-2.2 2.2-2-2z"/><circle class="mico__spark" cx="12" cy="11" r="3.4"/></svg></span>
+              <div><span class="mpanel__eyebrow">PM &middot; BDM</span><h3>Maintenance Management</h3></div>
+            </header>
+            <p class="mpanel__lead">Preventive work runs on time, cycles or live condition, so a machine is serviced when it needs it. Breakdowns are captured as they happen with the downtime already attributed, and the condition trace below is what raises the next work order.</p>
+            <div class="mpanel__console">
+              <svg class="mc mc1" viewBox="0 0 400 218" role="img" aria-label="Maintenance console: PM compliance at 96 percent, a fortnight of planned versus reactive work, and a condition trace raising an anomaly alert">
+                <rect class="mc__panel" x="0" y="0" width="400" height="218" rx="14"/>
+                <text class="mc__lbl" x="20" y="16">PM compliance</text>
+                <circle class="mc1__ring-bg" cx="62" cy="76" r="44"/>
+                <circle class="mc1__ring-fg" cx="62" cy="76" r="44"/>
+                <text class="mc__val mc1__pct" x="62" y="76" text-anchor="middle" dominant-baseline="middle">96%</text>
+                <text class="mc__sub" x="62" y="136" text-anchor="middle">on-time completion</text>
+                <text class="mc__lbl" x="232" y="24">Last 14 days</text>
+                <rect class="mc1__slot" x="232" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="232" y="46" width="7" height="30" rx="2" style="animation-delay:0.35s"/><rect class="mc1__slot" x="243" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="243" y="46" width="7" height="30" rx="2" style="animation-delay:0.44s"/><rect class="mc1__slot" x="254" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="254" y="46" width="7" height="30" rx="2" style="animation-delay:0.53s"/><rect class="mc1__slot" x="265" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--bdm" x="265" y="46" width="7" height="30" rx="2" style="animation-delay:0.62s"/><rect class="mc1__slot" x="276" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="276" y="46" width="7" height="30" rx="2" style="animation-delay:0.71s"/><rect class="mc1__slot" x="287" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="287" y="46" width="7" height="30" rx="2" style="animation-delay:0.80s"/><rect class="mc1__slot" x="298" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="298" y="46" width="7" height="30" rx="2" style="animation-delay:0.89s"/><rect class="mc1__slot" x="309" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="309" y="46" width="7" height="30" rx="2" style="animation-delay:0.98s"/><rect class="mc1__slot" x="320" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--bdm" x="320" y="46" width="7" height="30" rx="2" style="animation-delay:1.07s"/><rect class="mc1__slot" x="331" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="331" y="46" width="7" height="30" rx="2" style="animation-delay:1.16s"/><rect class="mc1__slot" x="342" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="342" y="46" width="7" height="30" rx="2" style="animation-delay:1.25s"/><rect class="mc1__slot" x="353" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="353" y="46" width="7" height="30" rx="2" style="animation-delay:1.34s"/><rect class="mc1__slot" x="364" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="364" y="46" width="7" height="30" rx="2" style="animation-delay:1.43s"/><rect class="mc1__slot" x="375" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="375" y="46" width="7" height="30" rx="2" style="animation-delay:1.52s"/>
+                <rect x="232" y="90" width="9" height="9" rx="2" fill="#17c99b"/>
+                <text class="mc__sub" x="246" y="98">Planned (PM)</text>
+                <rect x="316" y="90" width="9" height="9" rx="2" fill="rgba(255,255,255,0.42)"/>
+                <text class="mc__sub" x="330" y="98">Reactive</text>
+                <text class="mc__lbl" x="20" y="158">Condition trace</text>
+                <path class="mc1__trace" d="M20 203 L54 197 L88 205 L122 193 L156 201 L190 195 L224 203 L258 175 L292 201 L326 197 L380 201"/>
+                <path class="mc1__tracer" d="M20 203 L54 197 L88 205 L122 193 L156 201 L190 195 L224 203 L258 175 L292 201 L326 197 L380 201"/>
+                <circle class="mc1__alertring" cx="258" cy="175" r="9" style="transform-origin:258px 175px"/>
+                <circle class="mc1__alert" cx="258" cy="175" r="4" style="transform-origin:258px 175px"/>
+                <text class="mc__sub" x="196" y="158">anomaly detected, work order raised</text>
+              </svg>
+            </div>
+            <ul class="mcaps"><li>Time / cycle / condition schedules</li><li>Auto downtime capture</li><li>Work orders &amp; assignments</li><li>MTBF / MTTR &amp; cost</li></ul>
+          </article>
+
+          <article class="mpanel" data-reveal data-reveal-delay="1">
+            <header class="mpanel__head">
+              <span class="mpanel__ico"><svg class="mico mico--sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M9.5 3V1.8h5V3"/><path class="mico__row" d="M8.5 9h7"/><path class="mico__row" d="M8.5 12.5h7"/><path class="mico__row" d="M8.5 16h4"/><path class="mico__tick" d="M13.6 17.4l1.8 1.8 3.4-3.6" stroke="#2ee0b4" stroke-width="2.2"/></svg></span>
+              <div><span class="mpanel__eyebrow">Job sheets &middot; work orders</span><h3>Digital Job Sheeting</h3></div>
+            </header>
+            <p class="mpanel__lead">Raise a sheet in a few taps and it arrives already linked to the machine, operator and shift. It then moves through the lanes on its own as the floor updates it, so status stays current without anyone chasing a paper trail at handover.</p>
+            <div class="mpanel__console">
+              <svg class="mc mc2" viewBox="0 0 400 200" role="img" aria-label="Job flow console: a job sheet moving from open to in progress to done, with lane counts">
+                <rect class="mc__panel" x="0" y="0" width="400" height="200" rx="14"/>
+                <rect class="mc2__lane" x="18" y="34" width="116" height="150" rx="10"/><text class="mc2__lanelbl" x="30" y="26">Open</text><rect class="mc2__lane" x="142" y="34" width="116" height="150" rx="10"/><text class="mc2__lanelbl" x="154" y="26">In progress</text><rect class="mc2__lane" x="266" y="34" width="116" height="150" rx="10"/><text class="mc2__lanelbl" x="278" y="26">Done</text>
+                <g><rect class="mc2__card" x="28" y="48" width="96" height="34" rx="8"/><text class="mc2__cardid" x="38" y="63">#JS-1041</text><text class="mc2__cardsub" x="38" y="75">Press-03</text></g><g><rect class="mc2__card" x="28" y="90" width="96" height="34" rx="8"/><text class="mc2__cardid" x="38" y="105">#JS-1044</text><text class="mc2__cardsub" x="38" y="117">Grinder-01</text></g><g><rect class="mc2__card" x="276" y="48" width="96" height="34" rx="8"/><text class="mc2__cardid" x="286" y="63">#JS-1038</text><text class="mc2__cardsub" x="286" y="75">Lathe-02</text></g><g><rect class="mc2__card" x="276" y="90" width="96" height="34" rx="8"/><text class="mc2__cardid" x="286" y="105">#JS-1035</text><text class="mc2__cardsub" x="286" y="117">VMC-02</text></g>
+                <g class="mc2__live">
+                  <rect class="mc2__livecard" x="28" y="132" width="96" height="38" rx="8"/>
+                  <text class="mc2__cardid" x="38" y="148">#JS-1042</text>
+                  <text class="mc2__cardsub" x="38" y="160">VMC-01 &middot; Shift A</text>
+                  <circle class="mc2__pulse" cx="114" cy="141" r="5" style="transform-origin:114px 141px"/>
+                  <circle class="mc2__dot--open" cx="114" cy="141" r="3.4"/>
+                  <circle class="mc2__dot--run" cx="114" cy="141" r="3.4"/>
+                  <circle class="mc2__dot--done" cx="114" cy="141" r="3.4"/>
+                </g>
+                <text class="mc2__count" x="30" y="196">128</text><text class="mc__sub" x="58" y="196">open</text>
+                <text class="mc2__count" x="154" y="196">17</text><text class="mc__sub" x="174" y="196">active</text>
+                <text class="mc2__count" x="278" y="196">94%</text><text class="mc__sub" x="312" y="196">on-time close</text>
+              </svg>
+            </div>
+            <ul class="mcaps"><li>Create in a few taps</li><li>Assign to machine / operator</li><li>Auto-linked to production</li><li>Searchable &amp; exportable</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BENTO: what you get ============ -->
+    <section class="sec sec--dark">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">One connected view</span>
+          <h2 data-clip>Everything on the floor,<br><span class="accent">in one intelligence layer</span></h2>
+        </div>
+        <div class="bento" data-reveal>
+          <div class="bento__c bento__c--h">
+            <div class="bento__ico"><svg class="bfx bfx--gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="bfx__arc" d="M4 16a8 8 0 1 1 16 0"/><line class="bfx__needle" x1="12" y1="16" x2="12" y2="8"/><circle cx="12" cy="16" r="1.6" fill="currentColor" stroke="none"/><circle class="bfx__blip" cx="12" cy="16" r="4" opacity="0"/></svg></div>
+            <h3>Live machine monitoring</h3>
+            <p>Every asset classified automatically, whether running, idle, stopped or in setup, with utilisation and OEE you can trust, streamed second by second.</p>
+            <div class="bfloor">
+              <svg viewBox="0 0 700 150" role="img" aria-label="Live utilisation for VMC-01 at 88 percent, Lathe-02 at 79 percent and Press-03 at 61 percent">
+                <circle class="bfl__dot" cx="10" cy="19" r="4" style="animation-delay:0.00s"/><text class="bfl__name" x="28" y="24">VMC-01</text><rect class="bfl__track" x="28" y="34" width="560" height="9" rx="4.5"/><rect class="bfl__fill" x="28" y="34" width="493" height="9" rx="4.5" style="animation-delay:0.15s"/><text class="bfl__pct" x="698" y="43" text-anchor="end">88%</text><circle class="bfl__dot" cx="10" cy="67" r="4" style="animation-delay:0.45s"/><text class="bfl__name" x="28" y="72">Lathe-02</text><rect class="bfl__track" x="28" y="82" width="560" height="9" rx="4.5"/><rect class="bfl__fill" x="28" y="82" width="442" height="9" rx="4.5" style="animation-delay:0.31s"/><text class="bfl__pct" x="698" y="91" text-anchor="end">79%</text><circle class="bfl__dot" cx="10" cy="115" r="4" style="animation-delay:0.90s"/><text class="bfl__name" x="28" y="120">Press-03</text><rect class="bfl__track" x="28" y="130" width="560" height="9" rx="4.5"/><rect class="bfl__fill" x="28" y="130" width="342" height="9" rx="4.5" style="animation-delay:0.47s"/><text class="bfl__pct" x="698" y="139" text-anchor="end">61%</text>
+                <line class="bfl__scan" x1="24" y1="6" x2="24" y2="146"/>
+              </svg>
+            </div>
+          </div>
+          <div class="bento__c bento__c--w"><span class="bnum"><svg class="bnum__svg" viewBox="0 0 100 100" aria-hidden="true"><circle class="bnum__track" cx="50" cy="50" r="40"/><circle class="bnum__sweep" cx="50" cy="50" r="40"/></svg><span class="bento__big" data-count="24" data-suffix="/7">0</span></span><h3 style="margin-top:0.6rem;">Real-time</h3><p>No manual logging, ever.</p></div>
+          <div class="bento__c bento__c--w"><div class="bento__ico"><svg class="bfx bfx--rows" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="bfx__row" d="M4 7h16M4 12h16M4 17h10"/><path class="bfx__tracer" d="M4 7h16"/><path class="bfx__tracer" d="M4 12h16" style="animation-delay:.35s"/><path class="bfx__tracer" d="M4 17h10" style="animation-delay:.7s"/></svg></div><h3>ERP / MES</h3><p>Open APIs push live data both ways.</p></div>
+          <div class="bento__c bento__c--w"><div class="bento__ico"><svg class="bfx bfx--clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line class="bfx__hand bfx__hand--h" x1="12" y1="12" x2="12" y2="8"/><line class="bfx__hand bfx__hand--m" x1="12" y1="12" x2="15.5" y2="13.5"/><circle class="bfx__ring" cx="12" cy="12" r="9" opacity="0"/></svg></div><h3>Reason-tagged downtime</h3><p>Every stop captured and classified the moment it happens, ranked by cost, so you fix the losses that matter.</p></div>
+          <div class="bento__c bento__c--w"><div class="bento__ico"><svg class="bfx bfx--user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path class="bfx__check" d="M17 11l2 2 4-4"/><circle class="bfx__okring" cx="19.5" cy="11" r="5.5" opacity="0"/></svg></div><h3>Role-based access</h3><p>Operators, supervisors and management each see exactly what matters to them, securely.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ASK APMS ANALYST ============ -->
+    <section class="sec sec--darker">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">APMS Analyst</span>
+          <h2 data-clip>Ask about any machine,<br><span class="accent">in plain language</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">The Analyst reads your live floor data and answers in a sentence. No dashboards to open, no query to build.</p>
+        </div>
+        <div class="aask" data-reveal>
+          <div class="achat">
+            <div class="achat__row achat__row--you"><div class="achat__b achat__b--you">Why is Press-03 down?</div></div>
+            <div class="achat__row"><div class="achat__b achat__b--ai">Press-03 stopped 18 minutes ago, tagged <b>tool change overrun</b>. It is the third time this shift and the top loss driver this week.</div></div>
+            <div class="achat__row achat__row--you"><div class="achat__b achat__b--you">Is it getting worse?</div></div>
+            <div class="achat__row"><div class="achat__b achat__b--ai">Yes. Average tool change is up from 9 to 14 minutes over ten days. I can raise a work order and alert maintenance.</div></div>
+            <div class="achat__row"><div class="achat__b achat__b--ai"><span class="achat__typing"><i></i><i></i><i></i></span></div></div>
+          </div>
+          <div class="aorb">
+              <svg viewBox="0 0 560 250" role="img" aria-label="Live machine data feeding the APMS Analyst: OEE, downtime, quality, sensors and job records">
+                <path class="aorb__feed" d="M20 40 H250 C330 40 344 124 356 124"/><text class="aorb__lbl" x="20" y="31">OEE</text><path class="aorb__feed" d="M20 82 H250 C330 82 344 124 356 124"/><text class="aorb__lbl" x="20" y="73">Downtime</text><path class="aorb__feed" d="M20 124 H250 C330 124 344 124 356 124"/><text class="aorb__lbl" x="20" y="115">Quality</text><path class="aorb__feed" d="M20 166 H250 C330 166 344 124 356 124"/><text class="aorb__lbl" x="20" y="157">Sensors</text><path class="aorb__feed" d="M20 208 H250 C330 208 344 124 356 124"/><text class="aorb__lbl" x="20" y="199">Jobs</text>
+                <circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="0.00s" repeatCount="indefinite" path="M20 40 H250 C330 40 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="0.42s" repeatCount="indefinite" path="M20 82 H250 C330 82 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="0.84s" repeatCount="indefinite" path="M20 124 H250 C330 124 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="1.26s" repeatCount="indefinite" path="M20 166 H250 C330 166 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="1.68s" repeatCount="indefinite" path="M20 208 H250 C330 208 344 124 356 124"/></circle>
+                <circle class="aorb__ring" cx="400" cy="124" r="44"/>
+                <circle class="aorb__ring" cx="400" cy="124" r="44"/>
+                <circle class="aorb__ring" cx="400" cy="124" r="44"/>
+                <circle class="aorb__core" cx="400" cy="124" r="34"/>
+                <circle cx="400" cy="124" r="9" fill="#2ee0b4"/>
+                <text class="aorb__lbl" x="400" y="196" text-anchor="middle" style="fill:#2ee0b4">APMS Analyst</text>
+              </svg>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VOICE NAVIGATION ============ -->
+    <section class="sec sec--dark">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">AI navigation</span>
+          <h2 data-clip>No typing.<br><span class="accent">Just say it.</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Say where you want to go and the platform takes you there, hands free, gloves on.</p>
+        </div>
+        <div class="avoice" data-reveal>
+          <div>
+            <svg viewBox="0 0 260 125" role="img" aria-label="Speak a command and the platform navigates there">
+                <circle class="amic__ring" cx="60" cy="62" r="30"/>
+                <circle class="amic__ring" cx="60" cy="62" r="30"/>
+                <circle class="amic__ring" cx="60" cy="62" r="30"/>
+                <rect class="amic__body" x="52" y="40" width="16" height="26" rx="8"/>
+                <path class="amic__body" d="M44 60a16 16 0 0 0 32 0"/>
+                <path class="amic__body" d="M60 76v8M50 84h20"/>
+                <g class="awave"><rect x="108" y="54" width="7" height="16" rx="3.5"/><rect x="121" y="47" width="7" height="30" rx="3.5"/><rect x="134" y="40" width="7" height="44" rx="3.5"/><rect x="147" y="35" width="7" height="54" rx="3.5"/><rect x="160" y="40" width="7" height="44" rx="3.5"/><rect x="173" y="47" width="7" height="30" rx="3.5"/><rect x="186" y="54" width="7" height="16" rx="3.5"/></g>
+              </svg>
+          </div>
+          <div>
+            <div class="asaids">
+              <div class="asaid asaid--1">&ldquo;Show me downtime on Line 2 today&rdquo;</div>
+              <div class="asaid asaid--2">&ldquo;Show me production against target&rdquo;</div>
+              <div class="asaid asaid--3">&ldquo;Show me health parameters for Press-03&rdquo;</div>
+            </div>
+            <ul class="anav">
+              <li>Production</li>
+              <li>Downtime</li>
+              <li>Machine health</li>
+              <li>Reports</li>
+            </ul>
+            <p class="sec__lead" style="margin-top:1.2rem;">Works on the shop-floor panel, a phone or the control room screen. Useful when your hands are busy and a keyboard is not.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MIS REPORTS ============ -->
+    <section class="sec sec--darker">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">Reporting</span>
+          <h2 data-clip>Daily and weekly MIS,<br><span class="accent">delivered on time</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Reports build themselves and arrive on schedule, every day and every week. Nobody stays late compiling them.</p>
+        </div>
+        <div class="amis" data-reveal>
+          <div>
+            <p class="sec__lead" style="margin:0;">Each report is also there on demand, so you are never waiting for the next send to see where you stand.</p>
+            <ul class="amis__chips">
+              <li>Emailed on schedule</li>
+              <li>Exportable</li>
+              <li>By line, shift or asset</li>
+              <li>Available any time</li>
+            </ul>
+          </div>
+          <div>
+            <svg viewBox="0 0 420 180" role="img" aria-label="Daily and weekly MIS reports delivered on schedule: reason summary, production, downtime, maintenance details and health parameters">
+                <circle class="aclock__ping" cx="56" cy="56" r="34"/>
+                <circle class="aclock__face" cx="56" cy="56" r="34"/>
+                <line class="aclock__hand aclock__hand--h" x1="56" y1="56" x2="56" y2="38"/>
+                <line class="aclock__hand aclock__hand--m" x1="56" y1="56" x2="72" y2="64"/>
+                <circle cx="56" cy="56" r="3" fill="#2ee0b4"/>
+                <text class="aclock__lbl" x="56" y="112" text-anchor="middle">Every day</text>
+                <text class="aclock__sub" x="56" y="128" text-anchor="middle">and every Monday</text>
+                <path class="amis__wire" d="M94 56 H118"/>
+                <circle class="amis__pulse" r="3"><animateMotion dur="2.4s" repeatCount="indefinite" path="M94 56 H118"/></circle>
+                <g transform="translate(120,4)"><g class="arep__g"><rect class="arep__row" x="0" y="10" width="300" height="26" rx="7"/><text class="arep__name" x="14" y="27">Reason summary</text><path class="arep__tick" d="M272 22 l4 4 7-8"/></g><g class="arep__g"><rect class="arep__row" x="0" y="44" width="300" height="26" rx="7"/><text class="arep__name" x="14" y="61">Production</text><path class="arep__tick" d="M272 56 l4 4 7-8"/></g><g class="arep__g"><rect class="arep__row" x="0" y="78" width="300" height="26" rx="7"/><text class="arep__name" x="14" y="95">Downtime</text><path class="arep__tick" d="M272 90 l4 4 7-8"/></g><g class="arep__g"><rect class="arep__row" x="0" y="112" width="300" height="26" rx="7"/><text class="arep__name" x="14" y="129">Maintenance details</text><path class="arep__tick" d="M272 124 l4 4 7-8"/></g><g class="arep__g"><rect class="arep__row" x="0" y="146" width="300" height="26" rx="7"/><text class="arep__name" x="14" y="163">Health parameters</text><path class="arep__tick" d="M272 158 l4 4 7-8"/></g></g>
+              </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONNECTIVITY: protocols marquee already on home; here a grid ============ -->
+    <section class="sec sec--white">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">Connect anything</span>
+          <h2 data-clip>Any make. Any age. <span class="accent">Any protocol.</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Out-of-the-box drivers for the controllers and standards already on your floor, with no gateways to hand-build and no vendor lock-in.</p>
+        </div>
+        <div class="fstrip fstrip--white" data-reveal>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div><h3>CNC &amp; controllers</h3><p>Fanuc FOCAS, Siemens S7, Mazak, Haas, Mitsubishi.</p></div>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="2"/><path d="M7 12h.01M11 12h.01"/></svg></div><h3>PLCs</h3><p>Allen-Bradley, Delta, Modbus TCP, EtherNet/IP.</p></div>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M4 12a8 8 0 0 1 16 0M7 12a5 5 0 0 1 10 0"/></svg></div><h3>Standards</h3><p>OPC-UA and MQTT, the open backbone of IIoT.</p></div>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M8 6h8M6 22V10h12v12z"/></svg></div><h3>Retrofit sensors</h3><p>Vibration, current, temperature for legacy assets.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="sec sec--paper" id="faq">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Questions, answered</span><h2 data-clip>Industrial IoT, explained</h2></div>
+        <div class="faq" data-reveal>
+          <div class="faq__item"><button class="faq__q">Can you connect machines without a controller network?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. Where a controller can't be tapped directly, retrofit sensors for vibration, current and temperature capture machine state, so even the oldest equipment joins the same live view.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How is OEE calculated?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Availability × Performance × Quality, computed automatically from live machine state, cycle data and quality results, broken down by machine, line and shift, with loss analysis you can act on.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Will it slow down or risk our machines?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. APMS reads machine state passively at a secure edge. It does not write to or control your equipment, and connection happens with no production stoppage.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can we start with just a few machines?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Absolutely. The platform scales from single-machine monitoring to enterprise-wide across multiple lines and plant locations. Start small and expand when you're ready.</p></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container" data-reveal>
+        <h2>See your machines live</h2>
+        <p>Book a demo and watch your own assets light up on an APMS dashboard.</p>
+        <div class="cta__actions">
+          <a class="btn btn--primary btn--lg" href="contact.html">Book a Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn--ghost btn--lg" href="vision-ai.html">Explore Vision AI</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ft">
+    <div class="container">
+      <div class="ft__grid">
+
+        <div class="ft__brand">
+          <img src="assets/apms-logo.png" alt="APMS.ai" width="150" height="34">
+          <p>The real-time intelligence layer for modern manufacturing. Machines, vision, robotics and AI, engineered as one and answerable to one team.</p>
+          <div class="ft__badges">
+            <span>Industrial IoT</span><span>Vision AI</span><span>Robotics</span><span>AI Agents</span>
+          </div>
+        </div>
+
+        <div class="ft__col">
+          <h4>Platform</h4>
+          <a href="solutions.html">Industrial IoT</a>
+          <a href="vision-ai.html">Vision AI</a>
+          <a href="motion-ai.html">Motion AI</a>
+          <a href="ai-agents.html">AI Agents</a>
+          <a href="solutions.html#modules">Four modules</a>
+          <a href="index.html">Platform overview</a>
+        </div>
+
+        <div class="ft__col">
+          <h4>Solutions</h4>
+          <a href="solutions.html#modules">Machine monitoring</a>
+          <a href="solutions.html#modules">OEE &amp; loss analysis</a>
+          <a href="solutions.html#modules">Downtime tracking</a>
+          <a href="solutions.html#modules">Maintenance &amp; job sheets</a>
+          <a href="vision-ai.html#applications">Quality inspection</a>
+          <a href="motion-ai.html">Robotics &amp; motion</a>
+        </div>
+
+        <div class="ft__col">
+          <h4>Company</h4>
+          <a href="about.html">About APMS</a>
+          <a href="industries.html">Industries</a>
+          <a href="about.html#about">How we work</a>
+          <a href="about.html#faq">FAQ</a>
+          <a href="contact.html">Contact</a>
+          <a href="signin.html">Sign in</a>
+          <a href="privacy.html">Privacy policy</a>
+        </div>
+
+        <div class="ft__col ft__contact">
+          <h4>Get in touch</h4>
+          <div class="ft__block">
+            <span class="ft__label">Phone</span>
+            <a href="tel:+919380059669">+91 93800 59669</a>
+            <a href="tel:+918050176508">+91 80501 76508</a>
+          </div>
+          <div class="ft__block">
+            <span class="ft__label">Email</span>
+            <a href="mailto:info@apms.ai">info@apms.ai</a>
+            <a href="mailto:sales@apms.ai">sales@apms.ai</a>
+          </div>
+          <div class="ft__block">
+            <span class="ft__label">Bengaluru office</span>
+            <address>#5, 10th Cross Rd, Siddaiah Road,<br>Wilson Garden, Bengaluru,<br>Karnataka 560027, India</address>
+          </div>
+          <div class="ft__block">
+            <span class="ft__label">Hours</span>
+            <span class="ft__hours">Monday to Saturday, IST business hours</span>
+          </div>
+          <div class="ft__block">
+            <a class="ft__cta" href="contact.html">Book a Demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ft__bottom">
+        <div class="ft__legal">
+          <span>&copy; <span id="yr">2025</span> APMS AI INNOVATIONS Pvt. Ltd.</span>
+          <i aria-hidden="true"></i>
+          <span>Bengaluru, India</span>
+          <i aria-hidden="true"></i>
+          <a href="privacy.html">Privacy</a>
+          <i aria-hidden="true"></i>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="ft__social">
+          <a href="#" aria-label="APMS.ai on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.02 8h4.96V24H.02zm7.98 0h4.76v2.2h.07c.66-1.25 2.28-2.57 4.7-2.57 5.02 0 5.95 3.3 5.95 7.6V24h-4.96v-7.7c0-1.84-.03-4.2-2.56-4.2-2.56 0-2.95 2-2.95 4.06V24H8z"/></svg></a>
+          <a href="#" aria-label="APMS.ai on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg></a>
+          <a href="#" aria-label="APMS.ai on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="js/redesign.js?v=10"></script>
+  <script src="js/enhance.js?v=7"></script>
+  <script src="js/vendor/three.min.js"></script>
+  <script src="js/vendor/vanta.net.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/anime.min.js"></script>
+  <script src="js/vendor/mesh-gradient.js"></script>
+  <script src="js/smooth.js?v=3"></script>
+  <script src="js/site-fx.js?v=5"></script>
+  <script src="js/polish.js?v=1"></script>
+  <script src="js/ui-fx.js?v=1"></script>
+  <script src="js/scroll-text.js?v=1"></script>
+  <script src="js/mesh-bg.js?v=2"></script>
+  <script src="js/reveal.js?v=1"></script>
+  <script src="js/loop.js?v=1"></script>
+  <script src="js/rail.js?v=4"></script>
+  <script src="js/iconlife.js?v=1"></script>
+  <script src="js/perf.js?v=3"></script>
+  <script src="js/gscroll.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+# ==========================================================================
+# APMS.ai — what never goes into the repo or onto Netlify
+# ==========================================================================
+
+# The pre-restyle backup. Keep it on disk if you like, but it must not be
+# published: it is a second copy of the stylesheets and would be crawlable.
+_snapshot_pre-restyle_20260724_122719/
+
+# Standalone generated previews. Not linked from the site, and
+# machine-health-vitals.html pulls React from unpkg.com at runtime, which no
+# other page does.
+machine-health-vitals.html
+pipeline-step-preview.html
+
+# Working files
+*.bak
+*.bak.html
+_*.mjs
+_*.py
+
+# OS and editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Never commit secrets. When the demo form gets a backend, its keys belong in
+# Netlify's environment variables, not in the repository.
+.env
+.env.*
+!.env.example
+
+# Netlify local state
+.netlify/

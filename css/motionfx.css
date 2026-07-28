@@ -1,0 +1,170 @@
+/* ==========================================================================
+   APMS.ai — motionfx.css
+   motion-ai.html: two realistic motion consoles plus the rail treatment.
+
+   Follows the same architecture as the Vision AI and Industrial IoT pages:
+   base strokes are never animated away, motion is layered on top, and the
+   card grids become horizontal scrollers rather than pinned rails (pinning
+   adds scroll length on an already-compact grid).
+   ========================================================================== */
+
+.mfx { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+.mfx svg { width: 100%; max-width: 780px; margin-inline: auto; height: auto; display: block; overflow: visible; }
+.mfx * { transform-box: view-box; }
+
+.mf__frame { fill: rgba(0,0,0,0.26); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.mf__lbl { font-family: var(--display); font-weight: 800; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; fill: rgba(255,255,255,0.5); }
+.mf__val { font-family: var(--display); font-weight: 900; font-size: 19px; fill: #fff; }
+.mf__sub { font-family: var(--text); font-size: 10px; fill: rgba(255,255,255,0.45); }
+
+/* ==========================================================================
+   CONSOLE 1 · AUTONOMOUS ROUTE
+   A plan view of a site: the unit follows a fixed route, clears waypoints as
+   it reaches them, and raises a check when it reads something out of range.
+   ========================================================================== */
+.mf__plan { fill: rgba(255,255,255,0.03); stroke: rgba(255,255,255,0.09); stroke-width: 1; }
+.mf__zone { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.08); stroke-width: 1; }
+
+.mf__route { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 2; stroke-dasharray: 5 6; }
+.mf__routelit {
+  fill: none; stroke: var(--teal); stroke-width: 2.4; stroke-linecap: round;
+  stroke-dasharray: 60 940; stroke-dashoffset: 1000;
+}
+.mfx[data-reveal].in .mf__routelit { animation: mfRoute 11s linear infinite; }
+@keyframes mfRoute { to { stroke-dashoffset: 0; } }
+
+.mf__wp { fill: rgba(255,255,255,0.16); }
+.mf__wp-on { fill: var(--teal-bright); opacity: 0; transform-origin: center; }
+.mfx[data-reveal].in .mf__wp-on { animation: mfWp 11s ease-out infinite; }
+@keyframes mfWp {
+  0%, 4%   { opacity: 0; transform: scale(.4); }
+  9%, 62%  { opacity: 1; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(1); }
+}
+
+.mf__unit { fill: var(--teal-bright); }
+.mf__unit-halo { fill: var(--teal); opacity: .22; }
+
+/* the sensing cone sweeps as it travels */
+.mf__cone { fill: var(--teal); opacity: .12; transform-origin: 0 0; }
+.mfx[data-reveal].in .mf__cone { animation: mfSweep 2.6s ease-in-out infinite; }
+@keyframes mfSweep {
+  0%, 100% { transform: rotate(-32deg); }
+  50%      { transform: rotate(32deg); }
+}
+
+/* an out-of-range reading is flagged mid-route */
+.mf__flag { fill: none; stroke: var(--teal-bright); stroke-width: 1.6; opacity: 0; transform-origin: center; }
+.mfx[data-reveal].in .mf__flag { animation: mfFlag 11s ease-out infinite; }
+@keyframes mfFlag {
+  0%, 52%   { opacity: 0; transform: scale(.5); }
+  58%       { opacity: .9; transform: scale(1); }
+  74%, 100% { opacity: 0; transform: scale(1.7); }
+}
+.mf__flagdot { fill: var(--teal-bright); opacity: 0; }
+.mfx[data-reveal].in .mf__flagdot { animation: mfFlagDot 11s ease-out infinite; }
+@keyframes mfFlagDot { 0%, 52% { opacity: 0; } 58%, 88% { opacity: 1; } 94%, 100% { opacity: 0; } }
+
+/* ==========================================================================
+   CONSOLE 2 · HANDLING CYCLE
+   Pick, traverse, place, return. The arm indexes through the cycle while the
+   throughput bar and cycle counter keep pace.
+   ========================================================================== */
+.mf__rig { fill: none; stroke: rgba(255,255,255,0.22); stroke-width: 2; }
+.mf__arm { fill: none; stroke: var(--teal-bright); stroke-width: 3; stroke-linecap: round; }
+/* The carriage has to reach the outfeed, not stop halfway. The arm sits at
+   x=126 and the free outfeed slot is centred on x=665, so the traverse is
+   539 units. It used to be 214, which left the arm stranded mid-rail with the
+   part still in the gripper and the cycle visibly unfinished. */
+.mf__carriage { transform-origin: center; }
+.mfx[data-reveal].in .mf__carriage { animation: mfCarriage 5.2s cubic-bezier(.6,0,.4,1) infinite; }
+@keyframes mfCarriage {
+  0%, 28%   { transform: translateX(0); }
+  52%, 72%  { transform: translateX(539px); }
+  96%, 100% { transform: translateX(0); }
+}
+/* the gripper drops to pick, and drops again to release over the outfeed */
+.mf__grip { transform-origin: center; }
+.mfx[data-reveal].in .mf__grip { animation: mfGrip 5.2s ease-in-out infinite; }
+@keyframes mfGrip {
+  0%, 8%    { transform: translateY(0); }
+  16%, 20%  { transform: translateY(26px); }
+  28%, 52%  { transform: translateY(0); }
+  60%, 64%  { transform: translateY(26px); }
+  72%, 100% { transform: translateY(0); }
+}
+/* the part is only carried between the pick and the release */
+.mf__load { fill: var(--teal); opacity: 0; }
+.mfx[data-reveal].in .mf__load { animation: mfLoad 5.2s steps(1, end) infinite; }
+@keyframes mfLoad { 0%, 18% { opacity: 0; } 19%, 61% { opacity: 1; } 62%, 100% { opacity: 0; } }
+
+/* source and destination stacks */
+.mf__bin { fill: rgba(255,255,255,0.06); stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+.mf__part { fill: rgba(255,255,255,0.18); }
+/* already delivered on earlier cycles */
+.mf__part--set { fill: var(--teal); opacity: .55; }
+/* the one this cycle delivers: it lands the instant the gripper lets go */
+.mf__part--done { fill: var(--teal); opacity: 0; }
+.mfx[data-reveal].in .mf__part--done { animation: mfPlaced 5.2s steps(1, end) infinite; }
+@keyframes mfPlaced { 0%, 62% { opacity: 0; } 63%, 100% { opacity: 1; } }
+
+/* The bar was a rect scaled on X, but transform-box: view-box put its "left"
+   origin at x=0 instead of at the bar, so it drew in the wrong place and never
+   filled. A dashed stroke fills from its own start to its own end. */
+.mf__bartrack { fill: none; stroke: rgba(255,255,255,0.09); stroke-width: 8; stroke-linecap: round; }
+.mf__bar {
+  fill: none; stroke: var(--teal); stroke-width: 8; stroke-linecap: round;
+  stroke-dasharray: 200; stroke-dashoffset: 200;
+}
+.mfx[data-reveal].in .mf__bar { animation: mfBar 5.2s ease-out infinite; }
+@keyframes mfBar {
+  0%        { stroke-dashoffset: 200; }
+  72%, 100% { stroke-dashoffset: 0; }
+}
+
+/* ==========================================================================
+   RAILS — horizontal scrollers, same as the other pages
+   ========================================================================== */
+.mrail .agp__track > * { flex: 0 0 clamp(280px, 26vw, 340px); }
+/* height comes from rail.css stretch, not from here (see note in rail.css) */
+.mrail .fstrip__cell { border: 1px solid var(--line-dark); border-radius: 14px; }
+
+/* ==========================================================================
+   COMPARISON TABLE — tidier alignment
+   ========================================================================== */
+.ctable td, .ctable th { vertical-align: top; }
+.ctable tbody th { white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mfx[data-reveal].in * { animation: none !important; }
+  .mf__wp-on, .mf__flag, .mf__flagdot, .mf__load { opacity: 0 !important; }
+  .mf__part--done { opacity: 1; }
+  .mf__routelit { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .7; }
+  .mf__bar { stroke-dashoffset: 0; }
+}
+
+/* ==========================================================================
+   LIGHT-SECTION VARIANT
+   The console above is styled for dark sections. The handling cycle sits on
+   .sec--paper, where a black frame and white labels render as a grey slab with
+   unreadable text. Same instrument, light palette.
+   ========================================================================== */
+:is(.sec--paper, .sec--white) .mf__frame { fill: var(--white); stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__lbl { fill: var(--muted); }
+:is(.sec--paper, .sec--white) .mf__val { fill: var(--ink); }
+:is(.sec--paper, .sec--white) .mf__sub { fill: var(--muted); }
+:is(.sec--paper, .sec--white) .mf__rig { stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__zone { fill: var(--paper); stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__plan { fill: var(--paper); stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__route { stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__bin { fill: var(--paper-2); stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__part { fill: #c7d2dc; }
+:is(.sec--paper, .sec--white) .mf__bartrack { stroke: var(--line); }
+:is(.sec--paper, .sec--white) .mf__bar { stroke: var(--teal-deep); }
+:is(.sec--paper, .sec--white) .mf__part--set { fill: var(--teal-deep); opacity: .4; }
+:is(.sec--paper, .sec--white) .mf__part--done { fill: var(--teal-deep); }
+:is(.sec--paper, .sec--white) .mf__wp { fill: #c7d2dc; }
+:is(.sec--paper, .sec--white) .mf__arm { stroke: var(--teal-deep); }
+:is(.sec--paper, .sec--white) .mf__unit,
+:is(.sec--paper, .sec--white) .mf__load,
+:is(.sec--paper, .sec--white) .mf__wp-on { fill: var(--teal-deep); }

@@ -1,0 +1,223 @@
+/* ==========================================================================
+   APMS.ai — aiplus.css
+   Three slides on solutions.html:
+     1 · Ask APMS Analyst        (chat about any machine)
+     2 · Voice navigation        (no typing, just ask)
+     3 · Daily & weekly MIS      (reports delivered on time)
+
+   Dark sections, APMS teal only. Every instrument follows the house rule:
+   base strokes are never animated away, motion is layered on top.
+   ========================================================================== */
+
+/* ==========================================================================
+   1 · ASK APMS ANALYST
+   ========================================================================== */
+.aask { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); align-items: center; }
+@media (max-width: 900px) { .aask { grid-template-columns: 1fr; } }
+
+.achat {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: clamp(1.2rem, 2.4vw, 1.7rem);
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.achat__row { display: flex; }
+.achat__row--you { justify-content: flex-end; }
+
+.achat__b {
+  max-width: 86%; padding: .72rem 1rem; font-size: .92rem; line-height: 1.55;
+  opacity: 0; transform: translateY(10px);
+}
+[data-reveal].in .achat__b { animation: aBubble .5s var(--ease-out) forwards; }
+@keyframes aBubble { to { opacity: 1; transform: none; } }
+[data-reveal].in .achat__row:nth-child(1) .achat__b { animation-delay: .15s; }
+[data-reveal].in .achat__row:nth-child(2) .achat__b { animation-delay: .70s; }
+[data-reveal].in .achat__row:nth-child(3) .achat__b { animation-delay: 1.45s; }
+[data-reveal].in .achat__row:nth-child(4) .achat__b { animation-delay: 2.05s; }
+/* the typing indicator belongs at the end of the exchange, not before the answer */
+[data-reveal].in .achat__row:nth-child(5) .achat__b { animation-delay: 2.75s; }
+
+.achat__b--you {
+  background: var(--teal); color: #04231c; font-weight: 600;
+  border-radius: 14px 14px 4px 14px;
+}
+.achat__b--ai {
+  background: rgba(255,255,255,0.07); color: #fff;
+  border-radius: 14px 14px 14px 4px;
+}
+.achat__b--ai b { color: var(--teal-bright); }
+
+/* typing dots keep going, so the panel reads as live */
+.achat__typing { display: inline-flex; align-items: center; gap: .3rem; }
+.achat__typing i {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal-bright);
+  animation: aDots 1.4s ease-in-out infinite;
+}
+.achat__typing i:nth-child(2) { animation-delay: .2s; }
+.achat__typing i:nth-child(3) { animation-delay: .4s; }
+@keyframes aDots {
+  0%, 100% { opacity: .3; transform: translateY(0); }
+  50%      { opacity: 1;  transform: translateY(-3px); }
+}
+
+/* the agent orb: rings out, core breathing, data ticks feeding in */
+.aorb svg { width: 100%; height: auto; display: block; overflow: visible; }
+.aorb * { transform-box: view-box; }
+.aorb__ring { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; transform-origin: 400px 124px; }
+[data-reveal].in .aorb__ring { animation: aRing 3.4s ease-out infinite; }
+.aorb__ring:nth-of-type(2) { animation-delay: 1.15s; }
+.aorb__ring:nth-of-type(3) { animation-delay: 2.3s; }
+@keyframes aRing {
+  0%       { opacity: .5; transform: scale(.55); }
+  70%, 100% { opacity: 0; transform: scale(1.6); }
+}
+.aorb__core { fill: rgba(23,201,155,0.18); stroke: var(--teal-bright); stroke-width: 1.8; transform-origin: 400px 124px; }
+[data-reveal].in .aorb__core { animation: aCore 2.6s ease-in-out infinite; }
+@keyframes aCore {
+  0%, 100% { transform: scale(.94); }
+  50%      { transform: scale(1.06); }
+}
+.aorb__feed { stroke: rgba(255,255,255,0.18); stroke-width: 1.4; fill: none; }
+.aorb__pip { fill: var(--teal-bright); }
+.aorb__lbl { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; fill: rgba(255,255,255,0.5); }
+
+/* ==========================================================================
+   2 · VOICE NAVIGATION
+   ========================================================================== */
+.avoice { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(1.4rem, 3vw, 2.6rem); align-items: center; }
+@media (max-width: 900px) { .avoice { grid-template-columns: 1fr; } }
+.avoice svg { width: 100%; height: auto; display: block; overflow: visible; }
+.avoice * { transform-box: view-box; }
+
+.amic__body { fill: none; stroke: var(--teal-bright); stroke-width: 2; }
+.amic__ring { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; transform-origin: 60px 62px; }
+[data-reveal].in .amic__ring { animation: aRing2 2.8s ease-out infinite; }
+.amic__ring:nth-of-type(2) { animation-delay: .95s; }
+.amic__ring:nth-of-type(3) { animation-delay: 1.9s; }
+@keyframes aRing2 {
+  0%       { opacity: .55; transform: scale(.7); }
+  70%, 100% { opacity: 0;  transform: scale(1.75); }
+}
+
+/* waveform bars, each on its own beat */
+.awave rect { fill: var(--teal-bright); transform-origin: center; }
+[data-reveal].in .awave rect { animation: aWave 1.1s ease-in-out infinite; }
+.awave rect:nth-child(1) { animation-delay: 0s;    }
+.awave rect:nth-child(2) { animation-delay: .09s;  }
+.awave rect:nth-child(3) { animation-delay: .18s;  }
+.awave rect:nth-child(4) { animation-delay: .27s;  }
+.awave rect:nth-child(5) { animation-delay: .36s;  }
+.awave rect:nth-child(6) { animation-delay: .45s;  }
+.awave rect:nth-child(7) { animation-delay: .54s;  }
+@keyframes aWave {
+  0%, 100% { transform: scaleY(.3); }
+  50%      { transform: scaleY(1); }
+}
+
+/* Three spoken commands, transcribed in turn. They share one grid cell so the
+   block never changes height as the text swaps, and each one types itself in,
+   holds, then clears before the next begins. */
+.asaids { display: grid; }
+.asaid {
+  grid-area: 1 / 1;
+  font-family: var(--display); font-weight: 700; font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #fff; overflow: hidden;
+  border-left: 2px solid var(--teal); padding-left: .8rem;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+[data-reveal].in .asaid { animation: aType 15s steps(36, end) infinite; }
+.asaid--1 { animation-delay: 0s !important; }
+.asaid--2 { animation-delay: 5s !important; }
+.asaid--3 { animation-delay: 10s !important; }
+/* one third of the cycle each: type in, hold, clear, then stay hidden */
+@keyframes aType {
+  0%          { clip-path: inset(0 100% 0 0); opacity: 1; }
+  8%, 26%     { clip-path: inset(0 0 0 0);    opacity: 1; }
+  32%         { clip-path: inset(0 100% 0 0); opacity: 1; }
+  33%, 100%   { clip-path: inset(0 100% 0 0); opacity: 0; }
+}
+@media (max-width: 620px) { .asaid { font-size: .98rem; } }
+
+/* destinations light up in turn, as if being navigated */
+.anav { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; --beat: 7s; }
+.anav li {
+  font-family: var(--display); font-weight: 700; font-size: .78rem;
+  color: var(--on-dark-soft);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: .38rem .7rem; border-radius: 8px;
+}
+[data-reveal].in .anav li { animation: aNav var(--beat) steps(1, end) infinite; }
+/* Downtime, Production, then Machine health, matching the three commands
+   above; Reports lights last as the catch-all. */
+.anav { --beat: 15s; }
+.anav li:nth-child(2) { animation-delay: 1.4s; }   /* Downtime */
+.anav li:nth-child(1) { animation-delay: 6.4s; }   /* Production */
+.anav li:nth-child(3) { animation-delay: 11.4s; }  /* Machine health */
+.anav li:nth-child(4) { animation-delay: 13.4s; }  /* Reports */
+@keyframes aNav {
+  0%, 8%  { color: #04231c; background: var(--teal); border-color: var(--teal); }
+  9%, 100% { color: var(--on-dark-soft); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.10); }
+}
+
+/* ==========================================================================
+   3 · MIS REPORTS
+   ========================================================================== */
+.amis { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(1.4rem, 3vw, 2.6rem); align-items: center; }
+@media (max-width: 900px) { .amis { grid-template-columns: 1fr; } }
+.amis svg { width: 100%; height: auto; display: block; overflow: visible; }
+.amis * { transform-box: view-box; }
+
+/* the clock that fires the schedule */
+.aclock__face { fill: none; stroke: rgba(255,255,255,0.18); stroke-width: 2; }
+.aclock__hand { stroke: var(--teal-bright); stroke-width: 2; stroke-linecap: round; transform-origin: 56px 56px; }
+[data-reveal].in .aclock__hand--m { animation: aSpin 4s linear infinite; }
+[data-reveal].in .aclock__hand--h { animation: aSpin 16s linear infinite; }
+@keyframes aSpin { to { transform: rotate(360deg); } }
+.aclock__ping { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; transform-origin: 56px 56px; }
+[data-reveal].in .aclock__ping { animation: aRing2 4s ease-out infinite; }
+.aclock__lbl { font-family: var(--display); font-weight: 900; font-size: 12px; fill: #fff; }
+.aclock__sub { font-family: var(--text); font-size: 10px; fill: rgba(255,255,255,0.5); }
+
+/* report rows: each lands with a tick, in sequence */
+.arep__row { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.arep__name { font-family: var(--display); font-weight: 700; font-size: 12px; fill: rgba(255,255,255,0.9); }
+.arep__tick { fill: none; stroke: var(--teal-bright); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+              stroke-dasharray: 14; stroke-dashoffset: 14; }
+[data-reveal].in .arep__tick { animation: aTick 5s var(--ease-out) infinite; }
+@keyframes aTick {
+  0%        { stroke-dashoffset: 14; }
+  22%, 86%  { stroke-dashoffset: 0; }
+  100%      { stroke-dashoffset: 14; }
+}
+.arep__g:nth-of-type(1) .arep__tick { animation-delay: .2s; }
+.arep__g:nth-of-type(2) .arep__tick { animation-delay: .5s; }
+.arep__g:nth-of-type(3) .arep__tick { animation-delay: .8s; }
+.arep__g:nth-of-type(4) .arep__tick { animation-delay: 1.1s; }
+.arep__g:nth-of-type(5) .arep__tick { animation-delay: 1.4s; }
+
+/* a sent-pulse travels from the clock to the stack */
+.amis__wire { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 1.4; stroke-dasharray: 4 5; }
+.amis__pulse { fill: var(--teal-bright); }
+
+.amis__chips { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: 1.3rem; }
+.amis__chips li { text-align: center; }
+@media (max-width: 420px) { .amis__chips { grid-template-columns: 1fr; } }
+.amis__chips li {
+  font-size: .78rem; color: var(--on-dark);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: .32rem .66rem; border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achat__b { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .achat__typing i, .aorb__ring, .aorb__core, .amic__ring, .awave rect,
+  .anav li, .aclock__hand, .aclock__ping, .arep__tick, .amis__pulse { animation: none !important; }
+  .aorb__ring, .amic__ring, .aclock__ping { opacity: 0 !important; }
+  .asaid { animation: none !important; clip-path: none !important; }
+  .arep__tick { stroke-dashoffset: 0 !important; }
+  .awave rect { transform: scaleY(.7); }
+}

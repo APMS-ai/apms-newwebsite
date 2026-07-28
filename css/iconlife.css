@@ -1,0 +1,107 @@
+/* ==========================================================================
+   APMS.ai — iconlife.css
+   Site-wide living icons.
+
+   The site has ~120 icon chips across 9 pages. Three deliberate constraints:
+
+   1 · Motion is SUBTLE. A 1.5px float and a soft halo, not a dance. Dozens of
+       icons moving hard at once reads as noise, not craft.
+   2 · Motion is STAGGERED. js/iconlife.js assigns each chip an index, so
+       neighbours never pulse in unison.
+   3 · Motion is GATED. Animations only run inside a section that is on
+       screen (.ico-run, toggled by IntersectionObserver), so we are never
+       compositing a hundred animations the viewer cannot see.
+
+   Sections with bespoke instruments (.fgi, .mico, .bfx, .mc, .aloop,
+   .modflow) are excluded — they already have their own choreography.
+   ========================================================================== */
+
+.ico-live {
+  position: relative;
+  --d: calc(var(--i, 0) * 0.37s);   /* stagger seed from iconlife.js */
+}
+
+/* ---------- soft halo that breathes out of the chip ---------- */
+.ico-live::after {
+  content: "";
+  position: absolute; inset: 0; border-radius: inherit;
+  border: 1px solid currentColor;
+  opacity: 0; pointer-events: none;
+}
+.ico-run .ico-live::after {
+  animation: icoHalo 4.6s ease-out var(--d) infinite;
+}
+@keyframes icoHalo {
+  0%        { opacity: .30; transform: scale(1); }
+  55%, 100% { opacity: 0;   transform: scale(1.32); }
+}
+
+/* ---------- the glyph itself drifts, barely ---------- */
+.ico-run .ico-live > svg {
+  animation: icoFloat 3.9s ease-in-out var(--d) infinite;
+}
+@keyframes icoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.5px); }
+}
+
+/* ---------- hover: a proper spring, plus the accent ---------- */
+.ico-live > svg { transition: transform .45s cubic-bezier(.34,1.56,.64,1); }
+:is(.tile, .cap, .mod, .ind, .bento__c, .fstrip__cell, .step, .case, .mpanel, .ag-cap):hover .ico-live > svg {
+  transform: scale(1.14) rotate(-6deg);
+  animation-play-state: paused;
+}
+:is(.tile, .cap, .mod, .ind, .bento__c, .fstrip__cell, .step, .case, .mpanel):hover .ico-live::after {
+  animation-duration: 1.5s;
+}
+
+/* ==========================================================================
+   TICK LISTS · the checks draw themselves as their block reveals
+   These are single-stroke paths, so dashing them is safe. Staggered down the
+   list so it reads as a checklist being ticked rather than a block flip.
+   ========================================================================== */
+.ticks li svg path,
+.mod__params li svg path,
+.why__item > svg path {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+}
+[data-reveal].in .ticks li svg path,
+.ticks.in li svg path,
+[data-reveal].in .mod__params li svg path,
+[data-reveal].in.why__item > svg path,
+[data-reveal].in .why__item > svg path {
+  animation: icoDraw .55s var(--ease-out) forwards;
+}
+@keyframes icoDraw { to { stroke-dashoffset: 0; } }
+
+[data-reveal].in .ticks li:nth-child(1) svg path { animation-delay: .10s; }
+[data-reveal].in .ticks li:nth-child(2) svg path { animation-delay: .18s; }
+[data-reveal].in .ticks li:nth-child(3) svg path { animation-delay: .26s; }
+[data-reveal].in .ticks li:nth-child(4) svg path { animation-delay: .34s; }
+[data-reveal].in .ticks li:nth-child(5) svg path { animation-delay: .42s; }
+[data-reveal].in .ticks li:nth-child(6) svg path { animation-delay: .50s; }
+[data-reveal].in .ticks li:nth-child(n+7) svg path { animation-delay: .58s; }
+
+/* FAQ icons are already handled in redesign.css (.faq__item.open rotates the
+   plus 45deg). Deliberately not touched here. */
+
+/* ==========================================================================
+   FOOTER SOCIAL · lift on hover, no idle motion (chrome should stay quiet)
+   ========================================================================== */
+.ft__social a svg { transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.ft__social a:hover svg { transform: translateY(-3px) scale(1.12); }
+
+/* ==========================================================================
+   Never animate what the viewer asked to keep still
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .ico-run .ico-live::after,
+  .ico-run .ico-live > svg { animation: none !important; }
+  .ico-live::after { opacity: 0 !important; }
+  .ico-live > svg { transition: none; }
+  .ticks li svg path,
+  .mod__params li svg path,
+  .why__item > svg path { stroke-dashoffset: 0 !important; animation: none !important; }
+  .ft__social a svg { transition: none; }
+}

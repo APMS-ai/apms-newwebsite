@@ -1,0 +1,184 @@
+/* ==========================================================================
+   APMS.ai — maintui.css
+   Maintenance & job management panels, rebuilt as animated SVG consoles.
+   Replaces the old stat-box / meter / list stack on solutions.html.
+
+   Each panel is now: eyebrow + title, one short lead, a live SVG console,
+   and a compact capability row. Dark section, APMS teal only (planned work
+   reads teal, reactive work reads neutral grey — no second hue).
+   ========================================================================== */
+
+/* ---------- panel shell ---------- */
+.mpanel {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: clamp(1.5rem, 2.6vw, 2rem);
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: border-color .4s var(--ease), box-shadow .4s var(--ease), transform .4s var(--ease-out);
+}
+.mpanel:hover {
+  transform: translateY(-5px);
+  border-color: rgba(46,224,180,0.38);
+  box-shadow: 0 26px 56px -30px rgba(0,0,0,0.7);
+}
+.mpanel__head { display: flex; align-items: center; gap: .9rem; margin-bottom: .9rem; }
+.mpanel__ico {
+  width: 52px; height: 52px; border-radius: 14px; flex: none;
+  display: grid; place-items: center;
+  background: rgba(46,224,180,0.12); color: var(--teal-bright);
+}
+.mpanel__ico svg { width: 27px; height: 27px; overflow: visible; }
+.mpanel__eyebrow {
+  display: block; font-family: var(--display); font-weight: 700;
+  font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal-bright);
+}
+.mpanel__head h3 { color: #fff; font-size: 1.25rem; margin-top: .15rem; }
+.mpanel__lead { color: var(--on-dark-soft); font-size: .93rem; line-height: 1.62; margin-bottom: 1.2rem; }
+
+/* the console fills the remaining height so both panels line up */
+.mpanel__console { margin-top: auto; }
+.mpanel__console svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* compact capability row replacing the old chip list */
+/* a ragged wrap (3 then 2) looked accidental; an even 2-column grid keeps
+   both cards' chip blocks the same shape */
+.mcaps { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; margin-top: 1.2rem; }
+.mcaps li { text-align: center; }
+@media (max-width: 420px) { .mcaps { grid-template-columns: 1fr; } }
+.mcaps li {
+  font-size: .76rem; color: var(--on-dark);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: .3rem .62rem; border-radius: 7px;
+}
+
+/* ==========================================================================
+   SHARED SVG VOCABULARY
+   ========================================================================== */
+.mc * { transform-box: view-box; }
+.mc__panel { fill: rgba(0,0,0,0.24); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.mc__lbl   { font-family: var(--display); font-weight: 800; font-size: 10px; letter-spacing: .1em; fill: rgba(255,255,255,0.55); text-transform: uppercase; }
+.mc__val   { font-family: var(--display); font-weight: 900; fill: #fff; }
+.mc__sub   { font-family: var(--text); font-size: 9.5px; fill: rgba(255,255,255,0.5); }
+.mc__teal  { fill: var(--teal-bright); }
+
+/* ==========================================================================
+   CONSOLE 1 · MAINTENANCE
+   Compliance ring winds up, a 14-slot schedule fills in, and the condition
+   trace runs until it throws an anomaly that pings an alert.
+   ========================================================================== */
+.mc1__ring-bg { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 9; }
+.mc1__ring-fg {
+  fill: none; stroke: var(--teal); stroke-width: 9; stroke-linecap: round;
+  stroke-dasharray: 276.5;              /* 2πr, r = 44 */
+  stroke-dashoffset: 276.5;
+  transform: rotate(-90deg); transform-origin: 62px 70px;
+  animation: mc1Ring 6s cubic-bezier(.22,.61,.36,1) infinite;
+}
+/* 96% of 276.5 → rests at 11 */
+@keyframes mc1Ring {
+  0%       { stroke-dashoffset: 276.5; }
+  38%, 84% { stroke-dashoffset: 11; }
+  100%     { stroke-dashoffset: 276.5; }
+}
+.mc1__pct { font-size: 20px; }
+
+/* schedule slots: planned = teal, reactive = neutral */
+.mc1__slot { fill: rgba(255,255,255,0.08); }
+.mc1__slot--pm  { fill: var(--teal); opacity: 0; animation: mc1Slot 6s ease-out infinite; }
+.mc1__slot--bdm { fill: rgba(255,255,255,0.42); opacity: 0; animation: mc1Slot 6s ease-out infinite; }
+@keyframes mc1Slot {
+  0%        { opacity: 0; transform: scaleY(.2); }
+  100%      { opacity: 1; transform: scaleY(1); }
+}
+/* `.mc *` sets transform-box: view-box, which made "center bottom" resolve to
+   the bottom of the whole panel rather than the bottom of each bar. The bars
+   therefore slid down across the legend for most of the grow animation. fill-box
+   scopes the origin back to the bar's own box, so each one grows in place. */
+.mc1__slot--pm, .mc1__slot--bdm {
+  transform-box: fill-box; transform-origin: center bottom;
+  animation-fill-mode: both;
+}
+
+/* condition trace + anomaly */
+.mc1__trace {
+  fill: none; stroke: rgba(255,255,255,0.3); stroke-width: 1.6;
+}
+.mc1__tracer {
+  fill: none; stroke: var(--teal-bright); stroke-width: 2.2; stroke-linecap: round;
+  stroke-dasharray: 8 240; stroke-dashoffset: 248;
+  animation: mc1Trace 6s linear infinite;
+}
+@keyframes mc1Trace { to { stroke-dashoffset: 0; } }
+.mc1__alert { fill: var(--teal-bright); opacity: 0; animation: mc1Alert 6s ease-out infinite; }
+@keyframes mc1Alert {
+  0%, 62%   { opacity: 0; transform: scale(.4); }
+  70%       { opacity: 1; transform: scale(1); }
+  92%, 100% { opacity: 0; transform: scale(1.5); }
+}
+.mc1__alertring {
+  fill: none; stroke: var(--teal-bright); stroke-width: 1.4; opacity: 0;
+  animation: mc1AlertRing 6s ease-out infinite;
+}
+@keyframes mc1AlertRing {
+  0%, 62%   { opacity: 0; transform: scale(.5); }
+  70%       { opacity: .8; transform: scale(1); }
+  88%, 100% { opacity: 0; transform: scale(2.2); }
+}
+
+/* ==========================================================================
+   CONSOLE 2 · JOB FLOW
+   A job card travels Open → In progress → Done while the lane counters and
+   its status dot keep up.
+   ========================================================================== */
+.mc2__lane { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.09); stroke-width: 1; }
+.mc2__lanelbl { font-family: var(--display); font-weight: 800; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; fill: rgba(255,255,255,0.5); }
+
+.mc2__card { fill: rgba(255,255,255,0.07); stroke: rgba(255,255,255,0.13); stroke-width: 1; }
+.mc2__cardid { font-family: var(--display); font-weight: 800; font-size: 10px; fill: rgba(255,255,255,0.85); }
+.mc2__cardsub { font-family: var(--text); font-size: 8.5px; fill: rgba(255,255,255,0.45); }
+
+/* the travelling job: three lanes, 9s round trip */
+.mc2__live { animation: mc2Travel 9s cubic-bezier(.6,0,.4,1) infinite; }
+/* fades in at Open and out at Done, so the loop never leaves a ghost card
+   sitting half-transparent in the Done lane */
+@keyframes mc2Travel {
+  0%        { transform: translate(0, 0);     opacity: 0; }
+  4%, 22%   { transform: translate(0, 0);     opacity: 1; }
+  33%, 55%  { transform: translate(124px, 0); opacity: 1; }
+  66%, 90%  { transform: translate(248px, 0); opacity: 1; }
+  97%, 100% { transform: translate(248px, 0); opacity: 0; }
+}
+.mc2__livecard { fill: rgba(46,224,180,0.16); stroke: var(--teal-bright); stroke-width: 1.4; }
+.mc2__dot--open { fill: rgba(255,255,255,0.5); animation: mc2Stage 9s steps(1,end) infinite; }
+.mc2__dot--run  { fill: var(--teal-bright); opacity: 0; animation: mc2Run 9s steps(1,end) infinite; }
+.mc2__dot--done { fill: var(--teal); opacity: 0; animation: mc2Done 9s steps(1,end) infinite; }
+@keyframes mc2Stage { 0% { opacity: 1; } 30%, 100% { opacity: 0; } }
+@keyframes mc2Run   { 0%, 29% { opacity: 0; } 30%, 63% { opacity: 1; } 64%, 100% { opacity: 0; } }
+@keyframes mc2Done  { 0%, 63% { opacity: 0; } 64%, 100% { opacity: 1; } }
+
+/* the in-progress dot breathes while the job sits in that lane */
+.mc2__pulse { fill: var(--teal-bright); opacity: 0; animation: mc2Pulse 9s ease-out infinite; }
+@keyframes mc2Pulse {
+  0%, 30%   { opacity: 0; transform: scale(.5); }
+  40%       { opacity: .55; transform: scale(1); }
+  55%, 100% { opacity: 0; transform: scale(1.9); }
+}
+
+/* lane counters tick as the job lands */
+.mc2__count { font-family: var(--display); font-weight: 900; font-size: 13px; fill: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mc1__ring-fg { animation: none; stroke-dashoffset: 11; }
+  .mc1__slot--pm, .mc1__slot--bdm { animation: none; opacity: 1; transform: none; }
+  .mc1__tracer, .mc1__alert, .mc1__alertring,
+  .mc2__live, .mc2__dot--open, .mc2__dot--run, .mc2__dot--done, .mc2__pulse { animation: none !important; }
+  .mc1__tracer { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .8; }
+  .mc1__alert, .mc1__alertring, .mc2__pulse { opacity: 0; }
+  .mc2__dot--run, .mc2__dot--done { opacity: 0; }
+  .mpanel:hover { transform: none; }
+}

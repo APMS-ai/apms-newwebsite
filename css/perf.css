@@ -1,0 +1,71 @@
+/* ==========================================================================
+   APMS.ai — perf.css
+   Frame budget, not looks.
+
+   Measured before writing this: on the heavy pages the browser was running
+   170-180 CSS animations at once and roughly 80% of them belonged to sections
+   nobody could see. Median frame time during a scroll was 33ms (30fps) on
+   index and solutions, against 16.7ms (60fps) on the pages that animate
+   nothing. Smooth scrolling is impossible when the compositor is already
+   two frames behind, so the animations have to stop when they are off screen.
+
+   js/perf.js adds .fx-idle to any section outside the viewport (plus a screen
+   of margin either side, so nothing is ever caught mid-entrance) and removes
+   it before the section arrives. Paused animations cost nothing and resume
+   exactly where they stopped.
+   ========================================================================== */
+
+.fx-idle,
+.fx-idle *,
+.fx-idle *::before,
+.fx-idle *::after {
+  animation-play-state: paused !important;
+}
+
+/* Transitions are untouched on purpose: the reveal system uses them, and a
+   paused transition would strand a card half faded in. */
+
+/* ==========================================================================
+   COMPOSITOR LAYERS
+   `will-change` is a promise to the browser that something is about to move,
+   and it costs a layer to keep. 100+ elements were holding one permanently.
+   The reveal layer already releases its own; this releases the rest once the
+   element has arrived.
+   ========================================================================== */
+[data-reveal].in { will-change: auto; }
+
+/* The rail track only moves while it is being dragged or auto-advanced. */
+.agp__track { will-change: auto; }
+.agp.is-moving .agp__track { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* nothing extra: the animations are already off */
+}
+
+/* ==========================================================================
+   REVEAL BLUR
+   reveal.css fades each element in from filter: blur(3px). A blur is a
+   separate paint pass over the element's whole box, and on a fast scroll
+   dozens of cards are mid-transition at once, each demanding one. The effect
+   it buys is nearly invisible next to the fade and the rise that run
+   alongside it, so it is not worth the frames.
+
+   Kept for the few large headings, where the element count is small and the
+   softening actually reads.
+   ========================================================================== */
+.has-reveal [data-r] { --r-blur: 0px; }
+.has-reveal h1[data-r], .has-reveal h2[data-r], .has-reveal .sec__head[data-r] { --r-blur: 4px; }
+
+/* ==========================================================================
+   NOT DONE: content-visibility
+   Tried and reverted. It is genuinely fast here (vision-ai went from a 33.3ms
+   median frame to 16.7ms, reproduced across runs) but it needs an accurate
+   contain-intrinsic-size for every section, and these sections change height
+   with viewport, font loading and revealed content. With a guessed size the
+   measured result was: document height on index grew 18,842px to 22,198px,
+   sections shifted by up to 3,132px, and only 7 of 36 reveals ever fired
+   because the observers never saw a stable scroll position.
+
+   Worth revisiting only with a per-section height set at build time, or once
+   the reveal system no longer depends on scroll geometry.
+   ========================================================================== */

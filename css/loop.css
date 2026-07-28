@@ -1,0 +1,154 @@
+/* ==========================================================================
+   APMS.ai — loop.css
+   Animated "four moves, one loop" diagram on the About page.
+   Sits inside [data-ptabs]; the live node follows whichever tab is selected
+   (via :has), and falls back to Monitor where :has is unsupported.
+   APMS teal only.
+   ========================================================================== */
+
+.aloop { margin: 0 auto clamp(1.6rem, 4vw, 2.6rem); max-width: 1040px; }
+.aloop__svg { width: 100%; height: auto; overflow: visible; display: block; }
+
+/* ---------- the track ---------- */
+.aloop__track { fill: none; stroke: var(--line); stroke-width: 2; }
+.aloop__flow {
+  fill: none; stroke: var(--teal); stroke-width: 2.4; stroke-linecap: round;
+  opacity: 0.5; stroke-dasharray: 10 16;
+  animation: aloopFlow 1.9s linear infinite;
+}
+@keyframes aloopFlow { to { stroke-dashoffset: -26; } }
+
+.aloop__comet { fill: var(--teal); }
+.aloop__comet-halo { fill: var(--teal); opacity: 0.18; }
+
+/* ---------- nodes ---------- */
+.aloop__disc {
+  fill: var(--white); stroke: var(--line); stroke-width: 2;
+  transition: fill .45s var(--ease), stroke .45s var(--ease);
+}
+.aloop__glyph {
+  fill: none; stroke: var(--muted); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke .45s var(--ease);
+}
+.aloop__glyph-fill { fill: var(--muted); stroke: none; transition: fill .45s var(--ease); }
+.aloop__num {
+  font-family: var(--display); font-weight: 900; font-size: 11px;
+  letter-spacing: 0.14em; fill: var(--muted);
+  transition: fill .45s var(--ease);
+}
+.aloop__lbl {
+  font-family: var(--display); font-weight: 800; font-size: 15px;
+  fill: var(--ink); transition: fill .45s var(--ease);
+}
+.aloop__ring { fill: none; stroke: var(--teal); stroke-width: 2; opacity: 0; transform-origin: center; }
+
+/* ---------- live node ---------- */
+.aloop__n.is-live .aloop__disc { fill: var(--teal); stroke: var(--teal); }
+.aloop__n.is-live .aloop__glyph { stroke: #04231c; }
+.aloop__n.is-live .aloop__glyph-fill { fill: #04231c; }
+.aloop__n.is-live .aloop__num { fill: var(--teal-deep); }
+.aloop__n.is-live .aloop__lbl { fill: var(--teal-deep); }
+.aloop__n.is-live .aloop__ring { animation: aloopRing 2.4s ease-out infinite; }
+@keyframes aloopRing {
+  0%   { r: 30; opacity: 0.75; }
+  100% { r: 52; opacity: 0; }
+}
+
+/* glyph motion only runs on the live node, so the diagram never fidgets */
+.aloop__n.is-live .gl-wave  { animation: glWave 1.6s ease-in-out infinite; }
+.aloop__n.is-live .gl-bar1  { animation: glBar 1.5s ease-in-out infinite; }
+.aloop__n.is-live .gl-bar2  { animation: glBar 1.5s ease-in-out infinite .18s; }
+.aloop__n.is-live .gl-bar3  { animation: glBar 1.5s ease-in-out infinite .36s; }
+.aloop__n.is-live .gl-fcast { animation: glDraw 2.6s var(--ease-out) infinite; }
+.aloop__n.is-live .gl-dot   { animation: glDot 2.6s var(--ease-out) infinite; }
+.aloop__n.is-live .gl-bolt  { animation: glBolt 1.7s ease-in-out infinite; }
+
+@keyframes glWave { 0%,100% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
+@keyframes glBar  { 0%,100% { transform: scaleY(.5); } 50% { transform: scaleY(1); } }
+@keyframes glDraw { 0% { stroke-dashoffset: 30; } 45%,100% { stroke-dashoffset: 0; } }
+@keyframes glDot  { 0%,35% { opacity: 0; transform: scale(.4); } 55%,100% { opacity: 1; transform: scale(1); } }
+@keyframes glBolt { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* bar glyph needs a bottom origin to grow upward */
+.gl-bar1, .gl-bar2, .gl-bar3 { transform-box: fill-box; transform-origin: bottom; }
+.gl-dot { transform-box: fill-box; transform-origin: center; }
+.gl-wave { transform-box: fill-box; transform-origin: center; }
+
+/* ---------- follow the selected tab ---------- */
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act {
+  /* handled by .is-live rules above, applied through this compound selector */
+}
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .aloop__disc,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .aloop__disc,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .aloop__disc,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .aloop__disc { fill: var(--teal); stroke: var(--teal); }
+
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .aloop__glyph,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .aloop__glyph,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .aloop__glyph,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .aloop__glyph { stroke: #04231c; }
+
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .aloop__glyph-fill,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .aloop__glyph-fill,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .aloop__glyph-fill,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .aloop__glyph-fill { fill: #04231c; }
+
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .aloop__lbl,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .aloop__lbl,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .aloop__lbl,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .aloop__lbl,
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .aloop__num,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .aloop__num,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .aloop__num,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .aloop__num { fill: var(--teal-deep); }
+
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .aloop__ring,
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .aloop__ring,
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .aloop__ring,
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .aloop__ring { animation: aloopRing 2.4s ease-out infinite; }
+
+[data-ptabs]:has(.ppane[data-pane="monitor"].is-active) .aloop__n--monitor .gl-wave { animation: glWave 1.6s ease-in-out infinite; }
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .gl-bar1 { animation: glBar 1.5s ease-in-out infinite; }
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .gl-bar2 { animation: glBar 1.5s ease-in-out infinite .18s; }
+[data-ptabs]:has(.ppane[data-pane="analyse"].is-active) .aloop__n--analyse .gl-bar3 { animation: glBar 1.5s ease-in-out infinite .36s; }
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .gl-fcast { animation: glDraw 2.6s var(--ease-out) infinite; }
+[data-ptabs]:has(.ppane[data-pane="predict"].is-active) .aloop__n--predict .gl-dot   { animation: glDot 2.6s var(--ease-out) infinite; }
+[data-ptabs]:has(.ppane[data-pane="act"].is-active)     .aloop__n--act     .gl-bolt  { animation: glBolt 1.7s ease-in-out infinite; }
+
+/* ==========================================================================
+   Pane body — the side visuals are gone, so the copy is centred and the
+   tick list splits into two columns rather than running the full width.
+   ========================================================================== */
+.pbody { max-width: 860px; margin-inline: auto; text-align: center; }
+.pbody h3 { text-wrap: balance; }
+.pbody > p { margin-inline: auto; max-width: 68ch; }
+.pbody .ticks {
+  display: grid; gap: 0.35rem 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  text-align: left; margin-top: 1.4rem;
+  max-width: 720px; margin-inline: auto;
+}
+@media (max-width: 640px) { .pbody .ticks { grid-template-columns: 1fr; } }
+
+/* ---------- clickable ---------- */
+.aloop__n { cursor: pointer; }
+.aloop__hit { fill: transparent; }
+.aloop__n:hover .aloop__disc { stroke: var(--teal); }
+
+/* ---------- small screens: let it scroll rather than shrink the labels ---------- */
+@media (max-width: 800px) {
+  .aloop { overflow-x: auto; scrollbar-width: thin; padding-bottom: .6rem; }
+  .aloop__svg { min-width: 760px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aloop__flow, .aloop__comet, .aloop__comet-halo { animation: none !important; }
+  .aloop__ring { animation: none !important; opacity: 0 !important; }
+  .gl-wave, .gl-bar1, .gl-bar2, .gl-bar3, .gl-fcast, .gl-dot, .gl-bolt { animation: none !important; }
+  .gl-fcast { stroke-dashoffset: 0 !important; }
+  .gl-dot { opacity: 1 !important; }
+}

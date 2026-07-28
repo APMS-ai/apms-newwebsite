@@ -1,0 +1,28 @@
+# ==========================================================================
+# APMS.ai — line endings and diff behaviour
+#
+# Development happens on Windows and Netlify builds on Linux. Without this,
+# every file committed from Windows records CRLF, and the first edit made
+# anywhere else shows up as "every line changed".
+# ==========================================================================
+
+# Normalise to LF in the repository, check out native on each platform.
+* text=auto eol=lf
+
+# Binary: never touch these, and never try to diff them as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# Vendored minified libraries. They are third party and one line long, so a
+# diff is meaningless and only makes reviews harder to read.
+js/vendor/* linguist-vendored -diff
+
+# Let GitHub report the language as what we actually write.
+*.min.js linguist-vendored

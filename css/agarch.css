@@ -1,0 +1,163 @@
+/* ==========================================================================
+   APMS.ai — agarch.css
+   "The same architecture, pointed at your problem" — ai-agents.html
+
+   The previous version was one SVG carrying 28 text labels across four stacked
+   rows. Everything was on screen at once, nothing was emphasised, and the type
+   inside the SVG fought the type outside it.
+
+   This version says the same thing as a walkthrough. Four stages sit on one
+   line. A request travels along it and pauses at each stage; the stage lights
+   up as the request arrives, and its card lights up with it. Only one idea is
+   ever asking for attention. All the wording is real HTML, so it scales, wraps
+   and reads like the rest of the page.
+
+   One 12s cycle, four 3s stages. The card highlight and the node highlight run
+   off the same clock, so they cannot drift.
+   ========================================================================== */
+
+.arc { max-width: 1000px; margin-inline: auto; }
+
+/* ---------- the track ---------- */
+.arc__viz { margin: 0 auto 2rem; }
+/* the viewBox is authored close to the rendered size, so nothing stretches */
+.arc__viz svg { width: 100%; max-width: 1000px; height: auto; display: block; margin-inline: auto; overflow: visible; }
+.arc__viz * { transform-box: view-box; }
+
+.arc__rail { fill: none; stroke: rgba(255,255,255,.14); stroke-width: 2.5; stroke-linecap: round; }
+
+/* the lit section of the rail advances one stage at a time */
+.arc__lit {
+  fill: none; stroke: var(--teal); stroke-width: 2.5; stroke-linecap: round;
+  stroke-dasharray: 760; stroke-dashoffset: 760;
+}
+.arc.in .arc__lit { animation: arcLit 12s steps(4, end) infinite; }
+@keyframes arcLit { from { stroke-dashoffset: 760; } to { stroke-dashoffset: 0; } }
+
+/* ---------- nodes ---------- */
+.arc__disc {
+  fill: #0d1724; stroke: rgba(255,255,255,.16); stroke-width: 2;
+  transition: fill .4s var(--ease), stroke .4s var(--ease);
+}
+.arc__glyph {
+  fill: none; stroke: rgba(255,255,255,.5); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke .4s var(--ease);
+}
+.arc__num {
+  font-family: var(--display); font-weight: 800; font-size: 11px;
+  letter-spacing: .1em; fill: rgba(255,255,255,.38); text-anchor: middle;
+}
+
+/* a halo that only exists while the stage is active */
+.arc__halo { fill: none; stroke: var(--teal); stroke-width: 2; opacity: 0; }
+
+/* each stage takes its turn, 3s apart on a 12s loop */
+.arc.in .arc__stage { animation: arcStage 12s linear infinite; }
+.arc.in .arc__stage--2 { animation-delay: 3s; }
+.arc.in .arc__stage--3 { animation-delay: 6s; }
+.arc.in .arc__stage--4 { animation-delay: 9s; }
+
+/* the group animation drives nothing itself; the children read off it via
+   their own copies of the same clock, which keeps every part in step */
+@keyframes arcStage { 0%, 100% { opacity: 1; } }
+
+.arc.in .arc__stage .arc__halo { animation: arcHalo 12s linear infinite; }
+.arc.in .arc__stage--2 .arc__halo { animation-delay: 3s; }
+.arc.in .arc__stage--3 .arc__halo { animation-delay: 6s; }
+.arc.in .arc__stage--4 .arc__halo { animation-delay: 9s; }
+@keyframes arcHalo {
+  0%          { opacity: .55; transform: scale(1); }
+  16%         { opacity: 0;   transform: scale(1.35); }
+  17%, 100%   { opacity: 0;   transform: scale(1); }
+}
+
+.arc.in .arc__stage .arc__disc { animation: arcDisc 12s linear infinite; }
+.arc.in .arc__stage--2 .arc__disc { animation-delay: 3s; }
+.arc.in .arc__stage--3 .arc__disc { animation-delay: 6s; }
+.arc.in .arc__stage--4 .arc__disc { animation-delay: 9s; }
+@keyframes arcDisc {
+  0%, 21%   { fill: rgba(23,201,155,.16); stroke: var(--teal); }
+  26%, 100% { fill: #0d1724; stroke: rgba(255,255,255,.16); }
+}
+
+.arc.in .arc__stage .arc__glyph { animation: arcGlyph 12s linear infinite; }
+.arc.in .arc__stage--2 .arc__glyph { animation-delay: 3s; }
+.arc.in .arc__stage--3 .arc__glyph { animation-delay: 6s; }
+.arc.in .arc__stage--4 .arc__glyph { animation-delay: 9s; }
+@keyframes arcGlyph {
+  0%, 21%   { stroke: #7ff0cd; }
+  26%, 100% { stroke: rgba(255,255,255,.5); }
+}
+
+/* ---------- the four cards ---------- */
+.arc__stages {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .9rem;
+}
+@media (max-width: 900px) { .arc__stages { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .arc__stages { grid-template-columns: 1fr; } }
+
+.arc__card {
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px; padding: 1.05rem 1.1rem;
+  transition: background .45s var(--ease), border-color .45s var(--ease), transform .45s var(--ease-out);
+}
+.arc__card h3 {
+  font-family: var(--display); font-size: 1rem; color: #fff;
+  margin: 0 0 .35rem;
+}
+.arc__card p { font-size: .87rem; line-height: 1.6; color: rgba(255,255,255,.62); margin: 0; }
+.arc__card b {
+  display: block; font-family: var(--display); font-weight: 800;
+  font-size: .7rem; letter-spacing: .14em; color: rgba(255,255,255,.34);
+  margin-bottom: .45rem; transition: color .45s var(--ease);
+}
+
+/* the card lights on the same 12s clock as its node */
+.arc.in .arc__card { animation: arcCard 12s linear infinite; }
+.arc.in .arc__card:nth-child(2) { animation-delay: 3s; }
+.arc.in .arc__card:nth-child(3) { animation-delay: 6s; }
+.arc.in .arc__card:nth-child(4) { animation-delay: 9s; }
+@keyframes arcCard {
+  0%, 21%   { background: rgba(23,201,155,.10); border-color: rgba(23,201,155,.42); transform: translateY(-3px); }
+  26%, 100% { background: rgba(255,255,255,.035); border-color: rgba(255,255,255,.10); transform: none; }
+}
+.arc.in .arc__card b { animation: arcCardNum 12s linear infinite; }
+.arc.in .arc__card:nth-child(2) b { animation-delay: 3s; }
+.arc.in .arc__card:nth-child(3) b { animation-delay: 6s; }
+.arc.in .arc__card:nth-child(4) b { animation-delay: 9s; }
+@keyframes arcCardNum {
+  0%, 21%   { color: #7ff0cd; }
+  26%, 100% { color: rgba(255,255,255,.34); }
+}
+
+/* ---------- what sits underneath all four ---------- */
+.arc__base { margin-top: 1.6rem; }
+.arc__base > span {
+  display: block; font-family: var(--display); font-weight: 800;
+  font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.34); text-align: center; margin-bottom: .8rem;
+}
+/* three chips fitted on one line and left the fourth stranded; capping
+   the row width gives an even two and two */
+.arc__baserow {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+  max-width: 620px; margin-inline: auto;
+}
+.arc__baserow div {
+  display: flex; align-items: center; gap: .55rem;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.10);
+  border-radius: 999px; padding: .48rem .95rem;
+  font-size: .84rem; color: rgba(255,255,255,.74);
+}
+.arc__baserow svg {
+  width: 15px; height: 15px; flex: none;
+  fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc.in * { animation: none !important; }
+  .arc__lit { stroke-dashoffset: 0; }
+  .arc__halo { opacity: 0; }
+}

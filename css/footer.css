@@ -1,0 +1,130 @@
+/* ==========================================================================
+   APMS.ai — footer.css
+   Site-wide footer: fuller content, strict alignment.
+
+   The old footer was a 1.4fr + 4×1fr grid where each column sized itself, so
+   headings and links never lined up between columns and the contact column
+   was three bare links. This rebuilds it on a fixed rhythm:
+
+     · one baseline grid, so every column heading sits on the same line
+     · a real address block, phone and email pairs, and business hours
+     · a legal row that stays readable at every width
+
+   Loaded after redesign.css so it supersedes the .ft rules there.
+   ========================================================================== */
+
+.ft { background: var(--ink-900); color: var(--on-dark-soft); padding: clamp(3.4rem, 6vw, 5rem) 0 1.6rem; }
+
+/* ---------- top grid ---------- */
+.ft__grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr) 1.35fr;
+  gap: clamp(1.6rem, 3vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 2.8rem);
+  border-bottom: 1px solid var(--line-dark);
+  align-items: start;
+}
+/* Five children: brand plus four link columns. Three columns left the last two
+   stranded on their own row with a wide hole beside them, and put the tall brand
+   block next to short link columns. Below 1080 the brand takes its own full-width
+   row and the four link columns tile evenly underneath. */
+@media (max-width: 1080px) {
+  .ft__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ft__brand { grid-column: 1 / -1; }
+}
+/* Four columns below ~860px squeezes the address block to about 170px, where
+   it wraps every other word. Two columns pair the tall contact block with a
+   short one and keep both readable. */
+@media (max-width: 860px) {
+  .ft__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 460px) {
+  .ft__grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- brand ---------- */
+/* the file is 1049x238 (aspect 4.41). Pin the height and let the width
+   follow, so the mark can never be stretched by a wrong attribute. */
+.ft__brand img { height: 34px; width: auto; aspect-ratio: 1049 / 238;
+  filter: brightness(0) invert(1); opacity: .95; margin-bottom: 1.1rem; }
+.ft__brand p { font-size: .9rem; line-height: 1.65; max-width: 34ch; margin-bottom: 1.3rem; }
+
+.ft__badges { display: flex; flex-wrap: wrap; gap: .4rem; }
+.ft__badges span {
+  font-family: var(--display); font-weight: 700; font-size: .68rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--teal-bright);
+  background: rgba(46,224,180,0.10);
+  border: 1px solid rgba(46,224,180,0.24);
+  padding: .28rem .55rem; border-radius: 6px;
+}
+
+/* ---------- columns: one shared baseline ---------- */
+.ft__col h4 {
+  color: #fff; font-size: .82rem; font-family: var(--display); font-weight: 800;
+  letter-spacing: .12em; text-transform: uppercase;
+  margin: 0 0 1.05rem; padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+}
+.ft__col a {
+  display: block; font-size: .88rem; line-height: 1.5;
+  padding: .3rem 0; color: var(--on-dark-soft);
+  transition: color .2s var(--ease), transform .2s var(--ease);
+}
+.ft__col a:hover { color: var(--teal-bright); transform: translateX(3px); }
+
+/* ---------- contact column ---------- */
+.ft__contact h4 { border-bottom-color: rgba(255,255,255,0.09); }
+.ft__block { margin-bottom: 1.1rem; }
+.ft__block:last-child { margin-bottom: 0; }
+.ft__label {
+  display: block; font-family: var(--display); font-weight: 700;
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.42); margin-bottom: .3rem;
+}
+.ft__block a { padding: .16rem 0; }
+.ft__block address {
+  font-style: normal; font-size: .86rem; line-height: 1.6;
+  color: var(--on-dark-soft);
+}
+.ft__hours { font-size: .82rem; color: rgba(255,255,255,0.5); }
+
+/* needs to out-specify `.ft__col a { display: block }` and `.ft__block a`,
+   or the button stretches the full column and the arrow wraps */
+.ft__col a.ft__cta {
+  display: inline-flex; align-items: center; gap: .5rem;
+  width: auto; margin-top: .2rem; padding: .6rem 1rem;
+  font-family: var(--display); font-weight: 700; font-size: .82rem;
+  color: #04231c; background: var(--teal);
+  border-radius: 9px; white-space: nowrap;
+  transition: transform .25s var(--ease-out), box-shadow .25s var(--ease);
+}
+.ft__col a.ft__cta:hover {
+  transform: translateY(-2px); box-shadow: 0 12px 26px -14px rgba(23,201,155,.7);
+  color: #04231c;
+}
+.ft__col a.ft__cta svg { width: 14px; height: 14px; flex: none; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- legal row ---------- */
+.ft__bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem 1.6rem; flex-wrap: wrap;
+  padding-top: 1.5rem; font-size: .82rem; color: rgba(255,255,255,0.5);
+}
+.ft__legal { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; }
+.ft__legal a { color: rgba(255,255,255,0.5); transition: color .2s var(--ease); }
+.ft__legal a:hover { color: var(--teal-bright); }
+.ft__legal i { width: 1px; height: 12px; background: rgba(255,255,255,0.18); display: inline-block; }
+
+.ft__social { display: flex; gap: .8rem; }
+.ft__social a {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,0.22);
+  color: var(--on-dark-soft); transition: .25s var(--ease);
+}
+.ft__social a:hover { border-color: var(--teal); color: var(--teal-bright); }
+.ft__social svg { width: 15px; height: 15px; }
+
+@media (max-width: 620px) {
+  .ft__bottom { flex-direction: column-reverse; align-items: flex-start; }
+}
