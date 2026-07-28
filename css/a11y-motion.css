@@ -1,0 +1,153 @@
+/* ==========================================================================
+   APMS.ai — a11y-motion.css
+   What still moves when the visitor has asked for less motion.
+
+   Every other stylesheet answers prefers-reduced-motion by switching its
+   animation off, and nine of them do it with a wildcard: `.arc.in * {
+   animation: none }`. The result was a site that went completely static, which
+   is stricter than the preference actually asks for. Measured: 98 declared SVG
+   animations on solutions.html became 0.
+
+   That matters more than it sounds, because a phone in battery saver turns the
+   preference on by itself. Android's Battery Saver enables "Remove animations"
+   system wide, so a visitor whose battery dipped below 20% was being shown
+   consoles that look like dead screenshots, with no way to tell that the
+   product does anything.
+
+   The preference exists to prevent vestibular discomfort, which is caused by
+   movement: parallax, spinning, scaling, sliding, panning, things travelling
+   across the screen. It is not caused by something changing colour.
+
+   So this file puts back exactly one category: animations that change state
+   without moving anything. A stage lighting up, a tick appearing, a status dot
+   going from grey to green. Of 177 keyframes on the site, 23 qualify.
+
+   Deliberately still off:
+     · every transform, so nothing translates, scales, rotates or drifts
+     · continuous travel, even where it is only opacity: the loop washes
+       (agfLive, mLive), flowing dashes, sweeps and shimmer, because they never
+       settle and are the ones that read as restless
+     · Lenis smooth scrolling, the parallax layer, and the WebGL backgrounds,
+       all of which remain fully disabled by their own files
+     · arcCard, which lights a card but also lifts it 3px
+
+   Selectors carry an `html` prefix purely for specificity. The rules being
+   overridden all use !important, so this needs to win on both importance and
+   specificity, and prefixing an element selector is the least invasive way to
+   do that without rewriting nine files.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  /* ---------- css\agarch.css ---------- */
+  html .arc.in .arc__stage .arc__disc {
+    animation: arcDisc 12s linear infinite !important;
+  }
+  html .arc.in .arc__stage .arc__glyph {
+    animation: arcGlyph 12s linear infinite !important;
+  }
+  html .arc.in .arc__card b {
+    animation: arcCardNum 12s linear infinite !important;
+  }
+
+  /* ---------- css\agentic.css ---------- */
+  html .gz-pulse {
+    animation: gzPulse 2.6s ease-in-out infinite !important;
+  }
+  html .gz-pulse2 {
+    animation: gzPulse 2.6s ease-in-out infinite .8s !important;
+  }
+  html .gz-pulse3 {
+    animation: gzPulse 2.6s ease-in-out infinite 1.6s !important;
+  }
+  html .gz-tick {
+    animation: gzTick 3.4s var(--ease-out) infinite !important;
+  }
+  html .gz-blink {
+    animation: gzBlink 1.9s steps(1,end) infinite !important;
+  }
+  html .gz-blink2 {
+    animation: gzBlink 1.9s steps(1,end) infinite .63s !important;
+  }
+  html .gz-blink3 {
+    animation: gzBlink 1.9s steps(1,end) infinite 1.26s !important;
+  }
+
+  /* ---------- css\aiplus.css ---------- */
+  html [data-reveal].in .anav li {
+    animation: aNav var(--beat) steps(1, end) infinite !important;
+  }
+  html [data-reveal].in .arep__tick {
+    animation: aTick 5s var(--ease-out) infinite !important;
+  }
+
+  /* ---------- css\bentofx.css ---------- */
+  html .bfl__dot {
+    animation: bflDot 2.2s ease-in-out infinite !important;
+  }
+
+  /* ---------- css\formfx.css ---------- */
+  html .dflow.in .df__stage .df__disc {
+    animation: dfDisc 9s linear infinite !important;
+  }
+  html .dflow.in .df__stage .df__glyph {
+    animation: dfGlyph 9s linear infinite !important;
+  }
+  html .dflow.in .df__stage .df__lbl {
+    animation: dfLbl 9s linear infinite !important;
+  }
+
+  /* ---------- css\illus.css ---------- */
+  html .phero__art .fx-pulse {
+    animation: ilPulse 1.7s ease-in-out infinite !important;
+  }
+
+  /* ---------- css\loop.css ---------- */
+  html .aloop__n.is-live .gl-bolt {
+    animation: glBolt 1.7s ease-in-out infinite !important;
+  }
+  html [data-ptabs]:has(.ppane[data-pane="act"].is-active) .aloop__n--act .gl-bolt {
+    animation: glBolt 1.7s ease-in-out infinite !important;
+  }
+
+  /* ---------- css\maint.css ---------- */
+  html .mstep__n i {
+    animation: mDot var(--beat) ease-out infinite !important;
+  }
+  html .mico--sheet .mico__row {
+    animation: mRow 3.6s cubic-bezier(.22,.61,.36,1) infinite !important;
+  }
+  html .mico--sheet .mico__tick {
+    animation: mTick 3.6s cubic-bezier(.22,.61,.36,1) infinite .85s !important;
+  }
+
+  /* ---------- css\maintui.css ---------- */
+  html .mc2__dot--open {
+    animation: mc2Stage 9s steps(1,end) infinite !important;
+  }
+  html .mc2__dot--run {
+    animation: mc2Run 9s steps(1,end) infinite !important;
+  }
+  html .mc2__dot--done {
+    animation: mc2Done 9s steps(1,end) infinite !important;
+  }
+
+  /* ---------- css\motionfx.css ---------- */
+  html .mfx[data-reveal].in .mf__load {
+    animation: mfLoad 5.2s steps(1, end) infinite !important;
+  }
+  html .mfx[data-reveal].in .mf__part--done {
+    animation: mfPlaced 5.2s steps(1, end) infinite !important;
+  }
+
+  /* ---------- css\visionfx.css ---------- */
+  html .vcon[data-reveal].in .vc__box,
+  html .vcon[data-reveal].in .vc__box-l,
+  html .vcon[data-reveal].in .vc__verdict {
+    animation: vcLock 6.4s linear infinite !important;
+  }
+
+  /* The reveal layer sets `filter: none !important` and holds elements at their
+     final state, which is correct and stays. These animations run on children,
+     so they are unaffected by that. */
+}

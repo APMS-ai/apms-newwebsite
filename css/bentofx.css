@@ -142,7 +142,15 @@
 .bento[data-reveal].in .bfl__scan { animation-play-state: running; }
 
 @media (prefers-reduced-motion: reduce) {
-  .bfx *, .bnum__sweep, .bfl__dot, .bfl__scan { animation: none !important; }
+  /* `.bnum__sweep` was the old centred ring, which no longer exists. The
+     underline that replaced it lives on .bnum::before and animates translateX,
+     so it was still sliding for anyone who had asked for reduced motion.
+     Held at rest and widened, so the underline still reads as a full rule. */
+  .bfx *, .bfl__dot, .bfl__scan { animation: none !important; }
+  .bento[data-reveal].in .bnum::before,
+  .bnum::before {
+    animation: none !important; transform: none !important; width: 100%;
+  }
   .bfx--gauge .bfx__blip, .bfx--clock .bfx__ring,
   .bfx--user .bfx__okring, .bfl__scan { opacity: 0 !important; }
   .bfx--gauge .bfx__needle { transform: rotate(-8deg); }
