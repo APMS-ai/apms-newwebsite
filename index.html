@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/chatbot.css?v=7">
   <link rel="stylesheet" href="css/perf.css?v=4">
   <link rel="stylesheet" href="css/a11y-motion.css?v=1">
+  <link rel="stylesheet" href="css/loop.css?v=3">
 </head>
 <body data-fx="fadeup">
 
@@ -506,6 +507,159 @@
       </div>
     </section>
 
+<section class="sec sec--paper">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="h-eyebrow">Product tour</span>
+          <h2 data-clip>Four moves, one loop:<br><span class="accent">monitor, analyse, predict, act</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">The APMS loop never stops: every second of machine signal is captured, understood, forecast and acted on, then fed back in.</p>
+        </div>
+        <div data-ptabs data-reveal>
+          <div class="aloop">
+            <svg class="aloop__svg aloop__svg--wide" viewBox="0 0 1040 250" role="img" aria-label="The APMS loop: monitor feeds analyse, analyse feeds predict, predict feeds act, and act feeds back into monitor">
+              <!-- racetrack -->
+              <path id="aloopPath" class="aloop__track" d="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+              <path class="aloop__flow" d="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+
+              <!-- travelling pulse -->
+              <g>
+                <circle class="aloop__comet-halo" r="9" visibility="hidden"><set attributeName="visibility" to="visible" begin="0s"/>
+                  <animateMotion dur="7s" repeatCount="indefinite" path="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+                </circle>
+                <circle class="aloop__comet" r="4" visibility="hidden"><set attributeName="visibility" to="visible" begin="0s"/>
+                  <animateMotion dur="7s" repeatCount="indefinite" path="M150 78 H890 C965 78 965 196 890 196 H150 C75 196 75 78 150 78"/>
+                </circle>
+              </g>
+
+              <text class="aloop__num" x="520" y="228" text-anchor="middle">AND BACK ROUND AGAIN</text>
+
+              <!-- 01 MONITOR -->
+              <g class="aloop__n aloop__n--monitor is-live" data-goto="monitor">
+                <circle class="aloop__ring" cx="150" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="150" cy="78" r="30"/>
+                <g transform="translate(150,78)">
+                  <path class="aloop__glyph gl-wave" d="M-13 0 h5 l3 -9 l4 18 l3 -9 h9"/>
+                </g>
+                <text class="aloop__num" x="150" y="132" text-anchor="middle">01</text>
+                <text class="aloop__lbl" x="150" y="150" text-anchor="middle">Monitor</text>
+                <circle class="aloop__hit" cx="150" cy="110" r="46"/>
+              </g>
+
+              <!-- 02 ANALYSE -->
+              <g class="aloop__n aloop__n--analyse" data-goto="analyse">
+                <circle class="aloop__ring" cx="397" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="397" cy="78" r="30"/>
+                <g transform="translate(397,78)">
+                  <rect class="aloop__glyph-fill gl-bar1" x="-12" y="-2"  width="6" height="12" rx="1.5"/>
+                  <rect class="aloop__glyph-fill gl-bar2" x="-3"  y="-8"  width="6" height="18" rx="1.5"/>
+                  <rect class="aloop__glyph-fill gl-bar3" x="6"   y="-13" width="6" height="23" rx="1.5"/>
+                </g>
+                <text class="aloop__num" x="397" y="132" text-anchor="middle">02</text>
+                <text class="aloop__lbl" x="397" y="150" text-anchor="middle">Analyse</text>
+                <circle class="aloop__hit" cx="397" cy="110" r="46"/>
+              </g>
+
+              <!-- 03 PREDICT -->
+              <g class="aloop__n aloop__n--predict" data-goto="predict">
+                <circle class="aloop__ring" cx="643" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="643" cy="78" r="30"/>
+                <g transform="translate(643,78)">
+                  <path class="aloop__glyph" d="M-14 8 L-6 0 L0 4"/>
+                  <path class="aloop__glyph gl-fcast" d="M0 4 L7 -6 L14 -10" stroke-dasharray="30" stroke-dashoffset="30"/>
+                  <circle class="aloop__glyph-fill gl-dot" cx="14" cy="-10" r="3"/>
+                </g>
+                <text class="aloop__num" x="643" y="132" text-anchor="middle">03</text>
+                <text class="aloop__lbl" x="643" y="150" text-anchor="middle">Predict</text>
+                <circle class="aloop__hit" cx="643" cy="110" r="46"/>
+              </g>
+
+              <!-- 04 ACT -->
+              <g class="aloop__n aloop__n--act" data-goto="act">
+                <circle class="aloop__ring" cx="890" cy="78" r="30"/>
+                <circle class="aloop__disc" cx="890" cy="78" r="30"/>
+                <g transform="translate(890,78)">
+                  <path class="aloop__glyph-fill gl-bolt" d="M2 -14 L-9 3 h7 l-2 11 L9 -3 h-7 z"/>
+                </g>
+                <text class="aloop__num" x="890" y="132" text-anchor="middle">04</text>
+                <text class="aloop__lbl" x="890" y="150" text-anchor="middle">Act</text>
+                <circle class="aloop__hit" cx="890" cy="110" r="46"/>
+              </g>
+            </svg>
+          <svg class="aloop__svg aloop__svg--tall" viewBox="0 0 360 400" role="img" aria-label="The APMS loop: monitor feeds analyse, analyse feeds predict, predict feeds act, and act feeds back into monitor">
+            <path class="aloop__track" d="M96 84 H264 C322 84 322 142 322 142 V210 C322 268 322 268 264 268 H96 C38 268 38 210 38 210 V142 C38 84 38 84 96 84"/>
+            <path class="aloop__flow" d="M96 84 H264 C322 84 322 142 322 142 V210 C322 268 322 268 264 268 H96 C38 268 38 210 38 210 V142 C38 84 38 84 96 84"/>
+            <g>
+              <circle class="aloop__comet-halo" r="9" visibility="hidden"><set attributeName="visibility" to="visible" begin="0s"/><animateMotion dur="7s" repeatCount="indefinite" path="M96 84 H264 C322 84 322 142 322 142 V210 C322 268 322 268 264 268 H96 C38 268 38 210 38 210 V142 C38 84 38 84 96 84"/></circle>
+              <circle class="aloop__comet" r="4" visibility="hidden"><set attributeName="visibility" to="visible" begin="0s"/><animateMotion dur="7s" repeatCount="indefinite" path="M96 84 H264 C322 84 322 142 322 142 V210 C322 268 322 268 264 268 H96 C38 268 38 210 38 210 V142 C38 84 38 84 96 84"/></circle>
+            </g>
+            <g class="aloop__n aloop__n--monitor is-live" data-goto="monitor">
+              <circle class="aloop__ring" cx="96" cy="84" r="30"/>
+              <circle class="aloop__disc" cx="96" cy="84" r="30"/>
+              <g transform="translate(96,84)"><path class="aloop__glyph gl-wave" d="M-13 0 h5 l3 -9 l4 18 l3 -9 h9"/></g>
+              <text class="aloop__num" x="96" y="32" text-anchor="middle">01</text>
+              <text class="aloop__lbl" x="96" y="50" text-anchor="middle">Monitor</text>
+              <circle class="aloop__hit" cx="96" cy="84" r="42"/>
+            </g>
+            <g class="aloop__n aloop__n--analyse" data-goto="analyse">
+              <circle class="aloop__ring" cx="264" cy="84" r="30"/>
+              <circle class="aloop__disc" cx="264" cy="84" r="30"/>
+              <g transform="translate(264,84)"><rect class="aloop__glyph-fill gl-bar1" x="-12" y="-2"  width="6" height="12" rx="1.5"/><rect class="aloop__glyph-fill gl-bar2" x="-3"  y="-8"  width="6" height="18" rx="1.5"/><rect class="aloop__glyph-fill gl-bar3" x="6"   y="-13" width="6" height="23" rx="1.5"/></g>
+              <text class="aloop__num" x="264" y="32" text-anchor="middle">02</text>
+              <text class="aloop__lbl" x="264" y="50" text-anchor="middle">Analyse</text>
+              <circle class="aloop__hit" cx="264" cy="84" r="42"/>
+            </g>
+            <g class="aloop__n aloop__n--predict" data-goto="predict">
+              <circle class="aloop__ring" cx="264" cy="268" r="30"/>
+              <circle class="aloop__disc" cx="264" cy="268" r="30"/>
+              <g transform="translate(264,268)"><path class="aloop__glyph" d="M-14 8 L-6 0 L0 4"/><path class="aloop__glyph gl-fcast" d="M0 4 L7 -6 L14 -10" stroke-dasharray="30" stroke-dashoffset="30"/><circle class="aloop__glyph-fill gl-dot" cx="14" cy="-10" r="3"/></g>
+              <text class="aloop__num" x="264" y="314" text-anchor="middle">03</text>
+              <text class="aloop__lbl" x="264" y="332" text-anchor="middle">Predict</text>
+              <circle class="aloop__hit" cx="264" cy="268" r="42"/>
+            </g>
+            <g class="aloop__n aloop__n--act" data-goto="act">
+              <circle class="aloop__ring" cx="96" cy="268" r="30"/>
+              <circle class="aloop__disc" cx="96" cy="268" r="30"/>
+              <g transform="translate(96,268)"><path class="aloop__glyph-fill gl-bolt" d="M2 -14 L-9 3 h7 l-2 11 L9 -3 h-7 z"/></g>
+              <text class="aloop__num" x="96" y="314" text-anchor="middle">04</text>
+              <text class="aloop__lbl" x="96" y="332" text-anchor="middle">Act</text>
+              <circle class="aloop__hit" cx="96" cy="268" r="42"/>
+            </g>
+            <text class="aloop__num" x="180" y="181" text-anchor="middle">AND BACK ROUND AGAIN</text>
+          </svg>
+          </div>
+          <div class="ptabs" role="tablist">
+            <button class="ptab is-active" data-tab="monitor">01 · Monitor</button>
+            <button class="ptab" data-tab="analyse">02 · Analyse</button>
+            <button class="ptab" data-tab="predict">03 · Predict</button>
+            <button class="ptab" data-tab="act">04 · Act</button>
+          </div>
+          <div class="ppane is-active" data-pane="monitor">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">See every machine, every second</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Every asset reports its own status, whether it is running, idle, stopped or in setup, read straight from the controller with nothing for anyone to write down. OEE and utilisation build themselves from that same feed, so the whole plant sits in one view and the shift ends without any guesswork.</p>
+            </div>
+          </div>
+          <div class="ppane" data-pane="analyse">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">Every loss traced to its cause</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Downtime is tagged with its reason the moment it happens and ranked by what it actually costs, so recurring losses stop hiding in spreadsheets. You can cut the same picture by line or by shift, and watch MTBF and MTTR move as the fixes land.</p>
+            </div>
+          </div>
+          <div class="ppane" data-pane="predict">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">Catch failures before they cost a shift</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Vibration, load, temperature and cycle signatures feed anomaly detection, so wear and drift surface as an early warning rather than a breakdown. The same signals forecast tool life and usage, which turns maintenance into something you schedule instead of something that happens to you.</p>
+            </div>
+          </div>
+          <div class="ppane" data-pane="act">
+            <div class="pbody">
+              <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">The right person, the right second</h3>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Alerts and escalations fire the moment reality drifts from plan, reaching the right person for the job on their phone or the dashboard in front of them. The same events push into your ERP, MES, email and SMS, so the response starts without anyone relaying a message.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- ============ CONNECT ANY MACHINE · POWER ANY SYSTEM ============ -->
     <section class="sec sec--dark">
       <div class="container">
@@ -846,5 +1000,6 @@
   <script src="js/iconlife.js?v=1"></script>
   <script src="js/perf.js?v=3"></script>
   <script src="js/gscroll.js?v=1"></script>
+  <script src="js/loop.js?v=1"></script>
 </body>
 </html>

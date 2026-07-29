@@ -140,9 +140,17 @@
 .aloop__n:hover .aloop__disc { stroke: var(--teal); }
 
 /* ---------- small screens: let it scroll rather than shrink the labels ---------- */
+/* The wide track is 1040 units across. It used to be min-width: 760px inside an
+   overflow-x scroller below 800px, which showed a phone the first node and a
+   half and nothing else. Under 800px the markup swaps to a second SVG whose
+   four nodes run clockwise around a rounded square, which reads as a loop more
+   honestly than a row does anyway. */
+.aloop__svg--tall { display: none; }
+
 @media (max-width: 800px) {
-  .aloop { overflow-x: auto; scrollbar-width: thin; padding-bottom: .6rem; }
-  .aloop__svg { min-width: 760px; }
+  .aloop { overflow: visible; }
+  .aloop__svg--wide { display: none; }
+  .aloop__svg--tall { display: block; max-width: 360px; margin-inline: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

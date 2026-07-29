@@ -28,6 +28,13 @@
    Forcing the cross-size back to auto lets stretch do the job properly. */
 .agp__track > * { align-self: stretch; height: auto; }
 
+/* rail.js only adds .agp--native once a rail scrolls into view, so until then
+   the track laid its cards out in a row wider than the page and the document
+   itself could be dragged sideways: measured 971px of horizontal overflow on
+   solutions.html before any scrolling. Clip from the start; agp--native then
+   adds the snapping and the scrollbar treatment. */
+[data-agp-native] { overflow-x: auto; overflow-y: hidden; }
+
 /* fallback / touch: real horizontal scrolling with snap */
 .agp--native { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; }
 .agp--native .agp__track { padding-inline: 2px; }
