@@ -115,9 +115,15 @@ frame timing, grid alignment, reveals, rails and reduced motion.
 
 ## 9 · Git and deploy
 
+- **Do not push without being asked.** Pushing to `main` triggers a Netlify
+  build, and the account's usage is being watched. Commit locally as often as
+  useful; `git push` only when the work is explicitly signed off. Check with
+  `git log origin/main..main --oneline` to see what is waiting.
+- To preview without deploying: `python -m http.server 8080` in the project
+  root, then open `http://localhost:8080`. Everything works locally except the
+  `netlify.toml` headers and redirects.
 - GitHub: `Sudhanvahp/APMS.ai-Website` (**private**).
 - **`main` is what Netlify deploys** (project `apms-ai`, `apms-ai.netlify.app`).
-  Work on a branch, merge to `main` to publish.
 - **`v1-first-deploy` is frozen at `1e33c73`** — the first deployed version.
   Never commit to it or move it.
 - No build command. Publish directory is `.`. Config in `netlify.toml`.
