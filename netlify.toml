@@ -11,8 +11,7 @@
 
 # --------------------------------------------------------------------------
 # Security headers.
-# signin.html carries its own stricter Content-Security-Policy in a meta tag,
-# which stays as it is. These apply to every response.
+# These apply to every response.
 # --------------------------------------------------------------------------
 [[headers]]
   for = "/*"

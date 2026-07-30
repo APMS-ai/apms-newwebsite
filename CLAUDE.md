@@ -32,7 +32,7 @@ already caused a real, measured defect once.
 
 - Hand-written HTML/CSS/JS. **No build step, no `package.json`, no framework.**
   Libraries are vendored in `js/vendor/`.
-- 10 real pages plus `404.html`. **`machine-health-vitals.html` and
+- 9 real pages plus `404.html`. **`machine-health-vitals.html` and
   `pipeline-step-preview.html` are standalone generated files** — exclude them
   from every sweep, audit and deploy (`.gitignore` already does).
 - **Bump `?v=N`** on a stylesheet or script whenever you edit it, or the browser
@@ -126,9 +126,6 @@ frame timing, grid alignment, reveals, rails and reduced motion.
 
 ## 10 · Still outstanding
 
-- **Sign-in cannot sign anyone in** (`action="#"`, empty CSRF) yet is linked in
-  the header on all 10 pages. Point it at a real identity provider or remove it
-  from the nav. `js/signin.js` lists the server-side controls required.
 - **Book a Demo collects nothing.** Netlify Forms would fix it: add `name` +
   `data-netlify="true"` and remove the `e.preventDefault()` in `js/redesign.js`.
 - The chatbot accepts typed questions and **discards them**. Worth logging.

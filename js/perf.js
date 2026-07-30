@@ -8,7 +8,7 @@
      index.html          33.4ms         78%                  181
      solutions.html      33.6ms         84%                  174
      ai-agents.html      33.2ms         56%                  138
-     signin.html         16.7ms          0%                    0
+     privacy.html        16.7ms          0%                    0
 
    180 concurrent animations is 30fps, and about 80% of them were in sections
    scrolled well out of view. Nothing about the Lenis configuration can rescue

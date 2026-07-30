@@ -167,7 +167,6 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; line-height: 1.0
    The header is transparent with white text until 40px of scroll, which is
    right over a dark hero. On a page that opens on paper it makes the whole nav
    invisible. Add class="lighttop" to the body of any such page.
-   signin.css carries an equivalent block scoped to .si-page.
    ========================================================================== */
 body.lighttop .hdr:not(.is-stuck) {
   background: #fff;
