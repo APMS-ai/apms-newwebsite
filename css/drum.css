@@ -1,0 +1,95 @@
+/* ==========================================================================
+   APMS.ai — drum.css
+   "One platform, end to end" as a rotating drum.
+
+   The six cards sit on the face of a cylinder, 60 degrees apart. Scrolling
+   turns the cylinder so each card comes to the front in turn: six steps, six
+   cards. js/drum.js pins the stage and drives the rotation from scroll.
+
+   Two things this must not become:
+     · a trap. The pin has a fixed length and releases; nothing depends on the
+       visitor completing a gesture
+     · a mobile experience. Pinning fights touch scrolling, and a drum on a
+       360px screen is unreadable. Below 900px, and under reduced motion, the
+       cards fall back to the plain stacked grid they were before.
+   ========================================================================== */
+
+.drum { margin-top: clamp(2rem, 4vw, 3rem); }
+
+/* ---------- fallback: the layout everywhere the drum does not run ---------- */
+.drum__ring {
+  display: grid; gap: 1.1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 900px) { .drum__ring { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .drum__ring { grid-template-columns: 1fr; } }
+.drum__dots { display: none; }
+
+/* ==========================================================================
+   THE DRUM ITSELF
+   Only once js/drum.js has decided the conditions are right. It adds .is-drum,
+   which switches the grid off and the cylinder on, so if the script never runs
+   the section is still a perfectly good grid of six cards.
+   ========================================================================== */
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .drum.is-drum { --r: 460px; }
+
+  .drum.is-drum .drum__stage {
+    height: 62vh; min-height: 400px;
+    display: grid; place-items: center;
+    perspective: 1500px;
+    perspective-origin: 50% 45%;
+  }
+
+  .drum.is-drum .drum__ring {
+    display: block;                 /* the grid is off; position is 3D now */
+    position: relative;
+    width: min(430px, 34vw); height: 0;
+    transform-style: preserve-3d;
+    /* js writes rotateY here every frame while the section is pinned */
+    will-change: transform;
+  }
+
+  .drum.is-drum .drum__card {
+    position: absolute; left: 0; top: 0;
+    width: 100%; margin: 0;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;    /* the far side of the drum stays hidden */
+    transition: opacity .45s var(--swift, ease), filter .45s var(--swift, ease);
+    /* each card is turned to its own facet and pushed out to the radius.
+       js sets --a per card so the count can change without touching this. */
+    transform: translate(-50%, -50%) rotateY(var(--a)) translateZ(var(--r));
+    left: 50%; top: 50%;
+  }
+
+  /* depth cue: whatever is not at the front recedes */
+  .drum.is-drum .drum__card { opacity: .28; filter: saturate(.6); }
+  .drum.is-drum .drum__card.is-front {
+    opacity: 1; filter: none;
+    border-color: rgba(23, 201, 155, .45);
+    box-shadow: 0 40px 90px -40px rgba(0, 0, 0, .55);
+  }
+
+  /* ---------- the step indicator ---------- */
+  .drum.is-drum .drum__dots {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: .5rem 1.1rem; margin: 1.6rem auto 0; padding: 0; max-width: 760px;
+    list-style: none;
+  }
+  .drum.is-drum .drum__dots li {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--display); font-weight: 700; font-size: .78rem;
+    color: var(--muted); transition: color .3s var(--swift, ease);
+  }
+  .drum.is-drum .drum__dots li span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--line); transition: background .3s var(--swift, ease),
+                                         transform .3s var(--spring, ease);
+  }
+  .drum.is-drum .drum__dots li.is-on { color: var(--ink); }
+  .drum.is-drum .drum__dots li.is-on span { background: var(--teal); transform: scale(1.5); }
+
+  /* the tilt from motion.js has no business on a card that is already
+     turned in 3D: two owners of transform on one element */
+  .drum.is-drum .drum__card[data-tilt3d] { transform: translate(-50%, -50%) rotateY(var(--a)) translateZ(var(--r)); }
+}
