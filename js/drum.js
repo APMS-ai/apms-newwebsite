@@ -21,12 +21,19 @@
 (function () {
   "use strict";
 
-  var drum = document.querySelector("[data-drum]");
-  if (!drum) return;
+  var drums = Array.prototype.slice.call(document.querySelectorAll("[data-drum]"));
+  if (!drums.length) return;
 
   var gsap = window.gsap, ST = window.ScrollTrigger;
   if (!gsap || !ST) return;
 
+  gsap.registerPlugin(ST);
+  drums.forEach(build);
+
+  /* Each drum owns its own pin, ring and cleanup. Written as a function per
+     drum rather than one shared closure, because the page now has two and a
+     shared `current` would have made one section drive the other. */
+  function build(drum) {
   var section = drum.closest("section") || drum.parentElement;
   var ring = drum.querySelector(".drum__ring");
   var stage = drum.querySelector(".drum__stage");
@@ -35,7 +42,6 @@
   if (!ring || !stage || cards.length < 2) return;
 
   var N = cards.length;
-  gsap.registerPlugin(ST);
 
   gsap.matchMedia().add(
     "(min-width: 901px) and (prefers-reduced-motion: no-preference)",
@@ -121,6 +127,8 @@
       };
     }
   );
+
+  }
 
   window.addEventListener("load", function () { ST.refresh(); });
 })();

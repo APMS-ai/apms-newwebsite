@@ -481,11 +481,28 @@ body.lighttop .hdr:not(.is-stuck) .burger span { background: var(--ink); }
    HOW IT WORKS
    ========================================================================== */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; counter-reset: step; }
+/* The counter used to reset on .steps. When those cards moved into the drum
+   that wrapper went away, so every card restarted at 01. The ring is their
+   container now, so the counter belongs on it. */
+.drum__ring { counter-reset: step; }
 @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
 .step { position: relative; padding: 2rem 1.7rem; border-radius: var(--radius); background: rgba(255,255,255,0.03); border: 1px solid var(--line-dark); }
 .step::before { counter-increment: step; content: "0" counter(step); font-family: var(--display); font-weight: 800; font-size: 3rem; color: var(--teal-bright); opacity: 0.9; line-height: 1; }
 .step h3 { color: #fff; font-size: 1.25rem; margin: 0.7rem 0 0.5rem; }
 .step p { color: var(--on-dark-soft); font-size: 0.95rem; }
+
+/* The three rules above are written for a dark section. On index.html this
+   block sits on .sec--paper, so the card came out white and the white heading
+   and pale body text were invisible: the numbers rendered and nothing else did.
+   Same light-section pattern used by the motion and vision consoles. */
+:is(.sec--paper, .sec--white) .step {
+  background: var(--white);
+  border-color: var(--line);
+  box-shadow: 0 18px 40px -30px rgba(12, 26, 40, 0.35);
+}
+:is(.sec--paper, .sec--white) .step h3 { color: var(--ink); }
+:is(.sec--paper, .sec--white) .step p { color: var(--body); }
+:is(.sec--paper, .sec--white) .step::before { color: var(--teal-deep); opacity: 1; }
 
 /* ==========================================================================
    INDUSTRIES

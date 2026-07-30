@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/loader.css?v=1">
-  <link rel="stylesheet" href="css/redesign.css?v=13">
+  <link rel="stylesheet" href="css/redesign.css?v=15">
   <link rel="stylesheet" href="css/enhance.css?v=16">
   <link rel="stylesheet" href="css/polish.css?v=2">
   <link rel="stylesheet" href="css/iconlife.css?v=1">
@@ -985,10 +985,19 @@
           <span class="kicker" style="justify-content:center;">How it works</span>
           <h2>Live in <span class="accent">days</span>, not quarters</h2>
         </div>
-        <div class="steps">
-          <div class="step" data-reveal><h3>Connect</h3><p>We tap your machines with  hardware (new or decades old) and stream signals securely, with no rip-and-replace and no production stoppage.</p></div>
-          <div class="step" data-reveal data-reveal-delay="1"><h3>Understand</h3><p>Signals become one clean, unified model of your floor. AI adds context: what's normal, what's drifting, what's about to cost you.</p></div>
-          <div class="step" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Dashboards, alerts and agents put the right insight in front of the right person, and trigger action automatically when seconds matter.</p></div>
+                <div class="drum" data-drum>
+          <div class="drum__stage">
+            <div class="drum__ring">
+              <div class="step drum__card" data-i="0" data-reveal><h3>Connect</h3><p>We tap your machines with  hardware (new or decades old) and stream signals securely, with no rip-and-replace and no production stoppage.</p></div>
+              <div class="step drum__card" data-i="1" data-reveal data-reveal-delay="1"><h3>Understand</h3><p>Signals become one clean, unified model of your floor. AI adds context: what's normal, what's drifting, what's about to cost you.</p></div>
+              <div class="step drum__card" data-i="2" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Dashboards, alerts and agents put the right insight in front of the right person, and trigger action automatically when seconds matter.</p></div>
+            </div>
+          </div>
+          <ol class="drum__dots" aria-hidden="true">
+            <li class="is-on"><span></span>Connect</li>
+            <li><span></span>Understand</li>
+            <li><span></span>Act</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -1249,7 +1258,7 @@
   <script src="js/gscroll.js?v=1"></script>
   <script src="js/loop.js?v=1"></script>
   <script src="js/motion.js?v=4"></script>
-  <script src="js/drum.js?v=4"></script>
+  <script src="js/drum.js?v=5"></script>
   <script src="js/analyst.js?v=1"></script>
 </body>
 </html>
