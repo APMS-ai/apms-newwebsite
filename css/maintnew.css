@@ -1,0 +1,103 @@
+/* ==========================================================================
+   APMS.ai — maintnew.css
+   Two consoles for "Maintenance & job management, built in".
+
+   The pair they replace showed a compliance ring, a fortnight of bars and a
+   kanban board. All three are dashboard furniture: they show that data exists
+   without explaining anything. These two each answer one question instead.
+
+     mk1  what actually causes a preventive job to be raised
+     mk2  what happens when someone raises a job sheet on the floor
+
+   Both animate with transform and opacity only. transform-box is set to
+   fill-box per element, because the shared `.mc *` rule sets view-box and a
+   scaleX would otherwise resolve against the whole board rather than the bar.
+   ========================================================================== */
+
+.mk { width: 100%; height: auto; display: block; overflow: visible; }
+.mk * { transform-box: fill-box; }
+.mk__panel { fill: rgba(0,0,0,0.26); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.mk__ttl {
+  font-family: var(--display); font-weight: 800; font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase; fill: rgba(255,255,255,0.5);
+}
+.mk__lbl { font-family: var(--display); font-weight: 700; font-size: 11.5px; fill: rgba(255,255,255,0.82); }
+.mk__sub { font-family: var(--text); font-size: 10px; fill: rgba(255,255,255,0.45); }
+.mk__val { font-family: var(--display); font-weight: 800; font-size: 11px; fill: var(--teal-bright); }
+
+/* ==========================================================================
+   mk1 · WHAT RAISES A PREVENTIVE JOB
+   Three triggers run at once. Whichever reaches its limit first raises the
+   work order, which is the whole point: the schedule is not just a calendar.
+   ========================================================================== */
+.mk1__track { fill: rgba(255,255,255,0.09); }
+.mk1__fill  { fill: var(--teal); transform-origin: left center; transform: scaleX(0); }
+.mk1__limit { stroke: rgba(255,255,255,0.34); stroke-width: 1.5; stroke-dasharray: 3 3; }
+
+/* different rates, so the condition trigger arrives first and the point lands */
+.mpanel[data-reveal].in .mk1__fill--a { animation: mkFill 7s cubic-bezier(.4,0,.2,1) infinite; }
+.mpanel[data-reveal].in .mk1__fill--b { animation: mkFillB 7s cubic-bezier(.4,0,.2,1) infinite; }
+.mpanel[data-reveal].in .mk1__fill--c { animation: mkFillC 7s cubic-bezier(.4,0,.2,1) infinite; }
+@keyframes mkFill  { 0% { transform: scaleX(.06); } 62%,100% { transform: scaleX(.72); } }
+@keyframes mkFillB { 0% { transform: scaleX(.10); } 62%,100% { transform: scaleX(.55); } }
+@keyframes mkFillC { 0% { transform: scaleX(.20); } 46%,100% { transform: scaleX(1); } }
+
+/* the trigger that got there first */
+.mk1__hit { opacity: 0; }
+.mpanel[data-reveal].in .mk1__hit { animation: mkHit 7s linear infinite; }
+@keyframes mkHit { 0%,44% { opacity: 0; } 50%,100% { opacity: 1; } }
+
+/* the work order it raises */
+.mk1__wo { opacity: 0; transform: translateY(6px); }
+.mpanel[data-reveal].in .mk1__wo { animation: mkWo 7s var(--ease-out) infinite; }
+@keyframes mkWo {
+  0%, 50%   { opacity: 0; transform: translateY(6px); }
+  58%, 100% { opacity: 1; transform: translateY(0); }
+}
+.mk1__wobox { fill: rgba(23,201,155,0.12); stroke: var(--teal); stroke-width: 1.2; }
+
+/* ==========================================================================
+   mk2 · A SHEET THAT FILLS ITSELF
+   Four fields arrive on their own because the job is already linked to the
+   machine, so the person on the floor types almost nothing.
+   ========================================================================== */
+.mk2__sheet { fill: rgba(255,255,255,0.035); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
+.mk2__rule  { stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+
+.mk2__row { opacity: 0; transform: translateX(-6px); }
+.mpanel[data-reveal].in .mk2__row { animation: mkRow 6.5s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__row--2 { animation-delay: .5s; }
+.mpanel[data-reveal].in .mk2__row--3 { animation-delay: 1s; }
+.mpanel[data-reveal].in .mk2__row--4 { animation-delay: 1.5s; }
+@keyframes mkRow {
+  0%, 6%    { opacity: 0; transform: translateX(-6px); }
+  14%, 88%  { opacity: 1; transform: translateX(0); }
+  96%, 100% { opacity: 0; transform: translateX(-6px); }
+}
+
+.mk2__tick { stroke: var(--teal-bright); stroke-width: 2; fill: none; stroke-linecap: round;
+             stroke-linejoin: round; stroke-dasharray: 12; stroke-dashoffset: 12; }
+.mpanel[data-reveal].in .mk2__tick { animation: mkTick 6.5s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__tick--2 { animation-delay: .5s; }
+.mpanel[data-reveal].in .mk2__tick--3 { animation-delay: 1s; }
+.mpanel[data-reveal].in .mk2__tick--4 { animation-delay: 1.5s; }
+@keyframes mkTick { 0%,10% { stroke-dashoffset: 12; } 20%,88% { stroke-dashoffset: 0; } 96%,100% { stroke-dashoffset: 12; } }
+
+/* the status the sheet moves through, one at a time */
+.mk2__pill { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
+.mk2__pilllbl { font-family: var(--display); font-weight: 700; font-size: 10px; fill: rgba(255,255,255,0.5); }
+.mk2__on { fill: rgba(23,201,155,0.16); stroke: var(--teal); stroke-width: 1.3; opacity: 0; }
+.mpanel[data-reveal].in .mk2__on { animation: mkOn 6.5s steps(1,end) infinite; }
+.mpanel[data-reveal].in .mk2__on--2 { animation-delay: 1.6s; }
+.mpanel[data-reveal].in .mk2__on--3 { animation-delay: 3.2s; }
+@keyframes mkOn { 0%,24% { opacity: 1; } 25%,100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mk1__fill, .mk1__hit, .mk1__wo, .mk2__row, .mk2__tick, .mk2__on { animation: none !important; }
+  .mk1__fill { transform: scaleX(.72); }
+  .mk1__fill--c { transform: scaleX(1); }
+  .mk1__hit, .mk1__wo, .mk2__row { opacity: 1; transform: none; }
+  .mk2__tick { stroke-dashoffset: 0; }
+  .mk2__on { opacity: 0; }
+  .mk2__on--1 { opacity: 1; }
+}

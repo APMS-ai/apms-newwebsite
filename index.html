@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="css/motion.css?v=5">
   <link rel="stylesheet" href="css/loop.css?v=4">
   <link rel="stylesheet" href="css/drum.css?v=5">
+  <link rel="stylesheet" href="css/maintnew.css?v=2">
   <link rel="stylesheet" href="css/perf.css?v=4">
   <link rel="stylesheet" href="css/a11y-motion.css?v=1">
 </head>
@@ -732,27 +733,36 @@
               <span class="mpanel__ico"><svg class="mico mico--wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><g class="mico__gear"><circle cx="8.5" cy="15.5" r="4"/><path d="M8.5 9.5v-2M8.5 23.5v-2M2.5 15.5h-2M16.5 15.5h-2M4.3 11.3 2.9 9.9M14.1 21.1l-1.4-1.4M12.7 11.3l1.4-1.4M4.3 19.7 2.9 21.1"/></g><path class="mico__spanner" d="M20.5 3.5a3.4 3.4 0 0 0-4.7 4.5l-5.6 5.6 2.2 2.2 5.6-5.6a3.4 3.4 0 0 0 4.5-4.7l-2.2 2.2-2-2z"/><circle class="mico__spark" cx="12" cy="11" r="3.4"/></svg></span>
               <div><span class="mpanel__eyebrow">PM &middot; BDM</span><h3>Maintenance Management</h3></div>
             </header>
-            <p class="mpanel__lead">Preventive work runs on time, cycles or live condition, so a machine is serviced when it needs it. Breakdowns are captured as they happen with the downtime already attributed, and the condition trace below is what raises the next work order.</p>
+            <p class="mpanel__lead">A preventive job is raised by whichever limit arrives first: elapsed hours, cycle count or a live condition threshold. Breakdowns are captured the moment they happen, with the downtime already attributed.</p>
             <div class="mpanel__console">
-              <svg class="mc mc1" viewBox="0 0 400 218" role="img" aria-label="Maintenance console: PM compliance at 96 percent, a fortnight of planned versus reactive work, and a condition trace raising an anomaly alert">
-                <rect class="mc__panel" x="0" y="0" width="400" height="218" rx="14"/>
-                <text class="mc__lbl" x="20" y="16">PM compliance</text>
-                <circle class="mc1__ring-bg" cx="62" cy="76" r="44"/>
-                <circle class="mc1__ring-fg" cx="62" cy="76" r="44"/>
-                <text class="mc__val mc1__pct" x="62" y="76" text-anchor="middle" dominant-baseline="middle">96%</text>
-                <text class="mc__sub" x="62" y="136" text-anchor="middle">on-time completion</text>
-                <text class="mc__lbl" x="232" y="24">Last 14 days</text>
-                <rect class="mc1__slot" x="232" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="232" y="46" width="7" height="30" rx="2" style="animation-delay:0.35s"/><rect class="mc1__slot" x="243" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="243" y="46" width="7" height="30" rx="2" style="animation-delay:0.44s"/><rect class="mc1__slot" x="254" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="254" y="46" width="7" height="30" rx="2" style="animation-delay:0.53s"/><rect class="mc1__slot" x="265" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--bdm" x="265" y="46" width="7" height="30" rx="2" style="animation-delay:0.62s"/><rect class="mc1__slot" x="276" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="276" y="46" width="7" height="30" rx="2" style="animation-delay:0.71s"/><rect class="mc1__slot" x="287" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="287" y="46" width="7" height="30" rx="2" style="animation-delay:0.80s"/><rect class="mc1__slot" x="298" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="298" y="46" width="7" height="30" rx="2" style="animation-delay:0.89s"/><rect class="mc1__slot" x="309" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="309" y="46" width="7" height="30" rx="2" style="animation-delay:0.98s"/><rect class="mc1__slot" x="320" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--bdm" x="320" y="46" width="7" height="30" rx="2" style="animation-delay:1.07s"/><rect class="mc1__slot" x="331" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="331" y="46" width="7" height="30" rx="2" style="animation-delay:1.16s"/><rect class="mc1__slot" x="342" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="342" y="46" width="7" height="30" rx="2" style="animation-delay:1.25s"/><rect class="mc1__slot" x="353" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="353" y="46" width="7" height="30" rx="2" style="animation-delay:1.34s"/><rect class="mc1__slot" x="364" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="364" y="46" width="7" height="30" rx="2" style="animation-delay:1.43s"/><rect class="mc1__slot" x="375" y="46" width="7" height="30" rx="2"/><rect class="mc1__slot--pm" x="375" y="46" width="7" height="30" rx="2" style="animation-delay:1.52s"/>
-                <rect x="232" y="90" width="9" height="9" rx="2" fill="#17c99b"/>
-                <text class="mc__sub" x="246" y="98">Planned (PM)</text>
-                <rect x="316" y="90" width="9" height="9" rx="2" fill="rgba(255,255,255,0.42)"/>
-                <text class="mc__sub" x="330" y="98">Reactive</text>
-                <text class="mc__lbl" x="20" y="158">Condition trace</text>
-                <path class="mc1__trace" d="M20 203 L54 197 L88 205 L122 193 L156 201 L190 195 L224 203 L258 175 L292 201 L326 197 L380 201"/>
-                <path class="mc1__tracer" d="M20 203 L54 197 L88 205 L122 193 L156 201 L190 195 L224 203 L258 175 L292 201 L326 197 L380 201"/>
-                <circle class="mc1__alertring" cx="258" cy="175" r="9" style="transform-origin:258px 175px"/>
-                <circle class="mc1__alert" cx="258" cy="175" r="4" style="transform-origin:258px 175px"/>
-                <text class="mc__sub" x="196" y="158">anomaly detected, work order raised</text>
+              <svg class="mk mk1" viewBox="0 0 400 216" role="img" aria-label="A preventive job is raised by whichever comes first: elapsed hours, cycle count or live condition">
+                <rect class="mk__panel" x="0" y="0" width="400" height="216" rx="14"/>
+                <text class="mk__ttl" x="20" y="26">What raises a preventive job</text>
+                <text class="mk__sub" x="20" y="46">Whichever limit is reached first</text>
+                <text class="mk__lbl" x="20" y="68">Time since last service</text>
+                <text class="mk__sub" x="20" y="82">Every 500 h</text>
+                <rect class="mk1__track" x="196" y="65" width="118" height="6" rx="3"/>
+                <rect class="mk1__fill mk1__fill--a" x="196" y="65" width="118" height="6" rx="3"/>
+                <path class="mk1__limit" d="M314 59 V77"/>
+                <text class="mk__val" x="382" y="72" text-anchor="end">360 h</text>
+                <text class="mk__lbl" x="20" y="104">Cycle count</text>
+                <text class="mk__sub" x="20" y="118">Every 20k cycles</text>
+                <rect class="mk1__track" x="196" y="101" width="118" height="6" rx="3"/>
+                <rect class="mk1__fill mk1__fill--b" x="196" y="101" width="118" height="6" rx="3"/>
+                <path class="mk1__limit" d="M314 95 V113"/>
+                <text class="mk__val" x="382" y="108" text-anchor="end">11k</text>
+                <text class="mk__lbl" x="20" y="140">Live condition</text>
+                <text class="mk__sub" x="20" y="154">Vibration threshold</text>
+                <rect class="mk1__track" x="196" y="137" width="118" height="6" rx="3"/>
+                <rect class="mk1__fill mk1__fill--c" x="196" y="137" width="118" height="6" rx="3"/>
+                <path class="mk1__limit" d="M314 131 V149"/>
+                <text class="mk__val" x="382" y="144" text-anchor="end">Reached</text>
+                <g class="mk1__hit"><circle cx="314" cy="137" r="5" fill="#2ee0b4" opacity=".9"/></g>
+                <g class="mk1__wo">
+                  <rect class="mk1__wobox" x="20" y="170" width="360" height="32" rx="9"/>
+                  <path d="M38 186l4 4 8-9" fill="none" stroke="#2ee0b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text class="mk__lbl" x="60" y="190">Work order raised, assigned and tracked to closure</text>
+                </g>
               </svg>
             </div>
             <ul class="mcaps"><li>Time / cycle / condition schedules</li><li>Auto downtime capture</li><li>Work orders &amp; assignments</li><li>MTBF / MTTR &amp; cost</li></ul>
@@ -763,24 +773,40 @@
               <span class="mpanel__ico"><svg class="mico mico--sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M9.5 3V1.8h5V3"/><path class="mico__row" d="M8.5 9h7"/><path class="mico__row" d="M8.5 12.5h7"/><path class="mico__row" d="M8.5 16h4"/><path class="mico__tick" d="M13.6 17.4l1.8 1.8 3.4-3.6" stroke="#2ee0b4" stroke-width="2.2"/></svg></span>
               <div><span class="mpanel__eyebrow">Job sheets &middot; work orders</span><h3>Digital Job Sheeting</h3></div>
             </header>
-            <p class="mpanel__lead">Raise a sheet in a few taps and it arrives already linked to the machine, operator and shift. It then moves through the lanes on its own as the floor updates it, so status stays current without anyone chasing a paper trail at handover.</p>
+            <p class="mpanel__lead">The sheet arrives already linked to the machine, operator, material and quantity, so the floor confirms rather than types. Status then follows the work instead of a paper trail.</p>
             <div class="mpanel__console">
-              <svg class="mc mc2" viewBox="0 0 400 200" role="img" aria-label="Job flow console: a job sheet moving from open to in progress to done, with lane counts">
-                <rect class="mc__panel" x="0" y="0" width="400" height="200" rx="14"/>
-                <rect class="mc2__lane" x="18" y="34" width="116" height="150" rx="10"/><text class="mc2__lanelbl" x="30" y="26">Open</text><rect class="mc2__lane" x="142" y="34" width="116" height="150" rx="10"/><text class="mc2__lanelbl" x="154" y="26">In progress</text><rect class="mc2__lane" x="266" y="34" width="116" height="150" rx="10"/><text class="mc2__lanelbl" x="278" y="26">Done</text>
-                <g><rect class="mc2__card" x="28" y="48" width="96" height="34" rx="8"/><text class="mc2__cardid" x="38" y="63">#JS-1041</text><text class="mc2__cardsub" x="38" y="75">Press-03</text></g><g><rect class="mc2__card" x="28" y="90" width="96" height="34" rx="8"/><text class="mc2__cardid" x="38" y="105">#JS-1044</text><text class="mc2__cardsub" x="38" y="117">Grinder-01</text></g><g><rect class="mc2__card" x="276" y="48" width="96" height="34" rx="8"/><text class="mc2__cardid" x="286" y="63">#JS-1038</text><text class="mc2__cardsub" x="286" y="75">Lathe-02</text></g><g><rect class="mc2__card" x="276" y="90" width="96" height="34" rx="8"/><text class="mc2__cardid" x="286" y="105">#JS-1035</text><text class="mc2__cardsub" x="286" y="117">VMC-02</text></g>
-                <g class="mc2__live">
-                  <rect class="mc2__livecard" x="28" y="132" width="96" height="38" rx="8"/>
-                  <text class="mc2__cardid" x="38" y="148">#JS-1042</text>
-                  <text class="mc2__cardsub" x="38" y="160">VMC-01 &middot; Shift A</text>
-                  <circle class="mc2__pulse" cx="114" cy="141" r="5" style="transform-origin:114px 141px"/>
-                  <circle class="mc2__dot--open" cx="114" cy="141" r="3.4"/>
-                  <circle class="mc2__dot--run" cx="114" cy="141" r="3.4"/>
-                  <circle class="mc2__dot--done" cx="114" cy="141" r="3.4"/>
+              <svg class="mk mk2" viewBox="0 0 400 216" role="img" aria-label="A job sheet fills itself with the machine, operator, material and quantity, then moves from open to in progress to done">
+                <rect class="mk__panel" x="0" y="0" width="400" height="216" rx="14"/>
+                <text class="mk__ttl" x="20" y="26">Raised in a few taps</text>
+                <text class="mk__sub" x="20" y="46">The rest is already known</text>
+                <rect class="mk2__sheet" x="20" y="58" width="360" height="112" rx="10"/>
+                <g class="mk2__row mk2__row--1">
+                  <text class="mk__sub" x="38" y="74">Machine</text>
+                  <text class="mk__lbl" x="150" y="74">VMC-01</text>
                 </g>
-                <text class="mc2__count" x="30" y="196">128</text><text class="mc__sub" x="58" y="196">open</text>
-                <text class="mc2__count" x="154" y="196">17</text><text class="mc__sub" x="174" y="196">active</text>
-                <text class="mc2__count" x="278" y="196">94%</text><text class="mc__sub" x="312" y="196">on-time close</text>
+                <path class="mk2__tick mk2__tick--1" d="M352 69 l4 4 8-9"/>
+                <path class="mk2__rule" d="M38 82 H362"/>
+                <g class="mk2__row mk2__row--2">
+                  <text class="mk__sub" x="38" y="100">Operator</text>
+                  <text class="mk__lbl" x="150" y="100">Shift A</text>
+                </g>
+                <path class="mk2__tick mk2__tick--2" d="M352 95 l4 4 8-9"/>
+                <path class="mk2__rule" d="M38 108 H362"/>
+                <g class="mk2__row mk2__row--3">
+                  <text class="mk__sub" x="38" y="126">Material</text>
+                  <text class="mk__lbl" x="150" y="126">EN8, 40mm bar</text>
+                </g>
+                <path class="mk2__tick mk2__tick--3" d="M352 121 l4 4 8-9"/>
+                <path class="mk2__rule" d="M38 134 H362"/>
+                <g class="mk2__row mk2__row--4">
+                  <text class="mk__sub" x="38" y="152">Quantity</text>
+                  <text class="mk__lbl" x="150" y="152">120 pcs</text>
+                </g>
+                <path class="mk2__tick mk2__tick--4" d="M352 147 l4 4 8-9"/>
+                <text class="mk__sub" x="20" y="196">Status</text>
+                <rect class="mk2__pill" x="196" y="182" width="52" height="22" rx="11"/><rect class="mk2__on mk2__on--" x="196" y="182" width="52" height="22" rx="11"/><text class="mk__pilllbl mk2__pilllbl" x="222" y="197" text-anchor="middle">Open</text>
+                <rect class="mk2__pill" x="256" y="182" width="76" height="22" rx="11"/><rect class="mk2__on mk2__on--" x="256" y="182" width="76" height="22" rx="11"/><text class="mk__pilllbl mk2__pilllbl" x="294" y="197" text-anchor="middle">In progress</text>
+                <rect class="mk2__pill" x="340" y="182" width="52" height="22" rx="11"/><rect class="mk2__on mk2__on--" x="340" y="182" width="52" height="22" rx="11"/><text class="mk__pilllbl mk2__pilllbl" x="366" y="197" text-anchor="middle">Done</text>
               </svg>
             </div>
             <ul class="mcaps"><li>Create in a few taps</li><li>Assign to machine / operator</li><li>Auto-linked to production</li><li>Searchable &amp; exportable</li></ul>
