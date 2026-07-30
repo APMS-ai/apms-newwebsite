@@ -1,22 +1,22 @@
 /* ==========================================================================
    APMS.ai — drum.js
-   Six cards on a cylinder, turned by the scroll. Six steps, six cards.
+   Six cards orbiting a ring, turned by the scroll. Six steps, six cards.
 
-   This is the only pinned ScrollTrigger on the site. Pinning was removed
-   everywhere else because it added scroll length to pages that did not need it,
-   so the rules here are deliberately strict:
+   Geometry: each card sits at an angle on a circle seen almost edge on. Its
+   angle gives a horizontal position and a depth; depth gives scale, opacity and
+   stacking order. The card itself is never rotated, so the text stays square to
+   the reader while the ring turns around behind it. That is what keeps all six
+   readable at once rather than half of them facing away.
 
-     · desktop only, and only with reduced motion off. Everywhere else the
-       markup stays the plain six-card grid it degrades to
-     · the pin has a fixed, finite length and always releases
-     · motion.js is told to leave these cards alone: a card cannot have its
-       transform written by a tilt and by the drum at the same time
-     · rotation is transform-only, so it composites and never triggers layout
+   The whole section is pinned, heading included, so nothing travels up the
+   screen while the ring turns. The pin has a fixed length and always releases.
 
-   The snap is deliberately absent. GSAP's snap scrolls the page itself, and
-   Lenis already owns the scroll position; the two fight and the result is a
-   section that jitters at the boundaries. Scrubbing across six facets gives the
-   stepped feel without a second thing writing scrollTop.
+   Fenced in deliberately, because this is the only pinned trigger on the site:
+     · desktop only, reduced motion off. Everywhere else it stays a plain grid
+     · motion.js is kept off these cards: one owner of transform, not two
+     · matchMedia cleanup kills the pin on a resize past the breakpoint
+     · no snap. GSAP's snap writes scrollTop and Lenis already owns it; the two
+       fight at the boundaries
    ========================================================================== */
 (function () {
   "use strict";
@@ -27,76 +27,100 @@
   var gsap = window.gsap, ST = window.ScrollTrigger;
   if (!gsap || !ST) return;
 
-  var cards = Array.prototype.slice.call(drum.querySelectorAll(".drum__card"));
-  var dots = Array.prototype.slice.call(drum.querySelectorAll(".drum__dots li"));
+  var section = drum.closest("section") || drum.parentElement;
   var ring = drum.querySelector(".drum__ring");
   var stage = drum.querySelector(".drum__stage");
+  var cards = Array.prototype.slice.call(drum.querySelectorAll(".drum__card"));
+  var dots = Array.prototype.slice.call(drum.querySelectorAll(".drum__dots li"));
   if (!ring || !stage || cards.length < 2) return;
 
   var N = cards.length;
-  var STEP = 360 / N;
-
   gsap.registerPlugin(ST);
 
   gsap.matchMedia().add(
     "(min-width: 901px) and (prefers-reduced-motion: no-preference)",
     function () {
       drum.classList.add("is-drum");
-
-      /* seat each card on its own facet */
-      cards.forEach(function (c, i) {
-        c.style.setProperty("--a", (i * STEP) + "deg");
-        c.setAttribute("data-no-tilt", "");   /* keep motion.js off these */
+      /* the pinned section has to fit one screen, or the ring is clipped at
+         the bottom while the heading sits alone at the top */
+      section.classList.add("is-drumsec");
+      cards.forEach(function (c) {
+        c.setAttribute("data-no-tilt", "");
         c.removeAttribute("data-tilt3d");
+        c.style.transformStyle = "preserve-3d";
       });
 
+      /* how wide the orbit is. Half the stage, capped so six cards at the
+         front of a 1440 screen never run into the gutters. */
+      function radius() { return Math.min(430, Math.max(300, stage.offsetWidth * 0.32)); }
+
+      var R = radius();
       var current = -1;
-      function face(idx) {
-        if (idx === current) return;
-        current = idx;
+
+      function place(rot) {
         for (var i = 0; i < N; i++) {
-          cards[i].classList.toggle("is-front", i === idx);
-          if (dots[i]) dots[i].classList.toggle("is-on", i === idx);
+          var a = ((i / N) * 360 + rot) * Math.PI / 180;
+          var x = Math.sin(a) * R;
+          var z = Math.cos(a);                  /* 1 at the front, -1 at the back */
+          var depth = (z + 1) / 2;              /* 0 .. 1 */
+
+          /* Scale and fade with depth so the ring reads as a ring. The floor
+             values matter: nothing drops below 0.66 scale or 0.32 opacity, so
+             every card stays legible rather than disappearing behind. */
+          var scale = 0.66 + depth * 0.34;
+          var op = 0.32 + depth * 0.68;
+
+          var c = cards[i];
+          c.style.transform = "translate3d(" + x.toFixed(1) + "px,0," +
+                              (z * R * 0.55).toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";
+          c.style.opacity = op.toFixed(3);
+          c.style.zIndex = String(100 + Math.round(z * 100));
+        }
+        var front = ((Math.round(-rot / (360 / N)) % N) + N) % N;
+        if (front !== current) {
+          current = front;
+          for (var k = 0; k < N; k++) {
+            cards[k].classList.toggle("is-front", k === front);
+            if (dots[k]) dots[k].classList.toggle("is-on", k === front);
+          }
         }
       }
-      face(0);
+
+      place(0);
 
       var st = ST.create({
-        trigger: drum,
-        start: "center center",
-        /* one viewport-ish of scroll per card after the first: finite, and it
-           always ends */
-        end: "+=" + Math.round(window.innerHeight * 0.62 * (N - 1)),
-        /* the whole block is pinned, not just the stage, so the six labels
-           stay on screen and tell you where you are in the sequence */
-        pin: drum,
+        trigger: section,
+        start: "top top",
+        /* finite, and always ends: roughly two thirds of a screen per step */
+        end: "+=" + Math.round(window.innerHeight * 0.66 * (N - 1)),
+        pin: section,          /* the heading is held still too */
         pinSpacing: true,
-        scrub: 0.6,
+        scrub: 0.55,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onRefresh: function () { R = radius(); place(-current * (360 / N) || 0); },
         onUpdate: function (self) {
-          var p = self.progress;                 /* 0 .. 1 */
-          ring.style.transform = "rotateY(" + (-p * STEP * (N - 1)).toFixed(2) + "deg)";
-          face(Math.round(p * (N - 1)));
+          /* 0 at card one, -300deg at card six: five intervals for six cards */
+          place(-self.progress * (360 / N) * (N - 1));
         }
       });
 
-      /* matchMedia cleanup: leaving a pin behind on a resize past the
-         breakpoint strands the section at the wrong scroll position */
       return function () {
         st.kill(true);
         drum.classList.remove("is-drum");
-        ring.style.transform = "";
+        section.classList.remove("is-drumsec");
         cards.forEach(function (c) {
           c.classList.remove("is-front");
-          c.style.removeProperty("--a");
           c.removeAttribute("data-no-tilt");
+          c.style.transform = "";
+          c.style.opacity = "";
+          c.style.zIndex = "";
+          c.style.transformStyle = "";
         });
         dots.forEach(function (d, i) { d.classList.toggle("is-on", i === 0); });
       };
     }
   );
 
-  /* the pin's length depends on viewport height, so it has to be recomputed */
   window.addEventListener("load", function () { ST.refresh(); });
 })();
