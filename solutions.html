@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="is-loading">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/loader.css?v=1">
   <link rel="stylesheet" href="css/redesign.css?v=13">
   <link rel="stylesheet" href="css/enhance.css?v=16">
   <link rel="stylesheet" href="css/polish.css?v=2">
@@ -23,10 +24,18 @@
   <link rel="stylesheet" href="css/bentofx.css?v=5">
   <link rel="stylesheet" href="css/floorgrid.css?v=6">
   <link rel="stylesheet" href="css/aiplus.css?v=4">
+  <link rel="stylesheet" href="css/motion.css?v=5">
   <link rel="stylesheet" href="css/perf.css?v=4">
   <link rel="stylesheet" href="css/a11y-motion.css?v=1">
 </head>
 <body data-fx="slide">
+  <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
+    <div class="ldr__inner">
+      <img class="ldr__mark" src="assets/apms-logo.png" alt="" width="1049" height="238">
+      <span class="ldr__track"><i class="ldr__bar"></i></span>
+      <span class="ldr__word">Industrial intelligence</span>
+    </div>
+  </div>
   <div class="progress" aria-hidden="true"></div>
   <header class="hdr is-stuck">
     <div class="hdr__row">
@@ -350,6 +359,7 @@
     </div>
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="js/loader.js?v=1"></script>
   <script src="js/redesign.js?v=10"></script>
   <script src="js/enhance.js?v=7"></script>
   <script src="js/vendor/three.min.js"></script>
@@ -370,5 +380,6 @@
   <script src="js/iconlife.js?v=1"></script>
   <script src="js/perf.js?v=3"></script>
   <script src="js/gscroll.js?v=1"></script>
+  <script src="js/motion.js?v=4"></script>
 </body>
 </html>

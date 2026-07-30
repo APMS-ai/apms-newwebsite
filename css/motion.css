@@ -1,0 +1,163 @@
+/* ==========================================================================
+   APMS.ai — motion.css
+   The interaction layer: how things feel under a pointer.
+
+   Everything here obeys the same three rules the rest of the site does:
+     · transform and opacity only, so nothing triggers layout
+     · 150 to 300ms for anything a pointer causes, exit faster than enter
+     · a press must never move the elements around it
+
+   Every effect is behind `(hover: hover) and (pointer: fine)`. A touch device
+   has no hover state, and faking one leaves elements stuck in it after a tap.
+   ========================================================================== */
+
+:root {
+  --spring: cubic-bezier(.34, 1.56, .64, 1);   /* overshoots, for arrivals */
+  --swift: cubic-bezier(.22, .61, .36, 1);     /* decisive, for departures */
+}
+
+/* ==========================================================================
+   1 · CARDS IN THREE DIMENSIONS
+   js/motion.js writes --rx/--ry from the pointer. The rotation is deliberately
+   small: 6deg reads as the card acknowledging you, 15deg reads as a gimmick and
+   makes text edges shimmer.
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  /* Deliberately NOT called data-tilt. enhance.css line 691 carries
+     `[data-tilt] { transform: none !important }` from an earlier tilt that was
+     retired, and line 97 puts a permanent `will-change: transform` on the same
+     attribute, which this project's performance rules forbid. Reusing the name
+     meant the rest of the block applied while the transform silently stayed
+     `none`: nothing errored, it simply did not move. A separate attribute
+     leaves the retired system dead and keeps this one out of its way. */
+  [data-tilt3d] {
+    /* js/motion.js writes the transform itself; this only owns how it eases */
+    transition: transform .5s var(--swift), box-shadow .5s var(--swift),
+                border-color .4s var(--swift);
+    transform-style: preserve-3d;
+  }
+  [data-tilt3d].is-tilting {
+    /* while the pointer is inside, track it closely rather than easing */
+    transition: transform .12s linear, box-shadow .4s var(--swift),
+                border-color .4s var(--swift);
+  }
+
+  /* a sheen that follows the pointer across the surface */
+  [data-tilt3d]::after {
+    content: ""; position: absolute; inset: 0; z-index: 2;
+    pointer-events: none; opacity: 0; border-radius: inherit;
+    background: radial-gradient(420px circle at var(--px, 50%) var(--py, 50%),
+                rgba(46, 224, 180, .10), transparent 62%);
+    transition: opacity .4s var(--swift);
+  }
+  [data-tilt3d]:hover::after { opacity: 1; }
+
+  /* content sits above the sheen and slightly forward in Z */
+  [data-tilt3d] > * { position: relative; z-index: 3; }
+}
+
+/* ==========================================================================
+   2 · BUTTONS
+   A shine crosses on hover; the press is a scale, never a shift.
+   ========================================================================== */
+.btn { position: relative; overflow: hidden; isolation: isolate; }
+
+@media (hover: hover) and (pointer: fine) {
+  .btn::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(115deg, transparent 35%,
+                rgba(255,255,255,.22) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform .6s var(--swift);
+  }
+  .btn:hover::after { transform: translateX(120%); }
+}
+
+/* Press: 150ms, scale only. Kept for touch as well, because a tap needs an
+   answer inside 100ms and this is the cheapest honest one. */
+.btn:active { transform: scale(.97); transition: transform .1s var(--swift); }
+[data-magnetic] { transition: transform .45s var(--spring); }
+
+/* ==========================================================================
+   3 · LINKS AND NAV
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  /* the footer columns get the same underline logic as the header nav */
+  .ft__col a, .ft__legal a {
+    background-image: linear-gradient(var(--teal, #17c99b), var(--teal, #17c99b));
+    background-size: 0% 1px; background-repeat: no-repeat;
+    background-position: left 92%;
+    transition: background-size .35s var(--swift), color .25s var(--swift);
+  }
+  .ft__col a:hover, .ft__legal a:hover { background-size: 100% 1px; }
+}
+
+/* ==========================================================================
+   4 · ICON CHIPS
+   The tile icons lift and rotate a touch, so a card feels assembled from parts
+   rather than being one flat plane.
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  .tile__ico, .mod__ico, .bento__ico, .cap__ico, .istep__viz {
+    transition: transform .45s var(--spring), background .35s var(--swift);
+  }
+  [data-tilt3d]:hover .tile__ico,
+  [data-tilt3d]:hover .mod__ico,
+  [data-tilt3d]:hover .bento__ico { transform: translateZ(28px) scale(1.06) rotate(-3deg); }
+}
+
+/* ==========================================================================
+   5 · THE POINTER
+   A soft ring that trails the cursor and swells over anything interactive.
+   The real cursor is never hidden: replacing it costs more in usability than
+   the effect is worth.
+   ========================================================================== */
+.cursor {
+  position: fixed; top: 0; left: 0; z-index: 1500;
+  width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  border: 1.5px solid rgba(46, 224, 180, .55); border-radius: 50%;
+  pointer-events: none; opacity: 0;
+  transform: translate3d(-100px, -100px, 0) scale(1);
+  transition: opacity .3s var(--swift), width .25s var(--spring),
+              height .25s var(--spring), border-color .25s var(--swift),
+              background .25s var(--swift);
+  will-change: transform;
+}
+.cursor.is-on { opacity: 1; }
+.cursor.is-active {
+  width: 46px; height: 46px; margin: -23px 0 0 -23px;
+  border-color: rgba(46, 224, 180, .9);
+  background: rgba(46, 224, 180, .08);
+}
+
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+/* ==========================================================================
+   6 · SECTION ARRIVALS
+   The reveal system owns opacity and Y. This adds the one thing it cannot: a
+   rule that draws itself under each section heading as the heading lands.
+   ========================================================================== */
+.sec__head { position: relative; }
+.sec__head::after {
+  content: ""; position: absolute; left: 0; bottom: -.6rem; height: 1px; width: 0;
+  background: linear-gradient(90deg, var(--teal, #17c99b), transparent);
+  transition: width 1s var(--swift) .25s;
+}
+.sec__head--center::after { left: 50%; transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--teal, #17c99b), transparent); }
+.sec__head.in::after { width: min(220px, 40%); }
+
+/* ==========================================================================
+   REDUCED MOTION
+   Hover feedback stays, because it is information. Movement goes.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt3d] { transform: none !important; transition: border-color .2s ease; }
+  [data-tilt3d]::after { display: none; }
+  .btn::after { display: none; }
+  .btn:active { transform: none; }
+  [data-magnetic] { transform: none !important; }
+  .cursor { display: none; }
+  .sec__head::after { transition: none; width: min(220px, 40%); }
+  .tile__ico, .mod__ico, .bento__ico { transition: none; }
+}
