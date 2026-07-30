@@ -1,0 +1,89 @@
+/* ==========================================================================
+   APMS.ai — misfx.css
+   "Daily and weekly MIS, delivered on time"
+
+   The clock it replaces showed the passing of time, which nobody needed
+   explaining. This shows the thing the section actually claims: the report
+   assembles itself from what the floor did, then leaves.
+
+   One 9s loop, three beats:
+     0 to 35%   the sheet fills in. Bars grow, rows arrive, a total lands
+     35 to 50%  it is signed off with a tick
+     50 to 100% it flies to the inbox, which then reads Delivered
+
+   transform and opacity only. transform-box is fill-box per element, because a
+   scaleY on a bar has to resolve against the bar and not the whole board.
+   ========================================================================== */
+
+.mis { width: 100%; height: auto; display: block; overflow: visible; }
+.mis * { transform-box: fill-box; }
+
+.mis__panel { fill: rgba(255,255,255,0.03); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.mis__sheet { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+.mis__ttl   { font-family: var(--display); font-weight: 800; font-size: 10px;
+              letter-spacing: .12em; text-transform: uppercase; fill: rgba(255,255,255,0.45); }
+.mis__lbl   { font-family: var(--display); font-weight: 700; font-size: 10.5px; fill: rgba(255,255,255,0.8); }
+.mis__val   { font-family: var(--display); font-weight: 800; font-size: 10.5px; fill: var(--teal-bright); }
+.mis__rule  { stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+
+/* ---------- beat one: the sheet fills ---------- */
+.mis__bar { fill: var(--teal); transform-origin: center bottom; transform: scaleY(0); }
+[data-reveal].in .mis__bar { animation: misBar 9s var(--ease-out) infinite; }
+[data-reveal].in .mis__bar--2 { animation-delay: .18s; }
+[data-reveal].in .mis__bar--3 { animation-delay: .36s; }
+[data-reveal].in .mis__bar--4 { animation-delay: .54s; }
+[data-reveal].in .mis__bar--5 { animation-delay: .72s; }
+@keyframes misBar { 0% { transform: scaleY(0); } 22%,88% { transform: scaleY(1); } 96%,100% { transform: scaleY(0); } }
+
+.mis__row { opacity: 0; transform: translateX(-5px); }
+[data-reveal].in .mis__row { animation: misRow 9s var(--ease-out) infinite; }
+[data-reveal].in .mis__row--2 { animation-delay: .22s; }
+[data-reveal].in .mis__row--3 { animation-delay: .44s; }
+@keyframes misRow {
+  0%, 8%    { opacity: 0; transform: translateX(-5px); }
+  18%, 88%  { opacity: 1; transform: translateX(0); }
+  96%, 100% { opacity: 0; transform: translateX(-5px); }
+}
+
+/* ---------- beat two: signed off ---------- */
+.mis__tick { fill: none; stroke: var(--teal-bright); stroke-width: 2.2;
+             stroke-linecap: round; stroke-linejoin: round;
+             stroke-dasharray: 16; stroke-dashoffset: 16; }
+[data-reveal].in .mis__tick { animation: misTick 9s var(--ease-out) infinite; }
+@keyframes misTick { 0%,34% { stroke-dashoffset: 16; } 44%,88% { stroke-dashoffset: 0; } 96%,100% { stroke-dashoffset: 16; } }
+
+/* ---------- beat three: it leaves ---------- */
+.mis__fly { opacity: 0; }
+[data-reveal].in .mis__fly { animation: misFly 9s cubic-bezier(.5,0,.3,1) infinite; }
+@keyframes misFly {
+  0%, 48%   { opacity: 0; transform: translate(0, 0) scale(.9); }
+  54%       { opacity: 1; transform: translate(6px, -2px) scale(1); }
+  74%, 100% { opacity: 0; transform: translate(150px, -14px) scale(.7); }
+}
+
+.mis__inbox { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+.mis__done { opacity: 0; }
+[data-reveal].in .mis__done { animation: misDone 9s var(--ease-out) infinite; }
+@keyframes misDone { 0%,72% { opacity: 0; } 80%,94% { opacity: 1; } 100% { opacity: 0; } }
+.mis__donebox { fill: rgba(23,201,155,0.14); stroke: var(--teal); stroke-width: 1.2; }
+
+/* the schedule underneath: which day is sending right now */
+.mis__day { fill: rgba(255,255,255,0.16); }
+.mis__dayon { fill: var(--teal); opacity: 0; }
+[data-reveal].in .mis__dayon { animation: misDay 9s steps(1,end) infinite; }
+[data-reveal].in .mis__dayon--2 { animation-delay: 1.5s; }
+[data-reveal].in .mis__dayon--3 { animation-delay: 3s; }
+[data-reveal].in .mis__dayon--4 { animation-delay: 4.5s; }
+[data-reveal].in .mis__dayon--5 { animation-delay: 6s; }
+@keyframes misDay { 0%,16% { opacity: 1; } 17%,100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mis__bar, .mis__row, .mis__tick, .mis__fly, .mis__done, .mis__dayon { animation: none !important; }
+  .mis__bar { transform: scaleY(1); }
+  .mis__row { opacity: 1; transform: none; }
+  .mis__tick { stroke-dashoffset: 0; }
+  .mis__fly { opacity: 0; }
+  .mis__done { opacity: 1; }
+  .mis__dayon { opacity: 0; }
+  .mis__dayon--1 { opacity: 1; }
+}
