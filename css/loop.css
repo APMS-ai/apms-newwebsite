@@ -145,13 +145,26 @@
    half and nothing else. Under 800px the markup swaps to a second SVG whose
    four nodes run clockwise around a rounded square, which reads as a loop more
    honestly than a row does anyway. */
-.aloop__svg--tall { display: none; }
+.aloop__svg--tall, .aloop__svg--strip { display: none; }
 
+/* Three widths, three shapes. The 2x2 ring fits a tablet column but on a phone
+   it is 346px tall and hollow in the middle, and the section came to 1327px
+   against an 844px viewport: the diagram, the tabs and the panel text could
+   never be seen together. The strip says the same thing in 152 units, with the
+   return arc carrying the loop, so the whole section fits one screen. */
 @media (max-width: 800px) {
   .aloop { overflow: visible; }
   .aloop__svg--wide { display: none; }
   .aloop__svg--tall { display: block; max-width: 360px; margin-inline: auto; }
 }
+@media (max-width: 620px) {
+  .aloop__svg--tall { display: none; }
+  .aloop__svg--strip { display: block; max-width: 340px; margin-inline: auto; }
+  /* the labels sit close together at this size, so give them room */
+  .aloop__svg--strip .aloop__lbl { font-size: 11px; }
+  .aloop__svg--strip .aloop__num { font-size: 8.5px; letter-spacing: .08em; }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .aloop__flow, .aloop__comet, .aloop__comet-halo { animation: none !important; }

@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/maintui.css?v=4">
   <link rel="stylesheet" href="css/aiplus.css?v=4">
   <link rel="stylesheet" href="css/motion.css?v=5">
-  <link rel="stylesheet" href="css/loop.css?v=3">
+  <link rel="stylesheet" href="css/loop.css?v=4">
   <link rel="stylesheet" href="css/drum.css?v=5">
   <link rel="stylesheet" href="css/perf.css?v=4">
   <link rel="stylesheet" href="css/a11y-motion.css?v=1">
@@ -618,6 +618,46 @@
             </g>
             <text class="aloop__num" x="180" y="181" text-anchor="middle">AND BACK ROUND AGAIN</text>
           </svg>
+          <svg class="aloop__svg aloop__svg--strip" viewBox="0 0 330 152" role="img" aria-label="The APMS loop: monitor feeds analyse, analyse feeds predict, predict feeds act, and act feeds back into monitor">
+            <path class="aloop__track" d="M42 48 H300"/>
+            <path class="aloop__flow" d="M42 48 H300"/>
+            <path class="aloop__track" d="M300 96 C300 132, 42 132, 42 96"/>
+            <path class="aloop__flow" d="M300 96 C300 132, 42 132, 42 96"/>
+            <g><circle class="aloop__comet-halo" r="7" visibility="hidden"><set attributeName="visibility" to="visible" begin="0s"/><animateMotion dur="7s" repeatCount="indefinite" path="M42 48 H300"/></circle><circle class="aloop__comet" r="3.2" visibility="hidden"><set attributeName="visibility" to="visible" begin="0s"/><animateMotion dur="7s" repeatCount="indefinite" path="M42 48 H300"/></circle></g>
+            <g class="aloop__n aloop__n--monitor is-live" data-goto="monitor">
+              <circle class="aloop__ring" cx="42" cy="48" r="25"/>
+              <circle class="aloop__disc" cx="42" cy="48" r="25"/>
+              <g transform="translate(42,48)"><path class="aloop__glyph gl-wave" d="M-11 0 h4 l2.5 -7 l3.5 14 l2.5 -7 h7"/></g>
+              <text class="aloop__num" x="42" y="90" text-anchor="middle">01</text>
+              <text class="aloop__lbl" x="42" y="106" text-anchor="middle">Monitor</text>
+              <circle class="aloop__hit" cx="42" cy="60" r="34"/>
+            </g>
+            <g class="aloop__n aloop__n--analyse" data-goto="analyse">
+              <circle class="aloop__ring" cx="128" cy="48" r="25"/>
+              <circle class="aloop__disc" cx="128" cy="48" r="25"/>
+              <g transform="translate(128,48)"><rect class="aloop__glyph-fill gl-bar1" x="-9"  y="-1" width="4.5" height="9"  rx="1.2"/><rect class="aloop__glyph-fill gl-bar2" x="-2.2" y="-6" width="4.5" height="14" rx="1.2"/><rect class="aloop__glyph-fill gl-bar3" x="4.5" y="-10" width="4.5" height="18" rx="1.2"/></g>
+              <text class="aloop__num" x="128" y="90" text-anchor="middle">02</text>
+              <text class="aloop__lbl" x="128" y="106" text-anchor="middle">Analyse</text>
+              <circle class="aloop__hit" cx="128" cy="60" r="34"/>
+            </g>
+            <g class="aloop__n aloop__n--predict" data-goto="predict">
+              <circle class="aloop__ring" cx="214" cy="48" r="25"/>
+              <circle class="aloop__disc" cx="214" cy="48" r="25"/>
+              <g transform="translate(214,48)"><path class="aloop__glyph" d="M-11 6 L-4.5 0 L0 3"/><path class="aloop__glyph gl-fcast" d="M0 3 L5.5 -4.5 L11 -8" stroke-dasharray="24" stroke-dashoffset="24"/><circle class="aloop__glyph-fill gl-dot" cx="11" cy="-8" r="2.4"/></g>
+              <text class="aloop__num" x="214" y="90" text-anchor="middle">03</text>
+              <text class="aloop__lbl" x="214" y="106" text-anchor="middle">Predict</text>
+              <circle class="aloop__hit" cx="214" cy="60" r="34"/>
+            </g>
+            <g class="aloop__n aloop__n--act" data-goto="act">
+              <circle class="aloop__ring" cx="300" cy="48" r="25"/>
+              <circle class="aloop__disc" cx="300" cy="48" r="25"/>
+              <g transform="translate(300,48)"><path class="aloop__glyph-fill gl-bolt" d="M1.5 -11 L-7 2.5 h5.5 l-1.5 8.5 L7 -2.5 h-5.5 z"/></g>
+              <text class="aloop__num" x="300" y="90" text-anchor="middle">04</text>
+              <text class="aloop__lbl" x="300" y="106" text-anchor="middle">Act</text>
+              <circle class="aloop__hit" cx="300" cy="60" r="34"/>
+            </g>
+            <text class="aloop__num" x="165" y="146" text-anchor="middle">AND BACK ROUND AGAIN</text>
+          </svg>
           </div>
           <div class="ptabs" role="tablist">
             <button class="ptab is-active" data-tab="monitor">01 · Monitor</button>
@@ -628,25 +668,25 @@
           <div class="ppane is-active" data-pane="monitor">
             <div class="pbody">
               <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">See every machine, every second</h3>
-              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Every asset reports its own status, whether it is running, idle, stopped or in setup, read straight from the controller with nothing for anyone to write down. OEE and utilisation build themselves from that same feed, so the whole plant sits in one view and the shift ends without any guesswork.</p>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Every asset reports running, idle, stopped or setup straight from the controller. OEE and utilisation build themselves from the same feed.</p>
             </div>
           </div>
           <div class="ppane" data-pane="analyse">
             <div class="pbody">
               <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">Every loss traced to its cause</h3>
-              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Downtime is tagged with its reason the moment it happens and ranked by what it actually costs, so recurring losses stop hiding in spreadsheets. You can cut the same picture by line or by shift, and watch MTBF and MTTR move as the fixes land.</p>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Downtime is tagged with its reason as it happens and ranked by what it costs, so recurring losses stop hiding in spreadsheets.</p>
             </div>
           </div>
           <div class="ppane" data-pane="predict">
             <div class="pbody">
               <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">Catch failures before they cost a shift</h3>
-              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Vibration, load, temperature and cycle signatures feed anomaly detection, so wear and drift surface as an early warning rather than a breakdown. The same signals forecast tool life and usage, which turns maintenance into something you schedule instead of something that happens to you.</p>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Vibration, load, temperature and cycle signatures feed anomaly detection, so wear surfaces as an early warning rather than a breakdown.</p>
             </div>
           </div>
           <div class="ppane" data-pane="act">
             <div class="pbody">
               <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:0.8rem;">The right person, the right second</h3>
-              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Alerts and escalations fire the moment reality drifts from plan, reaching the right person for the job on their phone or the dashboard in front of them. The same events push into your ERP, MES, email and SMS, so the response starts without anyone relaying a message.</p>
+              <p style="color:var(--body);font-size:1.05rem;margin-bottom:0;">Alerts fire the moment reality drifts from plan and reach the person who can act, on their phone or the dashboard in front of them.</p>
             </div>
           </div>
         </div>
