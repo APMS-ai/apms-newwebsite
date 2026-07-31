@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce || !window.Gradient) return;
+  if (reduce) return;
 
   function hasWebGL() {
     try { var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }
@@ -24,6 +24,19 @@
   if (!fine || window.innerWidth < 900) return;
 
   var sections = Array.prototype.slice.call(document.querySelectorAll(".cta, [data-mesh]"), 0, 1);
+  if (!sections.length) return;
+
+  /* 24 KB fetched only where a mesh will actually be drawn, for the same
+     reason three.js is no longer a script tag: a phone should not pay for it. */
+  if (!window.Gradient) {
+    var lib = document.createElement("script");
+    lib.src = "js/vendor/mesh-gradient.js";
+    lib.onload = draw;
+    lib.onerror = function () {};
+    document.head.appendChild(lib);
+  } else { draw(); }
+
+  function draw() {
   Array.prototype.forEach.call(sections, function (sec, i) {
     if (getComputedStyle(sec).position === "static") sec.style.position = "relative";
     var canvas = document.createElement("canvas");
@@ -45,4 +58,5 @@
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     }
   });
+  }
 })();

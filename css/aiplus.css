@@ -171,15 +171,7 @@
 .amis * { transform-box: view-box; }
 
 /* the clock that fires the schedule */
-.aclock__face { fill: none; stroke: rgba(255,255,255,0.18); stroke-width: 2; }
-.aclock__hand { stroke: var(--teal-bright); stroke-width: 2; stroke-linecap: round; transform-origin: 56px 56px; }
-[data-reveal].in .aclock__hand--m { animation: aSpin 4s linear infinite; }
-[data-reveal].in .aclock__hand--h { animation: aSpin 16s linear infinite; }
 @keyframes aSpin { to { transform: rotate(360deg); } }
-.aclock__ping { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; transform-origin: 56px 56px; }
-[data-reveal].in .aclock__ping { animation: aRing2 4s ease-out infinite; }
-.aclock__lbl { font-family: var(--display); font-weight: 900; font-size: 12px; fill: #fff; }
-.aclock__sub { font-family: var(--text); font-size: 10px; fill: rgba(255,255,255,0.5); }
 
 /* report rows: each lands with a tick, in sequence */
 .arep__row { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
@@ -199,8 +191,6 @@
 .arep__g:nth-of-type(5) .arep__tick { animation-delay: 1.4s; }
 
 /* a sent-pulse travels from the clock to the stack */
-.amis__wire { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 1.4; stroke-dasharray: 4 5; }
-.amis__pulse { fill: var(--teal-bright); }
 
 .amis__chips { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: 1.3rem; }
 .amis__chips li { text-align: center; }
@@ -215,8 +205,6 @@
 @media (prefers-reduced-motion: reduce) {
   .achat__b { opacity: 1 !important; transform: none !important; animation: none !important; }
   .achat__typing i, .aorb__ring, .aorb__core, .amic__ring, .awave rect,
-  .anav li, .aclock__hand, .aclock__ping, .arep__tick, .amis__pulse { animation: none !important; }
-  .aorb__ring, .amic__ring, .aclock__ping { opacity: 0 !important; }
   .asaid { animation: none !important; clip-path: none !important; }
   .arep__tick { stroke-dashoffset: 0 !important; }
   .awave rect { transform: scaleY(.7); }

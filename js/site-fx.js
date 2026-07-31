@@ -24,8 +24,28 @@
      particle mesh. perf.js pauses it on desktop once the hero scrolls away. */
   var heavyOk = fine && window.innerWidth >= 900;
 
+  /* three.min.js is 601 KB and vanta another 12. They used to be script tags on
+     every page, which meant every phone downloaded and parsed 613 KB for a hero
+     effect that is switched off below 900px. They are fetched here instead, and
+     only once we already know the effect will run. */
+  function need(srcs, done) {
+    var left = srcs.length;
+    srcs.forEach(function (src) {
+      var el = document.createElement("script");
+      el.src = src; el.async = false;
+      el.onload = function () { if (--left === 0) done(); };
+      el.onerror = function () { left = -1; };   /* give up quietly */
+      document.head.appendChild(el);
+    });
+  }
+
   var hero = document.querySelector(".phero") || document.querySelector(".hero");
-  if (hero && !reduce && heavyOk && window.VANTA && window.VANTA.NET && window.THREE && hasWebGL()) {
+  if (hero && !reduce && heavyOk && hasWebGL()) {
+    need(["js/vendor/three.min.js", "js/vendor/vanta.net.min.js"], startVanta);
+  }
+
+  function startVanta() {
+    if (!window.VANTA || !window.VANTA.NET || !window.THREE) return;
     hero.classList.add("has-vanta"); // CSS mutes the static grid + lifts content above the canvas
     // Dedicated background layer so the canvas sits BEHIND hero content, never over it.
     var bg = document.createElement("div");
