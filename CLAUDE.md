@@ -32,9 +32,20 @@ already caused a real, measured defect once.
 
 - Hand-written HTML/CSS/JS. **No build step, no `package.json`, no framework.**
   Libraries are vendored in `js/vendor/`.
-- 9 real pages plus `404.html`. **`machine-health-vitals.html` and
-  `pipeline-step-preview.html` are standalone generated files** — exclude them
-  from every sweep, audit and deploy (`.gitignore` already does).
+- 9 real pages plus `404.html`, all at the repository root. **They stay there.**
+  Netlify publishes from `.`, so moving a page changes its public URL and breaks
+  every link into it.
+- Stylesheets and scripts are grouped by role:
+
+  | folder | holds |
+  |---|---|
+  | `css/base`, `js/core` | the shell: layout, type, footer, reveals, smooth scroll |
+  | `css/motion`, `js/motion` | loader, pointer motion, drum, rails, perf gating |
+  | `css/sections`, `js/sections` | one file per section or console |
+  | `js/vendor` | third party, never edited |
+
+- `_standalone/` holds the two generated previews, `docs/` the notes. Both are
+  gitignored and must never deploy.
 - **Bump `?v=N`** on a stylesheet or script whenever you edit it, or the browser
   serves the old one. A "not applied" bug report was cache, not code.
 - `css/perf.css` and `css/a11y-motion.css` must load **last**, in that order.

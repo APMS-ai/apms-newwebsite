@@ -9,8 +9,7 @@ _snapshot_pre-restyle_20260724_122719/
 # Standalone generated previews. Not linked from the site, and
 # machine-health-vitals.html pulls React from unpkg.com at runtime, which no
 # other page does.
-machine-health-vitals.html
-pipeline-step-preview.html
+_standalone/
 
 # Working files
 *.bak
