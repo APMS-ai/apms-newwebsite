@@ -76,6 +76,15 @@
           var scale = 0.66 + depth * 0.34;
           var op = 0.32 + depth * 0.68;
 
+          /* The card at 180deg sits exactly behind the front one, so its text
+             read straight through the front card. The 0.32 opacity floor was
+             the cause: legible is right for the side cards, wrong for the one
+             hidden behind. Fade only the rearmost sliver, on a smoothstep so
+             nothing pops while the ring is being scrubbed. Side cards, at
+             depth 0.5, are untouched.  */
+          var t = depth / 0.18;
+          if (t < 1) { t = t < 0 ? 0 : t; op *= t * t * (3 - 2 * t); }
+
           var c = cards[i];
           c.style.transform = "translate3d(" + x.toFixed(1) + "px,0," +
                               (z * R * 0.55).toFixed(1) + "px) scale(" + scale.toFixed(3) + ")";

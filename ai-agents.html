@@ -23,11 +23,12 @@
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=2">
   <link rel="stylesheet" href="css/motion/rail.css?v=5">
-<link rel="stylesheet" href="css/sections/agentic.css?v=13">
+<link rel="stylesheet" href="css/sections/agentic.css?v=15">
 <link rel="stylesheet" href="css/sections/agarch.css?v=1">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
   <link rel="stylesheet" href="css/sections/aiplus.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
+<link rel="stylesheet" href="css/motion/drum.css?v=5">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
 </head>
@@ -83,8 +84,19 @@
     <section class="sec sec--darker">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">The problem</span><h2>Where the week quietly slips away</h2><p>Rarely from one big failure. Usually from a dozen small ones nobody had time to catch, in the plant, the back office, the service desk or the supply chain.</p></div>
-        <div class="grid3">
-          <article class="tile" data-reveal><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg></div><h3>You're blind between reports</h3><p>Whether it's a line, a ledger or a queue, problems surface hours late, long after the cost is locked in.</p></article><article class="tile" data-reveal><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3 3 3 0 0 0-3 3 3 3 0 0 0 0 6 3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0 0-6 3 3 0 0 0-3-3 3 3 0 0 0-3-3z"/></svg></div><h3>Your knowledge walks out</h3><p>Why the press drifts on Mondays, why that customer always disputes. It lives in one person&#39;s head, not a system.</p></article><article class="tile" data-reveal><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 11h7l-1 9 9-11h-7z"/></svg></div><h3>You're stuck firefighting</h3><p>Your team chases the loudest problem, not the one quietly costing the most.</p></article>
+        <div class="drum" data-drum>
+          <div class="drum__stage">
+            <div class="drum__ring">
+              <article class="tile drum__card" data-i="0"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg></div><h3>You're blind between reports</h3><p>Whether it's a line, a ledger or a queue, problems surface hours late, long after the cost is locked in.</p></article>
+              <article class="tile drum__card" data-i="1"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3 3 3 0 0 0-3 3 3 3 0 0 0 0 6 3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0 0-6 3 3 0 0 0-3-3 3 3 0 0 0-3-3z"/></svg></div><h3>Your knowledge walks out</h3><p>Why the press drifts on Mondays, why that customer always disputes. It lives in one person&#39;s head, not a system.</p></article>
+              <article class="tile drum__card" data-i="2"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 11h7l-1 9 9-11h-7z"/></svg></div><h3>You're stuck firefighting</h3><p>Your team chases the loudest problem, not the one quietly costing the most.</p></article>
+            </div>
+          </div>
+          <ol class="drum__dots" aria-hidden="true">
+            <li class="is-on"><span></span>You're blind between reports</li>
+            <li><span></span>Your knowledge walks out</li>
+            <li><span></span>You're stuck firefighting</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -96,7 +108,73 @@
           <article class="tile" data-reveal data-reveal-delay="1"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 2 2 5-6"/></svg></div><h3>Get answers written up</h3><p>Summaries, breakdowns and reports generated on demand for a shift, a ledger, a region or a queue.</p></article>
           <article class="tile" data-reveal data-reveal-delay="2"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 11h7l-1 9 9-11h-7z"/></svg></div><h3>Automate the follow-through</h3><p>At-risk work flagged and the right person alerted automatically, while there's still time to fix it.</p></article>
         </div>
-      </div>
+      
+        <!-- ============================================================
+             The agent on watch. A sensor head sweeps a live signal wall on a
+             6s clock; the pupil tracks the beam, and the one out-of-band
+             reading is flagged as the beam reaches it, at 3.55s, which is
+             exactly where the beam is when it crosses that bar.
+
+             All transform and opacity. Per-element origins, so transform-box
+             is fill-box and the bars scale from their own base (CLAUDE.md #7).
+             ============================================================ -->
+        <div class="agw" data-reveal>
+          <svg class="agw__svg" viewBox="0 20 960 210" role="img"
+               aria-label="A monitoring agent sweeping a wall of live readings and flagging the one that moves out of range">
+            <defs>
+              <linearGradient id="agwBeam" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#2ee0b4" stop-opacity="0"/>
+                <stop offset="0.45" stop-color="#2ee0b4" stop-opacity=".30"/>
+                <stop offset="1" stop-color="#2ee0b4" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- the sensor head, fixed at the top -->
+            <g class="agw__head">
+              <rect class="agw__case" x="428" y="40" width="104" height="44" rx="14"/>
+              <rect class="agw__vent" x="452" y="48" width="56" height="5" rx="2.5"/>
+              <circle class="agw__lens" cx="480" cy="68" r="12"/>
+              <circle class="agw__pupil" cx="480" cy="68" r="5"/>
+              <path class="agw__mast" d="M480 84 V100"/>
+            </g>
+
+            <!-- the wall it is watching -->
+            <path class="agw__base" d="M34 178 H926"/>
+              <rect class="agw__bar" x="36.5" y="150.0" width="7" height="26" rx="3" style="--d:0.00s"/>
+              <rect class="agw__bar" x="78.4" y="142.0" width="7" height="34" rx="3" style="--d:0.28s"/>
+              <rect class="agw__bar" x="120.3" y="146.0" width="7" height="30" rx="3" style="--d:0.56s"/>
+              <rect class="agw__bar" x="162.2" y="134.0" width="7" height="42" rx="3" style="--d:0.84s"/>
+              <rect class="agw__bar" x="204.1" y="140.0" width="7" height="36" rx="3" style="--d:1.12s"/>
+              <rect class="agw__bar" x="246.0" y="146.0" width="7" height="30" rx="3" style="--d:1.40s"/>
+              <rect class="agw__bar" x="287.9" y="132.0" width="7" height="44" rx="3" style="--d:1.68s"/>
+              <rect class="agw__bar" x="329.8" y="138.0" width="7" height="38" rx="3" style="--d:0.00s"/>
+              <rect class="agw__bar" x="371.7" y="144.0" width="7" height="32" rx="3" style="--d:0.28s"/>
+              <rect class="agw__bar" x="413.6" y="130.0" width="7" height="46" rx="3" style="--d:0.56s"/>
+              <rect class="agw__bar" x="455.5" y="136.0" width="7" height="40" rx="3" style="--d:0.84s"/>
+              <rect class="agw__bar" x="497.5" y="142.0" width="7" height="34" rx="3" style="--d:1.12s"/>
+              <rect class="agw__bar" x="539.4" y="128.0" width="7" height="48" rx="3" style="--d:1.40s"/>
+              <rect class="agw__bar agw__bar--hot" x="581.3" y="104.0" width="7" height="72" rx="3" style="--d:1.68s"/>
+              <rect class="agw__bar" x="623.2" y="138.0" width="7" height="38" rx="3" style="--d:0.00s"/>
+              <rect class="agw__bar" x="665.1" y="132.0" width="7" height="44" rx="3" style="--d:0.28s"/>
+              <rect class="agw__bar" x="707.0" y="144.0" width="7" height="32" rx="3" style="--d:0.56s"/>
+              <rect class="agw__bar" x="748.9" y="136.0" width="7" height="40" rx="3" style="--d:0.84s"/>
+              <rect class="agw__bar" x="790.8" y="140.0" width="7" height="36" rx="3" style="--d:1.12s"/>
+              <rect class="agw__bar" x="832.7" y="146.0" width="7" height="30" rx="3" style="--d:1.40s"/>
+              <rect class="agw__bar" x="874.6" y="134.0" width="7" height="42" rx="3" style="--d:1.68s"/>
+              <rect class="agw__bar" x="916.5" y="142.0" width="7" height="34" rx="3" style="--d:0.00s"/>
+
+            <!-- the sweep -->
+            <rect class="agw__beam" x="34" y="100" width="46" height="78" fill="url(#agwBeam)"/>
+
+            <!-- what it caught -->
+            <g class="agw__flag" style="--hx:584.8px">
+              <circle class="agw__flagring" cx="584.8" cy="98" r="13"/>
+              <circle class="agw__flagdot" cx="584.8" cy="98" r="4.5"/>
+              <text class="agw__flaglbl" x="584.8" y="216" text-anchor="middle">Out of range</text>
+            </g>
+          </svg>
+        </div>
+</div>
     </section>
 
     <!-- ============ BEYOND THE FLOOR · PROBLEM → AGENT ============ -->
@@ -936,5 +1014,6 @@
   <script src="js/core/perf.js?v=3"></script>
   <script src="js/motion/gscroll.js?v=2"></script>
   <script src="js/motion/motion.js?v=5"></script>
+  <script src="js/motion/drum.js?v=6"></script>
 </body>
 </html>

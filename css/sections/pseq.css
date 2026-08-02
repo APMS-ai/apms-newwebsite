@@ -21,6 +21,9 @@
 
 .pseq { position: relative; background: var(--ink-900); }
 .pseq__track { height: 580vh; }                         /* scroll distance for 6 steps */
+/* industries.html runs eight sectors through the same component, so it needs
+   two more screens of travel or the last two slides get no scroll room */
+.pseq--ind .pseq__track { height: 780vh; }
 .pseq__sticky {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
   display: flex; flex-direction: column; justify-content: center;

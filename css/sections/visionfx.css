@@ -16,6 +16,12 @@
    station actually does rather than a generic animation.
    ========================================================================== */
 .vcon { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+/* The conveyor board and the live ticker under it were touching, so the two
+   animations read as one restless block. 3cm of clear air between them, as
+   asked. cm is a real CSS absolute unit: 3cm resolves to 113.4px at the CSS
+   reference of 96dpi, and it does not change with the root font size. */
+.vcon + .ticker { margin-top: 3cm; }
 /* the viewBox is 620 units wide; letting it stretch across a ~1140px column
    scaled every label to ~1.8x and dwarfed the section copy */
 .vcon svg { width: 100%; max-width: 780px; margin-inline: auto; height: auto; display: block; overflow: visible; }
@@ -180,4 +186,88 @@
   .vstep::before { transform: scaleY(1); transition: none; }
   .vstep__dot { transform: none; opacity: 1; transition: none; }
   .vstep__body { opacity: 1; transform: none; transition: none; }
+}
+
+/* ==========================================================================
+   The inspection head running the line
+   ("Deep learning, on the line, in real time")
+
+   One 9s clock. The head travels the rail with offset-path; each part lights
+   on the same clock at the delay matching where the head actually is, so the
+   check lands under the lens rather than near it.
+
+   Rail x-span is 46 to 914, so a part at x sits at (x-46)/868 of the run:
+     170 -> 14.3%  -> 1.29s     570 -> 60.4% -> 5.44s
+     370 -> 37.3%  -> 3.36s     770 -> 83.4% -> 7.51s
+   ========================================================================== */
+.vbot { margin-top: clamp(2rem, 4vw, 3.2rem); }
+.vbot__svg {
+  width: 100%; max-width: 960px; margin-inline: auto;
+  height: auto; display: block; overflow: visible;
+}
+/* fill-box, not view-box: these origins are per-element (CLAUDE.md #7) */
+.vbot__svg * { transform-box: fill-box; }
+
+/* base geometry never animates away */
+.vbot__rail { fill: none; stroke: var(--line); stroke-width: 2; stroke-linecap: round; }
+.vbot__ticks path { stroke: var(--line); stroke-width: 1.4; }
+
+.vbot__part rect {
+  fill: var(--white); stroke: var(--line); stroke-width: 1.4;
+  transition: none;
+}
+.vbot__tick {
+  fill: none; stroke: var(--teal-deep); stroke-width: 2.4;
+  stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0;
+}
+
+/* the head */
+.vbot__body  { fill: var(--white); stroke: var(--ink); stroke-width: 1.8; }
+.vbot__vent  { fill: var(--line); }
+.vbot__lens  { fill: var(--ink); }
+.vbot__pupil { fill: var(--teal-bright); }
+.vbot__mast  { stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; }
+.vbot__beacon{ fill: var(--teal); }
+.vbot__cone  { fill: url(#vbotCone); }
+
+/* resting state: parked at the start, so nothing sits at the SVG origin */
+.vbot__head { offset-distance: 0%; offset-rotate: 0deg; }
+
+[data-reveal].in .vbot__head   { animation: vbotRun 9s cubic-bezier(.55,0,.45,1) infinite; }
+[data-reveal].in .vbot__beacon { animation: vbotBeacon 1.4s ease-in-out infinite; }
+[data-reveal].in .vbot__cone   { animation: vbotCone 1.4s ease-in-out infinite; }
+[data-reveal].in .vbot__tick   { animation: vbotTick 9s linear infinite; }
+[data-reveal].in .vbot__part--1 .vbot__tick { animation-delay: 1.29s; }
+[data-reveal].in .vbot__part--2 .vbot__tick { animation-delay: 3.36s; }
+[data-reveal].in .vbot__part--3 .vbot__tick { animation-delay: 5.44s; }
+[data-reveal].in .vbot__part--4 .vbot__tick { animation-delay: 7.51s; }
+
+@keyframes vbotRun {
+  0%        { offset-distance: 0%; }
+  6%        { offset-distance: 0%; }
+  88%       { offset-distance: 100%; }
+  94%, 100% { offset-distance: 100%; }
+}
+@keyframes vbotBeacon { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+@keyframes vbotCone   { 0%, 100% { opacity: 1; } 50% { opacity: .62; } }
+/* the check appears as the lens arrives and stays for the rest of the pass */
+@keyframes vbotTick {
+  0%       { opacity: 0; }
+  1%, 96%  { opacity: 1; }
+  100%     { opacity: 0; }
+}
+
+@media (max-width: 700px) {
+  .vbot__part rect { display: none; }
+  .vbot__ticks path { display: none; }
+}
+
+/* Continuous travel is exactly what must not survive reduced motion
+   (CLAUDE.md #4). The head parks mid-line and every part reads as checked. */
+@media (prefers-reduced-motion: reduce) {
+  .vbot__head, .vbot__beacon, .vbot__cone, .vbot__tick { animation: none !important; }
+  .vbot__head { offset-distance: 50%; }
+  .vbot__tick { opacity: 1; }
+  .vbot__cone { opacity: .7; }
 }

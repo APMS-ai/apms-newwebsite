@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
   <link rel="stylesheet" href="css/sections/industriesfx.css?v=1">
+<link rel="stylesheet" href="css/sections/pseq.css?v=11">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
 </head>
@@ -78,86 +79,209 @@
         </div>
       </div>
     </section>
-    <section class="sec sec--paper">
-      <div class="container">
-<div class="sec__head sec__head--center" data-reveal>
-          <span class="kicker" style="justify-content:center;">Where APMS is put to work</span>
-          <h2>Eight sectors. One platform, shaped to each.</h2>
-          <p>The problems change with the process. What stays the same is the layer underneath: capture whatever the machine speaks, make the number trustworthy, then act on it.</p>
-        </div>
-        <div class="isteps">
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz" d="M3 20V8l5 3.4V8l5 3.4V8l5 3.4V20z"/><path class="iz iz--soft" d="M2 22h20"/><circle class="iz-fill iz-line" cx="12" cy="4" r="1.7"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">01 &middot; Automotive &amp; Tier-1</span>
-              <h3>Every station, at line rate</h3>
-              <p>Takt time leaves no room to inspect later. Cameras watch each station as the part moves, the result is stamped against the serial, and a station that starts drifting is flagged before it fills a rework bay.</p>
-              <div class="istep__pts"><span>Station level OEE</span><span>Part traceability</span><span>Inline defect catch</span><span>Andon and escalation</span></div>
+    <!-- ============ EIGHT SECTORS, ONE AT A TIME ============
+         Reworked onto the same pinned scroll story the platform page uses, so
+         a reader meets one sector at a time instead of scanning a wall of
+         eight cards. Every word is carried over from those cards unchanged.
+
+         The illustrations speak the fx- vocabulary already defined in
+         css/sections/pseq.css (fx-wire, fx-bar, fx-pulse, fx-arc, fx-draw,
+         fx-float, fx-spin, fx-breathe), so they animate, share the platform
+         page's visual language, and honour reduced motion without one new
+         keyframe. The track is 780vh here rather than 580vh: eight steps need
+         two more screens than six.
+         ============================================================ -->
+    <section class="pseq pseq--ind" id="sectors" data-pseq>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+        <linearGradient id="psTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cdd8e2"/></linearGradient>
+        <linearGradient id="psBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12314a"/><stop offset="1" stop-color="#0b2036"/></linearGradient>
+        <radialGradient id="psGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff" stop-opacity=".38"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+      </defs></svg>
+      <div class="pseq__track">
+        <div class="pseq__sticky">
+          <div class="pseq__head">
+            <span class="kicker">Industries we serve</span>
+            <h2>Eight sectors. One platform, shaped to each.</h2>
+          </div>
+          <div class="pseq__stage">
+            <div class="pstep is-active">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 01 of 08</span>
+                <h3>Automotive &amp; Tier-1</h3><div class="pstep__sub">Every station, at line rate</div>
+                <p>Takt time leaves no room to inspect later. Cameras watch each station as the part moves, the result is stamped against the serial, and a station that starts drifting is flagged before it fills a rework bay.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Automotive and Tier-1, every station, at line rate">
+                <circle class="fx-breathe" cx="280" cy="220" r="150" fill="url(#psGlow)"/>
+                <path d="M60 330 H500" fill="none" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="2"/>
+                <path class="fx-wire" d="M60 330 H500" fill="none" stroke="#2BE3B0" stroke-width="2.6" stroke-linecap="round"/>
+                <g stroke="#2BE3B0" stroke-width="2" fill="none" stroke-opacity=".45"><path d="M120 330 V250 H200 V330"/><path d="M240 330 V250 H320 V330"/><path d="M360 330 V250 H440 V330"/></g>
+                <path d="M196 316 h150 l28 -34 h48 l20 34 h20 v26 h-266z" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".6" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="240" cy="344" r="15" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.4"/>
+                <circle cx="410" cy="344" r="15" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.4"/>
+                <rect x="252" y="120" width="86" height="46" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".6" stroke-width="2"/>
+                <circle cx="295" cy="143" r="11" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
+                <circle class="fx-pulse" cx="295" cy="143" r="4.5" fill="#2BE3B0"/>
+                <path d="M295 166 L246 258 H344z" fill="url(#psGlow)" opacity=".45"/>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2.2"><circle cx="295" cy="258" r="26"/></g>
+                <g fill="#8ff0d6" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6"><text x="112" y="392">STATION 1</text><text x="240" y="392">STATION 2</text><text x="360" y="392">STATION 3</text></g>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz iz--soft" d="M3 20h18"/><rect class="iz iz-bar1" x="4.5" y="9" width="3.6" height="10" rx="1"/><rect class="iz iz-bar2" x="10.2" y="9" width="3.6" height="10" rx="1"/><rect class="iz iz-bar3" x="15.9" y="9" width="3.6" height="10" rx="1"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">02 &middot; Heavy Machinery</span>
-              <h3>One view over a mixed fleet</h3>
-              <p>Big assets, many makes, several sites, and no two controllers speaking the same language. Every machine reports into one layer, so utilisation, load and health read the same way whether the asset arrived last year or twenty years ago.</p>
-              <div class="istep__pts"><span>Mixed protocol capture</span><span>Fleet utilisation</span><span>Load and duty cycles</span><span>Site comparison</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 02 of 08</span>
+                <h3>Heavy Machinery</h3><div class="pstep__sub">One view over a mixed fleet</div>
+                <p>Big assets, many makes, several sites, and no two controllers speaking the same language. Every machine reports into one layer, so utilisation, load and health read the same way whether the asset arrived last year or twenty years ago.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Heavy Machinery, one view over a mixed fleet">
+                <circle class="fx-breathe" cx="280" cy="210" r="140" fill="url(#psGlow)"/>
+                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"><rect x="40" y="70" width="120" height="70" rx="12"/><rect x="40" y="180" width="120" height="70" rx="12"/><rect x="40" y="290" width="120" height="70" rx="12"/></g>
+                <g fill="#8ff0d6" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.4"><text x="64" y="110">SITE A</text><text x="64" y="220">SITE B</text><text x="64" y="330">SITE C</text></g>
+                <path d="M160 105 C260 105 260 215 340 215" fill="none" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="2"/>
+                <path d="M160 215 H340" fill="none" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="2"/>
+                <path d="M160 325 C260 325 260 215 340 215" fill="none" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="2"/>
+                <path class="fx-wire" d="M160 105 C260 105 260 215 340 215" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <path class="fx-wire" d="M160 215 H340" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <path class="fx-wire" d="M160 325 C260 325 260 215 340 215" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="340" y="130" width="176" height="170" rx="16" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".6" stroke-width="2"/>
+                <rect x="362" y="152" width="132" height="10" rx="5" fill="#0a1622"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="368" y="230" width="20" height="46" rx="3"/><rect class="fx-bar d1" x="400" y="212" width="20" height="64" rx="3"/><rect class="fx-bar d2" x="432" y="242" width="20" height="34" rx="3"/><rect class="fx-bar d3" x="464" y="200" width="20" height="76" rx="3"/></g>
+                <text x="428" y="332" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">ONE FLEET VIEW</text>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz" d="M12 21.5s7-3.1 7-8.8V5.2L12 2.5 5 5.2v7.5c0 5.7 7 8.8 7 8.8z"/><path class="iz iz-tick" d="m8.8 12.2 2.3 2.3 4.1-4.6"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">03 &middot; Pharma</span>
-              <h3>Compliance you can hand to an auditor</h3>
-              <p>Batch records that reconstruct themselves, parameters logged as they happen, and a quality trail nobody has to assemble the week before an inspection. Access is controlled and every change keeps its author and timestamp.</p>
-              <div class="istep__pts"><span>Batch genealogy</span><span>Audit trail</span><span>Role based access</span><span>Deviation alerts</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 03 of 08</span>
+                <h3>Pharma</h3><div class="pstep__sub">Compliance you can hand to an auditor</div>
+                <p>Batch records that reconstruct themselves, parameters logged as they happen, and a quality trail nobody has to assemble the week before an inspection. Access is controlled and every change keeps its author and timestamp.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Pharma, compliance you can hand to an auditor">
+                <circle class="fx-breathe" cx="270" cy="215" r="140" fill="url(#psGlow)"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="60" y="180" width="26" height="90" rx="7"/><rect class="fx-bar d1" x="100" y="180" width="26" height="90" rx="7"/><rect class="fx-bar d2" x="140" y="180" width="26" height="90" rx="7"/><rect class="fx-bar d3" x="180" y="180" width="26" height="90" rx="7"/></g>
+                <g fill="none" stroke="#2BE3B0" stroke-width="2" stroke-opacity=".6"><rect x="56" y="160" width="34" height="24" rx="6"/><rect x="96" y="160" width="34" height="24" rx="6"/><rect x="136" y="160" width="34" height="24" rx="6"/><rect x="176" y="160" width="34" height="24" rx="6"/></g>
+                <path d="M56 292 H214" stroke="#2BE3B0" stroke-opacity=".35" stroke-width="2" fill="none"/>
+                <path class="fx-wire" d="M214 268 C280 268 280 200 330 200" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="330" y="96" width="176" height="220" rx="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".6" stroke-width="2"/>
+                <g stroke="#8ff0d6" stroke-width="5" stroke-linecap="round" stroke-opacity=".5"><path d="M356 140 H470"/><path d="M356 166 H480"/><path d="M356 192 H444"/><path d="M356 218 H470"/></g>
+                <path class="fx-draw" d="M356 252 l22 20 l38 -44" fill="none" stroke="#2BE3B0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="440" y="240" width="44" height="34" rx="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
+                <path d="M450 240 v-10 a12 12 0 0 1 24 0 v10" fill="none" stroke="#2BE3B0" stroke-width="2.4"/>
+                <circle class="fx-pulse" cx="462" cy="257" r="4" fill="#2BE3B0"/>
+                <text x="418" y="352" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">BATCH RECORD</text>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz" d="M7.5 3h9v16.4a1.6 1.6 0 0 1-1.6 1.6H9.1a1.6 1.6 0 0 1-1.6-1.6z"/><path class="iz iz--soft" d="M9.5 3V1.6h5V3"/><rect class="iz-fill iz-fill-rise" x="9.1" y="8" width="5.8" height="11" rx="1"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">04 &middot; Food &amp; Beverage</span>
-              <h3>Throughput without loosening hygiene</h3>
-              <p>Changeovers, wash-downs and short shelf life squeeze the run time you have. Line speed, giveaway and downtime reasons sit side by side, so a decision about throughput is never made blind to what it costs in waste or compliance.</p>
-              <div class="istep__pts"><span>Changeover timing</span><span>Giveaway and waste</span><span>Hygiene checkpoints</span><span>Shelf life tracking</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 04 of 08</span>
+                <h3>Food &amp; Beverage</h3><div class="pstep__sub">Throughput without loosening hygiene</div>
+                <p>Changeovers, wash-downs and short shelf life squeeze the run time you have. Line speed, giveaway and downtime reasons sit side by side, so a decision about throughput is never made blind to what it costs in waste or compliance.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Food and Beverage, throughput without loosening hygiene">
+                <circle class="fx-breathe" cx="280" cy="215" r="145" fill="url(#psGlow)"/>
+                <path d="M40 320 H520" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="2" fill="none"/>
+                <path class="fx-wire" d="M40 320 H520" fill="none" stroke="#2BE3B0" stroke-width="2.6" stroke-linecap="round"/>
+                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"><path d="M76 306 v-62 a12 12 0 0 1 8 -11 v-17 h16 v17 a12 12 0 0 1 8 11 v62z"/><path d="M148 306 v-62 a12 12 0 0 1 8 -11 v-17 h16 v17 a12 12 0 0 1 8 11 v62z"/><path d="M220 306 v-62 a12 12 0 0 1 8 -11 v-17 h16 v17 a12 12 0 0 1 8 11 v62z"/></g>
+                <g fill="url(#psTeal)" opacity=".85"><rect class="fx-bar" x="80" y="266" width="24" height="40" rx="3"/><rect class="fx-bar d1" x="152" y="258" width="24" height="48" rx="3"/><rect class="fx-bar d2" x="224" y="272" width="24" height="34" rx="3"/></g>
+                <circle cx="400" cy="196" r="72" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="2"/>
+                <path d="M348 196 a52 52 0 0 1 104 0" fill="none" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="8" stroke-linecap="round"/>
+                <path class="fx-draw" d="M348 196 a52 52 0 0 1 74 -47" fill="none" stroke="#2BE3B0" stroke-width="8" stroke-linecap="round"/>
+                <circle class="fx-pulse" cx="400" cy="196" r="6" fill="#2BE3B0"/>
+                <text x="400" y="240" text-anchor="middle" font-family="Barlow,sans-serif" font-size="13" font-weight="800" letter-spacing="1.4" fill="#8ff0d6">LINE SPEED</text>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2.2"><circle cx="400" cy="196" r="86"/></g>
+                <text x="164" y="368" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">RUN AND WASH-DOWN</text>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz iz--soft" d="M2 15h4l2.6-7 3 12 2.8-8.4 1.8 3.4H22"/><path class="iz-pulse" d="M2 15h4l2.6-7 3 12 2.8-8.4 1.8 3.4H22" fill="none"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">05 &middot; Power &amp; Energy</span>
-              <h3>Critical assets, never off watch</h3>
-              <p>When an asset cannot come down unplanned, vibration, temperature and electrical signature are watched continuously rather than on a walk-round. The point is a week of warning, not a record of the failure.</p>
-              <div class="istep__pts"><span>Continuous condition data</span><span>Early warning</span><span>Outage planning</span><span>Remote sites</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 05 of 08</span>
+                <h3>Power &amp; Energy</h3><div class="pstep__sub">Critical assets, never off watch</div>
+                <p>When an asset cannot come down unplanned, vibration, temperature and electrical signature are watched continuously rather than on a walk-round. The point is a week of warning, not a record of the failure.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Power and Energy, critical assets, never off watch">
+                <circle class="fx-breathe" cx="200" cy="200" r="130" fill="url(#psGlow)"/>
+                <circle cx="200" cy="200" r="86" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="2"/>
+                <g class="fx-spin" stroke="#2BE3B0" stroke-width="3" fill="none" stroke-linecap="round"><path d="M200 132 v40"/><path d="M200 228 v40"/><path d="M132 200 h40"/><path d="M228 200 h40"/><path d="M152 152 l28 28"/><path d="M248 248 l-28 -28"/><path d="M152 248 l28 -28"/><path d="M248 152 l-28 28"/></g>
+                <circle cx="200" cy="200" r="16" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.4"/>
+                <circle class="fx-pulse" cx="200" cy="200" r="6" fill="#2BE3B0"/>
+                <path class="fx-wire" d="M286 200 H330" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="330" y="118" width="186" height="164" rx="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <path d="M350 236 H498" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+                <path class="fx-draw" d="M350 216 l24 -18 l22 26 l24 -44 l24 30 l22 -50 l32 42" fill="none" stroke="#8ff0d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle class="fx-pulse d1" cx="478" cy="160" r="5.5" fill="#2BE3B0"/>
+                <text x="350" y="268" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">VIBRATION AND TEMP</text>
+                <text x="200" y="332" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">ALWAYS ON</text>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz iz--soft" d="M3 19.5h18"/><rect class="iz" x="5" y="14" width="14" height="4" rx="1"/><path class="iz iz-head" d="M12 4v6M9.6 10h4.8"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">06 &middot; Metal Fabrication</span>
-              <h3>Presses and CNC, honest about setup</h3>
-              <p>Cycle time is the easy number. The time that actually disappears goes into setup, first-off approval and scrap after a tool change. All three are measured, per job and per operator, so improvement has somewhere to aim.</p>
-              <div class="istep__pts"><span>Cycle and setup split</span><span>Tool life</span><span>Scrap by cause</span><span>Job costing</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 06 of 08</span>
+                <h3>Metal Fabrication</h3><div class="pstep__sub">Presses and CNC, honest about setup</div>
+                <p>Cycle time is the easy number. The time that actually disappears goes into setup, first-off approval and scrap after a tool change. All three are measured, per job and per operator, so improvement has somewhere to aim.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Metal Fabrication, presses and CNC, honest about setup">
+                <circle class="fx-breathe" cx="180" cy="210" r="130" fill="url(#psGlow)"/>
+                <rect x="70" y="86" width="220" height="34" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <path d="M96 120 V320 M264 120 V320" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="3"/>
+                <g class="fx-float"><rect x="120" y="150" width="120" height="46" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".7" stroke-width="2.4"/></g>
+                <rect x="104" y="290" width="152" height="30" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <rect x="140" y="266" width="80" height="24" rx="4" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="2"/>
+                <text x="180" y="362" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">PRESS</text>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="350" y="150" width="46" height="60" rx="4"/><rect class="fx-bar d1" x="350" y="216" width="46" height="34" rx="4"/><rect class="fx-bar d2" x="350" y="256" width="46" height="24" rx="4"/><rect class="fx-bar d3" x="420" y="150" width="46" height="112" rx="4"/><rect class="fx-bar" x="420" y="268" width="46" height="12" rx="4"/></g>
+                <path d="M336 296 H480" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+                <g fill="#8ff0d6" font-family="Barlow,sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" text-anchor="middle"><text x="373" y="318">SETUP</text><text x="443" y="318">RUN</text></g>
+                <text x="408" y="126" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">WHERE TIME GOES</text>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="iz" d="M3 9.5 12 4l9 5.5V20H3z"/><path class="iz iz--soft" d="M3 20h18"/><rect class="iz-fill iz-travel" x="10.4" y="13.4" width="3.2" height="3.2" rx=".6"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">07 &middot; Warehousing &amp; Logistics</span>
-              <h3>Movement that reconciles itself</h3>
-              <p>Stock counts drift the moment a move goes unrecorded. Scans, gate events and dock activity feed one picture, so what the system believes and what is on the floor stay the same number.</p>
-              <div class="istep__pts"><span>Live stock position</span><span>Dock and gate events</span><span>Pick accuracy</span><span>Dwell and ageing</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 07 of 08</span>
+                <h3>Warehousing &amp; Logistics</h3><div class="pstep__sub">Movement that reconciles itself</div>
+                <p>Stock counts drift the moment a move goes unrecorded. Scans, gate events and dock activity feed one picture, so what the system believes and what is on the floor stay the same number.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Warehousing and Logistics, movement that reconciles itself">
+                <circle class="fx-breathe" cx="280" cy="210" r="145" fill="url(#psGlow)"/>
+                <g fill="none" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="2.4"><path d="M50 130 H210 M50 210 H210 M50 290 H210 M50 130 V330 M130 130 V330 M210 130 V330"/></g>
+                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.8"><rect x="62" y="146" width="52" height="52" rx="5"/><rect x="142" y="146" width="52" height="52" rx="5"/><rect x="62" y="226" width="52" height="52" rx="5"/><rect x="142" y="226" width="52" height="52" rx="5"/></g>
+                <path d="M228 330 H470" fill="none" stroke="#2BE3B0" stroke-opacity=".3" stroke-width="2"/>
+                <path class="fx-wire" d="M228 330 H470" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <g class="fx-float d1"><rect x="286" y="272" width="86" height="44" rx="6" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".6" stroke-width="2"/><path d="M300 316 v10 M358 316 v10" stroke="#2BE3B0" stroke-width="2.4"/></g>
+                <rect x="396" y="120" width="110" height="150" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <g stroke="#8ff0d6" stroke-width="3" stroke-opacity=".7"><path d="M414 150 V240"/><path d="M424 150 V240"/><path d="M438 150 V240"/><path d="M452 150 V240"/><path d="M466 150 V240"/><path d="M482 150 V240"/></g>
+                <g class="fx-arc" fill="none" stroke="#2BE3B0" stroke-width="2.2"><circle cx="451" cy="195" r="70"/></g>
+                <circle class="fx-pulse" cx="451" cy="290" r="5" fill="#2BE3B0"/>
+                <text x="451" y="320" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">SCANNED</text>
+              </svg></div>
             </div>
-          </article>
-          <article class="istep" data-reveal>
-            <div class="istep__viz"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="iz" cx="12" cy="12" r="8.4"/><path class="iz iz-spin" d="M12 3.6v3.6M12 16.8v3.6M3.6 12h3.6M16.8 12h3.6"/><circle class="iz-fill" cx="12" cy="12" r="2.1"/></svg></div>
-            <div class="istep__body">
-              <span class="istep__tag">08 &middot; Plastics &amp; Moulding</span>
-              <h3>Every shot, every cavity</h3>
-              <p>Quality lives in parameters that shift quietly: melt temperature, hold pressure, cooling. Shot data is captured per cavity and read against the last good run, so a drift shows up as a trend instead of a bin of short shots.</p>
-              <div class="istep__pts"><span>Shot level parameters</span><span>Cavity comparison</span><span>Cycle stability</span><span>Scrap prediction</span></div>
+
+            <div class="pstep">
+              <div class="pstep__copy">
+                <span class="pstep__num"><i></i>Sector 08 of 08</span>
+                <h3>Plastics &amp; Moulding</h3><div class="pstep__sub">Every shot, every cavity</div>
+                <p>Quality lives in parameters that shift quietly: melt temperature, hold pressure, cooling. Shot data is captured per cavity and read against the last good run, so a drift shows up as a trend instead of a bin of short shots.</p>
+              </div>
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Plastics and Moulding, every shot, every cavity">
+                <circle class="fx-breathe" cx="270" cy="210" r="140" fill="url(#psGlow)"/>
+                <rect x="60" y="130" width="90" height="170" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <rect x="190" y="130" width="90" height="170" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <g class="fx-float"><path d="M150 215 H190" stroke="#2BE3B0" stroke-width="3" stroke-linecap="round" fill="none"/></g>
+                <g fill="#2BE3B0"><circle class="fx-pulse" cx="212" cy="164" r="7"/><circle class="fx-pulse d1" cx="240" cy="164" r="7"/><circle class="fx-pulse d2" cx="268" cy="164" r="7"/><circle class="fx-pulse d1" cx="212" cy="200" r="7"/><circle class="fx-pulse d2" cx="240" cy="200" r="7"/><circle class="fx-pulse" cx="268" cy="200" r="7"/><circle class="fx-pulse d2" cx="212" cy="236" r="7"/><circle class="fx-pulse" cx="240" cy="236" r="7"/><circle class="fx-pulse d1" cx="268" cy="236" r="7"/></g>
+                <text x="170" y="342" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6" fill="#8ff0d6">PER CAVITY</text>
+                <path class="fx-wire" d="M280 215 H330" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <rect x="330" y="130" width="180" height="170" rx="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
+                <path d="M350 262 H494" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+                <path d="M350 178 H494" stroke="rgba(255,255,255,.14)" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <path class="fx-draw" d="M350 240 l26 -8 l26 6 l26 -14 l26 4 l26 -26" fill="none" stroke="#8ff0d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="350" y="170" font-family="Barlow,sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#8ff0d6">LAST GOOD RUN</text>
+                <circle class="fx-pulse" cx="480" cy="206" r="5.5" fill="#2BE3B0"/>
+              </svg></div>
             </div>
-          </article>
+          </div>
+          <div class="pseq__progress" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         </div>
       </div>
     </section>
@@ -392,5 +516,6 @@
   <script src="js/core/perf.js?v=3"></script>
   <script src="js/motion/gscroll.js?v=2"></script>
   <script src="js/motion/motion.js?v=5"></script>
+  <script src="js/sections/pseq.js?v=2"></script>
 </body>
 </html>
