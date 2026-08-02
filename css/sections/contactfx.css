@@ -1,0 +1,50 @@
+/* ==========================================================================
+   APMS.ai — contactfx.css
+   Contact page: a small, quiet "signal reaching out" motif above the direct
+   contact card. Two nodes, a curved rail and a pulse that travels it once
+   every few seconds. It is decorative only, it does not claim the form is
+   delivered anywhere: nothing here says "sent" or "received".
+   ========================================================================== */
+
+.cfx { margin: 0 0 1.1rem; }
+.cfx__svg { width: 100%; max-width: 300px; height: auto; display: block; overflow: visible; }
+.cfx__svg * { transform-box: view-box; }
+
+/* the rail never animates, only the pulse and the fill sweep travelling it,
+   so the diagram still reads correctly when paused off screen */
+.cfx__rail { fill: none; stroke: var(--line); stroke-width: 1.6; stroke-linecap: round; }
+.cfx__lit {
+  fill: none; stroke: var(--teal); stroke-width: 1.6; stroke-linecap: round;
+  opacity: .6; stroke-dasharray: 240; stroke-dashoffset: 240;
+}
+.cfx.in .cfx__lit { animation: cfxLit 5.6s ease-in-out infinite; }
+@keyframes cfxLit { 0% { stroke-dashoffset: 240; } 45%, 100% { stroke-dashoffset: 0; } }
+
+.cfx__node--you circle { fill: var(--white); stroke: var(--line); stroke-width: 1.6; }
+.cfx__glyph { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+
+.cfx__node--apms circle { fill: rgba(23,201,155,.10); stroke: var(--teal); stroke-width: 1.6; }
+.cfx__glyph--apms { stroke: var(--teal-deep); }
+
+.cfx__lbl {
+  font-family: var(--display); font-weight: 700; font-size: 9.5px;
+  letter-spacing: .08em; text-transform: uppercase; fill: var(--muted); text-anchor: middle;
+}
+
+.cfx__halo { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; transform-origin: center; }
+.cfx.in .cfx__halo { animation: cfxHalo 4.2s ease-out infinite; }
+.cfx.in .cfx__halo--2 { animation-delay: 1.4s; }
+@keyframes cfxHalo { 0% { opacity: .45; transform: scale(.9); } 70%, 100% { opacity: 0; transform: scale(1.6); } }
+
+.cfx__pulse { fill: var(--teal-bright); }
+
+@media (max-width: 620px) {
+  .cfx__svg { max-width: 240px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cfx__lit, .cfx__halo { animation: none !important; }
+  .cfx__lit { opacity: .6; stroke-dashoffset: 0; }
+  .cfx__halo { opacity: 0; }
+  .cfx__pulse { visibility: hidden !important; }
+}

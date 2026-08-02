@@ -1,0 +1,88 @@
+APMS.ai - what to upload over FTP
+========================================
+
+Upload to the web root (public_html), keeping the folder structure:
+
+  .htaccess
+  404.html
+  about.html
+  ai-agents.html
+  assets/apms-logo.png
+  assets/apms-mark.png
+  contact.html
+  css/base/enhance.css
+  css/base/footer.css
+  css/base/fx.css
+  css/base/iconlife.css
+  css/base/polish.css
+  css/base/redesign.css
+  css/base/reveal.css
+  css/motion/a11y-motion.css
+  css/motion/drum.css
+  css/motion/loader.css
+  css/motion/motion.css
+  css/motion/perf.css
+  css/motion/rail.css
+  css/sections/agarch.css
+  css/sections/agentic.css
+  css/sections/aiplus.css
+  css/sections/analyst.css
+  css/sections/bentofx.css
+  css/sections/floorgrid.css
+  css/sections/formfx.css
+  css/sections/indsteps.css
+  css/sections/loop.css
+  css/sections/maint.css
+  css/sections/maintnew.css
+  css/sections/maintui.css
+  css/sections/misfx.css
+  css/sections/motionfx.css
+  css/sections/pseq.css
+  css/sections/visioncmp.css
+  css/sections/visionfx.css
+  index.html
+  industries.html
+  js/core/enhance.js
+  js/core/perf.js
+  js/core/polish.js
+  js/core/redesign.js
+  js/core/reveal.js
+  js/core/smooth.js
+  js/core/ui-fx.js
+  js/motion/drum.js
+  js/motion/gscroll.js
+  js/motion/iconlife.js
+  js/motion/loader.js
+  js/motion/mesh-bg.js
+  js/motion/motion.js
+  js/motion/rail.js
+  js/motion/scroll-text.js
+  js/motion/site-fx.js
+  js/sections/agentic.js
+  js/sections/analyst.js
+  js/sections/formfx.js
+  js/sections/loop.js
+  js/sections/pseq.js
+  js/vendor/ScrollTrigger.min.js
+  js/vendor/anime.min.js
+  js/vendor/gsap.min.js
+  js/vendor/lenis.min.js
+  js/vendor/mesh-gradient.js
+  js/vendor/three.min.js
+  js/vendor/vanta.net.min.js
+  motion-ai.html
+  privacy.html
+  solutions.html
+  vision-ai.html
+
+Never upload these:
+
+  .gitattributes
+  .gitignore
+  CLAUDE.md
+  _snapshot_pre-restyle_20260724_122719/css/enhance.css
+  _snapshot_pre-restyle_20260724_122719/css/redesign.css
+  _standalone/machine-health-vitals.html
+  _standalone/pipeline-step-preview.html
+  docs/PONYTAIL.md
+  netlify.toml

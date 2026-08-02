@@ -18,13 +18,19 @@
 .mis { width: 100%; height: auto; display: block; overflow: visible; }
 .mis * { transform-box: fill-box; }
 
-.mis__panel { fill: rgba(255,255,255,0.03); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
-.mis__sheet { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+/* The card is white all the way out: a report is a piece of paper, so it
+   reads as one. Everything inside it is therefore inked, not white on white.
+   The section behind it is white too, so the card earns its edge from a
+   border plus one static shadow. Static, and on a single element, so it is
+   nothing like the "blur many elements at once" cost CLAUDE.md warns about. */
+.mis { filter: drop-shadow(0 10px 26px rgba(12,26,40,0.10)); }
+.mis__panel { fill: #fff; stroke: rgba(12,26,40,0.14); stroke-width: 1; }
+.mis__sheet { fill: #fff; stroke: rgba(12,26,40,0.13); stroke-width: 1; }
 .mis__ttl   { font-family: var(--display); font-weight: 800; font-size: 10px;
-              letter-spacing: .12em; text-transform: uppercase; fill: rgba(255,255,255,0.45); }
-.mis__lbl   { font-family: var(--display); font-weight: 700; font-size: 10.5px; fill: rgba(255,255,255,0.8); }
-.mis__val   { font-family: var(--display); font-weight: 800; font-size: 10.5px; fill: var(--teal-bright); }
-.mis__rule  { stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+              letter-spacing: .12em; text-transform: uppercase; fill: var(--muted); }
+.mis__lbl   { font-family: var(--display); font-weight: 700; font-size: 10.5px; fill: var(--body); }
+.mis__val   { font-family: var(--display); font-weight: 800; font-size: 10.5px; fill: var(--teal-deep); }
+.mis__rule  { stroke: rgba(12,26,40,0.10); stroke-width: 1; }
 
 /* ---------- beat one: the sheet fills ---------- */
 .mis__bar { fill: var(--teal); transform-origin: center bottom; transform: scaleY(0); }
@@ -46,7 +52,7 @@
 }
 
 /* ---------- beat two: signed off ---------- */
-.mis__tick { fill: none; stroke: var(--teal-bright); stroke-width: 2.2;
+.mis__tick { fill: none; stroke: var(--teal-deep); stroke-width: 2.2;
              stroke-linecap: round; stroke-linejoin: round;
              stroke-dasharray: 16; stroke-dashoffset: 16; }
 [data-reveal].in .mis__tick { animation: misTick 9s var(--ease-out) infinite; }
@@ -61,14 +67,16 @@
   74%, 100% { opacity: 0; transform: translate(150px, -14px) scale(.7); }
 }
 
-.mis__inbox { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+.mis__inbox { fill: rgba(12,26,40,0.03); stroke: rgba(12,26,40,0.12); stroke-width: 1; }
 .mis__done { opacity: 0; }
 [data-reveal].in .mis__done { animation: misDone 9s var(--ease-out) infinite; }
 @keyframes misDone { 0%,72% { opacity: 0; } 80%,94% { opacity: 1; } 100% { opacity: 0; } }
 .mis__donebox { fill: rgba(23,201,155,0.14); stroke: var(--teal); stroke-width: 1.2; }
 
 /* the schedule underneath: which day is sending right now */
-.mis__day { fill: rgba(255,255,255,0.16); }
+.mis__day { fill: rgba(12,26,40,0.14); }
+/* the brighter teal, not teal-deep: the day letter sits on top of this pill
+   in dark ink, the same pairing the primary button uses */
 .mis__dayon { fill: var(--teal); opacity: 0; }
 [data-reveal].in .mis__dayon { animation: misDay 9s steps(1,end) infinite; }
 [data-reveal].in .mis__dayon--2 { animation-delay: 1.5s; }

@@ -195,10 +195,12 @@
 .amis__chips { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: 1.3rem; }
 .amis__chips li { text-align: center; }
 @media (max-width: 420px) { .amis__chips { grid-template-columns: 1fr; } }
+/* This block sits in a white section, so the chips are inked rather than
+   white on white. .amis is used only here, on index.html. */
 .amis__chips li {
-  font-size: .78rem; color: var(--on-dark);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
+  font-size: .78rem; color: var(--body);
+  background: rgba(12,26,40,0.035);
+  border: 1px solid rgba(12,26,40,0.10);
   padding: .32rem .66rem; border-radius: 8px;
 }
 

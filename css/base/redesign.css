@@ -7,7 +7,7 @@
   /* brand — APMS teal only */
   --teal: #17c99b;
   --teal-bright: #2ee0b4;
-  --teal-deep: #0b8368;      /* AA on white */
+  --teal-deep: #0a7a61;      /* AA on white AND on --paper at 12px: 5.29 / 4.97 */
   --teal-ink: #063d31;
 
   /* industrial ink (deep dark sections) */
@@ -26,7 +26,7 @@
   /* text */
   --ink: #0c1a28;
   --body: #41525f;
-  --muted: #6c7c8a;
+  --muted: #5f6d7a;          /* AA at 12px on white, --paper and --paper-2 */
   --on-dark: rgba(255,255,255,0.92);
   --on-dark-soft: rgba(255,255,255,0.62);
 
@@ -87,7 +87,11 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; line-height: 1.0
   color: var(--teal-deep);
 }
 .kicker::before { content: ""; width: 22px; height: 2px; background: var(--teal); }
-.on-dark .kicker, .sec--dark .kicker { color: var(--teal-bright); }
+/* Every dark context, not just .sec--dark. The hero is .hero and the About
+   stats band is .sec--darker, and both were falling back to --teal-deep on a
+   near-black background, which reads at 4.09:1 for 12px text. */
+.on-dark .kicker, .sec--dark .kicker, .sec--darker .kicker,
+.hero .kicker, .phero .kicker { color: var(--teal-bright); }
 
 /* ---------- buttons ---------- */
 .btn {

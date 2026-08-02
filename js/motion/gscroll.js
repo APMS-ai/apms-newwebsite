@@ -52,6 +52,44 @@
   if (reduce) { ST.refresh(); return; }
 
   /* ------------------------------------------------------------------
+     1b · homepage only: the hero-to-first-section handoff
+     Scoped to index.html by checking for .hero, which only that page has.
+     Everything here targets elements reveal.js does not touch, so nothing
+     double-writes a transform: .hero__grid/.hero__orbs are siblings of
+     .hero__inner, not children of it, and .trust__marquee is a plain
+     wrapper div that never matches reveal.js's TARGETS or SKIP_WITHIN
+     lists. reveal.js still owns the one-shot entrance of .hero__copy and
+     of .trust__label (it matches "main > section > .container > p");
+     this only adds a scroll-linked layer on top, on different elements.
+     ------------------------------------------------------------------ */
+  var hero = document.querySelector(".hero");
+  if (hero) {
+    var heroBg = gsap.utils.toArray(".hero__grid, .hero__orbs");
+    if (heroBg.length) {
+      gsap.to(heroBg, {
+        yPercent: 14, opacity: 0.4, ease: "none",
+        scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.6 }
+      });
+    }
+
+    var heroScrollCue = document.querySelector(".hero__scroll");
+    if (heroScrollCue) {
+      gsap.to(heroScrollCue, {
+        opacity: 0, yPercent: -30, ease: "none",
+        scrollTrigger: { trigger: hero, start: "top top", end: "20% top", scrub: 0.4 }
+      });
+    }
+
+    var trustMarquee = document.querySelector(".trust__marquee");
+    if (trustMarquee) {
+      gsap.fromTo(trustMarquee, { autoAlpha: 0, y: 24 }, {
+        autoAlpha: 1, y: 0, ease: "none",
+        scrollTrigger: { trigger: trustMarquee, start: "top bottom", end: "top 65%", scrub: 0.5 }
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------
      2 · the scrubbed effects, scaled to the viewport
      ------------------------------------------------------------------ */
   gsap.matchMedia().add("(min-width: 900px)", function () {

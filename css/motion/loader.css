@@ -15,7 +15,7 @@
 .ldr {
   position: fixed; inset: 0; z-index: 2000;
   display: grid; place-items: center;
-  background: var(--ink-900, #070f19);
+  background: #fff;
   /* the curtain lifts from the bottom edge */
   transform: translateY(0);
   transition: transform .9s cubic-bezier(.76, 0, .24, 1);
@@ -26,10 +26,10 @@
   transition: opacity .35s var(--ease, ease), transform .5s cubic-bezier(.22,.61,.36,1);
 }
 
-/* the mark: drawn, not faded, so it reads as being built */
+/* the mark only, no wordmark: drawn, not faded, so it reads as being built */
 .ldr__mark {
-  width: clamp(128px, 22vw, 190px); height: auto;
-  aspect-ratio: 1049 / 238;
+  width: clamp(84px, 14vw, 120px); height: auto;
+  aspect-ratio: 212 / 228;
   opacity: 0; transform: translateY(10px);
   animation: ldrMark .7s cubic-bezier(.22,.61,.36,1) .1s forwards;
 }
@@ -38,7 +38,7 @@
 /* determinate, because an indeterminate spinner tells you nothing */
 .ldr__track {
   width: clamp(120px, 26vw, 200px); height: 2px; border-radius: 2px;
-  background: rgba(255,255,255,.12); overflow: hidden;
+  background: rgba(7,15,25,.1); overflow: hidden;
 }
 .ldr__bar {
   display: block; height: 100%; width: 100%;
@@ -50,7 +50,7 @@
 .ldr__word {
   font-family: var(--display, sans-serif); font-weight: 800;
   font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
-  color: rgba(255,255,255,.36);
+  color: rgba(7,15,25,.45);
 }
 
 /* ---------- leaving ---------- */

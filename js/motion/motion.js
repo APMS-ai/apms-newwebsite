@@ -1,6 +1,6 @@
 /* ==========================================================================
    APMS.ai — motion.js
-   Pointer-driven interaction: card tilt, magnetic buttons, the cursor ring.
+   Pointer-driven interaction: card tilt and magnetic buttons.
 
    The performance shape of this file matters more than the effects in it. The
    site holds a 16.7ms median frame while scrolling and that is not negotiable,
@@ -139,39 +139,12 @@
   );
 
   /* ==================================================================
-     3 · the cursor ring
-     The real cursor stays visible. This only adds a ring that trails it
-     and swells over anything you can act on.
+     3 · the cursor ring: removed
+     A teal ring used to trail the pointer and swell over anything
+     interactive. In a screenshot it read as a stray circle sitting on the
+     page rather than as part of the cursor, so it is gone and the real
+     cursor is the only cursor. The .cursor styles went with it.
+     Removing it also drops a document-level pointermove listener and its
+     rAF loop, so the pointer costs nothing at all when nothing is hovered.
      ================================================================== */
-  var ring = document.createElement("div");
-  ring.className = "cursor";
-  ring.setAttribute("aria-hidden", "true");
-  document.body.appendChild(ring);
-
-  var tx = -100, ty = -100, cx = -100, cy = -100, seen = false, raf = 0;
-
-  function follow() {
-    /* lerp, so the ring lags a little rather than being welded to the pointer */
-    cx += (tx - cx) * 0.18;
-    cy += (ty - cy) * 0.18;
-    ring.style.transform = "translate3d(" + cx.toFixed(1) + "px," + cy.toFixed(1) + "px,0)";
-    /* stop the loop once it has caught up: an idle pointer costs nothing */
-    if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) raf = requestAnimationFrame(follow);
-    else raf = 0;
-  }
-
-  document.addEventListener("pointermove", function (e) {
-    tx = e.clientX; ty = e.clientY;
-    if (!seen) { seen = true; ring.classList.add("is-on"); cx = tx; cy = ty; }
-    if (!raf) raf = requestAnimationFrame(follow);
-  }, { passive: true });
-
-  document.addEventListener("pointerover", function (e) {
-    var t = e.target;
-    var live = t.closest && t.closest("a, button, [role='tab'], input, textarea, select, [data-tilt3d]");
-    ring.classList.toggle("is-active", !!live);
-  }, { passive: true });
-
-  document.addEventListener("pointerleave", function () { ring.classList.remove("is-on"); });
-  window.addEventListener("blur", function () { ring.classList.remove("is-on"); });
 })();

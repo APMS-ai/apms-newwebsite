@@ -17,6 +17,13 @@ _standalone/
 _*.mjs
 _*.py
 
+# Packaged build output. The site has no build step, so a zip of it is a
+# second copy of every page and stylesheet: never publish it.
+apms-site.zip
+
+# Hallmark design-skill run log. Tooling state, not source.
+.hallmark/
+
 # OS and editor noise
 Thumbs.db
 desktop.ini

@@ -1,0 +1,115 @@
+/* ==========================================================================
+   APMS.ai — cardmotion.css
+   A second treatment for the card grids that reveal.js/reveal.css already
+   fade and rise: a circular wipe on entrance, then a slow horizontal drift
+   once idle. Hooks off the same [data-r]/.r-in/.r-done attributes reveal.js
+   already sets, so nothing new is tagged and nothing here can run before the
+   entrance system has decided an element earns one.
+
+   Alternation is per-section, not per-card: main > section flips a pair of
+   custom properties (--cm-dir, --cm-origin) odd/even, so consecutive card
+   grids down the page don't drift the same way or wipe from the same point.
+   Nothing here is hardcoded per page or per section id.
+
+   Two rules this file learned the hard way, both worth keeping:
+
+   1 · The wipe is an ANIMATION on .r-in, never a clipped base state.
+       A base `clip-path: circle(0%)` hides a card until .r-in arrives, so any
+       card whose observer never fires is invisible forever. That is exactly
+       what happened to the six .tile cards in the platform drum: they sit in
+       a rotated ring, most of them off screen, so they never intersected and
+       the whole section rendered blank. As an animation, the worst case is
+       simply no wipe, and reveal.css keeps owning whether a card is visible.
+
+   2 · Bespoke components are excluded outright (see the reset block below).
+       .drum, .aloop and the [data-agp] rails already animate their own
+       transform from JS. A drift animation on the same element makes two
+       owners of one property, which CLAUDE.md #4 forbids and which silently
+       fought drum.js for control of the ring.
+   ========================================================================== */
+
+/* The card family this file treats. Mirrors the "card" group in
+   js/reveal.js's TARGETS plus the generic grid cells the site uses. */
+
+/* ---------- per-section alternation ---------- */
+main > section:nth-of-type(odd) {
+  --cm-dir: 1;
+  --cm-origin: 20% 30%;
+}
+main > section:nth-of-type(even) {
+  --cm-dir: -1;
+  --cm-origin: 80% 70%;
+}
+
+/* ---------- entrance: circular wipe ----------
+   Runs only while revealing. No base clip-path: see note 1 above. */
+.has-reveal
+  :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
+      .faq__item, .ind, .bento__c, .arch__layer, .stat,
+      .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-in {
+  animation: cmWipe var(--r-dur, .78s) var(--r-ease, cubic-bezier(.22,.61,.36,1)) var(--r-delay, 0s) both;
+}
+@keyframes cmWipe {
+  from { clip-path: circle(0% at var(--cm-origin, 50% 50%)); }
+  to   { clip-path: circle(150% at var(--cm-origin, 50% 50%)); }
+}
+
+/* ---------- idle: subtle horizontal drift, direction alternates by section ----------
+   .r-done only lands after reveal.css's own transition has finished and its
+   transform is resting at none, so this animation is the sole writer of
+   transform from here on. Later in the file than the wipe, so it replaces it. */
+@media (prefers-reduced-motion: no-preference) {
+  .has-reveal
+    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
+        .faq__item, .ind, .bento__c, .arch__layer, .stat,
+        .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-done {
+    animation: cmDrift 7.5s ease-in-out infinite;
+  }
+
+  /* desync neighbours a little so a whole row doesn't breathe in unison */
+  .has-reveal
+    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
+        .faq__item, .ind, .bento__c, .arch__layer, .stat,
+        .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-done:nth-child(2n) {
+    animation-delay: -3.75s;
+  }
+  .has-reveal
+    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
+        .faq__item, .ind, .bento__c, .arch__layer, .stat,
+        .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-done:nth-child(3n) {
+    animation-delay: -1.9s;
+  }
+}
+
+@keyframes cmDrift {
+  0%, 100% { transform: translateX(calc(var(--cm-dir, 1) * -4px)); }
+  50%      { transform: translateX(calc(var(--cm-dir, 1) *  4px)); }
+}
+
+/* ---------- hands off the bespoke components ----------
+   These own their own transform from JS (drum.js, rail.js) or their own
+   keyframes (loop.css). Whatever the card classes inside them happen to be,
+   this file does not touch them. See note 2 above. */
+:is(.drum, .drum__ring, .aloop, .agp, [data-agp], .ag-flow, .ag-arch, .pipe__sticky)
+  :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
+      .faq__item, .ind, .bento__c, .arch__layer, .stat,
+      .grid2 > *, .grid3 > *, .grid4 > *) {
+  clip-path: none !important;
+  animation: none !important;
+}
+
+/* ---------- reduced motion: wipe and drift both fully off ---------- */
+/* Same posture as reveal.css's own reduced-motion block: the card just sits
+   at its final, fully visible state. The wipe is positional movement (a
+   circle growing across the box) so it is treated the same as a transform
+   here, not kept the way a11y-motion.css keeps pure state-changes. The drift
+   is continuous travel, which CLAUDE.md #4 says never to re-enable. */
+@media (prefers-reduced-motion: reduce) {
+  .has-reveal
+    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
+        .faq__item, .ind, .bento__c, .arch__layer, .stat,
+        .grid2 > *, .grid3 > *, .grid4 > *)[data-r] {
+    clip-path: none !important;
+    animation: none !important;
+  }
+}

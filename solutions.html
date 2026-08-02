@@ -6,32 +6,36 @@
   <title>See Every Machine, Trust Every Number | APMS.ai</title>
   <meta name="description" content="Connect any machine, new or decades old, and see real-time OEE, reason-tagged downtime and live production the moment it happens. APMS Industrial IoT.">
   <meta property="og:title" content="See Every Machine, Trust Every Number | APMS.ai">
+  <meta property="og:description" content="Connect any machine, new or decades old, and see real-time OEE, reason-tagged downtime and live production the moment it happens. APMS Industrial IoT.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/apms-logo.png">
+  <link rel="canonical" href="https://apms.ai/solutions">
   <link rel="icon" type="image/png" href="assets/apms-mark.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/motion/loader.css?v=1">
-  <link rel="stylesheet" href="css/base/redesign.css?v=15">
-  <link rel="stylesheet" href="css/base/enhance.css?v=16">
+  <link rel="stylesheet" href="css/motion/loader.css?v=2">
+  <link rel="stylesheet" href="css/base/redesign.css?v=16">
+  <link rel="stylesheet" href="css/base/enhance.css?v=17">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
-  <link rel="stylesheet" href="css/base/footer.css?v=4">
+  <link rel="stylesheet" href="css/base/footer.css?v=5">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=2">
   <link rel="stylesheet" href="css/motion/rail.css?v=5">
   <link rel="stylesheet" href="css/sections/bentofx.css?v=5">
   <link rel="stylesheet" href="css/sections/floorgrid.css?v=6">
-  <link rel="stylesheet" href="css/sections/aiplus.css?v=5">
-  <link rel="stylesheet" href="css/motion/motion.css?v=5">
-  <link rel="stylesheet" href="css/motion/perf.css?v=4">
+  <link rel="stylesheet" href="css/motion/motion.css?v=6">
+    <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
+<link rel="stylesheet" href="css/sections/solutionsfx.css?v=6">
+<link rel="stylesheet" href="css/motion/drum.css?v=5">
+<link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
 </head>
 <body data-fx="slide">
   <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
     <div class="ldr__inner">
-      <img class="ldr__mark" src="assets/apms-logo.png" alt="" width="1049" height="238">
+      <img class="ldr__mark" src="assets/apms-mark.png" alt="" width="212" height="228">
       <span class="ldr__track"><i class="ldr__bar"></i></span>
       <span class="ldr__word">Industrial intelligence</span>
     </div>
@@ -78,13 +82,60 @@
       </div>
     </section>
 
-    <!-- ============ PRODUCT TOUR (pill tabs) ============ -->
-        <section class="sec sec--paper">
+    <!-- ============ THE PROBLEM ============ -->
+    <section class="sec sec--darker">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
-          <span class="kicker" style="justify-content:center;">Real-time machine &amp; process intelligence</span>
+          <span class="kicker" style="justify-content:center;">The problem</span>
+          <h2 data-clip>Every machine speaks<br><span class="accent">a language of its own</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Machines were never built to talk to each other, so the numbers your floor produces stay locked inside each one.</p>
+        </div>
+        <!-- The four problems ride the same ring component as the platform
+             pillars on index.html. Below 901px, or under reduced motion,
+             drum.js never builds and this falls back to a plain grid, which
+             is why the cards keep their .tile class. -->
+        <div class="drum" data-drum>
+          <div class="drum__stage">
+            <div class="drum__ring">
+              <article class="tile drum__card" data-i="0" data-reveal>
+                <div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></div>
+                <h3>Data trapped inside every machine</h3>
+                <p>CNC, PLC and sensor each hold their own numbers in their own format, with no shared language and no way out unless someone builds one.</p>
+              </article>
+              <article class="tile drum__card" data-i="1" data-reveal data-reveal-delay="1">
+                <div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M9 12h6"/></svg></div>
+                <h3>Numbers copied by hand, too late to use</h3>
+                <p>A supervisor walks the floor, writes counts on paper, and someone re-types them into a spreadsheet. By the time anyone reads it, the shift is over.</p>
+              </article>
+              <article class="tile drum__card" data-i="2" data-reveal data-reveal-delay="2">
+                <div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M6 9v3h12V9M12 12v3"/></svg></div>
+                <h3>A separate island for every vendor</h3>
+                <p>Each machine builder ships its own portal and its own login, so the plant ends up with a dozen disconnected views and no single picture of the floor.</p>
+              </article>
+              <article class="tile drum__card" data-i="3" data-reveal data-reveal-delay="3">
+                <div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M8 6h8M6 22V10h12v12z"/><path d="M9 15h6"/></svg></div>
+                <h3>Older assets assumed unconnectable</h3>
+                <p>A machine bought before controllers reported data gets written off as too old to monitor, so it runs unseen while newer lines get all the visibility.</p>
+              </article>
+            </div>
+          </div>
+          <ol class="drum__dots" aria-hidden="true">
+            <li class="is-on"><span></span>Trapped data</li>
+            <li><span></span>Copied by hand</li>
+            <li><span></span>Vendor islands</li>
+            <li><span></span>Older assets</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE ANSWER: product tour (pill tabs) ============ -->
+        <section class="sec sec--paper" id="modules">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">The answer</span>
           <h2>Everything the shop floor needs, <span class="accent">connected</span></h2>
-          <p>See your whole shop floor in real time, and turn connected machine and process data into the visibility, efficiency and operational control your teams act on.</p>
+          <p>One platform reads every machine's own language and turns it into the visibility, efficiency and operational control your teams act on, in real time.</p>
         </div>
         <div class="agp floorgrid" data-agp data-agp-native data-agp-cards=".tile">
           <div class="agp__track">
@@ -103,23 +154,14 @@
         </div>
       </div>
     </section>
-            <section class="sec sec--dark">
-      <div class="container">
-        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">How it works</span><h2>From machine to dashboard</h2></div>
-        <div class="steps">
-          <div class="step" data-reveal><h3>Connect</h3><p>Edge hardware taps your controllers and sensors securely, with no production stoppage.</p></div>
-          <div class="step" data-reveal data-reveal-delay="1"><h3>Integrate</h3><p>Open APIs and standard protocols push clean data into your ERP, MES and BI tools.</p></div>
-          <div class="step" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Live dashboards and alerts put the right number in front of the right person, instantly.</p></div>
-        </div>
-      </div>
-    </section>
     <!-- ============ MAINTENANCE & JOB MANAGEMENT ============ -->
-        <!-- ============ BENTO: what you get ============ -->
-    <section class="sec sec--paper">
+        <!-- ============ BENTO: what you get (answer, continued) ============ -->
+    <section class="sec sec--white">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
           <span class="kicker" style="justify-content:center;">One connected view</span>
           <h2 data-clip>Everything on the floor,<br><span class="accent">in one intelligence layer</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;"><em class="ph">Machine names and figures below are sample data, shown to illustrate the layout.</em></p>
         </div>
         <div class="bento" data-reveal>
           <div class="bento__c bento__c--h">
@@ -141,41 +183,88 @@
       </div>
     </section>
 
-    <!-- ============ ASK APMS ANALYST ============ -->
-    <section class="sec sec--darker">
+    <!-- ============ HOW WE WORK ============ -->
+    <section class="sec sec--dark">
       <div class="container">
-        <div class="sec__head sec__head--center" data-reveal>
-          <span class="kicker" style="justify-content:center;">APMS Analyst</span>
-          <h2 data-clip>Ask about any machine,<br><span class="accent">in plain language</span></h2>
-          <p class="sec__lead" style="margin-inline:auto;text-align:center;">The Analyst reads your live floor data and answers in a sentence. No dashboards to open, no query to build.</p>
+        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">How we work</span><h2>From machine to dashboard, in three moves</h2></div>
+        <div class="steps">
+          <div class="step" data-reveal><h3>Connect</h3><p>Edge hardware taps your controllers and sensors securely, with no production stoppage.</p></div>
+          <div class="step" data-reveal data-reveal-delay="1"><h3>Integrate</h3><p>Open APIs and standard protocols push clean data into your ERP, MES and BI tools.</p></div>
+          <div class="step" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Live dashboards and alerts put the right number in front of the right person, instantly.</p></div>
         </div>
-        <div class="aask" data-reveal>
-          <div class="achat">
-            <div class="achat__row achat__row--you"><div class="achat__b achat__b--you">Why is Press-03 down?</div></div>
-            <div class="achat__row"><div class="achat__b achat__b--ai">Press-03 stopped 18 minutes ago, tagged <b>tool change overrun</b>. It is the third time this shift and the top loss driver this week.</div></div>
-            <div class="achat__row achat__row--you"><div class="achat__b achat__b--you">Is it getting worse?</div></div>
-            <div class="achat__row"><div class="achat__b achat__b--ai">Yes. Average tool change is up from 9 to 14 minutes over ten days. I can raise a work order and alert maintenance.</div></div>
-            <div class="achat__row"><div class="achat__b achat__b--ai"><span class="achat__typing"><i></i><i></i><i></i></span></div></div>
-          </div>
-          <div class="aorb">
-              <svg viewBox="0 0 560 250" role="img" aria-label="Live machine data feeding the APMS Analyst: OEE, downtime, quality, sensors and job records">
-                <path class="aorb__feed" d="M20 40 H250 C330 40 344 124 356 124"/><text class="aorb__lbl" x="20" y="31">OEE</text><path class="aorb__feed" d="M20 82 H250 C330 82 344 124 356 124"/><text class="aorb__lbl" x="20" y="73">Downtime</text><path class="aorb__feed" d="M20 124 H250 C330 124 344 124 356 124"/><text class="aorb__lbl" x="20" y="115">Quality</text><path class="aorb__feed" d="M20 166 H250 C330 166 344 124 356 124"/><text class="aorb__lbl" x="20" y="157">Sensors</text><path class="aorb__feed" d="M20 208 H250 C330 208 344 124 356 124"/><text class="aorb__lbl" x="20" y="199">Jobs</text>
-                <circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="0.00s" repeatCount="indefinite" path="M20 40 H250 C330 40 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="0.42s" repeatCount="indefinite" path="M20 82 H250 C330 82 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="0.84s" repeatCount="indefinite" path="M20 124 H250 C330 124 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="1.26s" repeatCount="indefinite" path="M20 166 H250 C330 166 344 124 356 124"/></circle><circle class="aorb__pip" r="3"><animateMotion dur="2.6s" begin="1.68s" repeatCount="indefinite" path="M20 208 H250 C330 208 344 124 356 124"/></circle>
-                <circle class="aorb__ring" cx="400" cy="124" r="44"/>
-                <circle class="aorb__ring" cx="400" cy="124" r="44"/>
-                <circle class="aorb__ring" cx="400" cy="124" r="44"/>
-                <circle class="aorb__core" cx="400" cy="124" r="34"/>
-                <circle cx="400" cy="124" r="9" fill="#2ee0b4"/>
-                <text class="aorb__lbl" x="400" y="196" text-anchor="middle" style="fill:#2ee0b4">APMS Analyst</text>
-              </svg>
-            </div>
+
+        <!-- ============================================================
+             The floor reaching a phone. Machines and sensors feed a gateway,
+             the gateway feeds the APMS hub, and the hub pushes a live figure
+             and an alert to the app in someone's pocket.
+
+             Packets travel with CSS offset-path, the same mechanism the
+             analyst feeds on index.html use, so no circle is ever left
+             sitting at the SVG origin waiting for a SMIL begin (CLAUDE.md #7).
+             The rails themselves never animate.
+             ============================================================ -->
+        <div class="iotp" data-reveal>
+          <svg class="iotp__svg iotp__svg--wide" viewBox="0 0 880 250" role="img"
+               aria-label="Machines and sensors feed an on-site gateway, the gateway feeds the APMS platform, and the platform pushes live production figures and alerts to the APMS app on a phone">
+            <!-- rails -->
+            <path class="iotp__rail" d="M96 56 H176 C206 56 206 125 236 125"/>
+            <path class="iotp__rail" d="M96 125 H236"/>
+            <path class="iotp__rail" d="M96 194 H176 C206 194 206 125 236 125"/>
+            <path class="iotp__rail" d="M330 125 H408"/>
+            <path class="iotp__rail" d="M506 125 H624"/>
+
+            <!-- sources -->
+            <g class="iotp__src">
+              <rect x="26" y="40" width="70" height="32" rx="8"/>
+              <text class="iotp__lbl" x="61" y="60" text-anchor="middle">CNC</text>
+            </g>
+            <g class="iotp__src">
+              <rect x="26" y="109" width="70" height="32" rx="8"/>
+              <text class="iotp__lbl" x="61" y="129" text-anchor="middle">PLC</text>
+            </g>
+            <g class="iotp__src">
+              <rect x="26" y="178" width="70" height="32" rx="8"/>
+              <text class="iotp__lbl" x="61" y="198" text-anchor="middle">SENSOR</text>
+            </g>
+
+            <!-- gateway -->
+            <rect class="iotp__gw" x="236" y="99" width="94" height="52" rx="11"/>
+            <text class="iotp__lbl" x="283" y="129" text-anchor="middle">GATEWAY</text>
+
+            <!-- the platform -->
+            <circle class="iotp__ring" cx="457" cy="125" r="34"/>
+            <circle class="iotp__ring iotp__ring--2" cx="457" cy="125" r="34"/>
+            <circle class="iotp__hub" cx="457" cy="125" r="34"/>
+            <circle class="iotp__core" cx="457" cy="125" r="7"/>
+            <text class="iotp__lbl" x="457" y="184" text-anchor="middle">APMS</text>
+
+            <!-- the phone -->
+            <rect class="iotp__phone" x="624" y="34" width="118" height="182" rx="20"/>
+            <rect class="iotp__screen" x="633" y="43" width="100" height="164" rx="14"/>
+            <rect class="iotp__notch" x="668" y="49" width="30" height="5" rx="2.5"/>
+            <!-- what the app is showing: a live figure that ticks up, then an
+                 alert card that arrives -->
+            <text class="iotp__oee" x="683" y="104" text-anchor="middle">78%</text>
+            <text class="iotp__cap" x="683" y="122" text-anchor="middle">OEE, LIVE</text>
+            <g class="iotp__card">
+              <rect x="643" y="139" width="80" height="40" rx="9"/>
+              <circle class="iotp__cardot" cx="656" cy="153" r="3.4"/>
+              <text class="iotp__cardlbl" x="667" y="157">Press-03</text>
+              <text class="iotp__cardsub" x="653" y="171">Stopped, 4 min</text>
+            </g>
+
+            <!-- packets -->
+            <circle class="iotp__pk iotp__pk--1" r="3.4" style="offset-path:path('M96 56 H176 C206 56 206 125 236 125')"/>
+            <circle class="iotp__pk iotp__pk--2" r="3.4" style="offset-path:path('M96 125 H236')"/>
+            <circle class="iotp__pk iotp__pk--3" r="3.4" style="offset-path:path('M96 194 H176 C206 194 206 125 236 125')"/>
+            <circle class="iotp__pk iotp__pk--4" r="3.4" style="offset-path:path('M330 125 H408')"/>
+            <circle class="iotp__pk iotp__pk--5" r="3.8" style="offset-path:path('M506 125 H624')"/>
+          </svg>
         </div>
       </div>
     </section>
 
-    <!-- ============ VOICE NAVIGATION ============ -->
-        <!-- ============ MIS REPORTS ============ -->
-        <!-- ============ CONNECTIVITY: protocols marquee already on home; here a grid ============ -->
+    <!-- ============ CONNECT ANYTHING (+ integrations) ============ -->
     <section class="sec sec--white">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
@@ -190,9 +279,89 @@
           <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M8 6h8M6 22V10h12v12z"/></svg></div><h3>Retrofit sensors</h3><p>Vibration, current, temperature for legacy assets.</p></div>
         </div>
       </div>
+      <div class="container--wide protowall" data-reveal>
+        <div class="wall" style="--dur:46s;"><div class="wall__row"><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>OPC-UA</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>MQTT</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Modbus TCP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>EtherNet/IP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Siemens S7</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Fanuc FOCAS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Allen-Bradley</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mitsubishi</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Delta</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mazak</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Haas</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>PLC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>CNC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Sensors</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>OPC-UA</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>MQTT</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Modbus TCP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>EtherNet/IP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Siemens S7</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Fanuc FOCAS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Allen-Bradley</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mitsubishi</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Delta</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mazak</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Haas</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>PLC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>CNC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Sensors</span></div></div>
+        <div class="wall" style="--dur:52s;"><div class="wall__row wall__row--rev"><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>SAP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Oracle ERP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Dynamics 365</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MES</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Power BI</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Tableau</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Grafana</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>REST API</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Webhooks</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MQTT Broker</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Email / SMS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Excel Export</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>SAP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Oracle ERP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Dynamics 365</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MES</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Power BI</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Tableau</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Grafana</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>REST API</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Webhooks</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MQTT Broker</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Email / SMS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Excel Export</span></div></div>
+      </div>
     </section>
 
-<section class="sec sec--paper" id="industrial-iot">
+
+    <!-- ============ WHERE THE DATA GOES NEXT (integration bridge) ============ -->
+    <section class="sec sec--paper" id="integrations">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker" style="justify-content:center;">Integrations</span>
+          <h2 data-clip>Reading the floor is half of it.<br><span class="accent">The other half is what you do next.</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Machines, sensors and protocols come in one side. Clean, contextual production data goes out the other, into the ERP, MES, reporting and alerting your teams already work in. APMS sits between the two, so the floor stops being a system nobody else can read.</p>
+        </div>
+        <div class="ibr" data-reveal>
+          <svg class="ibr__svg--wide" viewBox="0 0 860 240" role="img" aria-label="Machines, sensors and protocols flowing into the APMS platform, then out to ERP and MES, business intelligence, and alerts">
+            <path class="ibr__feed" d="M40 40 C230 40 260 120 394 120"/>
+            <path class="ibr__feed" d="M40 120 H394"/>
+            <path class="ibr__feed" d="M40 200 C230 200 260 120 394 120"/>
+            <path class="ibr__feed" d="M466 120 C600 120 630 40 820 40"/>
+            <path class="ibr__feed" d="M466 120 H820"/>
+            <path class="ibr__feed" d="M466 120 C600 120 630 200 820 200"/>
+            <circle class="ibr__pip ibr__pip--1" r="3.2" style="offset-path:path('M40 40 C230 40 260 120 394 120')"/>
+            <circle class="ibr__pip ibr__pip--2" r="3.2" style="offset-path:path('M40 120 H394')"/>
+            <circle class="ibr__pip ibr__pip--3" r="3.2" style="offset-path:path('M40 200 C230 200 260 120 394 120')"/>
+            <circle class="ibr__pip ibr__pip--4" r="3.2" style="offset-path:path('M466 120 C600 120 630 40 820 40')"/>
+            <circle class="ibr__pip ibr__pip--5" r="3.2" style="offset-path:path('M466 120 H820')"/>
+            <circle class="ibr__pip ibr__pip--6" r="3.2" style="offset-path:path('M466 120 C600 120 630 200 820 200')"/>
+            <circle class="ibr__ring" cx="430" cy="120" r="36"/>
+            <circle class="ibr__ring" cx="430" cy="120" r="36"/>
+            <circle class="ibr__ring" cx="430" cy="120" r="36"/>
+            <circle class="ibr__core" cx="430" cy="120" r="36"/>
+            <circle class="ibr__coredot" cx="430" cy="120" r="5.5"/>
+            <text class="ibr__hublbl" x="430" y="180">APMS Platform</text>
+            <circle class="ibr__node" cx="40" cy="40" r="4.5"/><text class="ibr__lbl" x="40" y="24" text-anchor="middle">Machines</text>
+            <circle class="ibr__node" cx="40" cy="120" r="4.5"/><text class="ibr__lbl" x="40" y="104" text-anchor="middle">Sensors</text>
+            <circle class="ibr__node" cx="40" cy="200" r="4.5"/><text class="ibr__lbl" x="40" y="222" text-anchor="middle">Protocols</text>
+            <circle class="ibr__node" cx="820" cy="40" r="4.5"/><text class="ibr__lbl" x="820" y="24" text-anchor="end">ERP / MES</text>
+            <circle class="ibr__node" cx="820" cy="120" r="4.5"/><text class="ibr__lbl" x="820" y="104" text-anchor="end">Business intelligence</text>
+            <circle class="ibr__node" cx="820" cy="200" r="4.5"/><text class="ibr__lbl" x="820" y="222" text-anchor="end">Alerts</text>
+          </svg>
+          <svg class="ibr__svg--tall" viewBox="0 0 300 560" role="img" aria-label="Machines, sensors and protocols flowing into the APMS platform, then out to ERP and MES, business intelligence, and alerts">
+            <path class="ibr__feed" d="M55 30 C55 150 110 150 130 224"/>
+            <path class="ibr__feed" d="M150 30 V220"/>
+            <path class="ibr__feed" d="M245 30 C245 150 190 150 170 224"/>
+            <path class="ibr__feed" d="M130 296 C110 370 55 370 55 490"/>
+            <path class="ibr__feed" d="M150 300 V490"/>
+            <path class="ibr__feed" d="M170 296 C190 370 245 370 245 490"/>
+            <circle class="ibr__pip ibr__pip--1" r="3.2" style="offset-path:path('M55 30 C55 150 110 150 130 224')"/>
+            <circle class="ibr__pip ibr__pip--2" r="3.2" style="offset-path:path('M150 30 V220')"/>
+            <circle class="ibr__pip ibr__pip--3" r="3.2" style="offset-path:path('M245 30 C245 150 190 150 170 224')"/>
+            <circle class="ibr__pip ibr__pip--4" r="3.2" style="offset-path:path('M130 296 C110 370 55 370 55 490')"/>
+            <circle class="ibr__pip ibr__pip--5" r="3.2" style="offset-path:path('M150 300 V490')"/>
+            <circle class="ibr__pip ibr__pip--6" r="3.2" style="offset-path:path('M170 296 C190 370 245 370 245 490')"/>
+            <circle class="ibr__ring" cx="150" cy="260" r="38"/>
+            <circle class="ibr__ring" cx="150" cy="260" r="38"/>
+            <circle class="ibr__ring" cx="150" cy="260" r="38"/>
+            <circle class="ibr__core" cx="150" cy="260" r="38"/>
+            <circle class="ibr__coredot" cx="150" cy="260" r="5.5"/>
+            <text class="ibr__hublbl" x="150" y="392">APMS Platform</text>
+            <circle class="ibr__node" cx="55" cy="30" r="4.5"/><text class="ibr__lbl" x="55" y="14" text-anchor="middle">Machines</text>
+            <circle class="ibr__node" cx="150" cy="30" r="4.5"/><text class="ibr__lbl" x="150" y="14" text-anchor="middle">Sensors</text>
+            <circle class="ibr__node" cx="245" cy="30" r="4.5"/><text class="ibr__lbl" x="245" y="14" text-anchor="middle">Protocols</text>
+            <circle class="ibr__node" cx="55" cy="490" r="4.5"/><text class="ibr__lbl" x="55" y="512" text-anchor="middle">ERP / MES</text>
+            <circle class="ibr__node" cx="150" cy="490" r="4.5"/><text class="ibr__lbl" x="150" y="512" text-anchor="middle">BI</text>
+            <circle class="ibr__node" cx="245" cy="490" r="4.5"/><text class="ibr__lbl" x="245" y="512" text-anchor="middle">Alerts</text>
+          </svg>
+        </div>
+        <div class="ibrcap" data-reveal>
+          <div class="ibrcap__col">
+            <h3>In from the floor</h3>
+            <p>Controllers, retrofit sensors and open standards, polled continuously and normalised into one model, whatever the make or the age of the asset.</p>
+          </div>
+          <div class="ibrcap__col">
+            <h3>Out to your systems</h3>
+            <p>Live production, downtime and quality pushed on an open API, so your ERP, MES and BI read the same numbers your control room does, at the same moment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="sec sec--darker" id="industrial-iot">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
           <span class="kicker" style="justify-content:center;">Industrial IoT</span>
@@ -231,19 +400,6 @@
             <p>Push clean, contextual data into your ERP, MES and BI tools through open APIs and standard industrial protocols.</p>
           </article>
         </div>
-      </div>
-    </section>
-<section class="sec sec--dark">
-      <div class="container">
-        <div class="sec__head sec__head--center" data-reveal>
-          <span class="kicker" style="justify-content:center;">Connectivity &amp; integrations</span>
-          <h2>Connect any machine. <span class="accent">Power any system.</span></h2>
-          <p>Out-of-the-box connectivity for any make, age or protocol, plus open APIs that push live production data into the software you already run.</p>
-        </div>
-      </div>
-      <div class="container--wide" data-reveal>
-        <div class="wall" style="--dur:46s;"><div class="wall__row"><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>OPC-UA</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>MQTT</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Modbus TCP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>EtherNet/IP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Siemens S7</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Fanuc FOCAS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Allen-Bradley</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mitsubishi</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Delta</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mazak</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Haas</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>PLC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>CNC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Sensors</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>OPC-UA</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>MQTT</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Modbus TCP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>EtherNet/IP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Siemens S7</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Fanuc FOCAS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Allen-Bradley</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mitsubishi</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Delta</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Mazak</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Haas</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>PLC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>CNC</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>Sensors</span></div></div>
-        <div class="wall" style="--dur:52s;"><div class="wall__row wall__row--rev"><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>SAP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Oracle ERP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Dynamics 365</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MES</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Power BI</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Tableau</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Grafana</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>REST API</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Webhooks</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MQTT Broker</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Email / SMS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Excel Export</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>SAP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Oracle ERP</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Dynamics 365</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MES</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Power BI</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Tableau</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Grafana</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>REST API</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Webhooks</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>MQTT Broker</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Email / SMS</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Excel Export</span></div></div>
       </div>
     </section>
     <!-- ============ FAQ ============ -->
@@ -289,7 +445,7 @@
           <a href="vision-ai.html">Vision AI</a>
           <a href="motion-ai.html">Motion AI</a>
           <a href="ai-agents.html">AI Agents</a>
-          <a href="solutions.html#modules">Four modules</a>
+          <a href="solutions.html#modules">Platform modules</a>
           <a href="index.html">Platform overview</a>
         </div>
 
@@ -376,7 +532,8 @@
   <script src="js/motion/rail.js?v=4"></script>
   <script src="js/motion/iconlife.js?v=1"></script>
   <script src="js/core/perf.js?v=3"></script>
-  <script src="js/motion/gscroll.js?v=1"></script>
-  <script src="js/motion/motion.js?v=4"></script>
+  <script src="js/motion/gscroll.js?v=2"></script>
+  <script src="js/motion/drum.js?v=5"></script>
+  <script src="js/motion/motion.js?v=5"></script>
 </body>
 </html>

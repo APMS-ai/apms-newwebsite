@@ -839,7 +839,8 @@ p { text-wrap: pretty; }
   box-shadow: 0 12px 32px -22px rgba(12,26,40,0.28);
 }
 .vs__card--bad:hover { box-shadow: 0 22px 46px -26px rgba(12,26,40,0.32); }
-.vs__card--bad .vs__tag { color: #6c7c8a; background: #e7edf2; }
+/* was #6c7c8a, which is 3.64:1 on this chip's own #e7edf2 background */
+.vs__card--bad .vs__tag { color: #566370; background: #e7edf2; }
 .vs__card--bad h3 { color: #2b3a46; }
 .vs__card--bad li { color: #667380; }
 .vs__card--bad li svg { color: #c56153; }

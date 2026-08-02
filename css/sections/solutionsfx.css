@@ -1,0 +1,257 @@
+/* ==========================================================================
+   APMS.ai — solutionsfx.css
+   solutions.html only: the "integration bridge" diagram in the Connectivity
+   & integrations section. Floor signals converge on the APMS platform, then
+   diverge into the business systems that consume them.
+
+   Different concept from the Ask APMS Analyst orb above it (.aorb, which
+   only converges) and from the About page loop (.aloop, a closed track):
+   this one is a through-flow, one hub, one side in and a different side out.
+
+   Same visual DNA as the rest of the page: APMS teal only, thin static
+   strokes, motion layered on top, var(--display) for labels.
+   ========================================================================== */
+
+.ibr { max-width: 860px; margin: 0 auto clamp(1.4rem, 3vw, 2.2rem); }
+.ibr__svg--wide, .ibr__svg--tall { width: 100%; height: auto; display: block; overflow: visible; }
+.ibr * { transform-box: view-box; }
+.ibr__ring, .ibr__core, .ibr__coredot { transform-box: fill-box; transform-origin: center; }
+
+/* ---------- static lines, never animated away ----------
+   This diagram sits in a light section, so the lines and labels are inked
+   rather than white. It was first authored against a dark background and
+   was invisible for exactly that reason once it moved here. */
+.ibr__feed { fill: none; stroke: rgba(12,26,40,0.18); stroke-width: 1.4; }
+
+/* ---------- end nodes ---------- */
+.ibr__node { fill: var(--teal-deep); stroke: rgba(12,26,40,0.14); stroke-width: 1; }
+.ibr__lbl {
+  font-family: var(--display); font-weight: 700; font-size: 12px;
+  letter-spacing: .04em; fill: var(--body);
+}
+
+/* ---------- the hub ---------- */
+.ibr__ring { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; }
+.ibr__core { fill: rgba(23,201,155,0.12); stroke: var(--teal-deep); stroke-width: 1.8; }
+.ibr__coredot { fill: var(--teal-deep); }
+.ibr__hublbl {
+  font-family: var(--display); font-weight: 800; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; fill: var(--ink);
+  text-anchor: middle;
+}
+
+[data-reveal].in .ibr__ring { animation: ibrRing 3.4s ease-out infinite; }
+.ibr__ring:nth-of-type(2) { animation-delay: 1.15s; }
+.ibr__ring:nth-of-type(3) { animation-delay: 2.3s; }
+@keyframes ibrRing {
+  0%        { opacity: .5; transform: scale(.6); }
+  70%, 100% { opacity: 0;  transform: scale(1.55); }
+}
+
+[data-reveal].in .ibr__core { animation: ibrCore 2.8s ease-in-out infinite; }
+@keyframes ibrCore {
+  0%, 100% { transform: scale(.95); }
+  50%      { transform: scale(1.05); }
+}
+
+/* ---------- packets travelling the lines, in one side and out the other ---------- */
+.ibr__pip { fill: var(--teal-deep); opacity: 0; }
+[data-reveal].in .ibr__pip { animation: ibrPkt 3s linear infinite; }
+[data-reveal].in .ibr__pip--2 { animation-delay: .45s; }
+[data-reveal].in .ibr__pip--3 { animation-delay: .9s; }
+[data-reveal].in .ibr__pip--4 { animation-delay: 1.5s; }
+[data-reveal].in .ibr__pip--5 { animation-delay: 1.95s; }
+[data-reveal].in .ibr__pip--6 { animation-delay: 2.4s; }
+@keyframes ibrPkt {
+  0%       { opacity: 0; offset-distance: 0%; }
+  8%, 90%  { opacity: 1; }
+  100%     { opacity: 0; offset-distance: 100%; }
+}
+
+/* ---------- wide vs tall, same convention as .modflow / .aloop: swap the
+   whole SVG at a breakpoint rather than scroll a wide one sideways ---------- */
+.ibr__svg--tall { display: none; }
+@media (max-width: 720px) {
+  .ibr { max-width: 340px; }
+  .ibr__svg--wide { display: none; }
+  .ibr__svg--tall { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ibr__ring { animation: none !important; opacity: 0 !important; }
+  .ibr__core { animation: none !important; transform: none !important; }
+  .ibr__pip { animation: none !important; opacity: .85 !important; offset-distance: 92%; }
+}
+
+/* ==========================================================================
+   The integration bridge now has its own section, so it gets its own footing:
+   two columns that name what goes in and what comes out. Two items, two
+   columns, so the row can never orphan (CLAUDE.md #6).
+   ========================================================================== */
+.ibrcap {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  max-width: 860px; margin: clamp(1.6rem, 3vw, 2.4rem) auto 0;
+}
+@media (max-width: 720px) { .ibrcap { grid-template-columns: 1fr; } }
+
+.ibrcap__col { position: relative; padding-top: 1.1rem; }
+/* a short teal rule instead of a card: the diagram above is the visual, and a
+   second boxed thing under it would compete with it */
+.ibrcap__col::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 42px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-bright));
+}
+.ibrcap__col h3 {
+  font-size: 1.02rem; margin-bottom: .5rem; color: var(--ink);
+}
+.ibrcap__col p {
+  margin: 0; color: var(--body); font-size: .95rem; line-height: 1.65;
+}
+
+/* ==========================================================================
+   Breathing room between the four capability cells and the scrolling protocol
+   walls underneath them. Asked for as 4cm, and CSS honours physical units:
+   at the CSS reference of 96dpi that resolves to a fixed 151px.
+
+   Kept literal on desktop. On a phone 151px of nothing is most of a screen,
+   so it steps down there: the intent is separation, and 2cm reads as the
+   same deliberate gap on a 390px viewport.
+   ========================================================================== */
+.protowall { margin-top: 4cm; }
+@media (max-width: 720px) { .protowall { margin-top: 2cm; } }
+
+/* ==========================================================================
+   THE FLOOR REACHING A PHONE
+   Sits in the dark "How we work" section, so it is painted light on ink.
+   One 6s beat: sources feed the gateway, the gateway feeds the platform, the
+   platform pushes to the app, and the app shows a live figure then an alert.
+
+   Everything that moves is opacity, transform or offset-distance. No filters
+   on travelling marks and no geometry animation, for the reasons written up
+   in css/sections/premiumfx.css.
+   ========================================================================== */
+.iotp { max-width: 880px; margin: clamp(2rem, 4vw, 3rem) auto 0; }
+.iotp__svg { width: 100%; height: auto; display: block; overflow: visible; }
+.iotp * { transform-box: view-box; }
+
+/* rails: drawn once, never animated away */
+.iotp__rail { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 1.4; }
+
+.iotp__src rect, .iotp__gw {
+  fill: rgba(255,255,255,0.045); stroke: rgba(255,255,255,0.16); stroke-width: 1;
+}
+.iotp__lbl {
+  font-family: var(--display); font-weight: 800; font-size: 10.5px;
+  letter-spacing: .1em; fill: rgba(255,255,255,0.66);
+}
+
+/* the platform */
+.iotp__hub  { fill: rgba(23,201,155,0.10); stroke: var(--teal); stroke-width: 1.6; }
+.iotp__core { fill: var(--teal-bright); }
+.iotp__ring {
+  fill: none; stroke: var(--teal); stroke-width: 1.3; opacity: 0;
+  transform-origin: 457px 125px;
+}
+[data-reveal].in .iotp__ring { animation: iotpRing 6s ease-out infinite; }
+[data-reveal].in .iotp__ring--2 { animation-delay: 2.4s; }
+@keyframes iotpRing {
+  0%       { opacity: .5; transform: scale(.8); }
+  55%,100% { opacity: 0;  transform: scale(1.65); }
+}
+
+/* the handset */
+.iotp__phone  { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.22); stroke-width: 1.2; }
+.iotp__screen { fill: rgba(4,20,32,0.72); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.iotp__notch  { fill: rgba(255,255,255,0.20); }
+
+.iotp__oee {
+  font-family: var(--display); font-weight: 900; font-size: 25px;
+  fill: var(--teal-bright); opacity: 0;
+}
+.iotp__cap {
+  font-family: var(--display); font-weight: 800; font-size: 8.5px;
+  letter-spacing: .16em; fill: rgba(255,255,255,0.5); opacity: 0;
+}
+[data-reveal].in .iotp__oee { animation: iotpShow 6s ease-out infinite; }
+[data-reveal].in .iotp__cap { animation: iotpShow 6s ease-out .1s infinite; }
+@keyframes iotpShow {
+  0%, 30%   { opacity: 0; }
+  42%, 92%  { opacity: 1; }
+  100%      { opacity: 0; }
+}
+
+/* the alert card arrives after the number, which is the point of the beat:
+   the app does not just display, it tells you */
+.iotp__card rect {
+  fill: rgba(255,255,255,0.07); stroke: rgba(255,255,255,0.16); stroke-width: 1;
+}
+.iotp__cardot { fill: #ff8a7a; }
+.iotp__cardlbl {
+  font-family: var(--display); font-weight: 800; font-size: 9.5px; fill: #fff;
+}
+.iotp__cardsub {
+  font-family: var(--display); font-weight: 600; font-size: 8px;
+  fill: rgba(255,255,255,0.6);
+}
+.iotp__card { opacity: 0; transform: translateY(7px); }
+[data-reveal].in .iotp__card { animation: iotpCard 6s var(--ease-out) infinite; }
+@keyframes iotpCard {
+  0%, 58%   { opacity: 0; transform: translateY(7px); }
+  70%, 92%  { opacity: 1; transform: translateY(0); }
+  100%      { opacity: 0; transform: translateY(7px); }
+}
+
+/* packets, staged so the journey reads left to right */
+.iotp__pk { fill: var(--teal-bright); opacity: 0; }
+[data-reveal].in .iotp__pk { animation: iotpPk 6s linear infinite; }
+[data-reveal].in .iotp__pk--2 { animation-delay: .18s; }
+[data-reveal].in .iotp__pk--3 { animation-delay: .36s; }
+[data-reveal].in .iotp__pk--4 { animation-delay: 1.15s; }
+[data-reveal].in .iotp__pk--5 { animation-delay: 1.9s; }
+@keyframes iotpPk {
+  0%        { opacity: 0; offset-distance: 0%; }
+  4%        { opacity: 1; }
+  16%       { opacity: 1; offset-distance: 100%; }
+  18%, 100% { opacity: 0; offset-distance: 100%; }
+}
+
+/* the board is wide; below 760px it would be unreadable, so it steps down to
+   a calmer scale rather than a horizontal scroller (CLAUDE.md #7) */
+@media (max-width: 760px) {
+  .iotp { max-width: 100%; }
+  .iotp__lbl { font-size: 13px; }
+  .iotp__oee { font-size: 30px; }
+  .iotp__cap, .iotp__cardsub { font-size: 10px; }
+  .iotp__cardlbl { font-size: 11.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iotp__ring, .iotp__pk, .iotp__oee, .iotp__cap, .iotp__card {
+    animation: none !important;
+  }
+  /* resolve to the informative end state: the app showing its number and alert */
+  .iotp__ring { opacity: 0; }
+  .iotp__pk   { opacity: .9; offset-distance: 92%; }
+  .iotp__oee, .iotp__cap { opacity: 1; }
+  .iotp__card { opacity: 1; transform: none; }
+}
+
+/* ==========================================================================
+   The drum dots are styled in drum.css for the light section the ring sits in
+   on index.html: muted ink for the inactive labels, full ink for the active
+   one. This page puts the ring on sec--darker, where that reads at 3.62:1 and
+   1.09:1 respectively, so the active label was very nearly invisible.
+
+   Same trap as the bridge diagram earlier on this page: a component moved
+   between light and dark has to be re-inked, not just re-parented.
+   ========================================================================== */
+.sec--dark .drum.is-drum .drum__dots li,
+.sec--darker .drum.is-drum .drum__dots li { color: rgba(255,255,255,0.55); }
+.sec--dark .drum.is-drum .drum__dots li.is-on,
+.sec--darker .drum.is-drum .drum__dots li.is-on { color: #fff; }
+.sec--dark .drum.is-drum .drum__dots li span,
+.sec--darker .drum.is-drum .drum__dots li span { background: rgba(255,255,255,0.28); }
+.sec--dark .drum.is-drum .drum__dots li.is-on span,
+.sec--darker .drum.is-drum .drum__dots li.is-on span { background: var(--teal-bright); }

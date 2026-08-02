@@ -82,7 +82,9 @@
   font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
   color: rgba(255,255,255,0.42); margin-bottom: .3rem;
 }
-.ft__block a { padding: .16rem 0; }
+/* .16rem of padding left these at 18px tall. WCAG 2.2 AA (2.5.8) asks for a
+   24px minimum target, and a phone number is exactly the thing someone taps. */
+.ft__block a { padding: .16rem 0; min-height: 24px; display: flex; align-items: center; }
 .ft__block address {
   font-style: normal; font-size: .86rem; line-height: 1.6;
   color: var(--on-dark-soft);

@@ -1,0 +1,257 @@
+/* ==========================================================================
+   APMS.ai — premiumfx.css
+   The elevation pass for index.html only.
+
+   The reference for this was haikei.app, which builds backgrounds out of
+   layered gradients, soft blooms and scattered geometry. What is borrowed is
+   the TECHNIQUE, not the look: every colour here is APMS teal on APMS ink,
+   because a reference's palette is the one thing that never travels.
+
+   Three moves that shipped, and a fourth that was measured and cut:
+
+     1 · ambient depth   an off-centre teal bloom behind dark sections, so a
+                         flat panel reads as lit rather than painted
+     2 · lit lines       diagram strokes become gradients that carry a
+                         direction, instead of one flat rgba everywhere
+     3 · focal bloom     the node a diagram is actually about gets a filter
+                         glow. Small marks only, never a whole board
+     4 · grain           REMOVED. It doubled the frame time on its own. The
+                         numbers and the reason are at the bottom of the file
+
+   Performance, because this file is all decoration and decoration is what
+   gets cut first (see CLAUDE.md #5):
+     · the blooms are CSS radial-gradients, not blurred elements. A gradient
+       is painted once into the layer; `filter: blur()` on a big box is paid
+       every frame it moves
+     · SVG filter glow is scoped to marks a few px across, and only on the
+       three diagrams that have a real focal point
+     · nothing here sets will-change, and nothing new animates. The motion
+       already on the page carries it
+     · the whole file is off under reduced motion and on coarse pointers,
+       where it is decoration nobody asked for on a device that can least
+       afford it
+   ========================================================================== */
+
+/* the defs carrier holds paint only: it must never occupy a line box */
+.pxdefs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------- 1 · ambient depth ----------
+   The bloom is painted INTO the section's own background, not layered over
+   it in a ::before. Both look identical. The pseudo-element version costs a
+   second painted box the width of the page for every dark and paper section,
+   and this page has a lot of them: measured, it took long frames from 4 to
+   about 140 while the median stayed at 16.7ms, which is what a paint cost
+   looks like when it is spread across the scroll rather than concentrated.
+
+   Extra background-image layers on the existing element are composited in
+   the same pass as the gradient that was already there, so the ambient light
+   is effectively free. The linear-gradient stays last: it is the base coat,
+   and background layers paint first-on-top. */
+.sec--dark, .sec--darker {
+  background-image:
+    radial-gradient(58% 44% at 18% 12%, rgba(23,201,155,0.10), transparent 68%),
+    radial-gradient(46% 38% at 88% 82%, rgba(46,224,180,0.07), transparent 72%),
+    linear-gradient(160deg, var(--ink-900), var(--ink-800));
+}
+
+/* the paper sections get a far quieter version, one corner only */
+.sec--paper {
+  background-image:
+    radial-gradient(52% 40% at 82% 8%, rgba(23,201,155,0.055), transparent 70%);
+}
+
+/* ---------- 2 · lit lines ---------- */
+/* The feed lines into APMS Analyst, the loop track, and the bridge on the
+   platform diagrams. Base strokes still never animate (CLAUDE.md #7), they
+   just stop being one flat grey. */
+.anl__feed { stroke: url(#pxLineSoft); stroke-width: 1.6; }
+.aloop__track { stroke: url(#pxLineSoft); }
+
+/* ---------- 3 · focal bloom ----------
+   STATIC marks only. A filter region is re-rasterised on every frame the
+   filtered element moves, so a glow on something that travels is paid 60
+   times a second. Measured on this page: putting the glow on the analyst
+   packets, the loop comet and the MIS bars (all of which animate) took the
+   long-frame count from 9 to over 150 while leaving the median untouched,
+   which is exactly the shape of a raster cost. The glow now sits only on
+   marks that hold still, and the moving parts get their lift from the
+   gradient underneath them instead. */
+.anl__core { fill: #2ee0b4; filter: url(#pxGlow); }
+.anl__orb  { fill: url(#pxOrb); stroke: rgba(46,224,180,0.55); }
+
+/* the travelling marks: brighter and slightly larger, but never filtered */
+.anl__pkt { fill: #2ee0b4; r: 3.4; }
+.aloop__comet { fill: #2ee0b4; }
+
+/* ---------- 4 · grain: built, measured, removed ----------
+   A fixed full-viewport noise tile at 2% opacity. It looked right and it
+   cost more than everything else on this page put together:
+
+     median frame   16.7ms -> 33.3ms
+     p95            33ms   -> 150ms
+     long frames    9      -> 151
+
+   A `position: fixed` layer covering the viewport is repainted on every
+   scrolled frame, which is the same trap as the blurred sticky header in
+   CLAUDE.md #5, just wearing a different hat. Two per cent of texture is
+   not worth half the frame budget, so there is no grain.
+
+   If it is ever wanted back: paint it per section with `position: absolute`
+   inside a section that already has a stacking context, so it scrolls with
+   its own layer instead of being recomposited against the whole page. */
+
+/* ---------- the cheap seats ---------- */
+/* A coarse pointer means a phone: the blooms are the first thing worth
+   spending nothing on. */
+@media (hover: none), (pointer: coarse) {
+  .sec--dark, .sec--darker { background-image: linear-gradient(160deg, var(--ink-900), var(--ink-800)); }
+  .sec--paper { background-image: none; }
+  .anl__core { filter: none; }
+}
+
+/* Reduced motion is not only about movement: a glow that sits under moving
+   marks is still decoration, and the page reads the same without it. */
+@media (prefers-reduced-motion: reduce) {
+  .sec--dark, .sec--darker { background-image: linear-gradient(160deg, var(--ink-900), var(--ink-800)); }
+  .sec--paper { background-image: none; }
+  .anl__core { filter: none; }
+  .anl__feed, .aloop__track { stroke: rgba(255,255,255,0.14); }
+}
+
+/* ==========================================================================
+   5 · THE APP MOCKUP
+   It read as patchy for a reason: five unrelated hues on one small white
+   card, floating on near-black. Electric blue (#2f6bff), leaf green
+   (#1f9d55), coral, teal and grey were all competing inside 340px, and none
+   of the first two are APMS colours (CLAUDE.md #2).
+
+   The site already has a status palette, in enhance.css under .lf__cell:
+   teal for running, amber for idle, coral for stopped. The mockup now uses
+   that same one, so a status means the same thing wherever it appears.
+   Semantics survive, the rainbow does not.
+   ========================================================================== */
+
+/* ---------- the surface ---------- */
+/* Flat #fff against #070f19 is a cutout. A cool off-white gradient with a
+   hairline top highlight reads as a lit screen instead. */
+.appscreen {
+  background: linear-gradient(178deg, #ffffff 0%, #f4f8f9 62%, #eef4f6 100%);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow:
+    0 44px 96px -34px rgba(0,0,0,0.72),
+    0 2px 0 0 rgba(255,255,255,0.55) inset,
+    0 0 0 7px rgba(23,201,155,0.05);
+}
+/* the top accent was a hard 5px band; make it a thinner, softer edge */
+.appscreen::before {
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal-deep), var(--teal-bright) 55%, var(--teal));
+}
+
+/* ---------- status palette, one family ---------- */
+/* running / healthy */
+.app__bar--green { background: var(--teal); }
+.app__num--green { color: var(--teal-deep); }
+/* setup / transitional: was electric blue, now a calm steel that sits under
+   the teal rather than fighting it */
+.app__bar--blue  { background: #6b8ca6; }
+.app__num--blue  { color: #4a6b83; }
+/* stopped: the one place a warm colour earns its keep, muted so it reads as
+   a state and not an error dialog */
+.app__bar--red   { background: #d4685c; }
+.app__num--red   { color: #b8493d; }
+/* the "log off" counter in the tile row was the last stray #e0574a */
+.app__tile-meta.is-off b { color: #b8493d; }
+
+/* ---------- the rest of the card ---------- */
+.app__tile {
+  background: rgba(255,255,255,0.72);
+  border-color: rgba(12,26,40,0.09);
+  box-shadow: 0 1px 2px rgba(12,26,40,0.04);
+}
+.app__tile-ico {
+  background: linear-gradient(160deg, rgba(23,201,155,0.13), rgba(23,201,155,0.05));
+  color: var(--teal-deep);
+}
+.app__list {
+  background: rgba(12,26,40,0.028);
+  border: 1px solid rgba(12,26,40,0.055);
+}
+.app__row { border-bottom-color: rgba(12,26,40,0.07); }
+.app__tabs { border-top-color: rgba(12,26,40,0.08); }
+/* the live dot matches the running state instead of introducing a sixth hue */
+.app__dot { background: var(--teal); box-shadow: 0 0 0 3px rgba(23,201,155,0.18); }
+
+/* the glow behind the phone: warmer and tighter, so the device sits in light
+   rather than in a haze */
+.app__glow {
+  background: radial-gradient(ellipse at 50% 0%, rgba(46,224,180,0.22), transparent 66%);
+}
+
+/* ==========================================================================
+   6 · THE ANALYST FLOW
+   Three dots crossing three grey lines is a diagram. What makes it read as
+   live data is depth: a lit lane, a leading light, a bright head and a
+   smaller one chasing it. All of it is stroke and opacity, no filters on
+   anything that moves (see note 3 above for why that matters here).
+   ========================================================================== */
+
+/* the travelling light. dasharray/offset are in pathLength units, so 14 is
+   14% of whatever lane it is on and all three read identically. */
+.anl__trail {
+  fill: none;
+  stroke: var(--teal-bright);
+  stroke-width: 2.2; stroke-linecap: round;
+  stroke-dasharray: 14 100;
+  stroke-dashoffset: 114;
+  opacity: 0;
+}
+[data-reveal].in .anl__trail { animation: anlTrail 3.2s cubic-bezier(.45,0,.2,1) infinite; }
+[data-reveal].in .anl__trail--2 { animation-delay: .6s; }
+[data-reveal].in .anl__trail--3 { animation-delay: 1.2s; }
+@keyframes anlTrail {
+  0%       { stroke-dashoffset: 114; opacity: 0; }
+  12%      { opacity: .55; }
+  80%      { opacity: .35; }
+  100%     { stroke-dashoffset: 14;  opacity: 0; }
+}
+
+/* the chasing packet: same path, half a beat behind, dimmer and smaller */
+.anl__pkt--1b, .anl__pkt--2b, .anl__pkt--3b { fill: var(--teal); opacity: .6; }
+[data-reveal].in .anl__pkt--1b { animation: anlPkt 3.2s linear .28s infinite; }
+[data-reveal].in .anl__pkt--2b { animation: anlPkt 3.2s linear .88s infinite; }
+[data-reveal].in .anl__pkt--3b { animation: anlPkt 3.2s linear 1.48s infinite; }
+
+/* No breathing core. It was written as an `r` animation, and `r` is geometry:
+   it re-rasterises the shape every frame, and this is the one element still
+   carrying filter: url(#pxGlow), so the blur was being re-run 60 times a
+   second too. The halo rings already give the orb a pulse and they animate
+   transform, which is free. */
+
+@media (prefers-reduced-motion: reduce) {
+  .anl__trail { animation: none !important; opacity: .3; stroke-dashoffset: 60; }
+  .anl__pkt--1b, .anl__pkt--2b, .anl__pkt--3b { animation: none !important; opacity: .5; }
+  .anl__core { animation: none !important; }
+}
+
+/* ==========================================================================
+   7 · TESTIMONIAL AVATARS
+   The quote cards carried two-letter initials. They now carry illustrated
+   shop-floor figures: a hard hat, a work cap, tied-back hair and a turban,
+   so the panel reads as an Indian plant team rather than four monograms.
+
+   Deliberately illustrations and deliberately featureless. The section says
+   in as many words that these are representative voices, not named
+   customers, so a photograph of a real-looking person would be dressing
+   invented quotes up as a real endorsement. A silhouette says "a plant lead"
+   without claiming to be anybody in particular.
+
+   Ink on the existing teal disc: the same pairing the primary button uses.
+   ========================================================================== */
+.quote__av { overflow: hidden; }
+.qav { width: 100%; height: 100%; display: block; }
+.qav__head, .qav__body, .qav__gear { fill: #04231c; }
+.qav__gearline {
+  fill: none; stroke: var(--teal-bright);
+  stroke-width: 1.4; stroke-linecap: round; opacity: .6;
+}

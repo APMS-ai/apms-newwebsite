@@ -1,0 +1,134 @@
+# ==========================================================================
+# APMS.ai — Apache / LiteSpeed configuration
+#
+# Replaces netlify.toml now the site is hosted on its own server over FTP.
+# Hostinger runs LiteSpeed, which reads this file, so everything Netlify was
+# doing for us has to be stated here instead: security headers, caching,
+# extensionless URLs, the 404 page, and the redirects for the old WordPress
+# addresses.
+#
+# Upload this to the web root alongside index.html. It is a dotfile, so most
+# FTP clients hide it by default: turn on "show hidden files" or it will look
+# like it uploaded and it will not be there.
+# ==========================================================================
+
+# --------------------------------------------------------------------------
+# HTTPS, and one canonical host
+# --------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # always https
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # www.apms.ai -> apms.ai, so a page is never indexed at two addresses
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # ----------------------------------------------------------------------
+  # The old WordPress URLs. Google still has these and people have them
+  # bookmarked; without this every one of them becomes a 404 on the new site.
+  # ----------------------------------------------------------------------
+  RewriteRule ^contacts/?$              /contact.html      [R=301,L]
+  RewriteRule ^why-choose-us/?$         /about.html        [R=301,L]
+  RewriteRule ^privacy-policy/?$        /privacy.html      [R=301,L]
+
+  RewriteRule ^service/manufacturing/?$        /industries.html [R=301,L]
+  RewriteRule ^service/energy-and-utilities/?$ /industries.html [R=301,L]
+
+  RewriteRule ^case-study/predictive-maintenance/?$        /solutions.html [R=301,L]
+  RewriteRule ^case-study/condition-monitoring/?$          /solutions.html [R=301,L]
+  RewriteRule ^case-study/process-optimization/?$          /solutions.html [R=301,L]
+  RewriteRule ^case-study/production-schedule-intelligence/?$ /solutions.html [R=301,L]
+
+  # everything else that lived under these prefixes goes to the homepage
+  RewriteRule ^service/.*$    / [R=301,L]
+  RewriteRule ^case-study/.*$ / [R=301,L]
+
+  # the two generated previews are not part of the site
+  RewriteRule ^machine-health-vitals(\.html)?/?$  / [R=301,L]
+  RewriteRule ^pipeline-step-preview(\.html)?/?$  / [R=301,L]
+
+  # ----------------------------------------------------------------------
+  # Extensionless URLs: /about serves about.html. This is what Netlify's
+  # pretty_urls did. The two conditions matter: without them a real file or
+  # directory would be rewritten over.
+  # ----------------------------------------------------------------------
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+
+  # and if someone lands on /about.html, send them to the clean one
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+</IfModule>
+
+# --------------------------------------------------------------------------
+# The 404 page
+# --------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# --------------------------------------------------------------------------
+# Security headers, the same set netlify.toml was sending.
+# Nothing on the site uses the camera, microphone or location: the chatbot mic
+# was a demo and never called getUserMedia.
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set X-DNS-Prefetch-Control "on"
+
+  # HSTS. Deliberately left commented: switch it on only once https is
+  # confirmed working on the apex and on www, because it is hard to undo.
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Caching
+#
+# HTML must always revalidate, or a visitor keeps a page that points at
+# stylesheet versions which no longer exist.
+#
+# CSS and JS are safe to cache hard because every reference carries a ?v=
+# query string, and a changed query string is a different URL.
+# --------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType text/css                  "access plus 1 week"
+  ExpiresByType application/javascript    "access plus 1 week"
+  ExpiresByType image/png                 "access plus 1 month"
+  ExpiresByType image/jpeg                "access plus 1 month"
+  ExpiresByType image/svg+xml             "access plus 1 month"
+  ExpiresByType image/x-icon              "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Compression. three.min.js alone is 601 KB uncompressed.
+# --------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Nothing here should ever be served
+# --------------------------------------------------------------------------
+<FilesMatch "^\.|\.(md|toml|py|mjs)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

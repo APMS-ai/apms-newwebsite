@@ -452,30 +452,11 @@
 }
 
 /* ==========================================================================
-   6 · STACK STRIP
+   6 · STACK STRIP: removed. The .ag-stack / .ag-stack__grp block had no
+   markup on any page and used repeat(auto-fit, minmax()), which this
+   project forbids because it orphans the last row. Deleted rather than
+   fixed, since nothing rendered it.
    ========================================================================== */
-.ag-stack {
-  display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  margin-top: clamp(2rem, 4vw, 3rem);
-}
-.ag-stack__grp {
-  padding: 1.3rem 1.25rem;
-  border-radius: var(--radius);
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-.ag-stack__grp h4 {
-  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--teal-bright); margin-bottom: 0.8rem;
-}
-.ag-stack__grp ul { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.ag-stack__grp li {
-  font-size: 0.8rem; color: var(--on-dark);
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.28rem 0.62rem; border-radius: 6px;
-}
-
 /* ==========================================================================
    7 · MULTI-DOMAIN CONVERSATION SWITCHER (CSS-only tabs, no JS)
    ========================================================================== */
@@ -539,11 +520,16 @@
 /* ==========================================================================
    8 · INDUSTRY BREADTH GRID
    ========================================================================== */
+/* Twelve cards, so the column count must divide 12: 4, then 3, then 2.
+   auto-fit is not used here. It picks whatever fits and orphans the last
+   row, which is the defect this project has hit on six grids already. */
 .ag-inds {
   display: grid; gap: 0.85rem;
-  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   margin-top: clamp(2rem, 4vw, 3rem);
 }
+@media (max-width: 1100px) { .ag-inds { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 780px)  { .ag-inds { grid-template-columns: repeat(2, 1fr); } }
 .ag-ind {
   position: relative; padding: 1.25rem 1.2rem 1.3rem;
   border-radius: var(--radius);

@@ -108,29 +108,11 @@
 
 /* ==========================================================================
    5 · THE POINTER
-   A soft ring that trails the cursor and swells over anything interactive.
-   The real cursor is never hidden: replacing it costs more in usability than
-   the effect is worth.
+   Removed. A teal ring used to trail the cursor and swell over anything
+   interactive. It read as a stray element sitting on the page rather than as
+   part of the pointer, so the real cursor is now the only cursor. The
+   matching block in js/motion/motion.js was removed with it.
    ========================================================================== */
-.cursor {
-  position: fixed; top: 0; left: 0; z-index: 1500;
-  width: 26px; height: 26px; margin: -13px 0 0 -13px;
-  border: 1.5px solid rgba(46, 224, 180, .55); border-radius: 50%;
-  pointer-events: none; opacity: 0;
-  transform: translate3d(-100px, -100px, 0) scale(1);
-  transition: opacity .3s var(--swift), width .25s var(--spring),
-              height .25s var(--spring), border-color .25s var(--swift),
-              background .25s var(--swift);
-  will-change: transform;
-}
-.cursor.is-on { opacity: 1; }
-.cursor.is-active {
-  width: 46px; height: 46px; margin: -23px 0 0 -23px;
-  border-color: rgba(46, 224, 180, .9);
-  background: rgba(46, 224, 180, .08);
-}
-
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 
 /* ==========================================================================
    6 · SECTION ARRIVALS
@@ -157,7 +139,6 @@
   .btn::after { display: none; }
   .btn:active { transform: none; }
   [data-magnetic] { transform: none !important; }
-  .cursor { display: none; }
   .sec__head::after { transition: none; width: min(220px, 40%); }
   .tile__ico, .mod__ico, .bento__ico { transition: none; }
 }
