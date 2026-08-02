@@ -132,33 +132,56 @@
    on travelling marks and no geometry animation, for the reasons written up
    in css/sections/premiumfx.css.
    ========================================================================== */
-.iotp { max-width: 880px; margin: clamp(2rem, 4vw, 3rem) auto 0; }
+/* 620 to match the viewBox: a board authored at 880 and rendered at 620
+   scales every label up by 1.4x against the rest of the page. */
+.iotp { max-width: 620px; margin: clamp(2rem, 4vw, 3rem) auto 0; }
 .iotp__svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* Two layouts, one set of class names. Below 760px the wide board becomes the
+   stacked one rather than shrinking: at 390 the wide version rendered 131px
+   tall and put the alert card near 5px (CLAUDE.md #7). */
+.iotp__svg--tall { display: none; }
+.iotp__svg--tall .iotp__pulse { transform-origin: 170px 210px; }
 .iotp * { transform-box: view-box; }
 
 /* rails: drawn once, never animated away */
 .iotp__rail { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 1.4; }
 
-.iotp__src rect, .iotp__gw {
-  fill: rgba(255,255,255,0.045); stroke: rgba(255,255,255,0.16); stroke-width: 1;
+/* ---------- the HMI panel ----------
+   Elevation by lightness and a lit top edge, never a coloured halo. */
+.iotp__hmi {
+  fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.20); stroke-width: 1.2;
+}
+.iotp__hmiscr { fill: rgba(4,20,32,0.78); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+.iotp__hval {
+  font-family: var(--display); font-weight: 800; font-size: 27px;
+  letter-spacing: -0.02em; fill: #fff; font-variant-numeric: tabular-nums;
+}
+.iotp__hcap {
+  font-family: var(--display); font-weight: 700; font-size: 9px;
+  letter-spacing: .16em; fill: rgba(255,255,255,0.48);
+}
+.iotp__bar { fill: var(--teal); opacity: .8; }
+.iotp__bar:last-child { fill: var(--teal-bright); opacity: 1; }
+.iotp__key { fill: rgba(255,255,255,0.14); }
+.iotp__key--on { fill: var(--teal); }
+
+/* the two ends of the link */
+.iotp__port { fill: var(--ink-900); stroke: var(--teal); stroke-width: 1.5; }
+.iotp__pulse {
+  fill: none; stroke: var(--teal); stroke-width: 1.3; opacity: 0;
+  transform-origin: 306px 118px;
+}
+[data-reveal].in .iotp__pulse { animation: iotpPulse 6s ease-out infinite; }
+[data-reveal].in .iotp__pulse--2 { animation-delay: .55s; }
+@keyframes iotpPulse {
+  0%       { opacity: .55; transform: scale(.7); }
+  26%      { opacity: 0;   transform: scale(2.5); }
+  100%     { opacity: 0;   transform: scale(2.5); }
 }
 .iotp__lbl {
-  font-family: var(--display); font-weight: 800; font-size: 10.5px;
-  letter-spacing: .1em; fill: rgba(255,255,255,0.66);
-}
-
-/* the platform */
-.iotp__hub  { fill: rgba(23,201,155,0.10); stroke: var(--teal); stroke-width: 1.6; }
-.iotp__core { fill: var(--teal-bright); }
-.iotp__ring {
-  fill: none; stroke: var(--teal); stroke-width: 1.3; opacity: 0;
-  transform-origin: 457px 125px;
-}
-[data-reveal].in .iotp__ring { animation: iotpRing 6s ease-out infinite; }
-[data-reveal].in .iotp__ring--2 { animation-delay: 2.4s; }
-@keyframes iotpRing {
-  0%       { opacity: .5; transform: scale(.8); }
-  55%,100% { opacity: 0;  transform: scale(1.65); }
+  font-family: var(--display); font-weight: 800; font-size: 10px;
+  letter-spacing: .18em; fill: rgba(255,255,255,0.55);
 }
 
 /* the handset */
@@ -206,10 +229,8 @@
 /* packets, staged so the journey reads left to right */
 .iotp__pk { fill: var(--teal-bright); opacity: 0; }
 [data-reveal].in .iotp__pk { animation: iotpPk 6s linear infinite; }
-[data-reveal].in .iotp__pk--2 { animation-delay: .18s; }
-[data-reveal].in .iotp__pk--3 { animation-delay: .36s; }
-[data-reveal].in .iotp__pk--4 { animation-delay: 1.15s; }
-[data-reveal].in .iotp__pk--5 { animation-delay: 1.9s; }
+[data-reveal].in .iotp__pk--2 { animation-delay: .42s; }
+[data-reveal].in .iotp__pk--3 { animation-delay: .84s; }
 @keyframes iotpPk {
   0%        { opacity: 0; offset-distance: 0%; }
   4%        { opacity: 1; }
@@ -220,20 +241,25 @@
 /* the board is wide; below 760px it would be unreadable, so it steps down to
    a calmer scale rather than a horizontal scroller (CLAUDE.md #7) */
 @media (max-width: 760px) {
-  .iotp { max-width: 100%; }
-  .iotp__lbl { font-size: 13px; }
+  .iotp { max-width: 340px; }
+  .iotp__svg--wide { display: none; }
+  .iotp__svg--tall { display: block; }
+  .iotp__lbl { font-size: 12px; }
+  .iotp__hcap { font-size: 10px; }
   .iotp__oee { font-size: 30px; }
   .iotp__cap, .iotp__cardsub { font-size: 10px; }
   .iotp__cardlbl { font-size: 11.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .iotp__ring, .iotp__pk, .iotp__oee, .iotp__cap, .iotp__card {
+  .iotp__pulse, .iotp__pk, .iotp__oee, .iotp__cap, .iotp__card {
     animation: none !important;
   }
-  /* resolve to the informative end state: the app showing its number and alert */
-  .iotp__ring { opacity: 0; }
-  .iotp__pk   { opacity: .9; offset-distance: 92%; }
+  /* resolve to the informative end state: the panel and the app both showing
+     the reading, one packet parked mid-rail so the link still reads as a link */
+  .iotp__pulse { opacity: 0; }
+  .iotp__pk   { opacity: .9; offset-distance: 50%; }
+  .iotp__pk--2, .iotp__pk--3 { opacity: 0; }
   .iotp__oee, .iotp__cap { opacity: 1; }
   .iotp__card { opacity: 1; transform: none; }
 }

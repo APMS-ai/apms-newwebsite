@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/sections/floorgrid.css?v=6">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
-<link rel="stylesheet" href="css/sections/solutionsfx.css?v=6">
+<link rel="stylesheet" href="css/sections/solutionsfx.css?v=8">
 <link rel="stylesheet" href="css/motion/drum.css?v=5">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
@@ -194,71 +194,124 @@
         </div>
 
         <!-- ============================================================
-             The floor reaching a phone. Machines and sensors feed a gateway,
-             the gateway feeds the APMS hub, and the hub pushes a live figure
-             and an alert to the app in someone's pocket.
+             One move, not five: the HMI on the machine, and the same reading
+             in someone's pocket. The board is centred and symmetric about a
+             single axis at y=118, so the two objects read as one sentence.
 
-             Packets travel with CSS offset-path, the same mechanism the
-             analyst feeds on index.html use, so no circle is ever left
-             sitting at the SVG origin waiting for a SMIL begin (CLAUDE.md #7).
-             The rails themselves never animate.
+             viewBox is 620 wide and renders near 620, per CLAUDE.md #7: the
+             old board authored 880 units and shrank them, which is why the
+             labels sat oversized against everything else on the page.
+
+             Packets travel with CSS offset-path, so no circle is ever parked
+             at the SVG origin waiting for a SMIL begin. The rails themselves
+             never animate.
              ============================================================ -->
         <div class="iotp" data-reveal>
-          <svg class="iotp__svg iotp__svg--wide" viewBox="0 0 880 250" role="img"
-               aria-label="Machines and sensors feed an on-site gateway, the gateway feeds the APMS platform, and the platform pushes live production figures and alerts to the APMS app on a phone">
-            <!-- rails -->
-            <path class="iotp__rail" d="M96 56 H176 C206 56 206 125 236 125"/>
-            <path class="iotp__rail" d="M96 125 H236"/>
-            <path class="iotp__rail" d="M96 194 H176 C206 194 206 125 236 125"/>
-            <path class="iotp__rail" d="M330 125 H408"/>
-            <path class="iotp__rail" d="M506 125 H624"/>
+          <svg class="iotp__svg iotp__svg--wide" viewBox="0 0 620 260" role="img"
+               aria-label="An HMI panel on the machine and the APMS app on a phone, side by side, with live production data travelling from the panel to the phone">
 
-            <!-- sources -->
-            <g class="iotp__src">
-              <rect x="26" y="40" width="70" height="32" rx="8"/>
-              <text class="iotp__lbl" x="61" y="60" text-anchor="middle">CNC</text>
-            </g>
-            <g class="iotp__src">
-              <rect x="26" y="109" width="70" height="32" rx="8"/>
-              <text class="iotp__lbl" x="61" y="129" text-anchor="middle">PLC</text>
-            </g>
-            <g class="iotp__src">
-              <rect x="26" y="178" width="70" height="32" rx="8"/>
-              <text class="iotp__lbl" x="61" y="198" text-anchor="middle">SENSOR</text>
+            <!-- the axis both objects sit on -->
+            <path class="iotp__rail" d="M306 118 H402"/>
+
+            <!-- ===== HMI panel ===== -->
+            <rect class="iotp__hmi" x="106" y="48" width="200" height="140" rx="14"/>
+            <rect class="iotp__hmiscr" x="118" y="60" width="176" height="98" rx="8"/>
+
+            <text class="iotp__hcap" x="132" y="82">OEE, LIVE</text>
+            <text class="iotp__hval" x="132" y="116">78%</text>
+
+            <!-- a small bar readout, right of the figure -->
+            <g class="iotp__bars">
+              <rect class="iotp__bar" x="228" y="112" width="8" height="18" rx="2"/>
+              <rect class="iotp__bar" x="242" y="104" width="8" height="26" rx="2"/>
+              <rect class="iotp__bar" x="256" y="94"  width="8" height="36" rx="2"/>
+              <rect class="iotp__bar" x="270" y="86"  width="8" height="44" rx="2"/>
             </g>
 
-            <!-- gateway -->
-            <rect class="iotp__gw" x="236" y="99" width="94" height="52" rx="11"/>
-            <text class="iotp__lbl" x="283" y="129" text-anchor="middle">GATEWAY</text>
+            <!-- soft keys along the bezel foot -->
+            <g class="iotp__keys">
+              <rect class="iotp__key iotp__key--on" x="130" y="170" width="22" height="7" rx="3.5"/>
+              <rect class="iotp__key" x="158" y="170" width="22" height="7" rx="3.5"/>
+              <rect class="iotp__key" x="186" y="170" width="22" height="7" rx="3.5"/>
+            </g>
 
-            <!-- the platform -->
-            <circle class="iotp__ring" cx="457" cy="125" r="34"/>
-            <circle class="iotp__ring iotp__ring--2" cx="457" cy="125" r="34"/>
-            <circle class="iotp__hub" cx="457" cy="125" r="34"/>
-            <circle class="iotp__core" cx="457" cy="125" r="7"/>
-            <text class="iotp__lbl" x="457" y="184" text-anchor="middle">APMS</text>
+            <!-- ===== ports and the pulse that leaves the panel ===== -->
+            <circle class="iotp__pulse" cx="306" cy="118" r="7"/>
+            <circle class="iotp__pulse iotp__pulse--2" cx="306" cy="118" r="7"/>
+            <circle class="iotp__port" cx="306" cy="118" r="4.6"/>
+            <circle class="iotp__port" cx="402" cy="118" r="4.6"/>
 
-            <!-- the phone -->
-            <rect class="iotp__phone" x="624" y="34" width="118" height="182" rx="20"/>
-            <rect class="iotp__screen" x="633" y="43" width="100" height="164" rx="14"/>
-            <rect class="iotp__notch" x="668" y="49" width="30" height="5" rx="2.5"/>
-            <!-- what the app is showing: a live figure that ticks up, then an
-                 alert card that arrives -->
-            <text class="iotp__oee" x="683" y="104" text-anchor="middle">78%</text>
-            <text class="iotp__cap" x="683" y="122" text-anchor="middle">OEE, LIVE</text>
+            <!-- ===== phone ===== -->
+            <rect class="iotp__phone" x="402" y="28" width="112" height="180" rx="18"/>
+            <rect class="iotp__screen" x="410" y="36" width="96" height="164" rx="13"/>
+            <rect class="iotp__notch" x="442" y="42" width="32" height="4.5" rx="2.25"/>
+
+            <text class="iotp__oee" x="458" y="98" text-anchor="middle">78%</text>
+            <text class="iotp__cap" x="458" y="116" text-anchor="middle">OEE, LIVE</text>
             <g class="iotp__card">
-              <rect x="643" y="139" width="80" height="40" rx="9"/>
-              <circle class="iotp__cardot" cx="656" cy="153" r="3.4"/>
-              <text class="iotp__cardlbl" x="667" y="157">Press-03</text>
-              <text class="iotp__cardsub" x="653" y="171">Stopped, 4 min</text>
+              <rect x="418" y="132" width="80" height="40" rx="9"/>
+              <circle class="iotp__cardot" cx="431" cy="146" r="3.4"/>
+              <text class="iotp__cardlbl" x="442" y="150">Press-03</text>
+              <text class="iotp__cardsub" x="428" y="164">Stopped, 4 min</text>
             </g>
 
-            <!-- packets -->
-            <circle class="iotp__pk iotp__pk--1" r="3.4" style="offset-path:path('M96 56 H176 C206 56 206 125 236 125')"/>
-            <circle class="iotp__pk iotp__pk--2" r="3.4" style="offset-path:path('M96 125 H236')"/>
-            <circle class="iotp__pk iotp__pk--3" r="3.4" style="offset-path:path('M96 194 H176 C206 194 206 125 236 125')"/>
-            <circle class="iotp__pk iotp__pk--4" r="3.4" style="offset-path:path('M330 125 H408')"/>
-            <circle class="iotp__pk iotp__pk--5" r="3.8" style="offset-path:path('M506 125 H624')"/>
+            <!-- ===== labels, on one baseline ===== -->
+            <text class="iotp__lbl" x="206" y="236" text-anchor="middle">HMI</text>
+            <text class="iotp__lbl" x="458" y="236" text-anchor="middle">APMS APP</text>
+
+            <!-- ===== packets ===== -->
+            <circle class="iotp__pk iotp__pk--1" r="3.4" style="offset-path:path('M306 118 H402')"/>
+            <circle class="iotp__pk iotp__pk--2" r="3.4" style="offset-path:path('M306 118 H402')"/>
+            <circle class="iotp__pk iotp__pk--3" r="3.4" style="offset-path:path('M306 118 H402')"/>
+          </svg>
+
+          <!-- The same board stacked, swapped in below 760px. Shrinking the wide
+               one put the alert card at roughly 5px on a phone. Same class names
+               throughout, so every rule and the reduced-motion fallback carry
+               over untouched (the pattern .modflow and .aloop already use). -->
+          <svg class="iotp__svg iotp__svg--tall" viewBox="0 0 340 500" role="img"
+               aria-label="An HMI panel on the machine and the APMS app on a phone, stacked, with live production data travelling from the panel down to the phone">
+
+            <path class="iotp__rail" d="M170 210 V266"/>
+
+            <rect class="iotp__hmi" x="70" y="30" width="200" height="140" rx="14"/>
+            <rect class="iotp__hmiscr" x="82" y="42" width="176" height="98" rx="8"/>
+            <text class="iotp__hcap" x="96" y="64">OEE, LIVE</text>
+            <text class="iotp__hval" x="96" y="98">78%</text>
+            <g class="iotp__bars">
+              <rect class="iotp__bar" x="192" y="94" width="8" height="18" rx="2"/>
+              <rect class="iotp__bar" x="206" y="86" width="8" height="26" rx="2"/>
+              <rect class="iotp__bar" x="220" y="76" width="8" height="36" rx="2"/>
+              <rect class="iotp__bar" x="234" y="68" width="8" height="44" rx="2"/>
+            </g>
+            <g class="iotp__keys">
+              <rect class="iotp__key iotp__key--on" x="94" y="152" width="22" height="7" rx="3.5"/>
+              <rect class="iotp__key" x="122" y="152" width="22" height="7" rx="3.5"/>
+              <rect class="iotp__key" x="150" y="152" width="22" height="7" rx="3.5"/>
+            </g>
+            <text class="iotp__lbl" x="170" y="192" text-anchor="middle">HMI</text>
+
+            <circle class="iotp__pulse" cx="170" cy="210" r="7"/>
+            <circle class="iotp__pulse iotp__pulse--2" cx="170" cy="210" r="7"/>
+            <circle class="iotp__port" cx="170" cy="210" r="4.6"/>
+            <circle class="iotp__port" cx="170" cy="266" r="4.6"/>
+
+            <rect class="iotp__phone" x="114" y="266" width="112" height="180" rx="18"/>
+            <rect class="iotp__screen" x="122" y="274" width="96" height="164" rx="13"/>
+            <rect class="iotp__notch" x="154" y="280" width="32" height="4.5" rx="2.25"/>
+            <text class="iotp__oee" x="170" y="336" text-anchor="middle">78%</text>
+            <text class="iotp__cap" x="170" y="354" text-anchor="middle">OEE, LIVE</text>
+            <g class="iotp__card">
+              <rect x="130" y="370" width="80" height="40" rx="9"/>
+              <circle class="iotp__cardot" cx="143" cy="384" r="3.4"/>
+              <text class="iotp__cardlbl" x="154" y="388">Press-03</text>
+              <text class="iotp__cardsub" x="140" y="402">Stopped, 4 min</text>
+            </g>
+            <text class="iotp__lbl" x="170" y="474" text-anchor="middle">APMS APP</text>
+
+            <circle class="iotp__pk iotp__pk--1" r="3.4" style="offset-path:path('M170 210 V266')"/>
+            <circle class="iotp__pk iotp__pk--2" r="3.4" style="offset-path:path('M170 210 V266')"/>
+            <circle class="iotp__pk iotp__pk--3" r="3.4" style="offset-path:path('M170 210 V266')"/>
           </svg>
         </div>
       </div>
