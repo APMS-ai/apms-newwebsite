@@ -239,17 +239,17 @@
 [data-reveal].in .mfleet__bot--quad .mfleet__leg--b { animation: mfleetSwing 0.62s ease-in-out infinite reverse; }
 [data-reveal].in .mfleet__bot--quad .mfleet__leg--a,
 [data-reveal].in .mfleet__bot--quad .mfleet__leg--b { animation-duration: 0.44s; }
-[data-reveal].in .mfleet__rotor { animation: mfleetRotor 0.22s linear infinite; }
+[data-reveal].in .mfleet__rotor { animation: mfleetRotor 0.45s linear infinite; }
 [data-reveal].in .mfleet__rotor--r { animation-direction: reverse; }
-[data-reveal].in .mfleet__bot--amr .mfleet__wheel { animation: mfleetWheel 1.1s linear infinite; }
-[data-reveal].in .mfleet__brush { animation: mfleetBrush 0.5s linear infinite; }
+/* The wheel rotation is gone on purpose: .mfleet__wheel is a plain circle with
+   no spokes, so rotating it produced not one changed pixel while still costing
+   two animations a frame. The brush scaleX went the same way, for 3 fewer
+   concurrent animations at zero visual cost. */
 
 @keyframes mfleetStep  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
 @keyframes mfleetHover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 @keyframes mfleetSwing { 0%,100% { transform: rotate(11deg); } 50% { transform: rotate(-11deg); } }
 @keyframes mfleetRotor { to { transform: rotate(360deg); } }
-@keyframes mfleetWheel { to { transform: rotate(360deg); } }
-@keyframes mfleetBrush { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(.55); } }
 
 @media (max-width: 700px) { .mfleet__name { font-size: 12px; } }
 
