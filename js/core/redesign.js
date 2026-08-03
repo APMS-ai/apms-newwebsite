@@ -250,14 +250,14 @@
       }
 
       /* ---------- send it ----------
-         Netlify Forms accepts a urlencoded POST to any path on the site as
-         long as the body carries form-name. Posting by fetch rather than
+         Posts to submit.php on the same host. Sending by fetch rather than
          letting the browser navigate keeps the visitor on the page and keeps
          the inline status message, which is the whole reason this handler
          calls preventDefault at the top.
 
-         The form still works with JS off: it is a real POST form with
-         data-netlify, so the browser submits it and Netlify stores it. */
+         The form still works with JS off: it has a real action, so the
+         browser posts it, submit.php stores it and redirects back with
+         ?sent=1. */
       var btn = form.querySelector('button[type="submit"]');
       var btnText = btn ? btn.textContent : "";
       if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
@@ -276,14 +276,26 @@
         if (btn) { btn.disabled = false; btn.textContent = btnText; }
       }
 
-      fetch(form.getAttribute("action") || window.location.pathname, {
+      fetch(form.getAttribute("action") || "submit.php", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          /* submit.php answers JSON rather than redirecting when it sees this */
+          "Accept": "application/json",
+          "X-Requested-With": "fetch"
+        },
         body: new URLSearchParams(new FormData(form)).toString()
       }).then(function (res) {
-        if (!res.ok) throw new Error(res.status);
+        return res.json().catch(function () { return { ok: res.ok }; })
+          .then(function (data) {
+            if (!res.ok || data.ok === false) { throw new Error(data.message || res.status); }
+            return data;
+          });
+      }).then(function (data) {
         restore();
-        say("Thanks. Your enquiry is with us and we'll be in touch shortly.", "var(--teal-deep)");
+        /* the server's own words if it sent any, so a partial success is
+           reported as what it was rather than as a clean success */
+        say(data.message || "Thanks. Your enquiry is with us and we'll be in touch shortly.", "var(--teal-deep)");
         form.reset();
         CHECKS.forEach(function (spec) {
           var el = document.getElementById(spec.id);
@@ -291,8 +303,12 @@
           var wrap = el && el.closest ? el.closest(".field") : null;
           if (wrap) wrap.classList.remove("is-ok");
         });
-      }).catch(function () {
+      }).catch(function (err) {
         restore();
+        if (err && err.message && /check and try again/i.test(err.message)) {
+          say(err.message, "#b4453a");
+          return;
+        }
         /* Never swallow a failed send. If it did not go through, the visitor
            needs to know and needs another way to reach us. */
         say("That didn't send. Please email info@apms.ai or call +91 93800 59669 and we'll set up your session.", "#b4453a");

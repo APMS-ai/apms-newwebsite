@@ -134,7 +134,15 @@ frame timing, grid alignment, reveals, rails and reduced motion.
   root, then open `http://localhost:8080`. Everything works locally except the
   `netlify.toml` headers and redirects.
 - GitHub: `Sudhanvahp/APMS.ai-Website` (**private**).
-- **`main` is what Netlify deploys** (project `apms-ai`, `apms-ai.netlify.app`).
+- **Hosting is Hostinger now** (LiteSpeed + PHP + MySQL), uploaded over FTP to
+  `public_html`. `DEPLOY.txt` is the file manifest and is **generated**, not
+  hand-kept: re-run `docs/gen-deploy-manifest.py` after adding or removing a
+  file. The hand-kept version had drifted and omitted five stylesheets that
+  pages load, which would have shipped a site with broken styling.
+- `netlify.toml` is kept for reference only and must not be uploaded.
+  Everything it did is restated in `.htaccess`, which LiteSpeed reads:
+  security headers, caching, extensionless URLs, the 404 page and the old
+  WordPress redirects.
 - **`v1-first-deploy` is frozen at `1e33c73`** — the first deployed version.
   Never commit to it or move it.
 - No build command. Publish directory is `.`. Config in `netlify.toml`.
@@ -143,14 +151,14 @@ frame timing, grid alignment, reveals, rails and reduced motion.
 
 ## 10 · Still outstanding
 
-- ~~**Book a Demo collects nothing.**~~ Done. `contact.html` carries
-  `name="book-a-demo"`, `data-netlify="true"` and a `bot-field` honeypot;
-  `js/core/redesign.js` keeps its `preventDefault` and posts by `fetch`
-  instead, so the visitor stays on the page and keeps the inline status.
-  Submissions land in Netlify under Forms > book-a-demo. **They only start
-  arriving once `main` is pushed and Netlify has redeployed**: Netlify finds
-  forms by parsing the HTML at deploy time, so a form that has never been
-  deployed does not exist as far as the dashboard is concerned.
+- ~~**Book a Demo collects nothing.**~~ Done, and **not** with Netlify Forms:
+  the site moved to Hostinger, where that does not exist. `contact.html`
+  posts to `submit.php`, which validates server side, writes a row to MySQL
+  **and** appends to a CSV outside `public_html`, then emails `info@apms.ai`.
+  Two stores on purpose: a database can be down, and an enquiry that arrives
+  then must not evaporate. Success is only reported if one of the two writes
+  actually succeeded. Credentials live in `config.php` on the server, which is
+  gitignored; `config.sample.php` and `schema.sql` are the templates.
 - The chatbot accepts typed questions and **discards them**. Worth logging.
 - `apms.ai` still serves the old WordPress site. **Do not move the nameservers**
   — MX points at Microsoft 365, so email breaks. Change the `A` record only and

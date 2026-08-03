@@ -39,3 +39,10 @@ desktop.ini
 
 # Netlify local state
 .netlify/
+
+# Server configuration. Holds the database password: never commit it.
+config.php
+
+# The CSV safety net, if it ever ends up inside the project folder.
+apms-enquiries/
+*.csv

@@ -83,19 +83,13 @@
           <div data-reveal>
             <h2 style="font-size:1.6rem;margin-bottom:0.4rem;">Tell us about your line</h2>
             <p style="color:var(--body);margin-bottom:1.4rem;">The more you share about your machines, lines and goals, the more concrete an answer you get back. All fields are required.</p>
-            <!-- Netlify Forms. data-netlify makes Netlify parse this form at deploy
-                 time and create a store for it; name= is what the submissions are
-                 filed under in the dashboard. The hidden form-name input is what
-                 identifies the form in the AJAX POST that redesign.js sends, and
-                 bot-field is the honeypot: real people never see it, bots fill it
-                 in and Netlify drops those silently.
-
-                 With JS off the form still posts normally and still stores, it
-                 just lands on Netlify's own confirmation page instead of showing
-                 the inline message. -->
+            <!-- The site is on Hostinger, not Netlify, so this posts to submit.php.
+                 action is a real URL, so the form still works with JS off: the
+                 browser posts it, submit.php stores it and redirects back here
+                 with ?sent=1. bot-field is the honeypot; a person never sees it,
+                 bots fill it in and submit.php drops those. -->
             <form id="contact-form" class="form" name="book-a-demo" method="POST"
-                  data-netlify="true" netlify-honeypot="bot-field" novalidate>
-              <input type="hidden" name="form-name" value="book-a-demo">
+                  action="submit.php" novalidate>
               <p class="form__hp" aria-hidden="true">
                 <label>Leave this field empty<input name="bot-field" tabindex="-1" autocomplete="off"></label>
               </p>
@@ -269,7 +263,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=11"></script>
+  <script src="js/core/redesign.js?v=12"></script>
   <script src="js/core/enhance.js?v=7"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>

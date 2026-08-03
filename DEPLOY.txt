@@ -1,15 +1,47 @@
 APMS.ai - what to upload over FTP
 ========================================
 
-Upload to the web root (public_html), keeping the folder structure:
+Host is Hostinger (LiteSpeed + PHP). There is no build step: the
+repository root IS the site, so this is a straight copy.
+
+Upload to the web root (public_html), keeping the folder structure.
+
+  .htaccess is a dotfile. Most FTP clients hide it by default, and
+  without it you lose HTTPS redirects, the old WordPress URL
+  redirects, the 404 page, caching and the security headers. Turn on
+  "show hidden files" or it will look like it uploaded and it will
+  not be there.
+
+  config.php is NOT in this list and is NOT in the repository. Copy
+  config.sample.php to config.php on the server and fill in the
+  database details. Without it the form still works and still keeps
+  every enquiry in the CSV, it just does not write to MySQL.
+
+This list is generated, not hand-kept. To refresh it after adding or
+removing files, re-run the generator in the scratchpad rather than
+editing here: the hand-kept version drifted and left five
+stylesheets off, which shipped a site with broken styling.
+
+----------------------------------------
+78 files
+----------------------------------------
 
   .htaccess
   404.html
   about.html
   ai-agents.html
+  config.sample.php
+  contact.html
+  index.html
+  industries.html
+  motion-ai.html
+  privacy.html
+  solutions.html
+  submit.php
+  vision-ai.html
   assets/apms-logo.png
   assets/apms-mark.png
-  contact.html
+  css/base/cardmotion.css
   css/base/enhance.css
   css/base/footer.css
   css/base/fx.css
@@ -23,11 +55,13 @@ Upload to the web root (public_html), keeping the folder structure:
   css/motion/motion.css
   css/motion/perf.css
   css/motion/rail.css
+  css/sections/aboutfx.css
   css/sections/agarch.css
   css/sections/agentic.css
   css/sections/aiplus.css
   css/sections/analyst.css
   css/sections/bentofx.css
+  css/sections/contactfx.css
   css/sections/floorgrid.css
   css/sections/formfx.css
   css/sections/indsteps.css
@@ -37,11 +71,11 @@ Upload to the web root (public_html), keeping the folder structure:
   css/sections/maintui.css
   css/sections/misfx.css
   css/sections/motionfx.css
+  css/sections/premiumfx.css
   css/sections/pseq.css
+  css/sections/solutionsfx.css
   css/sections/visioncmp.css
   css/sections/visionfx.css
-  index.html
-  industries.html
   js/core/enhance.js
   js/core/perf.js
   js/core/polish.js
@@ -70,19 +104,20 @@ Upload to the web root (public_html), keeping the folder structure:
   js/vendor/mesh-gradient.js
   js/vendor/three.min.js
   js/vendor/vanta.net.min.js
-  motion-ai.html
-  privacy.html
-  solutions.html
-  vision-ai.html
 
 Never upload these:
 
-  .gitattributes
   .gitignore
+  .gitattributes
   CLAUDE.md
-  _snapshot_pre-restyle_20260724_122719/css/enhance.css
-  _snapshot_pre-restyle_20260724_122719/css/redesign.css
-  _standalone/machine-health-vitals.html
-  _standalone/pipeline-step-preview.html
-  docs/PONYTAIL.md
   netlify.toml
+  DEPLOY.txt
+  apms-site.zip
+  config.php
+  schema.sql
+  _standalone/          (unlinked previews, one pulls React from a CDN)
+  docs/                 (notes)
+  apms-enquiries/       (the enquiry CSV, if it is ever inside the project)
+
+Run once on the server, in hPanel > Databases > phpMyAdmin > SQL:
+  the contents of schema.sql, which creates the enquiries table.

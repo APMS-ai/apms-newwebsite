@@ -128,7 +128,17 @@ ErrorDocument 404 /404.html
 # --------------------------------------------------------------------------
 # Nothing here should ever be served
 # --------------------------------------------------------------------------
-<FilesMatch "^\.|\.(md|toml|py|mjs)$">
+# csv/sql/log added for the enquiry store: the CSV safety net is written
+# outside public_html by default, but if a plan will not allow that and it
+# lands in here, nobody should be able to just fetch the enquiries.
+<FilesMatch "^\.|\.(md|toml|py|mjs|csv|sql|log)$">
+  Require all denied
+</FilesMatch>
+
+# config.php holds the database password. PHP is executed rather than served,
+# so it would not normally leak, but if PHP is ever disabled or
+# misconfigured the file becomes plain text and this is the backstop.
+<FilesMatch "^config(\.sample)?\.php$">
   Require all denied
 </FilesMatch>
 Options -Indexes
