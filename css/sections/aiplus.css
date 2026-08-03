@@ -115,9 +115,13 @@
   50%      { transform: scaleY(1); }
 }
 
-/* Three spoken commands, transcribed in turn. They share one grid cell so the
-   block never changes height as the text swaps, and each one types itself in,
-   holds, then clears before the next begins. */
+/* One spoken command per domain: finance, supply chain, service desk,
+   knowledge, operations, matching the five tabs in the conversation switcher.
+   They share one grid cell so the block never changes height as the text
+   swaps, and each types itself in, holds, then clears before the next begins.
+
+   Five slots at 5s each is a 25s cycle. steps() has to cover the longest line,
+   which is 40 characters, or the last few letters appear in one jump. */
 .asaids { display: grid; }
 .asaid {
   grid-area: 1 / 1;
@@ -127,16 +131,19 @@
   clip-path: inset(0 100% 0 0);
   opacity: 0;
 }
-[data-reveal].in .asaid { animation: aType 15s steps(36, end) infinite; }
+[data-reveal].in .asaid { animation: aType 25s steps(40, end) infinite; }
 .asaid--1 { animation-delay: 0s !important; }
 .asaid--2 { animation-delay: 5s !important; }
 .asaid--3 { animation-delay: 10s !important; }
-/* one third of the cycle each: type in, hold, clear, then stay hidden */
+.asaid--4 { animation-delay: 15s !important; }
+.asaid--5 { animation-delay: 20s !important; }
+/* one fifth of the cycle each: type in, hold, clear, then stay hidden.
+   5s of 25s is 20%, so the visible window ends at 20 rather than 33. */
 @keyframes aType {
   0%          { clip-path: inset(0 100% 0 0); opacity: 1; }
-  8%, 26%     { clip-path: inset(0 0 0 0);    opacity: 1; }
-  32%         { clip-path: inset(0 100% 0 0); opacity: 1; }
-  33%, 100%   { clip-path: inset(0 100% 0 0); opacity: 0; }
+  5%, 16%     { clip-path: inset(0 0 0 0);    opacity: 1; }
+  19%         { clip-path: inset(0 100% 0 0); opacity: 1; }
+  20%, 100%   { clip-path: inset(0 100% 0 0); opacity: 0; }
 }
 @media (max-width: 620px) { .asaid { font-size: .98rem; } }
 
