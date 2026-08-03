@@ -41,7 +41,11 @@
 .anl__glow svg { width: 100%; height: auto; display: block; overflow: visible; }
 .anl__glow * { transform-box: view-box; }
 
-.anl__feed { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 1.4; }
+/* Solid, and straight. At 0.14 alpha on a 1.4 stroke the three lanes were
+   barely there, and two of them were beziers that sagged toward the orb, so
+   the diagram read as vague rather than wired. Straight runs now, stopping
+   at the ring, in teal at an alpha you can actually see. */
+.anl__feed { fill: none; stroke: rgba(46,224,180,0.46); stroke-width: 2; stroke-linecap: round; }
 .anl__lbl {
   font-family: var(--display); font-weight: 800; font-size: 11px;
   letter-spacing: .14em; text-transform: uppercase; fill: rgba(255,255,255,0.5);
