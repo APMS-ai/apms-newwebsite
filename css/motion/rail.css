@@ -65,6 +65,9 @@
   letter-spacing: 0.12em; color: var(--muted); white-space: nowrap;
 }
 .agp__count b { color: var(--teal-deep); }
+/* the total is written by rail.js from the real card count; <i> is just a
+   hook, so it must not inherit italics */
+.agp__count .agp__of { font-style: normal; }
 .agp__hint {
   display: inline-flex; align-items: center; gap: 0.5rem;
   font-size: 0.78rem; color: var(--muted); white-space: nowrap;

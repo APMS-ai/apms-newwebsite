@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/base/footer.css?v=5">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=2">
-  <link rel="stylesheet" href="css/motion/rail.css?v=5">
+  <link rel="stylesheet" href="css/motion/rail.css?v=6">
 <link rel="stylesheet" href="css/sections/agentic.css?v=15">
 <link rel="stylesheet" href="css/sections/agarch.css?v=1">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
@@ -456,7 +456,7 @@
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
           <span class="h-eyebrow">Shapes of the work</span>
-          <h2 data-clip>Nine problems. Nine agents<br>we'd <span class="accent">build to order.</span></h2>
+          <h2 data-clip>Problems, and the agents<br>we'd <span class="accent">build to order.</span></h2>
           <p class="sec__lead" style="margin-inline:auto;text-align:center;">These aren't products on a shelf. They're patterns. Each one starts with a problem statement a real team has said out loud. If yours sounds like one of these, we already know where to start. If it doesn't, tell us anyway.</p>
         </div>
 
@@ -472,18 +472,6 @@
             <div class="ag-pat__parts"><span>OCR</span><span>LLM extraction</span><span>Validation rules</span><span>ERP API</span></div>
             <div class="ag-pat__kpi"><b>You'd measure</b>Cycle time per document, straight-through rate, exception rate, downstream corrections.</div>
             </article>
-
-            <article class="ag-pat" data-reveal data-reveal-delay="1">
-            <div class="ag-pat__head">
-              <svg class="ag-pat__viz" viewBox="0 0 48 48" aria-hidden="true"><rect class="gz" x="6" y="12" width="36" height="24" rx="3"/><path class="gz gz-draw" d="M6 14 L24 28 L42 14"/><circle cx="38" cy="14" r="4" fill="#17c99b" class="gz-pulse"/></svg>
-              <h3>Request &amp; ticket triage</h3>
-            </div>
-            <p class="ag-pat__q">&ldquo;A thousand emails a day come into one inbox and a human decides where every single one goes.&rdquo;</p>
-            <p class="ag-pat__build"><b>We'd build:</b> an agent that reads each request, works out intent and urgency, pulls the customer or order context, answers what it can from your knowledge base and routes the rest to the right queue with a summary attached.</p>
-            <div class="ag-pat__parts"><span>Intent classification</span><span>RAG</span><span>CRM lookup</span><span>Auto-routing</span></div>
-            <div class="ag-pat__kpi"><b>You'd measure</b>First-response time, auto-resolution rate, mis-routes, backlog age.</div>
-            </article>
-
             <article class="ag-pat" data-reveal data-reveal-delay="2">
             <div class="ag-pat__head">
               <svg class="ag-pat__viz" viewBox="0 0 48 48" aria-hidden="true"><path class="gz" d="M24 5 l16 6 v11 c0 11-7 18-16 21-9-3-16-10-16-21V11z"/><path class="gz gz-draw" d="M17 23 l5 5 9-10"/></svg>
@@ -516,18 +504,6 @@
             <div class="ag-pat__parts"><span>Constraint solver</span><span>ERP / MES</span><span>Natural-language brief</span><span>Approval gate</span></div>
             <div class="ag-pat__kpi"><b>You'd measure</b>On-time delivery, schedule adherence, replan turnaround, utilisation.</div>
             </article>
-
-            <article class="ag-pat" data-reveal data-reveal-delay="2">
-            <div class="ag-pat__head">
-              <svg class="ag-pat__viz" viewBox="0 0 48 48" aria-hidden="true"><circle class="gz gz--soft" cx="24" cy="24" r="17"/><path class="gz" d="M24 14v10l7 4"/><path class="gz gz-draw" d="M9 38h30" stroke-dasharray="30"/><circle class="gz-pulse" cx="24" cy="24" r="2.6" fill="#17c99b" stroke="none"/></svg>
-              <h3>Shift handover and daily brief</h3>
-            </div>
-            <p class="ag-pat__q">&ldquo;Every handover is a different story depending on who is telling it.&rdquo;</p>
-            <p class="ag-pat__build"><b>We'd build:</b> an agent that writes the handover itself from what actually happened on shift: output against target, every stop and its reason, open jobs, what the next shift inherits. The same brief, in the same shape, every single time.</p>
-            <div class="ag-pat__parts"><span>Live production data</span><span>Downtime reasons</span><span>Open job state</span><span>Scheduled delivery</span></div>
-            <div class="ag-pat__kpi"><b>You'd measure</b>Handover time, issues carried over unnoticed, consistency between shifts, first-hour output.</div>
-          </article>
-
             <article class="ag-pat" data-reveal>
             <div class="ag-pat__head">
               <svg class="ag-pat__viz" viewBox="0 0 48 48" aria-hidden="true"><path class="gz" d="M9 11 h30 a3 3 0 0 1 3 3 v15 a3 3 0 0 1-3 3 H21 l-8 6 v-6 h-4 a3 3 0 0 1-3-3 V14 a3 3 0 0 1 3-3z"/><circle cx="17" cy="22" r="2.2" fill="#17c99b" class="gz-pulse"/><circle cx="24" cy="22" r="2.2" fill="#17c99b" class="gz-pulse2"/><circle cx="31" cy="22" r="2.2" fill="#17c99b" class="gz-pulse3"/></svg>
@@ -564,7 +540,7 @@
         </div>
 
         <div class="agp__meta" data-reveal>
-          <span class="agp__count"><b>1</b> / 9</span>
+          <span class="agp__count"><b>1</b> / <i class="agp__of">7</i></span>
           <span class="agp__bar"><i></i></span>
           <span class="agp__hint"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Keep scrolling</span>
         </div>
@@ -1007,7 +983,7 @@
   <script src="js/core/ui-fx.js?v=1"></script>
   <script src="js/motion/scroll-text.js?v=1"></script>
   <script src="js/motion/mesh-bg.js?v=3"></script>
-  <script src="js/motion/rail.js?v=4"></script>
+  <script src="js/motion/rail.js?v=5"></script>
   <script src="js/sections/agentic.js?v=4"></script>
   <script src="js/core/reveal.js?v=1"></script>
   <script src="js/motion/iconlife.js?v=1"></script>

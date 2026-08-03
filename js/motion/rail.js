@@ -31,6 +31,12 @@ function initRail(stage) {
   var count = scope.querySelector(".agp__count b");
   if (!cards.length) return;
 
+  /* The total used to be typed into the markup, so removing two cards left the
+     rail reading "1 / 9" over seven of them. Write it from the real card count
+     instead, and it can never fall out of step again. */
+  var total = scope.querySelector(".agp__of");
+  if (total) total.textContent = String(cards.length);
+
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var narrow = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
   /* Pinning buys a cinematic reveal but costs page length: the pin adds scroll
