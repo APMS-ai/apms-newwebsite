@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-78 files
+79 files
 ----------------------------------------
 
   .htaccess
@@ -104,6 +104,7 @@ stylesheets off, which shipped a site with broken styling.
   js/vendor/mesh-gradient.js
   js/vendor/three.min.js
   js/vendor/vanta.net.min.js
+  lib/smtp.php
 
 Never upload these:
 

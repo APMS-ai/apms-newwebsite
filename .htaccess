@@ -141,4 +141,10 @@ ErrorDocument 404 /404.html
 <FilesMatch "^config(\.sample)?\.php$">
   Require all denied
 </FilesMatch>
+
+# lib/ holds includes, not endpoints. Require controls HTTP access only, so
+# submit.php can still require_once it.
+<FilesMatch "^smtp\.php$">
+  Require all denied
+</FilesMatch>
 Options -Indexes

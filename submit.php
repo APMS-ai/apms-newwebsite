@@ -142,8 +142,25 @@ if (!empty($cfg['db']['name'])) {
     }
 }
 
-/* ---------- 3 · tell somebody ---------- */
+/* ---------- 3 · tell somebody ----------
+   Authenticated SMTP when config.php has an ['smtp'] block, and mail() only as
+   a fallback when it does not.
+
+   mail() was the only path here, and on this host it is the path that quietly
+   does not work. It hands the message to the local sendmail, which posts it
+   from Hostinger's IP claiming to be From: @apms.ai. apms.ai's SPF authorises
+   Microsoft 365, because that is where the MX points, and not Hostinger, so
+   Gmail sees the domain owner refusing to vouch for the sending server and
+   files it as spam or drops it. mail() returns true regardless, and this was
+   written as @mail(...) with the result discarded, so nothing ever surfaced.
+
+   Either way the outcome is logged now. A notification that failed is worth
+   knowing about even though it does not change what the visitor is told: the
+   enquiry itself is safe in MySQL and the CSV, which is what the response
+   below is based on. */
 $mailTo = $cfg['notify_to'] ?? 'info@apms.ai';
+$mailOk = false;
+$mailErr = '';
 if ($mailTo) {
     $subject = 'Demo enquiry: ' . $company . ' (' . $name . ')';
     $body = "New Book a Demo enquiry\n\n"
@@ -153,11 +170,28 @@ if ($mailTo) {
           . "Company:  $company\n\n"
           . "Message:\n$message\n\n"
           . "-- \nReceived (UTC): $now\nIP: $ip\n";
-    $from = $cfg['notify_from'] ?? ('no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'apms.ai'));
-    $headers = "From: APMS.ai website <$from>\r\n"
-             . "Reply-To: $name <$email>\r\n"
-             . "Content-Type: text/plain; charset=utf-8\r\n";
-    @mail($mailTo, $subject, $body, $headers);
+
+    $smtp = $cfg['smtp'] ?? [];
+    if (!empty($smtp['host']) && !empty($smtp['user']) && !empty($smtp['pass'])) {
+        require_once __DIR__ . '/lib/smtp.php';
+        $mailOk = apms_smtp_send($smtp, $mailTo, $subject, $body, $email, $name, $mailErr);
+        if (!$mailOk) {
+            @error_log('[apms-enquiry] smtp send failed: ' . $mailErr);
+        }
+    } else {
+        $from = $cfg['notify_from'] ?? ('no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'apms.ai'));
+        $headers = "From: APMS.ai website <$from>\r\n"
+                 . "Reply-To: $name <$email>\r\n"
+                 . "Content-Type: text/plain; charset=utf-8\r\n";
+        $mailOk = @mail($mailTo, $subject, $body, $headers);
+        if (!$mailOk) {
+            $mailErr = 'mail() returned false';
+            @error_log('[apms-enquiry] mail() failed, and no smtp block is configured');
+        } else {
+            @error_log('[apms-enquiry] sent via mail(); configure an smtp block in '
+                     . 'config.php if it does not arrive, which on this host is likely');
+        }
+    }
 }
 
 /* ---------- answer honestly ----------

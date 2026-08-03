@@ -9,13 +9,15 @@ import io, os
 os.chdir(os.environ['SITE'])
 
 SKIP_DIRS = {'.git', '_standalone', 'docs', '.hallmark', 'node_modules', '.claude',
-             '_snapshot_pre-restyle_20260724_122719', 'apms-enquiries'}
+             'apms-enquiries'}
+SKIP_PREFIX = ('_snapshot_',)   # dated backups, whatever they are called
 NEVER = ['.gitignore', '.gitattributes', 'CLAUDE.md', 'netlify.toml',
          'DEPLOY.txt', 'apms-site.zip', 'config.php', 'schema.sql']
 
 upload = []
 for root, dirs, files in os.walk('.'):
-    dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS)
+    dirs[:] = sorted(d for d in dirs
+                     if d not in SKIP_DIRS and not d.startswith(SKIP_PREFIX))
     for f in sorted(files):
         p = os.path.relpath(os.path.join(root, f), '.').replace(os.sep, '/')
         if p in NEVER or p.endswith('.csv'):
