@@ -6,15 +6,18 @@
    form needs a real endpoint, and this is it: LiteSpeed runs PHP, and every
    Hostinger shared plan includes MySQL, so nothing extra has to be bought.
 
-   Every enquiry is written twice, on purpose:
+   An enquiry can end up in three places, and the visitor is told it succeeded
+   if it reached any one of them:
 
-     1. a row in MySQL, which is the thing you query and export
-     2. a line in a CSV on disk, which is the safety net
+     1. a row in MySQL, which is the thing you query and export. Optional:
+        leave the db name empty in config.php and it is skipped
+     2. a line in a CSV on disk, the safety net, because a database can be
+        down, out of connections or mid-migration and an enquiry that arrives
+        then must not evaporate
+     3. an email, when authenticated SMTP confirms a server accepted it
 
-   The CSV exists because a database can be down, out of connections or
-   mid-migration, and an enquiry that arrives during that must not evaporate.
-   If the insert fails, the CSV still has the enquiry and the visitor is still
-   told the truth about whether it was received.
+   Only those three count. mail() does not, because it reports a success it
+   has no way to know about.
 
    Credentials live in config.php, which is NOT in the repository. Copy
    config.sample.php to config.php on the server and fill it in.
@@ -162,12 +165,11 @@ if (!empty($cfg['db']['name'])) {
    files it as spam or drops it. mail() returns true regardless, and this was
    written as @mail(...) with the result discarded, so nothing ever surfaced.
 
-   Either way the outcome is logged now. A notification that failed is worth
-   knowing about even though it does not change what the visitor is told: the
-   enquiry itself is safe in MySQL and the CSV, which is what the response
-   below is based on. */
+   Either way the outcome is logged now, and which sender ran decides whether
+   delivery can be counted as evidence at the bottom of this file. */
 $mailTo = $cfg['notify_to'] ?? 'info@apms.ai';
-$mailOk = false;
+$mailOk = false;      /* the send was attempted and did not report failure */
+$mailProven = false;  /* a mail server took responsibility for the message */
 $mailErr = '';
 if ($mailTo) {
     $subject = 'Demo enquiry: ' . $company . ' (' . $name . ')';
@@ -183,6 +185,8 @@ if ($mailTo) {
     if (!empty($smtp['host']) && !empty($smtp['user']) && !empty($smtp['pass'])) {
         require_once __DIR__ . '/lib/smtp.php';
         $mailOk = apms_smtp_send($smtp, $mailTo, $subject, $body, $email, $name, $mailErr);
+        /* true only after the server answered 250 to the end of DATA */
+        $mailProven = $mailOk;
         if (!$mailOk) {
             @error_log('[apms-enquiry] smtp send failed: ' . $mailErr);
         }
@@ -204,9 +208,22 @@ if ($mailTo) {
 
 /* ---------- answer honestly ----------
    Success is claimed only if the enquiry is actually somewhere we can read it
-   back. If both writes failed, say so and give another way to reach us: a
-   form that swallows an enquiry and says "thanks" is worse than no form. */
-if ($dbOk || $csvOk) {
+   back. If every route failed, say so and give another way to reach us: a
+   form that swallows an enquiry and says "thanks" is worse than no form.
+
+   A delivered email counts as one of those places, but only when delivery was
+   actually established. That is $mailProven, and it is set on the SMTP path
+   alone: true there means the server answered 250 to the end of DATA and took
+   responsibility for the message. $mailOk is NOT used for this, because on the
+   mail() path it is whatever mail() returned, and mail() reports success it
+   cannot know about. Trusting that would claim success on nothing, which is
+   the failure this whole block exists to prevent.
+
+   It matters in the configuration deployed here: MySQL is switched off and the
+   CSV is written above the web root, so if the host forbids that write both of
+   the other two are false, and a visitor whose enquiry did reach the inbox
+   would have been told it failed. */
+if ($dbOk || $csvOk || $mailProven) {
     respond(200, "Thanks. Your enquiry is with us and we'll be in touch shortly.", $wantsJson);
 }
 respond(500, "That didn't send. Please email info@apms.ai or call +91 80501 76508.", $wantsJson);
