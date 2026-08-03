@@ -225,39 +225,38 @@
               <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Humanoid robot: works where people already work">
 
                 <circle class="fx-breathe" cx="280" cy="210" r="150" fill="url(#psGlow)"/>
-                <!-- feet, planted -->
-                <path d="M214 372 h44 a6 6 0 0 1 6 6 v6 h-56 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2" stroke-linejoin="round"/>
-                <path d="M302 372 h44 a6 6 0 0 1 6 6 v6 h-56 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2" stroke-linejoin="round"/>
-                <!-- shins and thighs -->
-                <rect x="226" y="300" width="26" height="74" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="308" y="300" width="26" height="74" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle cx="239" cy="300" r="9" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                <circle cx="321" cy="300" r="9" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                <rect x="224" y="232" width="30" height="70" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="306" y="232" width="30" height="70" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
+                <!-- feet, planted, centred under each shin -->
+                <path d="M229 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M285 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
+                <!-- shins, knees, thighs: narrower and set closer together -->
+                <rect x="242" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="298" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="252" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="308" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="240" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="296" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
                 <!-- pelvis and torso -->
-                <rect x="216" y="206" width="128" height="34" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <path d="M212 118 h136 a16 16 0 0 1 16 16 v54 a18 18 0 0 1 -18 18 h-132 a18 18 0 0 1 -18 -18 v-54 a16 16 0 0 1 16 -16z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4" stroke-linejoin="round"/>
-                <rect x="240" y="150" width="80" height="26" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.6"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="252" y="158" width="8" height="10" rx="2"/><rect class="fx-bar d1" x="266" y="158" width="8" height="10" rx="2"/><rect class="fx-bar d2" x="280" y="158" width="8" height="10" rx="2"/><rect class="fx-bar d3" x="294" y="158" width="8" height="10" rx="2"/></g>
-                <!-- shoulders and arms -->
-                <circle cx="200" cy="140" r="17" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle cx="360" cy="140" r="17" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="180" y="152" width="24" height="62" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="356" y="152" width="24" height="62" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="180" y="216" width="22" height="50" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="358" y="216" width="22" height="50" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
+                <rect x="228" y="206" width="104" height="34" rx="11" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <path d="M228 118 h104 a14 14 0 0 1 14 14 v56 a16 16 0 0 1 -16 16 h-100 a16 16 0 0 1 -16 -16 v-56 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="244" y="148" width="72" height="24" rx="7" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.4"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="255" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d1" x="268" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d2" x="281" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d3" x="294" y="155" width="7" height="10" rx="2"/></g>
+                <!-- shoulders and arms, tucked against the torso edge -->
+                <circle cx="206" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="354" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="197" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="345" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="198" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="346" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
                 <!-- gripper hands -->
-                <path fill="none" d="M184 266 v14 M196 266 v14" stroke="#2BE3B0" stroke-width="2.6" stroke-linecap="round"/>
-                <path fill="none" d="M362 266 v14 M374 266 v14" stroke="#2BE3B0" stroke-width="2.6" stroke-linecap="round"/>
+                <path fill="none" d="M202 264 v13 M210 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
+                <path fill="none" d="M350 264 v13 M358 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
                 <!-- neck and head -->
-                <path fill="none" d="M280 118 v-10" stroke="#2BE3B0" stroke-width="2.4"/>
-                <rect x="238" y="62" width="84" height="48" rx="18" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4"/>
-                <rect x="252" y="78" width="56" height="16" rx="8" fill="#0a1622"/>
-                <circle class="fx-pulse" cx="268" cy="86" r="4.5" fill="#2BE3B0"/>
-                <circle class="fx-pulse d1" cx="292" cy="86" r="4.5" fill="#2BE3B0"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="86" r="62"/></g>
-              </svg></div>
+                <path fill="none" d="M280 118 v-10" stroke="#2BE3B0" stroke-width="2"/>
+                <rect x="246" y="64" width="68" height="44" rx="16" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                <rect x="258" y="76" width="44" height="14" rx="7" fill="#0a1622"/>
+                <circle class="fx-pulse" cx="270" cy="83" r="4" fill="#2BE3B0"/>
+                <circle class="fx-pulse d1" cx="290" cy="83" r="4" fill="#2BE3B0"/>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="86" r="52"/></g></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Bipedal</span>
                 <h3>Humanoid</h3><div class="pstep__sub">Works where people already work</div>
@@ -270,42 +269,41 @@
 
                 <circle class="fx-breathe" cx="280" cy="230" r="150" fill="url(#psGlow)"/>
                 <!-- four legs, hip / knee / ankle, front pair mid-stride -->
-                <g class="fx-float"><path d="M182 240 l-16 52 l22 44" fill="none" stroke="#2BE3B0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
-                <path d="M226 244 l14 54 l-18 42" fill="none" stroke="#2BE3B0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M330 244 l-14 54 l18 42" fill="none" stroke="#2BE3B0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-                <g class="fx-float d2"><path d="M374 240 l16 52 l-22 44" fill="none" stroke="#2BE3B0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
-                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2">
-                  <circle cx="166" cy="292" r="8"/><circle cx="240" cy="298" r="8"/>
-                  <circle cx="316" cy="298" r="8"/><circle cx="390" cy="292" r="8"/>
+                <g class="fx-float"><path d="M182 232 l-16 52 l22 44" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+                <path d="M226 236 l14 54 l-18 42" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M330 236 l-14 54 l18 42" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <g class="fx-float d2"><path d="M374 232 l16 52 l-22 44" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8">
+                  <circle cx="166" cy="284" r="6.5"/><circle cx="240" cy="290" r="6.5"/>
+                  <circle cx="316" cy="290" r="6.5"/><circle cx="390" cy="284" r="6.5"/>
                 </g>
-                <g fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round">
-                  <path d="M182 340 h14"/><path d="M215 344 h14"/>
-                  <path d="M327 344 h14"/><path d="M361 340 h14"/>
+                <g fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round">
+                  <path d="M181 332 h14"/><path d="M215 336 h14"/>
+                  <path d="M327 336 h14"/><path d="M361 332 h14"/>
                 </g>
-                <circle cx="188" cy="336" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                <circle cx="222" cy="340" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                <circle cx="334" cy="340" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                <circle cx="368" cy="336" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
+                <circle cx="188" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="222" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="334" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="368" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
                 <!-- hip actuators -->
-                <circle cx="182" cy="240" r="13" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle cx="226" cy="244" r="13" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle cx="330" cy="244" r="13" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle cx="374" cy="240" r="13" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <!-- body, tapered toward the head -->
-                <path d="M174 178 h188 l30 18 v34 a16 16 0 0 1 -16 16 h-216 a16 16 0 0 1 -16 -16 v-36 a16 16 0 0 1 16 -16z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4" stroke-linejoin="round"/>
-                <rect x="196" y="196" width="120" height="14" rx="7" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="206" y="199" width="10" height="8" rx="2"/><rect class="fx-bar d1" x="222" y="199" width="10" height="8" rx="2"/><rect class="fx-bar d2" x="238" y="199" width="10" height="8" rx="2"/></g>
+                <circle cx="182" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="226" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="330" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle cx="374" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <!-- body: shallower than it was, still tapered toward the head -->
+                <path d="M182 184 h176 l26 16 v22 a14 14 0 0 1 -14 14 h-202 a14 14 0 0 1 -14 -14 v-24 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="200" y="200" width="110" height="12" rx="6" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="208" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d1" x="224" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d2" x="240" y="203" width="9" height="7" rx="2"/></g>
                 <!-- neck and sensor head -->
-                <path fill="none" d="M386 190 l22 -22" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round"/>
-                <rect x="396" y="126" width="66" height="44" rx="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4"/>
-                <rect x="408" y="140" width="42" height="14" rx="7" fill="#0a1622"/>
-                <circle class="fx-pulse" cx="420" cy="147" r="4" fill="#2BE3B0"/>
-                <circle class="fx-pulse d1" cx="438" cy="147" r="4" fill="#2BE3B0"/>
+                <path fill="none" d="M382 196 l22 -22" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
+                <rect x="400" y="136" width="58" height="38" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                <rect x="410" y="148" width="38" height="12" rx="6" fill="#0a1622"/>
+                <circle class="fx-pulse" cx="421" cy="154" r="3.5" fill="#2BE3B0"/>
+                <circle class="fx-pulse d1" cx="437" cy="154" r="3.5" fill="#2BE3B0"/>
                 <!-- lidar sweep off the head -->
-                <path class="fx-wire" d="M462 148 H520" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
-                <path class="fx-breathe" d="M462 148 L536 104 L536 192 Z" fill="url(#psGlow)" opacity=".5"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2.2"><path d="M470 128 a26 26 0 0 1 0 40"/></g>
-              </svg></div>
+                <path class="fx-wire" d="M458 155 H520" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
+                <path class="fx-breathe" d="M458 155 L536 112 L536 198 Z" fill="url(#psGlow)" opacity=".5"/>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><path d="M466 137 a22 22 0 0 1 0 36"/></g></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Four-legged</span>
                 <h3>Quadruped</h3><div class="pstep__sub">Goes where wheels give up</div>
@@ -318,31 +316,30 @@
 
                 <circle class="fx-breathe" cx="280" cy="220" r="150" fill="url(#psGlow)"/>
                 <!-- payload on the deck -->
-                <rect x="192" y="112" width="176" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4"/>
-                <path fill="none" d="M192 148 H368" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.6"/>
-                <path fill="none" d="M280 112 V184" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.6"/>
+                <rect x="206" y="124" width="148" height="60" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                <path fill="none" d="M206 154 H354" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
+                <path fill="none" d="M280 124 V184" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
                 <!-- chassis -->
-                <rect x="150" y="192" width="260" height="76" rx="18" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4"/>
-                <rect x="176" y="212" width="120" height="18" rx="9" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="188" y="216" width="12" height="10" rx="2"/><rect class="fx-bar d1" x="206" y="216" width="12" height="10" rx="2"/><rect class="fx-bar d2" x="224" y="216" width="12" height="10" rx="2"/><rect class="fx-bar d3" x="242" y="216" width="12" height="10" rx="2"/></g>
+                <rect x="166" y="196" width="228" height="64" rx="15" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                <rect x="186" y="214" width="104" height="16" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="196" y="218" width="10" height="9" rx="2"/><rect class="fx-bar d1" x="212" y="218" width="10" height="9" rx="2"/><rect class="fx-bar d2" x="228" y="218" width="10" height="9" rx="2"/><rect class="fx-bar d3" x="244" y="218" width="10" height="9" rx="2"/></g>
                 <!-- bumper and status strip -->
-                <path fill="none" d="M150 250 h260" stroke="#2BE3B0" stroke-width="3" stroke-linecap="round"/>
-                <circle class="fx-pulse" cx="330" cy="222" r="6" fill="#2BE3B0"/>
-                <circle class="fx-pulse d1" cx="352" cy="222" r="6" fill="#2BE3B0"/>
-                <circle class="fx-pulse d2" cx="374" cy="222" r="6" fill="#2BE3B0"/>
+                <path fill="none" d="M166 248 h228" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
+                <circle class="fx-pulse" cx="330" cy="224" r="5" fill="#2BE3B0"/>
+                <circle class="fx-pulse d1" cx="350" cy="224" r="5" fill="#2BE3B0"/>
+                <circle class="fx-pulse d2" cx="370" cy="224" r="5" fill="#2BE3B0"/>
                 <!-- drive wheels, hubs and spokes -->
-                <g class="fx-spin"><circle cx="204" cy="292" r="34" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.6"/>
-                  <path fill="none" d="M204 258 V326 M170 292 H238 M180 268 l48 48 M228 268 l-48 48" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
-                  <circle cx="204" cy="292" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/></g>
-                <g class="fx-spin"><circle cx="356" cy="292" r="34" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.6"/>
-                  <path fill="none" d="M356 258 V326 M322 292 H390 M332 268 l48 48 M380 268 l-48 48" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="2"/>
-                  <circle cx="356" cy="292" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/></g>
+                <g class="fx-spin"><circle cx="216" cy="290" r="26" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.2"/>
+                  <path fill="none" d="M216 264 V316 M190 290 H242 M198 272 l36 36 M234 272 l-36 36" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="1.6"/>
+                  <circle cx="216" cy="290" r="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/></g>
+                <g class="fx-spin"><circle cx="344" cy="290" r="26" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.2"/>
+                  <path fill="none" d="M344 264 V316 M318 290 H370 M326 272 l36 36 M362 272 l-36 36" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="1.6"/>
+                  <circle cx="344" cy="290" r="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/></g>
                 <!-- lidar puck and its scan -->
-                <rect x="256" y="86" width="48" height="26" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle class="fx-pulse" cx="280" cy="99" r="5" fill="#2BE3B0"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="99" r="60"/></g>
-                <path class="fx-wire" d="M410 230 H520" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
-              </svg></div>
+                <rect x="260" y="100" width="40" height="22" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle class="fx-pulse" cx="280" cy="111" r="4" fill="#2BE3B0"/>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="111" r="50"/></g>
+                <path class="fx-wire" d="M394 228 H520" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Autonomous mobile robot</span>
                 <h3>AMR</h3><div class="pstep__sub">Moves material without a driver</div>
@@ -355,29 +352,28 @@
 
                 <circle class="fx-breathe" cx="280" cy="200" r="150" fill="url(#psGlow)"/>
                 <!-- arms out to four motors -->
-                <path fill="none" d="M240 176 L150 118 M320 176 L410 118 M240 216 L150 274 M320 216 L410 274" stroke="#2BE3B0" stroke-width="7" stroke-linecap="round"/>
-                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2">
-                  <rect x="132" y="102" width="36" height="20" rx="9"/><rect x="392" y="102" width="36" height="20" rx="9"/>
-                  <rect x="132" y="266" width="36" height="20" rx="9"/><rect x="392" y="266" width="36" height="20" rx="9"/>
+                <path fill="none" d="M246 176 L156 116 M314 176 L404 116 M246 208 L156 272 M314 208 L404 272" stroke="#2BE3B0" stroke-width="5" stroke-linecap="round"/>
+                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8">
+                  <rect x="136" y="104" width="28" height="16" rx="7"/><rect x="396" y="104" width="28" height="16" rx="7"/>
+                  <rect x="136" y="268" width="28" height="16" rx="7"/><rect x="396" y="268" width="28" height="16" rx="7"/>
                 </g>
-                <!-- rotor discs -->
-                <g class="fx-spin"><ellipse cx="150" cy="100" rx="58" ry="9" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <g class="fx-spin"><ellipse cx="410" cy="100" rx="58" ry="9" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <g class="fx-spin"><ellipse cx="150" cy="288" rx="58" ry="9" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <g class="fx-spin"><ellipse cx="410" cy="288" rx="58" ry="9" fill="#2BE3B0" fill-opacity=".38"/></g>
+                <!-- rotor discs, centred on their motors -->
+                <g class="fx-spin"><ellipse cx="150" cy="112" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
+                <g class="fx-spin"><ellipse cx="410" cy="112" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
+                <g class="fx-spin"><ellipse cx="150" cy="276" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
+                <g class="fx-spin"><ellipse cx="410" cy="276" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
                 <!-- fuselage -->
-                <path d="M232 156 h96 a20 20 0 0 1 20 20 v40 a20 20 0 0 1 -20 20 h-96 a20 20 0 0 1 -20 -20 v-40 a20 20 0 0 1 20 -20z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4" stroke-linejoin="round"/>
-                <rect x="240" y="172" width="80" height="18" rx="9" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="250" y="176" width="10" height="10" rx="2"/><rect class="fx-bar d1" x="266" y="176" width="10" height="10" rx="2"/><rect class="fx-bar d2" x="282" y="176" width="10" height="10" rx="2"/></g>
+                <path d="M240 158 h80 a17 17 0 0 1 17 17 v34 a17 17 0 0 1 -17 17 h-80 a17 17 0 0 1 -17 -17 v-34 a17 17 0 0 1 17 -17z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="248" y="176" width="64" height="16" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="256" y="180" width="9" height="9" rx="2"/><rect class="fx-bar d1" x="272" y="180" width="9" height="9" rx="2"/><rect class="fx-bar d2" x="288" y="180" width="9" height="9" rx="2"/></g>
                 <!-- legs and gimbal camera -->
-                <path d="M244 236 v26 h-16 M316 236 v26 h16" fill="none" stroke="#2BE3B0" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="280" cy="252" r="22" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4"/>
-                <circle cx="280" cy="252" r="10" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                <circle class="fx-pulse" cx="280" cy="252" r="4.5" fill="#2BE3B0"/>
+                <path d="M248 226 v24 h-14 M312 226 v24 h14" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
+                <circle cx="280" cy="244" r="17" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                <circle cx="280" cy="244" r="8" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle class="fx-pulse" cx="280" cy="244" r="3.5" fill="#2BE3B0"/>
                 <!-- what the camera sees -->
-                <path d="M280 274 L232 372 H328z" fill="url(#psGlow)" opacity=".55"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="368" r="34"/></g>
-              </svg></div>
+                <path d="M280 262 L238 366 H322z" fill="url(#psGlow)" opacity=".55"/>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="366" r="28"/></g></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Unmanned aerial vehicle</span>
                 <h3>Drone</h3><div class="pstep__sub">Sees what is out of reach</div>
@@ -390,30 +386,36 @@
 
                 <circle class="fx-breathe" cx="280" cy="240" r="150" fill="url(#psGlow)"/>
                 <!-- floor, and the strip it has already done -->
-                <path fill="none" d="M96 352 H464" stroke="#2BE3B0" stroke-opacity=".35" stroke-width="2"/>
-                <path class="fx-wire" d="M96 352 H464" fill="none" stroke="#2BE3B0" stroke-width="2.6" stroke-linecap="round"/>
+                <path fill="none" d="M120 352 H440" stroke="#2BE3B0" stroke-opacity=".35" stroke-width="1.8"/>
+                <path class="fx-wire" d="M120 352 H440" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
                 <!-- body -->
-                <path d="M164 214 h232 a26 26 0 0 1 26 26 v52 a26 26 0 0 1 -26 26 h-232 a26 26 0 0 1 -26 -26 v-52 a26 26 0 0 1 26 -26z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M176 220 h208 a22 22 0 0 1 22 22 v40 a22 22 0 0 1 -22 22 h-208 a22 22 0 0 1 -22 -22 v-40 a22 22 0 0 1 22 -22z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
                 <!-- bumper -->
-                <path d="M138 262 a26 26 0 0 1 26 -26 h232 a26 26 0 0 1 26 26" fill="none" stroke="#2BE3B0" stroke-width="3.4" stroke-linecap="round"/>
+                <path d="M154 244 a22 22 0 0 1 22 -22 h208 a22 22 0 0 1 22 22" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
                 <!-- top panel and tank -->
-                <rect x="200" y="164" width="160" height="52" rx="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <rect x="220" y="180" width="120" height="20" rx="10" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="232" y="185" width="14" height="10" rx="2"/><rect class="fx-bar d1" x="252" y="185" width="14" height="10" rx="2"/><rect class="fx-bar d2" x="272" y="185" width="14" height="10" rx="2"/><rect class="fx-bar d3" x="292" y="185" width="14" height="10" rx="2"/></g>
+                <rect x="216" y="180" width="128" height="40" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <rect x="232" y="192" width="96" height="16" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
+                <g fill="url(#psTeal)"><rect class="fx-bar" x="240" y="196" width="12" height="9" rx="2"/><rect class="fx-bar d1" x="260" y="196" width="12" height="9" rx="2"/><rect class="fx-bar d2" x="280" y="196" width="12" height="9" rx="2"/><rect class="fx-bar d3" x="300" y="196" width="12" height="9" rx="2"/></g>
                 <!-- lidar puck -->
-                <rect x="256" y="136" width="48" height="28" rx="11" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2.2"/>
-                <circle class="fx-pulse" cx="280" cy="150" r="5" fill="#2BE3B0"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="150" r="58"/></g>
+                <rect x="260" y="158" width="40" height="22" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                <circle class="fx-pulse" cx="280" cy="169" r="4" fill="#2BE3B0"/>
+                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="169" r="48"/></g>
                 <!-- drive wheels -->
-                <g class="fx-spin"><circle cx="200" cy="326" r="24" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.4"/>
-                  <path fill="none" d="M200 302 V350 M176 326 H224 M183 309 l34 34 M217 309 l-34 34" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.8"/></g>
-                <g class="fx-spin"><circle cx="360" cy="326" r="24" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.4"/>
-                  <path fill="none" d="M360 302 V350 M336 326 H384 M343 309 l34 34 M377 309 l-34 34" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.8"/></g>
-                <!-- side brush, and the squeegee behind it -->
-                <g class="fx-spin"><circle cx="140" cy="330" r="20" fill="none" stroke="#2BE3B0" stroke-width="2.2"/>
-                  <path fill="none" d="M140 310 V350 M120 330 H160 M126 316 l28 28 M154 316 l-28 28" stroke="#2BE3B0" stroke-opacity=".7" stroke-width="2"/></g>
-                <path fill="none" d="M250 344 H420" stroke="#2BE3B0" stroke-width="4" stroke-linecap="round" stroke-opacity=".7"/>
-              </svg></div>
+                <g class="fx-spin"><circle cx="210" cy="330" r="20" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
+                  <path fill="none" d="M210 310 V350 M190 330 H230 M196 316 l28 28 M224 316 l-28 28" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.6"/></g>
+                <g class="fx-spin"><circle cx="350" cy="330" r="20" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
+                  <path fill="none" d="M350 310 V350 M330 330 H370 M336 316 l28 28 M364 316 l-28 28" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.6"/></g>
+                <!-- side brush on an arm off the body, so it reads as attached -->
+                <path fill="none" d="M170 298 L166 318" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
+                <g class="fx-spin"><circle cx="166" cy="334" r="15" fill="none" stroke="#2BE3B0" stroke-width="1.8"/>
+                  <path fill="none" d="M166 319 V349 M151 334 H181 M156 324 l20 20 M176 324 l-20 20" stroke="#2BE3B0" stroke-opacity=".7" stroke-width="1.6"/></g>
+                <!-- The scrub head: bristles under the body, squeegee behind them. Without
+                     these the unit was a blank slab that read as any wheeled robot. -->
+                <g fill="none" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M242 306 v10"/><path d="M258 306 v10"/><path d="M274 306 v10"/>
+                  <path d="M290 306 v10"/><path d="M306 306 v10"/><path d="M322 306 v10"/>
+                </g>
+                <path fill="none" d="M238 344 H322" stroke="#2BE3B0" stroke-width="3" stroke-linecap="round" stroke-opacity=".7"/></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Autonomous, scheduled</span>
                 <h3>Floor Care</h3><div class="pstep__sub">Holds the floor to one standard</div>
