@@ -254,6 +254,52 @@
 section.sec--white > .pseq--light.pseq,
 section.sec--paper > .pseq--light.pseq { background: transparent; }
 
+/* ---- inking the fleet on the white page ---------------------------------
+   The pseq--light rule above inks every stroke white. That is right while a
+   stroke is an outline drawn over a dark body fill, and wrong the moment it
+   is a leg, a neck, an arm, a wheel spoke or a bumper drawn straight onto
+   the paper: those came out white on white, so the quadruped stood on
+   nothing and the drone had no arms.
+
+   Ink by role, not by element. Anything carrying no fill of its own is
+   structure and takes the body's own dark blue, so limb and shell are the
+   same colour; the mint stays on the accents, where it is doing work.
+
+   The opacity floor matters as much as the hue. Strokes authored at .35 to
+   .55 were written to sit on a near-black board; composited over white the
+   same value lands near 2:1 and reads as a smudge. Pinning them at .88
+   costs nothing on the dark pages, which never match these selectors.
+
+   The selector keys on fill="none" rather than on the absence of a fill,
+   because absence is not the same thing: a shape with no fill attribute
+   inherits one, or falls back to black. Sixteen shapes in this story were
+   in exactly that state and were painting solid black wedges over the
+   paper; they carry an explicit fill="none" in the markup now.
+
+   The accents are carved out with :not() rather than re-asserted in a later
+   rule, because two attribute selectors outrank one class: an .fx-arc rule
+   written after this one still lost to it and the scanning arc came out
+   grey. */
+.pseq--robots .pstep__viz svg [stroke][fill="none"]:not(.fx-wire):not(.fx-arc) {
+  stroke: #17324a;
+  stroke-opacity: 0.88;
+}
+
+/* The accents that move keep the mint: wires and scanning arcs. */
+.pseq--robots .pstep__viz svg .fx-wire,
+.pseq--robots .pstep__viz svg .fx-arc {
+  stroke: var(--teal);
+  stroke-opacity: 0.9;
+}
+
+/* Pale mint fills were authored for the dark board too: the drone's rotor
+   blades at .38 mint are invisible on white. As dark blue at a low alpha
+   they read as the blur of a turning blade, which is what they are. */
+.pseq--robots .pstep__viz svg [fill="#2BE3B0"][fill-opacity] {
+  fill: #17324a;
+  fill-opacity: 0.32;
+}
+
 @media (max-width: 820px) {
   /* stacked: copy first, artwork under it, matching the platform story */
   .pseq--robots .pstep { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }

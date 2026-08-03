@@ -68,6 +68,26 @@
     will-change: transform, opacity;
   }
 
+  /* A card on the ring has to occlude the cards behind it.
+
+     On the dark pages these inherit rgba(255,255,255,.035) from the shared
+     card style: a 3.5% panel. Flat in a grid, but on a ring it means the card
+     behind shows straight through the one in front and the two sets of text
+     read as a double exposure. That is the "overwriting" that was reported on
+     motion-ai, and fading the rear cards only softened it, because a side
+     card at 0.39 still overlaps the front card by about a third.
+
+     So give the card a solid panel of its own. The four dark drum sections
+     all run the same linear-gradient(160deg, #070f19, #0b1826), so one shade
+     sits correctly on every one of them; #111f2e is that gradient lifted by
+     roughly the 3.5% white it replaces, which keeps the look and makes the
+     card opaque. Scoped to .is-drum, so the reduced-motion and mobile grid
+     fallback keeps the glass panel it was designed with. */
+  .sec--dark .drum.is-drum .drum__card,
+  .sec--darker .drum.is-drum .drum__card {
+    background-color: #111f2e;
+  }
+
   /* the one at the front of the orbit */
   .drum.is-drum .drum__card.is-front {
     border-color: rgba(23, 201, 155, .5);

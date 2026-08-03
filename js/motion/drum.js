@@ -76,13 +76,19 @@
           var scale = 0.66 + depth * 0.34;
           var op = 0.32 + depth * 0.68;
 
-          /* The card at 180deg sits exactly behind the front one, so its text
-             read straight through the front card. The 0.32 opacity floor was
-             the cause: legible is right for the side cards, wrong for the one
-             hidden behind. Fade only the rearmost sliver, on a smoothstep so
-             nothing pops while the ring is being scrubbed. Side cards, at
-             depth 0.5, are untouched.  */
-          var t = depth / 0.18;
+          /* Cards behind the front one had their text reading straight
+             through it: the 0.32 opacity floor is right for the side cards and
+             wrong for anything at the back. Faded on a smoothstep so nothing
+             pops while the ring is being scrubbed.
+
+             The threshold is 0.35, not the 0.18 I first used. 0.18 only caught
+             a card at or very near 180deg, which happens with an even card
+             count. With five cards the rearmost pair sit at 144 and 216deg,
+             depth 0.095, which cleared 0.18 and stayed at 0.21 opacity: still
+             legible, and visibly bleeding through the front card. At 0.35 they
+             land near 0.07 while the side cards, depth 0.5 and up, are still
+             untouched. */
+          var t = depth / 0.35;
           if (t < 1) { t = t < 0 ? 0 : t; op *= t * t * (3 - 2 * t); }
 
           var c = cards[i];
