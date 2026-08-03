@@ -115,9 +115,7 @@ Never upload these:
   apms-site.zip
   config.php
   schema.sql
-  _standalone/          (unlinked previews, one pulls React from a CDN)
   docs/                 (notes)
-  apms-enquiries/       (the enquiry CSV, if it is ever inside the project)
 
 Run once on the server, in hPanel > Databases > phpMyAdmin > SQL:
   the contents of schema.sql, which creates the enquiries table.

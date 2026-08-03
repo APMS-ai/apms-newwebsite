@@ -71,9 +71,15 @@ out.append('Never upload these:')
 out.append('')
 for p in NEVER:
     out.append('  ' + p)
-out.append('  _standalone/          (unlinked previews, one pulls React from a CDN)')
-out.append('  docs/                 (notes)')
-out.append('  apms-enquiries/       (the enquiry CSV, if it is ever inside the project)')
+# Only warn about directories that are actually here. _standalone/ was listed
+# unconditionally and stayed in the manifest after the previews were deleted,
+# which is the same drift that made the hand-kept version wrong: a manifest
+# nobody can trust is worse than no manifest.
+for d, note in [('_standalone', '(unlinked previews, one pulls React from a CDN)'),
+                ('docs', '(notes)'),
+                ('apms-enquiries', '(the enquiry CSV, if it is ever inside the project)')]:
+    if os.path.isdir(d):
+        out.append('  %-21s %s' % (d + '/', note))
 out.append('')
 out.append('Run once on the server, in hPanel > Databases > phpMyAdmin > SQL:')
 out.append('  the contents of schema.sql, which creates the enquiries table.')

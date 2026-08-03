@@ -2,9 +2,9 @@
 # APMS.ai — what never goes into the repo or onto Netlify
 # ==========================================================================
 
-# The pre-restyle backup. Keep it on disk if you like, but it must not be
-# published: it is a second copy of the stylesheets and would be crawlable.
-_snapshot_pre-restyle_20260724_122719/
+# Dated pre-restyle backups. Deleted; git history is the backup now, and a
+# second copy of the stylesheets on disk would be crawlable if it ever shipped.
+_snapshot_*/
 
 # Standalone generated previews. Not linked from the site, and
 # machine-health-vitals.html pulls React from unpkg.com at runtime, which no
@@ -23,6 +23,9 @@ apms-site.zip
 
 # Hallmark design-skill run log. Tooling state, not source.
 .hallmark/
+
+# Claude Code per-project state (worktrees, run data). Tooling, not source.
+.claude/
 
 # OS and editor noise
 Thumbs.db
