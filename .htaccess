@@ -27,6 +27,23 @@
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
   # ----------------------------------------------------------------------
+  # Directories that must never be served, blocked rather than assumed absent.
+  # They are gitignored, but the site is deployed by copying the whole folder
+  # over FTP, so they end up on the server anyway. Checked on the live site:
+  # _standalone/machine-health-vitals and _standalone/pipeline-step-preview
+  # were both returning 200, and _snapshot_*/css/*.css was serving 107 KB of
+  # superseded stylesheets as crawlable duplicate content.
+  #
+  # The rules further down already send machine-health-vitals and
+  # pipeline-step-preview to /, but those are anchored at ^ and so never
+  # matched the copies one directory down.
+  #
+  # Relative pattern, no leading slash, so this works whether the site is at
+  # the domain root or in a subdirectory like /newwebsite/.
+  # ----------------------------------------------------------------------
+  RewriteRule ^(_standalone|_snapshot_[^/]*)/ - [F,L]
+
+  # ----------------------------------------------------------------------
   # The old WordPress URLs. Google still has these and people have them
   # bookmarked; without this every one of them becomes a 404 on the new site.
   # ----------------------------------------------------------------------
@@ -139,6 +156,12 @@ ErrorDocument 404 /404.html
 # so it would not normally leak, but if PHP is ever disabled or
 # misconfigured the file becomes plain text and this is the backstop.
 <FilesMatch "^config(\.sample)?\.php$">
+  Require all denied
+</FilesMatch>
+
+# DEPLOY.txt lists every file on the server. Denied by name, not by extension:
+# robots.txt and any future sitemap have to stay readable.
+<FilesMatch "^DEPLOY\.txt$">
   Require all denied
 </FilesMatch>
 
