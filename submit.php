@@ -36,8 +36,16 @@ function respond(int $code, string $message, bool $json): void
         echo json_encode(['ok' => $code < 400, 'message' => $message]);
     } else {
         /* No-JS path: land somewhere that says what happened rather than
-           dumping raw output on the visitor. */
-        $to = $code < 400 ? '/contact.html?sent=1' : '/contact.html?sent=0';
+           dumping raw output on the visitor.
+
+           Relative to this script's own directory, not to the domain root.
+           The site is served from a subdirectory (apms.ai/newwebsite/), and a
+           root-absolute /contact.html sent the visitor to apms.ai/contact.html
+           instead: a different site altogether, since the domain root still
+           serves the old WordPress install. The enquiry was saved and the
+           person was shown someone else's page. */
+        $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+        $to = $base . '/contact.html?sent=' . ($code < 400 ? '1' : '0');
         header('Location: ' . $to, true, 303);
     }
     exit;
