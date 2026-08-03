@@ -6,8 +6,10 @@
    delivered anywhere: nothing here says "sent" or "received".
    ========================================================================== */
 
-.cfx { margin: 0 0 1.1rem; }
-.cfx__svg { width: 100%; max-width: 300px; height: auto; display: block; overflow: visible; }
+/* centred in its column, and the two labels are anchored middle so they sit
+   under their own node instead of starting at it and running right */
+.cfx { margin: 0 auto 1.4rem; text-align: center; }
+.cfx__svg { width: 100%; max-width: 300px; height: auto; display: block; margin-inline: auto; overflow: visible; }
 .cfx__svg * { transform-box: view-box; }
 
 /* the rail never animates, only the pulse and the fill sweep travelling it,

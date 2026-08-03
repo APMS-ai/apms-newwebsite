@@ -659,3 +659,83 @@
   .agw__flagdot, .agw__flaglbl { opacity: 1; }
   .agw__flagring { opacity: .8; }
 }
+
+/* ==========================================================================
+   9 · THE CONVERSATION, ON WHITE
+   The switcher and its transcripts were built for a dark band. On white every
+   one of those colours inverts: the tabs, the bubbles, the chat surface and
+   the tick list beside it. Scoped to .agchatsec so the dark styling above is
+   untouched for anything else that uses .agdemo.
+   ========================================================================== */
+
+.agchatsec .agdemo__tab {
+  color: var(--body);
+  background: var(--white);
+  border-color: var(--line);
+}
+.agchatsec .agdemo__tab:hover { color: var(--ink); border-color: rgba(23,201,155,0.55); }
+.agchatsec .agdemo input:checked + .agdemo__tab {
+  color: #04231c; background: var(--teal); border-color: var(--teal);
+  /* no coloured halo on a light surface; the fill is the signal */
+  box-shadow: none;
+}
+
+/* the chat window: a product surface, not a pull-quote */
+.agchatsec .glass {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(7,15,25,0.04), 0 18px 40px -28px rgba(7,15,25,0.22);
+  padding: 0;
+  overflow: hidden;
+}
+.agchatsec .agchat { gap: 0.75rem; padding: 0 clamp(1rem,2.4vw,1.4rem) clamp(1.1rem,2.4vw,1.4rem); }
+
+.agchat__bar {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.85rem clamp(1rem,2.4vw,1.4rem);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1rem;
+  background: var(--paper);
+}
+.agchat__avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center; flex: none;
+  background: rgba(23,201,155,0.12); color: var(--teal-deep);
+  border: 1px solid rgba(23,201,155,0.28);
+}
+.agchat__avatar svg { width: 17px; height: 17px; }
+.agchat__name {
+  font-family: var(--display); font-weight: 800; font-size: 0.95rem;
+  letter-spacing: -0.01em; color: var(--ink);
+}
+.agchat__live {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--display); font-weight: 700; font-size: 0.68rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  white-space: nowrap;
+}
+.agchat__live i {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.agchatsec .agchat__you {
+  background: var(--teal); color: #04231c;
+  border-radius: 16px 16px 5px 16px;
+  box-shadow: 0 1px 2px rgba(7,15,25,0.06);
+}
+.agchatsec .agchat__ai {
+  background: var(--paper); color: var(--body);
+  border: 1px solid var(--line);
+  border-radius: 16px 16px 16px 5px;
+  line-height: 1.62;
+}
+.agchatsec .agchat__ai b { color: var(--teal-deep); }
+.agchatsec .agchat__who { color: var(--teal-deep); }
+
+/* the supporting list beside the transcript */
+.agchatsec .ticks li { color: var(--body); }
+.agchatsec .ticks svg { color: var(--teal-deep); }
+
+@media (prefers-reduced-motion: reduce) { .agchat__live i { animation: none; } }

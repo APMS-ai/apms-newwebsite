@@ -249,17 +249,53 @@
         return;
       }
 
+      /* ---------- send it ----------
+         Netlify Forms accepts a urlencoded POST to any path on the site as
+         long as the body carries form-name. Posting by fetch rather than
+         letting the browser navigate keeps the visitor on the page and keeps
+         the inline status message, which is the whole reason this handler
+         calls preventDefault at the top.
+
+         The form still works with JS off: it is a real POST form with
+         data-netlify, so the browser submits it and Netlify stores it. */
+      var btn = form.querySelector('button[type="submit"]');
+      var btnText = btn ? btn.textContent : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
       if (status) {
-        status.textContent = "Thanks. This demo form isn't wired to a backend yet. Please email info@apms.ai or call +91 93800 59669 and we'll set up your session.";
-        status.style.color = "var(--teal-deep)";
+        status.textContent = "Sending...";
+        status.style.color = "var(--muted)";
+      }
+
+      function say(msg, colour) {
+        if (!status) return;
+        status.textContent = msg;
+        status.style.color = colour;
         status.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
       }
-      form.reset();
-      CHECKS.forEach(function (spec) {
-        var el = document.getElementById(spec.id);
-        if (el) setFieldError(el, "");
-        var wrap = el && el.closest ? el.closest(".field") : null;
-        if (wrap) wrap.classList.remove("is-ok");
+      function restore() {
+        if (btn) { btn.disabled = false; btn.textContent = btnText; }
+      }
+
+      fetch(form.getAttribute("action") || window.location.pathname, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString()
+      }).then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        restore();
+        say("Thanks. Your enquiry is with us and we'll be in touch shortly.", "var(--teal-deep)");
+        form.reset();
+        CHECKS.forEach(function (spec) {
+          var el = document.getElementById(spec.id);
+          if (el) setFieldError(el, "");
+          var wrap = el && el.closest ? el.closest(".field") : null;
+          if (wrap) wrap.classList.remove("is-ok");
+        });
+      }).catch(function () {
+        restore();
+        /* Never swallow a failed send. If it did not go through, the visitor
+           needs to know and needs another way to reach us. */
+        say("That didn't send. Please email info@apms.ai or call +91 93800 59669 and we'll set up your session.", "#b4453a");
       });
     });
   }

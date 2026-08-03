@@ -143,8 +143,14 @@ frame timing, grid alignment, reveals, rails and reduced motion.
 
 ## 10 · Still outstanding
 
-- **Book a Demo collects nothing.** Netlify Forms would fix it: add `name` +
-  `data-netlify="true"` and remove the `e.preventDefault()` in `js/redesign.js`.
+- ~~**Book a Demo collects nothing.**~~ Done. `contact.html` carries
+  `name="book-a-demo"`, `data-netlify="true"` and a `bot-field` honeypot;
+  `js/core/redesign.js` keeps its `preventDefault` and posts by `fetch`
+  instead, so the visitor stays on the page and keeps the inline status.
+  Submissions land in Netlify under Forms > book-a-demo. **They only start
+  arriving once `main` is pushed and Netlify has redeployed**: Netlify finds
+  forms by parsing the HTML at deploy time, so a form that has never been
+  deployed does not exist as far as the dashboard is concerned.
 - The chatbot accepts typed questions and **discards them**. Worth logging.
 - `apms.ai` still serves the old WordPress site. **Do not move the nameservers**
   — MX points at Microsoft 365, so email breaks. Change the `A` record only and

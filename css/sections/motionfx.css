@@ -264,3 +264,72 @@
   .mfleet__unit--4 { transform: translate(623px, 150px); }
   .mfleet__unit--5 { transform: translate(810px, 150px); }
 }
+
+/* ==========================================================================
+   Senses that don't blink
+
+   The heading is a claim about continuity, so the animation has to be
+   continuous or it argues with the words. Three things run without pause:
+   the sweep (5s, linear, never eased to a stop), the detection rings (one
+   always leaving, one always arriving), and the pupil, which has no blink
+   keyframe at all. The four sense nodes brighten in rotation, and the timing
+   is set so at no point are all four dark.
+   ========================================================================== */
+.sns { margin: clamp(2rem, 4vw, 3rem) auto clamp(0.5rem, 2vw, 1.5rem); max-width: 460px; }
+.sns__svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.sns__range { fill: none; stroke: var(--line); stroke-width: 1.4; }
+.sns__ring  { fill: none; stroke: var(--teal); stroke-width: 1.5; opacity: 0;
+              transform-box: view-box; transform-origin: 230px 150px; }
+.sns__sweep { fill: url(#snsSweep);
+              transform-box: view-box; transform-origin: 230px 150px; }
+
+.sns__lensring { fill: none; stroke: var(--line); stroke-width: 1.6; }
+.sns__lens  { fill: var(--white); stroke: var(--ink); stroke-width: 2; }
+.sns__iris  { fill: var(--teal-deep); }
+.sns__pupil { fill: var(--ink); }
+.sns__glint { fill: rgba(255,255,255,0.9); }
+
+.sns__nodering { fill: var(--white); stroke: var(--line); stroke-width: 1.6; }
+.sns__nodedot  { fill: var(--teal-deep); opacity: .3; }
+.sns__nodelbl  {
+  font-family: var(--display); font-weight: 800; font-size: 9.5px;
+  letter-spacing: .14em; fill: var(--muted);
+}
+
+[data-reveal].in .sns__sweep { animation: snsSweep 5s linear infinite; }
+[data-reveal].in .sns__ring  { animation: snsRing 3.6s ease-out infinite; }
+[data-reveal].in .sns__ring--2 { animation-delay: 1.2s; }
+[data-reveal].in .sns__ring--3 { animation-delay: 2.4s; }
+[data-reveal].in .sns__nodedot { animation: snsNode 5s ease-in-out infinite; }
+[data-reveal].in .sns__node--1 .sns__nodedot { animation-delay: 0s; }
+[data-reveal].in .sns__node--2 .sns__nodedot { animation-delay: 1.25s; }
+[data-reveal].in .sns__node--3 .sns__nodedot { animation-delay: 2.5s; }
+[data-reveal].in .sns__node--4 .sns__nodedot { animation-delay: 3.75s; }
+
+/* linear, and a full turn: any easing would read as the sweep hesitating */
+@keyframes snsSweep { to { transform: rotate(-360deg); } }
+@keyframes snsRing {
+  0%   { opacity: .55; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(2.6); }
+}
+/* floor of .3, never 0: a sense that switches off is a sense that blinked */
+@keyframes snsNode {
+  0%, 100% { opacity: .3; r: 4.5px; }
+  12%      { opacity: 1;  r: 6px; }
+  30%      { opacity: .3; r: 4.5px; }
+}
+
+@media (max-width: 700px) { .sns__nodelbl { font-size: 11px; } }
+
+/* Reduced motion: the rings and the sweep stop travelling, but the eye stays
+   open and every sense stays lit, because that is the actual message.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .sns__sweep, .sns__ring, .sns__nodedot { animation: none !important; }
+  .sns__sweep { transform: rotate(-40deg); }
+  .sns__ring--1 { opacity: .4; }
+  .sns__ring--2 { opacity: .22; transform: scale(1.7); }
+  .sns__ring--3 { opacity: 0; }
+  .sns__nodedot { opacity: 1; }
+}
