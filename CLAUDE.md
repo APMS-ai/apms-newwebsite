@@ -165,6 +165,8 @@ frame timing, grid alignment, reveals, rails and reduced motion.
   and apms.ai's SPF authorises Microsoft 365, not Hostinger, so Gmail spams or
   drops it. `mail()` returns true either way. Fill the `smtp` block in
   `config.php`; both outcomes are written to the PHP error log now.
+  Step-by-step setup, and a table mapping every error this code logs to its
+  cause, is in `docs/EMAIL-SETUP.md`.
 - The chatbot accepts typed questions and **discards them**. Worth logging.
 - `apms.ai` still serves the old WordPress site. **Do not move the nameservers**
   — MX points at Microsoft 365, so email breaks. Change the `A` record only and
