@@ -147,28 +147,6 @@
 }
 @media (max-width: 620px) { .asaid { font-size: .98rem; } }
 
-/* destinations light up in turn, as if being navigated */
-.anav { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; --beat: 7s; }
-.anav li {
-  font-family: var(--display); font-weight: 700; font-size: .78rem;
-  color: var(--on-dark-soft);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  padding: .38rem .7rem; border-radius: 8px;
-}
-[data-reveal].in .anav li { animation: aNav var(--beat) steps(1, end) infinite; }
-/* Downtime, Production, then Machine health, matching the three commands
-   above; Reports lights last as the catch-all. */
-.anav { --beat: 15s; }
-.anav li:nth-child(2) { animation-delay: 1.4s; }   /* Downtime */
-.anav li:nth-child(1) { animation-delay: 6.4s; }   /* Production */
-.anav li:nth-child(3) { animation-delay: 11.4s; }  /* Machine health */
-.anav li:nth-child(4) { animation-delay: 13.4s; }  /* Reports */
-@keyframes aNav {
-  0%, 8%  { color: #04231c; background: var(--teal); border-color: var(--teal); }
-  9%, 100% { color: var(--on-dark-soft); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.10); }
-}
-
 /* ==========================================================================
    3 · MIS REPORTS
    ========================================================================== */

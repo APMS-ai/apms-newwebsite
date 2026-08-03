@@ -74,9 +74,6 @@
   }
 
   /* ---------- css\aiplus.css ---------- */
-  html [data-reveal].in .anav li {
-    animation: aNav var(--beat) steps(1, end) infinite !important;
-  }
   html [data-reveal].in .arep__tick {
     animation: aTick 5s var(--ease-out) infinite !important;
   }

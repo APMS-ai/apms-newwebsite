@@ -26,11 +26,11 @@
 <link rel="stylesheet" href="css/sections/agentic.css?v=18">
 <link rel="stylesheet" href="css/sections/agarch.css?v=1">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
-  <link rel="stylesheet" href="css/sections/aiplus.css?v=8">
+  <link rel="stylesheet" href="css/sections/aiplus.css?v=9">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
 <link rel="stylesheet" href="css/motion/drum.css?v=7">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
-  <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
+  <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
 <body data-fx="rotate">
   <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
@@ -809,12 +809,6 @@
               <div class="asaid asaid--4">&ldquo;Find the changeover procedure for Line 2&rdquo;</div>
               <div class="asaid asaid--5">&ldquo;Show me health parameters for Press-03&rdquo;</div>
             </div>
-            <ul class="anav">
-              <li>Production</li>
-              <li>Downtime</li>
-              <li>Machine health</li>
-              <li>Reports</li>
-            </ul>
             <p class="sec__lead" style="margin-top:1.2rem;">Works on the shop-floor panel, a phone or the control room screen. Useful when your hands are busy and a keyboard is not.</p>
           </div>
         </div>
@@ -856,11 +850,7 @@
         <div class="faq" data-reveal>
           <div class="faq__item"><button class="faq__q">Where does the agent get its answers?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>From your own live APMS data: machine status, downtime reasons, production and quality. It reasons over that data, so answers reflect what's actually happening on your floor, not generic advice.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">Can it take actions on its own?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes, within limits you set. It can raise alerts, escalate by role and schedule follow-ups automatically, and you decide which actions need a human to confirm first.</p></div></div></div>
-          <div class="faq__item"><button class="faq__q">Do operators need to learn a new tool?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. They just ask in plain language. There's nothing to configure or query-build; the agent handles the data work behind the scenes.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">Is our data used to train external models?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. Your production data stays yours and is used to answer your questions, not to train shared or third-party models.</p></div></div></div>
-          <div class="faq__item"><button class="faq__q">Do you only build agents for manufacturing?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. Manufacturing is where we cut our teeth, and it's the hardest environment to work in. Messy data, legacy controllers, and real consequences when something acts wrongly. The same engineering applies to finance operations, logistics, service desks, compliance, healthcare admin and back-office work generally. Bring the problem statement; we'll tell you honestly whether an agent is the right answer for it.</p></div></div></div>
-          <div class="faq__item"><button class="faq__q">We don't have a use case yet, just a frustration. Is that enough?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>That's the normal starting point. Discovery is there to turn &ldquo;this part of the week is a mess&rdquo; into a scoped, measurable use case, and sometimes to conclude that a simpler fix beats an agent. We'd rather tell you that early than build something you don't need.</p></div></div></div>
-          <div class="faq__item"><button class="faq__q">Can it run entirely on our own infrastructure?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. We deploy to your cloud tenant, your on-premise servers, or at the edge next to the equipment, including air-gapped sites, using open-weight models hosted on your own hardware. The deployment model follows your data policy.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">How long before we see something real?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>A working proof on your own data during the design phase, typically weeks rather than quarters. A full production build usually lands in 12 to 20 weeks depending on how many systems it has to integrate with and how clean the data is when we arrive.</p></div></div></div>
         </div>
       </div>
