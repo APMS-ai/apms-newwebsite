@@ -421,19 +421,24 @@
 }
 
 /* ==========================================================================
-   21 · App mockup — constrain to a 19.5:9 phone ratio, shorter + tighter
+   21 · App mockup — height comes from the content, not from a phone ratio
+
+   This used to force aspect-ratio: 9 / 19.5 and then stretch .app__body and
+   .app__list to fill it. The screen has seven status rows and a tab bar, which
+   is shorter than a 19.5:9 box, so the mockup carried dead space no matter
+   what was in it. Sizing to the content instead means the frame always ends
+   where the last row does.
    ========================================================================== */
 .appscreen {
   width: min(316px, 100%);
-  aspect-ratio: 9 / 19.5;          /* real phone screen ratio */
   display: flex; flex-direction: column;
 }
-.appscreen .app__body { padding: 0.95rem 0.9rem 0; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.appscreen .app__body { padding: 0.95rem 0.9rem 0; flex: 0 0 auto; display: flex; flex-direction: column; }
 .appscreen .app__sub { margin: 0.1rem 0 0.65rem; }
 .appscreen .app__tiles { margin-bottom: 0.6rem; gap: 0.55rem; }
 .appscreen .app__tile { padding: 0.5rem 0.65rem; }
 .appscreen .app__tile-meta b { font-size: 1.1rem; }
-.appscreen .app__list { flex: 1 1 auto; min-height: 0; overflow: hidden; margin-bottom: 0; }
+.appscreen .app__list { flex: 0 0 auto; margin-bottom: 0; }
 .appscreen .app__row { padding: 0.5rem 0; }
 .appscreen .app__num { font-size: 1.3rem; }
 .appscreen .app__tabs { margin-top: 0; flex-shrink: 0; }
@@ -1141,3 +1146,52 @@ h3 { letter-spacing: -0.012em; }
   .spanel__viz::-webkit-scrollbar { display: none; }
   .spanel__viz svg { display: block; width: 620px; height: 480px; max-height: none; margin-inline: auto; }
 }
+
+/* ==========================================================================
+   26 · Section head typography: one-line headings, two-line leads
+   ==========================================================================
+
+   a · h2--oneline
+   .sec__head is capped at 720px, which put "From machine to dashboard" onto
+   two lines at every desktop width. Opting a heading out lets it keep one
+   line; the size steps down a notch so it still fits at 1024.
+
+   b · leads
+   A subheading that runs to three or four lines stops being a subheading and
+   starts being body copy. The measure widens so the leads that were running
+   long land in two, and text-wrap: balance splits them evenly rather than
+   leaving one word on the second line.
+   ========================================================================== */
+.sec__head:has(.h2--oneline) { max-width: none; }
+.sec__head h2.h2--oneline {
+  white-space: nowrap;
+  max-width: none;
+  font-size: clamp(1.5rem, 3.3vw, 2.7rem);
+}
+@media (max-width: 560px) {
+  .sec__head h2.h2--oneline { white-space: normal; }
+}
+
+/* 78ch was a mistake: a ch in Roboto is about 8.1px at this size, so 78ch is
+   686px, NARROWER than the 720px it replaced. Sized in rem from the measured
+   copy instead: 65rem is 1040px, which holds ~128 characters a line, so any
+   lead up to ~256 characters lands in two. The three that ran past that were
+   shortened rather than set in smaller type.
+
+   Desktop only. At 390px a lead is ~340px wide, about 42 characters a line, so
+   a 200-character sentence cannot be two lines on a phone at any sane size. */
+/* Three separate caps had to be beaten, not one: .sec__head is 720px in
+   redesign.css, .sec__lead is 62ch here, and .sec__head--center .sec__lead is
+   60ch (and 58ch in a media query) at a higher specificity than a bare
+   .sec__lead. The parent cap is lifted first, or the child cannot grow into
+   the room the child rule gives it. */
+.sec__head { max-width: min(100%, 68rem); }
+.sec__head p,
+.sec__lead,
+.sec__head--center p,
+.sec__head--center .sec__lead {
+  max-width: min(100%, 65rem);
+  text-wrap: balance;
+}
+.sec__head--center p,
+.sec__head--center .sec__lead { margin-inline: auto; }

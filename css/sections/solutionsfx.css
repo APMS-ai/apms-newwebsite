@@ -281,3 +281,33 @@
 .sec--darker .drum.is-drum .drum__dots li span { background: rgba(255,255,255,0.28); }
 .sec--dark .drum.is-drum .drum__dots li.is-on span,
 .sec--darker .drum.is-drum .drum__dots li.is-on span { background: var(--teal-bright); }
+
+/* ==========================================================================
+   "From machine to dashboard": board on top, steps below as a pyramid
+
+   The three steps used to sit above the board in one flat row. Reading order
+   is now board first, then the steps beneath it arranged 1 over 2, so the eye
+   lands on the thing being explained before the explanation.
+   ========================================================================== */
+.steps--pyramid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+  max-width: 760px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+}
+/* the apex spans both columns and is centred over the pair below it */
+.steps--pyramid > :first-child {
+  grid-column: 1 / -1;
+  max-width: min(100%, 52%);
+  margin-inline: auto;
+}
+@media (max-width: 620px) {
+  .steps--pyramid { grid-template-columns: minmax(0, 1fr); }
+  .steps--pyramid > :first-child { max-width: 100%; }
+}
+
+/* The note is one sentence and must stay one line at desktop width: it is a
+   caveat, and a caveat that wraps reads as body copy. */
+.sec__lead--oneline { max-width: none; white-space: nowrap; }
+@media (max-width: 560px) { .sec__lead--oneline { white-space: normal; } }

@@ -16,16 +16,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/motion/loader.css?v=2">
   <link rel="stylesheet" href="css/base/redesign.css?v=17">
-  <link rel="stylesheet" href="css/base/enhance.css?v=17">
+  <link rel="stylesheet" href="css/base/enhance.css?v=21">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=5">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=2">
-  <link rel="stylesheet" href="css/sections/pseq.css?v=11">
+  <link rel="stylesheet" href="css/sections/pseq.css?v=13">
   <link rel="stylesheet" href="css/sections/maint.css?v=2">
   <link rel="stylesheet" href="css/sections/maintui.css?v=5">
-  <link rel="stylesheet" href="css/sections/aiplus.css?v=7">
+  <link rel="stylesheet" href="css/sections/aiplus.css?v=8">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
   <link rel="stylesheet" href="css/sections/loop.css?v=4">
   <link rel="stylesheet" href="css/motion/drum.css?v=5">
@@ -223,11 +223,11 @@
 
     <!-- ============ PROBLEM ============ -->
         <!-- ============ PIPELINE SEQUENCE (scroll story) ============ -->
-    <section class="pseq" id="platform" data-pseq>
+    <section class="pseq pseq--light" id="platform" data-pseq>
       <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
         <linearGradient id="psTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cdd8e2"/></linearGradient>
         <linearGradient id="psBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12314a"/><stop offset="1" stop-color="#0b2036"/></linearGradient>
-        <radialGradient id="psGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff" stop-opacity=".38"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+        <radialGradient id="psGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#17c99b" stop-opacity=".20"/><stop offset="1" stop-color="#17c99b" stop-opacity="0"/></radialGradient>
       </defs></svg>
       <div class="pseq__track">
         <div class="pseq__sticky">
@@ -270,10 +270,10 @@
             <div class="pstep">
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Step 02</span>
-                <h3></h3><div class="pstep__sub">On-site</div>
-                <p>A rugged on-site  gateway securely collects and buffers every signal, with no production stoppage and no rip-and-replace.</p>
+                <h3>Edge</h3><div class="pstep__sub">On-site</div>
+                <p>A rugged on-site unit securely collects and buffers every signal, with no production stoppage and no rip-and-replace.</p>
               </div>
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="An on-site  gateway relaying data">
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="An on-site unit relaying data">
                 <circle class="fx-breathe" cx="280" cy="220" r="120" fill="url(#psGlow)"/>
                 <path id="w3in" d="M40 220 H150" fill="none" stroke="#17c99b" stroke-opacity=".35" stroke-width="2"/>
                 <path class="fx-wire" d="M40 220 H150" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
@@ -282,7 +282,7 @@
                 <rect x="172" y="174" width="176" height="10" rx="5" fill="#0a1622"/>
                 <circle class="fx-pulse" cx="184" cy="220" r="6" fill="#2BE3B0"/><circle class="fx-pulse d1" cx="208" cy="220" r="6" fill="#2BE3B0"/><circle class="fx-pulse d2" cx="232" cy="220" r="6" fill="#2BE3B0"/>
                 <rect x="172" y="250" width="176" height="24" rx="6" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".3"/>
-                <text x="260" y="266" text-anchor="middle" font-family="Barlow,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8ff0d6"> · ON-SITE</text>
+                <text x="260" y="266" text-anchor="middle" font-family="Barlow,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8ff0d6">ON-SITE</text>
                 <line x1="360" y1="150" x2="360" y2="118" stroke="#2BE3B0" stroke-width="2.4"/>
                 <g class="fx-arc" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"><path d="M349 114a16 16 0 0 1 22 0"/></g>
                 <path id="w3" d="M370 220 H524" fill="none" stroke="#17c99b" stroke-opacity=".35" stroke-width="2"/>
@@ -867,11 +867,11 @@
           <div>
             <p class="sec__lead" style="margin:0;">Need it sooner? Every report is also there on demand, so you never wait for the next send.</p>
             <ul class="amis__chips">
-              <li>Emailed on schedule</li>
-              <li>Exportable</li>
-              <li>Any line, shift or asset</li>
-              <li>On demand too</li>
-            </ul>
+                <li><span class="amis__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg></span>Emailed on schedule</li>
+                <li><span class="amis__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg></span>Exportable</li>
+                <li><span class="amis__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="15" width="7" height="5" rx="1.5"/><rect x="14" y="15" width="7" height="5" rx="1.5"/></svg></span>Any line, shift or asset</li>
+                <li><span class="amis__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 11h7l-1 9 9-11h-7z"/></svg></span>On demand</li>
+              </ul>
           </div>
           <div>
             <svg class="mis" viewBox="0 0 420 224" role="img" aria-label="A report assembles itself from the day on the floor, is signed off and delivered to your inbox on schedule">
@@ -1032,7 +1032,7 @@
         <div class="sec__head sec__head--center" data-reveal>
           <span class="kicker" style="justify-content:center;">Partner program</span>
           <h2 data-clip>Partners make <span class="accent">more possible</span></h2>
-          <p>A successful digital transformation journey starts with a collaborative ecosystem: specialists who bring complementary skills together to create real, compounding value for discrete manufacturers. Here are just a few of the reasons joining the APMS Partner Network could be one of the best business decisions you make.</p>
+          <p>Transformation works best as an ecosystem: specialists whose skills compound into real value for discrete manufacturers. A few reasons the APMS Partner Network is worth joining.</p>
           <div class="cta__actions" style="margin-top:1.8rem;">
             <a class="btn btn--primary" href="contact.html">Apply Today <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
@@ -1224,7 +1224,7 @@
           </div>
           <div class="ft__block">
             <span class="ft__label">Bengaluru office</span>
-            <address>#5, 10th Cross Rd, Siddaiah Road,<br>Wilson Garden, Bengaluru,<br>Karnataka 560027, India</address>
+            <address>#5, 10th Cross Rd, Siddaiah Road, Wilson Garden,<br>Bengaluru, Karnataka 560027, India</address>
           </div>
           <div class="ft__block">
             <a class="ft__cta" href="contact.html">Book a Demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>

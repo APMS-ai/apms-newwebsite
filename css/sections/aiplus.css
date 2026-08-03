@@ -199,17 +199,37 @@
 
 /* a sent-pulse travels from the clock to the stack */
 
-.amis__chips { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: 1.3rem; }
-.amis__chips li { text-align: center; }
-@media (max-width: 420px) { .amis__chips { grid-template-columns: 1fr; } }
-/* This block sits in a white section, so the chips are inked rather than
-   white on white. .amis is used only here, on index.html. */
-.amis__chips li {
-  font-size: .78rem; color: var(--body);
-  background: rgba(12,26,40,0.035);
-  border: 1px solid rgba(12,26,40,0.10);
-  padding: .32rem .66rem; border-radius: 8px;
+/* Four report options. These were four separate grey pills with centred text,
+   which read as leftover tags rather than as a spec. They are now one panel
+   divided by hairlines: the 1px grid gap shows the panel's own border colour
+   through, so the dividers cost no extra elements.
+
+   Left-aligned with an icon, because a centred two-word label in a box is the
+   shape of a tag, and these are capabilities. */
+.amis__chips {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; margin-top: 1.4rem;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
 }
+@media (max-width: 420px) { .amis__chips { grid-template-columns: 1fr; } }
+.amis__chips li {
+  display: flex; align-items: center; gap: .6rem;
+  background: var(--white);
+  font-family: var(--display); font-weight: 600;
+  font-size: .875rem; letter-spacing: -0.005em; color: var(--ink);
+  padding: .8rem .95rem;
+}
+.amis__ico {
+  width: 26px; height: 26px; flex: none; border-radius: 7px;
+  display: grid; place-items: center;
+  background: rgba(23,201,155,0.10);
+  border: 1px solid rgba(23,201,155,0.22);
+  color: var(--teal-deep);
+}
+.amis__ico svg { width: 14px; height: 14px; }
 
 @media (prefers-reduced-motion: reduce) {
   .achat__b { opacity: 1 !important; transform: none !important; animation: none !important; }

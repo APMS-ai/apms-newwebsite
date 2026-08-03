@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/motion/loader.css?v=2">
   <link rel="stylesheet" href="css/base/redesign.css?v=17">
-  <link rel="stylesheet" href="css/base/enhance.css?v=17">
+  <link rel="stylesheet" href="css/base/enhance.css?v=21">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=5">
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/sections/floorgrid.css?v=6">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
-<link rel="stylesheet" href="css/sections/solutionsfx.css?v=8">
+<link rel="stylesheet" href="css/sections/solutionsfx.css?v=9">
 <link rel="stylesheet" href="css/motion/drum.css?v=5">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
@@ -161,7 +161,7 @@
         <div class="sec__head sec__head--center" data-reveal>
           <span class="kicker" style="justify-content:center;">One connected view</span>
           <h2 data-clip>Everything on the floor,<br><span class="accent">in one intelligence layer</span></h2>
-          <p class="sec__lead" style="margin-inline:auto;text-align:center;"><em class="ph">Machine names and figures below are sample data, shown to illustrate the layout.</em></p>
+          <p class="sec__lead sec__lead--oneline" style="margin-inline:auto;text-align:center;"><em class="ph">Sample data, shown to illustrate the layout.</em></p>
         </div>
         <div class="bento" data-reveal>
           <div class="bento__c bento__c--h">
@@ -186,14 +186,8 @@
     <!-- ============ HOW WE WORK ============ -->
     <section class="sec sec--dark">
       <div class="container">
-        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">How we work</span><h2>From machine to dashboard</h2></div>
-        <div class="steps">
-          <div class="step" data-reveal><h3>Connect</h3><p>Edge hardware taps your controllers and sensors securely, with no production stoppage.</p></div>
-          <div class="step" data-reveal data-reveal-delay="1"><h3>Integrate</h3><p>Open APIs and standard protocols push clean data into your ERP, MES and BI tools.</p></div>
-          <div class="step" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Live dashboards and alerts put the right number in front of the right person, instantly.</p></div>
-        </div>
-
-        <!-- ============================================================
+        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">How we work</span><h2 class="h2--oneline">From machine to dashboard</h2></div>
+                <!-- ============================================================
              One move, not five: the HMI on the machine, and the same reading
              in someone's pocket. The board is centred and symmetric about a
              single axis at y=118, so the two objects read as one sentence.
@@ -314,6 +308,13 @@
             <circle class="iotp__pk iotp__pk--3" r="3.4" style="offset-path:path('M170 210 V266')"/>
           </svg>
         </div>
+
+        <div class="steps steps--pyramid">
+          <div class="step" data-reveal><h3>Connect</h3><p>Edge hardware taps your controllers and sensors securely, with no production stoppage.</p></div>
+          <div class="step" data-reveal data-reveal-delay="1"><h3>Integrate</h3><p>Open APIs and standard protocols push clean data into your ERP, MES and BI tools.</p></div>
+          <div class="step" data-reveal data-reveal-delay="2"><h3>Act</h3><p>Live dashboards and alerts put the right number in front of the right person, instantly.</p></div>
+        </div>
+
       </div>
     </section>
 
@@ -535,7 +536,7 @@
           </div>
           <div class="ft__block">
             <span class="ft__label">Bengaluru office</span>
-            <address>#5, 10th Cross Rd, Siddaiah Road,<br>Wilson Garden, Bengaluru,<br>Karnataka 560027, India</address>
+            <address>#5, 10th Cross Rd, Siddaiah Road, Wilson Garden,<br>Bengaluru, Karnataka 560027, India</address>
           </div>
           <div class="ft__block">
             <a class="ft__cta" href="contact.html">Book a Demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>

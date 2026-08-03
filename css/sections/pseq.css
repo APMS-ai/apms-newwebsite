@@ -148,3 +148,69 @@
   @keyframes pseqFloat   { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes pseqDraw    { to { stroke-dashoffset: 0; } }
 }
+
+/* ==========================================================================
+   The platform story, on white  (.pseq--light, index.html only)
+
+   Same component, inverted. industries.html runs .pseq--ind through the dark
+   scheme above and is deliberately untouched.
+
+   Still three colours, just reassigned:
+     dark blue  the line-art and every heading, where white used to be
+     pale blue  the bodies, so the dark outlines and the teal both read
+     teal       everything that moves, in all three of its shades
+
+   The .pseq--light prefix on the motion rules is load-bearing for the same
+   reason the .pseq prefix is above: it has to outrank the [stroke] and [fill]
+   attribute selectors, which would otherwise drag them back to the flat
+   line-art colour.
+   ========================================================================== */
+.pseq--light { background: var(--white); }
+
+.pseq--light .pseq__head .kicker { color: var(--teal-deep); }
+.pseq--light .pseq__head h2 { color: var(--ink); }
+.pseq--light .pstep__num { color: var(--teal-deep); }
+.pseq--light .pstep__num i { background: var(--teal); }
+.pseq--light .pstep__copy h3 { color: var(--ink); }
+.pseq--light .pstep__sub { color: var(--teal-deep); }
+.pseq--light .pstep__copy p { color: var(--body); }
+
+/* 1 · line-art and labels: dark blue where the dark scheme uses white */
+.pseq--light .pstep__viz svg [stroke] { stroke: #17324a; }
+.pseq--light .pstep__viz svg [fill="#2BE3B0"],
+.pseq--light .pstep__viz svg [fill="#8ff0d6"],
+.pseq--light .pstep__viz svg [fill="#F79009"],
+.pseq--light .pstep__viz svg [fill="url(#psTeal)"] { fill: #17324a; }
+
+/* 2 · bodies: pale, so a dark outline reads on them and so does teal motion */
+.pseq--light #psBody stop:first-child { stop-color: #eaf1f7; }
+.pseq--light #psBody stop:last-child  { stop-color: #d8e4ef; }
+
+/* 3 · motion, across all three teals: deep for the small focal marks that need
+   contrast on white, mid for the travelling light, bright only for the soft
+   expanding rings where a pale tint is the point */
+.pseq--light .pstep__viz .fx-wire { stroke: var(--teal); }
+.pseq--light .pstep__viz .fx-arc,
+.pseq--light .pstep__viz .fx-arc [stroke] { stroke: var(--teal-bright); }
+.pseq--light .pstep__viz .fx-pulse { fill: var(--teal-deep); }
+.pseq--light .pstep__viz .fx-bar { fill: var(--teal); }
+.pseq--light .pstep__viz svg circle:has(> animateMotion) { fill: var(--teal-deep); }
+
+/* controls, inverted */
+.pseq--light .pseq__btn { border-color: var(--line); background: var(--white); color: var(--ink); }
+.pseq--light .pseq__btn:hover:not([disabled]) { border-color: var(--teal); color: var(--teal-deep); }
+.pseq--light .pseq__progress span { background: rgba(12,26,40,0.16); }
+.pseq--light .pseq__progress span:hover { background: rgba(23,201,155,0.55); }
+.pseq--light .pseq__progress span.is-on { background: var(--teal); box-shadow: 0 0 0 4px rgba(23,201,155,0.16); }
+
+/* The step artwork carries a few hardcoded near-black fills for inset screens
+   and pills. On the dark scheme they read as recessed; on white they read as
+   heavy black blocks, so they invert to a pale blue-grey and the label text
+   sitting on them is already handled by the line-art rule above. */
+.pseq--light .pstep__viz svg [fill="#0a1622"],
+.pseq--light .pstep__viz svg [fill="#102133"] { fill: #ccdae8; }
+.pseq--light .pstep__viz svg [fill="#0b2036"] { fill: #dbe6f0; }
+
+/* The one amber alert mark stays amber: it is a status, not brand colour, and
+   flattening it to the line-art blue would lose the thing it is signalling. */
+.pseq--light .pstep__viz svg [fill="#F79009"] { fill: #F79009; }
