@@ -319,3 +319,12 @@
   .sns__ring--3 { opacity: 0; }
   .sns__nodedot { opacity: 1; }
 }
+
+/* The route drum and the plan-view board that follows it were touching, so the
+   two animations read as one restless block. 3cm of clear air between them, the
+   same measure used between the conveyor and the ticker on vision-ai.
+
+   :has() rather than a sibling combinator: .mfx sits outside the .container the
+   drum is in, so .drum + .mfx never matched. There are two .mfx boards on the
+   page and only the one after the drum wants the gap. */
+.sec:has(.drum) .mfx { margin-top: 3cm; }

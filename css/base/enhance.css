@@ -414,8 +414,11 @@
 /* ==========================================================================
    20 · "Whole floor, in one app" — equal-height columns, text centered
    ========================================================================== */
-.dashwrap { align-items: stretch; }
-.dashwrap > *:first-child { display: flex; flex-direction: column; justify-content: center; }
+/* centre, not stretch. Stretch equalised the two columns at 726px while the
+   left column's actual copy was ~470, so the mockup was matching a box rather
+   than matching the content next to it. Both now take their own height and sit
+   on a shared centre line. */
+.dashwrap { align-items: center; }
 @media (max-width: 960px) {
   .dashwrap > *:first-child { display: block; }   /* revert on stacked mobile */
 }
@@ -434,13 +437,22 @@
   display: flex; flex-direction: column;
 }
 .appscreen .app__body { padding: 0.95rem 0.9rem 0; flex: 0 0 auto; display: flex; flex-direction: column; }
-.appscreen .app__sub { margin: 0.1rem 0 0.65rem; }
-.appscreen .app__tiles { margin-bottom: 0.6rem; gap: 0.55rem; }
-.appscreen .app__tile { padding: 0.5rem 0.65rem; }
-.appscreen .app__tile-meta b { font-size: 1.1rem; }
+.appscreen .app__sub { margin: 0.05rem 0 0.5rem; font-size: 0.68rem; }
+.appscreen .app__tiles { margin-bottom: 0.45rem; gap: 0.45rem; }
+.appscreen .app__tile { padding: 0.36rem 0.5rem; }
+.appscreen .app__tile-meta b { font-size: 0.95rem; }
 .appscreen .app__list { flex: 0 0 auto; margin-bottom: 0; }
-.appscreen .app__row { padding: 0.5rem 0; }
-.appscreen .app__num { font-size: 1.3rem; }
+/* The seven rows are what set the mockup's height. Their description was
+   wrapping to two lines at this width, which put each row at 92px and the
+   whole frame at 726. Tightened so the description fits one line and the row
+   lands near 40, without truncating a word of it. */
+/* Tuned against the measurement, not by eye: at 0.2rem padding the frame came
+   out 434 against the copy's 478, so it went back up until the two sit level. */
+.appscreen .app__row { padding: 0.34rem 0; }
+.appscreen .app__rt b { font-size: 0.78rem; line-height: 1.3; }
+.appscreen .app__rt span { font-size: 0.6rem; line-height: 1.3; display: block; }
+.appscreen .app__num { font-size: 1.05rem; }
+.appscreen .app__title { font-size: 0.95rem; }
 .appscreen .app__tabs { margin-top: 0; flex-shrink: 0; }
 .appscreen .app__tab { padding: 0.55rem 0.2rem; }
 

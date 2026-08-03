@@ -175,16 +175,21 @@
 .pseq--light .pstep__sub { color: var(--teal-deep); }
 .pseq--light .pstep__copy p { color: var(--body); }
 
-/* 1 · line-art and labels: dark blue where the dark scheme uses white */
-.pseq--light .pstep__viz svg [stroke] { stroke: #17324a; }
-.pseq--light .pstep__viz svg [fill="#2BE3B0"],
+/* 1 · the machines stay dark blue on the white page. Solid dark shapes with
+   light detail is what the artwork was drawn for, and it reads as engineering
+   rather than as a wireframe. Only the structure strokes go light, because
+   they sit on those dark bodies. */
+.pseq--light #psBody stop:first-child { stop-color: #17324a; }
+.pseq--light #psBody stop:last-child  { stop-color: #0d243c; }
+.pseq--light .pstep__viz svg [stroke] { stroke: rgba(255,255,255,0.82); }
 .pseq--light .pstep__viz svg [fill="#8ff0d6"],
-.pseq--light .pstep__viz svg [fill="#F79009"],
-.pseq--light .pstep__viz svg [fill="url(#psTeal)"] { fill: #17324a; }
+.pseq--light .pstep__viz svg [fill="url(#psTeal)"] { fill: #ffffff; }
 
-/* 2 · bodies: pale, so a dark outline reads on them and so does teal motion */
-.pseq--light #psBody stop:first-child { stop-color: #eaf1f7; }
-.pseq--light #psBody stop:last-child  { stop-color: #d8e4ef; }
+/* 2 · a few marks sit on the white page rather than on a body, so they need
+   the opposite treatment or they vanish: the connecting rails and the labels
+   printed outside the machines. */
+.pseq--light .pstep__viz svg text { fill: var(--teal-deep); }
+.pseq--light .pstep__viz svg [stroke="#17c99b"] { stroke: rgba(23,201,155,0.45); }
 
 /* 3 · motion, across all three teals: deep for the small focal marks that need
    contrast on white, mid for the travelling light, bright only for the soft
@@ -208,9 +213,33 @@
    heavy black blocks, so they invert to a pale blue-grey and the label text
    sitting on them is already handled by the line-art rule above. */
 .pseq--light .pstep__viz svg [fill="#0a1622"],
-.pseq--light .pstep__viz svg [fill="#102133"] { fill: #ccdae8; }
-.pseq--light .pstep__viz svg [fill="#0b2036"] { fill: #dbe6f0; }
+.pseq--light .pstep__viz svg [fill="#102133"] { fill: #0a1622; }
+.pseq--light .pstep__viz svg [fill="#0b2036"] { fill: #0b2036; }
 
 /* The one amber alert mark stays amber: it is a status, not brand colour, and
    flattening it to the line-art blue would lose the thing it is signalling. */
 .pseq--light .pstep__viz svg [fill="#F79009"] { fill: #F79009; }
+
+/* ==========================================================================
+   The fleet story  (.pseq--robots, motion-ai.html)
+
+   Same pinned component, two differences: five slides instead of six, and the
+   columns are the other way round, artwork left and copy right.
+
+   The flip is done on grid-template-columns plus source order rather than with
+   `order`, so tab order and reading order match what is on screen.
+   ========================================================================== */
+.pseq--robots .pseq__track { height: 660vh; }        /* five steps */
+.pseq--robots .pstep { grid-template-columns: 1.15fr 1fr; }
+.pseq--robots .pstep__num { color: var(--teal-bright); }
+
+/* The section around it is already sec--dark, so the story must not paint its
+   own near-black over it or the band edges show. */
+.pseq--robots { background: transparent; }
+
+@media (max-width: 820px) {
+  /* stacked: copy first, artwork under it, matching the platform story */
+  .pseq--robots .pstep { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .pseq--robots .pstep__viz { order: 2; }
+  .pseq--robots .pstep__copy { order: 1; }
+}
