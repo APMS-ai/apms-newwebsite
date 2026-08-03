@@ -19,16 +19,19 @@
   .spanel__viz .fx-draw    { stroke-dasharray: 700; stroke-dashoffset: 700; animation: pseqDraw 1.7s var(--ease-out) 0.3s forwards; }
 }
 
-/* The story band.
+/* The story band is the same dark blue as a .sec--darker section, so these
+   three pinned stories read as part of the same page rather than as a band of
+   their own. Matching means matching what .sec--darker actually paints, which
+   is enhance.css's 160deg gradient and not redesign.css's flat --ink-900 or
+   its 180deg one: at 180deg the story was a visibly different blue on the two
+   pages that do not load premiumfx.css. premiumfx.css also adds .pseq to
+   its ambient bloom rules so the story on index picks up the same two teal
+   blooms as the sections it sits between.
 
-   These three pinned stories were white. They are dark blue now, and it has to
-   be a dark blue of their OWN: --ink-900 is exactly what .sec--dark paints, and
-   all three stories sit directly against a .sec--dark or .sec--darker
-   neighbour, so reusing it would put two identical shades side by side
-   (CLAUDE.md #6). A lifted navy reads as a distinct band against the near-black
-   sections above and below, and still sits behind the machine bodies at
-   #163a56 rather than competing with them. */
-.pseq { position: relative; background: linear-gradient(168deg, #102a42, #0a1c2e); }
+   This deliberately sets aside the adjacent-shade rule in CLAUDE.md #6 for
+   these three: each story touches a .sec--dark or .sec--darker neighbour, so
+   there is now no seam between them. That is the intent. */
+.pseq { position: relative; background: linear-gradient(160deg, var(--ink-900), var(--ink-800)); }
 .pseq__track { height: 580vh; }                         /* scroll distance for 6 steps */
 /* industries.html runs eight sectors through the same component, so it needs
    two more screens of travel or the last two slides get no scroll room */
