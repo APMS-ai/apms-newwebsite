@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
   <link rel="stylesheet" href="css/sections/formfx.css?v=2">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
-<link rel="stylesheet" href="css/sections/contactfx.css?v=2">
+<link rel="stylesheet" href="css/sections/contactfx.css?v=4">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=1">
 </head>
@@ -144,10 +144,10 @@
                 <circle class="cfx__halo cfx__halo--2" cx="262" cy="40" r="15"/>
                 <g class="cfx__node cfx__node--apms">
                   <circle cx="262" cy="40" r="17"/>
-                  <g class="cfx__glyph cfx__glyph--apms" transform="translate(262 40)">
-                    <path d="M-6 5V-1a6 6 0 0 1 12 0v6"/>
-                    <circle cx="0" cy="-3.4" r="2.2"/>
-                  </g>
+                  <!-- the real mark rather than a generic person glyph. 212x228 native, so
+                     19 x 20.44 keeps the gear round; centred on the node at 262,40 -->
+                <image class="cfx__mark" href="assets/apms-mark.png" x="252.5" y="29.8"
+                       width="19" height="20.44" preserveAspectRatio="xMidYMid meet"/>
                 </g>
                 <text class="cfx__lbl" x="262" y="68" text-anchor="middle">APMS team</text>
                 <circle class="cfx__pulse" r="3" visibility="hidden">

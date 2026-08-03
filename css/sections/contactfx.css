@@ -27,6 +27,16 @@
 
 .cfx__node--apms circle { fill: rgba(23,201,155,.10); stroke: var(--teal); stroke-width: 1.6; }
 .cfx__glyph--apms { stroke: var(--teal-deep); }
+/* The node holds the real mark now.
+
+   The fill has to be opaque. At 5% the rail behind it showed straight through
+   the logo, which is only visible if you zoom in but looks like a scratch
+   across the mark once you have seen it. White also matches the "you" node at
+   the other end, so the two read as a pair.
+
+   The mark is a raster, so it must not inherit the glyph stroke. */
+.cfx__node--apms circle { fill: var(--white); }
+.cfx__mark { stroke: none; }
 
 .cfx__lbl {
   font-family: var(--display); font-weight: 700; font-size: 9.5px;
