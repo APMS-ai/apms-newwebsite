@@ -139,6 +139,16 @@ frame timing, grid alignment, reveals, rails and reduced motion.
   hand-kept: re-run `docs/gen-deploy-manifest.py` after adding or removing a
   file. The hand-kept version had drifted and omitted five stylesheets that
   pages load, which would have shipped a site with broken styling.
+- **The live site is in a subdirectory: `apms.ai/newwebsite/`.** The domain root
+  still serves the old WordPress install, so a root-absolute path in server code
+  or a rewrite anchored at `^` points at a different site. `submit.php` sent its
+  no-JS reply to `/contact.html` and landed people on WordPress.
+- **Deployment is an FTP copy of the whole project folder, so `.gitignore` does
+  not protect anything.** Access is FTP only, no hPanel. Every gitignored
+  directory ends up on the server: a live check found `_standalone/`'s two
+  previews and 107 KB of `_snapshot_*/css` being served with HTTP 200, plus
+  `DEPLOY.txt`. `.htaccess` now denies them by directory, because being out of
+  the repository is not the same as being off the web.
 - `netlify.toml` is kept for reference only and must not be uploaded.
   Everything it did is restated in `.htaccess`, which LiteSpeed reads:
   security headers, caching, extensionless URLs, the 404 page and the old
