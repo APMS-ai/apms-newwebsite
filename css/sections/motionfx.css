@@ -170,99 +170,85 @@
 :is(.sec--paper, .sec--white) .mf__wp-on { fill: var(--teal-deep); }
 
 /* ==========================================================================
-   The fleet lane ("SMART Patrolling vs SMART Assistance")
+   The fleet, standing its ground
 
-   Five unit types on one 26s clock. Negative animation-delays distribute them
-   along the lane on first paint, so the strip is populated immediately rather
-   than filling up over the first half minute.
+   Each unit holds a station and animates in place. Nothing traverses the lane,
+   so no unit is ever caught half off the edge, and there is no 26s clock to
+   keep in step with anything.
 
-   Nothing here animates geometry and nothing carries a filter: it is all
-   transform and opacity, per the note in css/sections/premiumfx.css.
+   Every motion here is transform or opacity. Nothing carries a filter.
    ========================================================================== */
 .mfleet { margin-top: clamp(2.2rem, 4vw, 3.4rem); }
 .mfleet__svg {
   width: 100%; max-width: 960px; margin-inline: auto;
-  height: auto; display: block; overflow: hidden;
+  height: auto; display: block; overflow: visible;
 }
-/* Per-element origins for the parts that rotate about themselves. Deliberately
-   not applied to .mfleet__unit: that one is translated in the view-box system,
-   and fill-box would re-base it against its own bounding box. */
-.mfleet__leg, .mfleet__rotor, .mfleet__wheel, .mfleet__brush {
-  transform-box: fill-box; transform-origin: center;
+/* fill-box only on the parts that rotate about their own centre. Not on
+   .mf__unit: that one is positioned in the view-box system. */
+.mf__limb, .mf__rotor, .mf__wheel, .mf__brush {
+  transform-box: fill-box;
 }
-.mfleet__leg { transform-origin: center top; }
+.mf__limb { transform-origin: center top; }
+.mf__rotor, .mf__wheel, .mf__brush { transform-origin: center; }
 
-.mfleet__lane {
-  fill: none; stroke: var(--line-dark); stroke-width: 1.6; stroke-linecap: round;
-}
+.mfleet__lane { fill: none; stroke: var(--line-dark); stroke-width: 1.6; stroke-linecap: round; }
+.mf__shadow { fill: rgba(0,0,0,0.32); }
 
-/* shared robot ink */
-.mfleet__body, .mfleet__head, .mfleet__load {
-  fill: rgba(255,255,255,0.07); stroke: rgba(255,255,255,0.42); stroke-width: 1.6;
+.mf__shell {
+  fill: rgba(255,255,255,0.07); stroke: rgba(255,255,255,0.44); stroke-width: 1.6;
+  stroke-linejoin: round;
 }
-.mfleet__leg, .mfleet__arm, .mfleet__brush path {
-  fill: none; stroke: rgba(255,255,255,0.42); stroke-width: 1.8; stroke-linecap: round;
+.mf__limb, .mf__foot, .mf__bumper, .mf__brush path, .mf__spoke {
+  fill: none; stroke: rgba(255,255,255,0.44); stroke-width: 1.6; stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.mfleet__rotor path {
-  fill: none; stroke: var(--teal-bright); stroke-width: 1.8; stroke-linecap: round;
-}
-.mfleet__wheel { fill: rgba(255,255,255,0.10); stroke: rgba(255,255,255,0.42); stroke-width: 1.6; }
-.mfleet__eye   { fill: var(--teal-bright); }
-.mfleet__shadow{ fill: rgba(0,0,0,0.35); }
-.mfleet__name {
+.mf__spoke { stroke-width: 1.1; stroke: rgba(255,255,255,0.30); }
+.mf__foot { stroke-width: 2.2; }
+.mf__tyre { fill: rgba(255,255,255,0.10); stroke: rgba(255,255,255,0.44); stroke-width: 1.6; }
+.mf__blade { fill: rgba(46,224,180,0.55); }
+.mf__visor { fill: var(--teal-bright); }
+.mf__visor--dot { fill: var(--teal-bright); }
+.mf__puck { fill: rgba(46,224,180,0.22); stroke: var(--teal-bright); stroke-width: 1.4; }
+.mf__gimbal { fill: rgba(255,255,255,0.10); stroke: rgba(255,255,255,0.44); stroke-width: 1.5; }
+.mf__name {
   font-family: var(--display); font-weight: 800; font-size: 10px;
-  letter-spacing: .14em; text-transform: uppercase; fill: rgba(255,255,255,0.5);
+  letter-spacing: .14em; text-transform: uppercase; fill: rgba(255,255,255,0.55);
 }
 
-/* The run.
-   Not offset-path here: offset-path anchors the element's bounding-box centre
-   to the path, and for a <g> the bbox centre is not its coordinate origin, so
-   every unit sank below the lane by half its own height. The lane is a
-   straight horizontal line, so a plain translate is both correct and cheaper.
-   The y of 150 is the lane; each robot is drawn relative to that point. */
-.mfleet__unit { transform: translate(-70px, 150px); }
-[data-reveal].in .mfleet__unit { animation: mfleetRun 26s linear infinite; }
-[data-reveal].in .mfleet__unit--1 { animation-delay: 0s; }
-[data-reveal].in .mfleet__unit--2 { animation-delay: -5.2s; }
-[data-reveal].in .mfleet__unit--3 { animation-delay: -10.4s; }
-[data-reveal].in .mfleet__unit--4 { animation-delay: -15.6s; }
-[data-reveal].in .mfleet__unit--5 { animation-delay: -20.8s; }
-@keyframes mfleetRun { from { transform: translate(-70px, 150px); } to { transform: translate(1030px, 150px); } }
+/* in-place motion, staggered so the five do not pulse in unison */
+[data-reveal].in .mf__bot--hum   { animation: mfStep 0.72s ease-in-out infinite; }
+[data-reveal].in .mf__bot--quad  { animation: mfStep 0.52s ease-in-out infinite; }
+[data-reveal].in .mf__bot--drone { animation: mfHover 2.4s ease-in-out infinite; }
+[data-reveal].in .mf__bot--clean { animation: mfNudge 3.2s ease-in-out infinite; }
+[data-reveal].in .mf__d2 { animation-delay: .18s; }
+[data-reveal].in .mf__d4 { animation-delay: .5s; }
 
-/* per-type signatures */
-[data-reveal].in .mfleet__bot--hum   { animation: mfleetStep 0.62s ease-in-out infinite; }
-[data-reveal].in .mfleet__bot--quad  { animation: mfleetStep 0.44s ease-in-out infinite; }
-[data-reveal].in .mfleet__bot--drone { animation: mfleetHover 2.1s ease-in-out infinite; }
-[data-reveal].in .mfleet__bot--hum  .mfleet__leg--a,
-[data-reveal].in .mfleet__bot--quad .mfleet__leg--a { animation: mfleetSwing 0.62s ease-in-out infinite; }
-[data-reveal].in .mfleet__bot--hum  .mfleet__leg--b,
-[data-reveal].in .mfleet__bot--quad .mfleet__leg--b { animation: mfleetSwing 0.62s ease-in-out infinite reverse; }
-[data-reveal].in .mfleet__bot--quad .mfleet__leg--a,
-[data-reveal].in .mfleet__bot--quad .mfleet__leg--b { animation-duration: 0.44s; }
-[data-reveal].in .mfleet__rotor { animation: mfleetRotor 0.45s linear infinite; }
-[data-reveal].in .mfleet__rotor--r { animation-direction: reverse; }
-/* The wheel rotation is gone on purpose: .mfleet__wheel is a plain circle with
-   no spokes, so rotating it produced not one changed pixel while still costing
-   two animations a frame. The brush scaleX went the same way, for 3 fewer
-   concurrent animations at zero visual cost. */
+[data-reveal].in .mf__bot--hum  .mf__limb--a,
+[data-reveal].in .mf__bot--quad .mf__limb--a { animation: mfSwing 0.72s ease-in-out infinite; }
+[data-reveal].in .mf__bot--hum  .mf__limb--b,
+[data-reveal].in .mf__bot--quad .mf__limb--b { animation: mfSwing 0.72s ease-in-out infinite reverse; }
+[data-reveal].in .mf__bot--quad .mf__limb--a,
+[data-reveal].in .mf__bot--quad .mf__limb--b { animation-duration: 0.52s; }
+[data-reveal].in .mf__rotor { animation: mfRotor 0.5s linear infinite; }
+[data-reveal].in .mf__rotor--r { animation-direction: reverse; }
+[data-reveal].in .mf__bot--amr .mf__wheel { animation: mfWheel 1.6s linear infinite; }
+[data-reveal].in .mf__brush { animation: mfBrush 0.6s ease-in-out infinite; }
 
-@keyframes mfleetStep  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
-@keyframes mfleetHover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-@keyframes mfleetSwing { 0%,100% { transform: rotate(11deg); } 50% { transform: rotate(-11deg); } }
-@keyframes mfleetRotor { to { transform: rotate(360deg); } }
+@keyframes mfStep  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.8px); } }
+@keyframes mfHover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes mfNudge { 0%,100% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
+@keyframes mfSwing { 0%,100% { transform: rotate(10deg); } 50% { transform: rotate(-10deg); } }
+@keyframes mfRotor { to { transform: rotate(360deg); } }
+@keyframes mfWheel { to { transform: rotate(360deg); } }
+@keyframes mfBrush { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
 
-@media (max-width: 700px) { .mfleet__name { font-size: 12px; } }
+@media (max-width: 700px) { .mf__name { font-size: 12px; } }
 
-/* Continuous travel is the first thing that must go (CLAUDE.md #4). The units
-   park evenly along the lane so the line-up still reads as a fleet. */
+/* Reduced motion: the fleet simply stands there. Nothing is mid-stride,
+   because nothing was travelling in the first place (CLAUDE.md #4).
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .mfleet__unit, .mfleet__bot, .mfleet__leg, .mfleet__rotor,
-  .mfleet__wheel, .mfleet__brush { animation: none !important; }
-  .mfleet__unit--1 { transform: translate(62px, 150px); }
-  .mfleet__unit--2 { transform: translate(249px, 150px); }
-  .mfleet__unit--3 { transform: translate(436px, 150px); }
-  .mfleet__unit--4 { transform: translate(623px, 150px); }
-  .mfleet__unit--5 { transform: translate(810px, 150px); }
+  .mf__bot, .mf__limb, .mf__rotor, .mf__wheel, .mf__brush { animation: none !important; }
 }
 
 /* ==========================================================================

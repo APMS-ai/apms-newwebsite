@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="css/motion/rail.css?v=6">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=5">
-  <link rel="stylesheet" href="css/sections/visionfx.css?v=8">
+  <link rel="stylesheet" href="css/sections/visionfx.css?v=10">
   <link rel="stylesheet" href="css/sections/visioncmp.css?v=2">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=2">
@@ -131,8 +131,8 @@
         <div class="vbot" data-reveal>
           <!-- viewBox starts at y=32, not 0: the content runs 41 to 148 and a
                  168-tall box left 60 units of dead air above the head -->
-            <svg class="vbot__svg" viewBox="0 32 960 130" role="img"
-               aria-label="An inspection head travelling left to right along the line, scanning each part as it passes and marking it checked">
+            <svg class="vbot__svg" viewBox="0 32 960 140" role="img"
+               aria-label="An inspection head travelling left to right along the line, checking motion tracking, quality, PPE and procedure at each station">
             <defs>
               <linearGradient id="vbotCone" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#2ee0b4" stop-opacity=".6"/>
@@ -151,18 +151,22 @@
               <g class="vbot__part vbot__part--1">
                 <rect x="147" y="120" width="46" height="22" rx="5"/>
                 <path class="vbot__tick" d="M178 125.5 L167 136.5 l-5 -5"/>
+                <text class="vbot__lbl" x="170.0" y="156" text-anchor="middle">Motion tracked</text>
               </g>
               <g class="vbot__part vbot__part--2">
                 <rect x="347" y="120" width="46" height="22" rx="5"/>
                 <path class="vbot__tick" d="M378 125.5 L367 136.5 l-5 -5"/>
+                <text class="vbot__lbl" x="370.0" y="156" text-anchor="middle">Quality passed</text>
               </g>
               <g class="vbot__part vbot__part--3">
                 <rect x="547" y="120" width="46" height="22" rx="5"/>
                 <path class="vbot__tick" d="M578 125.5 L567 136.5 l-5 -5"/>
+                <text class="vbot__lbl" x="570.0" y="156" text-anchor="middle">PPE confirmed</text>
               </g>
               <g class="vbot__part vbot__part--4">
                 <rect x="747" y="120" width="46" height="22" rx="5"/>
                 <path class="vbot__tick" d="M778 125.5 L767 136.5 l-5 -5"/>
+                <text class="vbot__lbl" x="770.0" y="156" text-anchor="middle">Procedure followed</text>
               </g>
 
             <!-- the head -->

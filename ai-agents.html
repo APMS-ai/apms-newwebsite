@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=2">
   <link rel="stylesheet" href="css/motion/rail.css?v=6">
-<link rel="stylesheet" href="css/sections/agentic.css?v=16">
+<link rel="stylesheet" href="css/sections/agentic.css?v=18">
 <link rel="stylesheet" href="css/sections/agarch.css?v=1">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
   <link rel="stylesheet" href="css/sections/aiplus.css?v=8">
@@ -103,77 +103,46 @@
     <section class="sec sec--paper">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">The answer</span><h2>Put an agent on watch that never looks away</h2><p>Same idea whichever part of the business you point it at.</p></div>
-        <div class="grid3">
+        <div class="agwrap">
+          <!-- ============================================================
+             A small agent walking its round. The board here was a sensor
+             sweeping a wall of readings, which read as Vision AI rather than
+             as an agent: same glyph, wrong story.
+
+             The agent is drawn symmetric about its own origin on purpose.
+             offset-path anchors an element by its bounding-box centre, so a
+             symmetric drawing puts 0,0 on the path. The fleet on motion-ai
+             sank below its lane for exactly this reason.
+
+             Four checkpoints light as it reaches them. The circuit is 582
+             units long and the loop is 9s, so the delays are the real
+             fractions along the path, not guesses.
+             ============================================================ -->
+          <div class="agr" data-reveal>
+            <svg class="agr__svg" viewBox="0 24 300 176" role="img"
+                 aria-label="An agent walking a closed round, checking in at four points and never stopping">
+              <path class="agr__track" d="M78 45 H222 A28 28 0 0 1 250 73 V132 A28 28 0 0 1 222 160 H78 A28 28 0 0 1 50 132 V73 A28 28 0 0 1 78 45 Z"/>
+                <circle class="agr__cp agr__cp--1" cx="150" cy="45" r="5"/>
+                <circle class="agr__cp agr__cp--2" cx="250" cy="102" r="5"/>
+                <circle class="agr__cp agr__cp--3" cx="150" cy="160" r="5"/>
+                <circle class="agr__cp agr__cp--4" cx="50" cy="102" r="5"/>
+              <g class="agr__bot" style="offset-path:path('M78 45 H222 A28 28 0 0 1 250 73 V132 A28 28 0 0 1 222 160 H78 A28 28 0 0 1 50 132 V73 A28 28 0 0 1 78 45 Z')">
+                <rect class="agr__shell" x="-11" y="-11" width="22" height="22" rx="7"/>
+                <path class="agr__vent" d="M-7 0 H-4 M4 0 H7"/>
+                <circle class="agr__eye" cx="0" cy="0" r="4.4"/>
+              </g>
+              <text class="agr__lbl" x="150" y="106" text-anchor="middle">ON WATCH</text>
+              <text class="agr__sub" x="150" y="123" text-anchor="middle">never off the round</text>
+            </svg>
+          </div>
+          <div class="grid3 agwrap__list">
           <article class="tile" data-reveal><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3 3 3 0 0 0-3 3 3 3 0 0 0 0 6 3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0 0-6 3 3 0 0 0-3-3 3 3 0 0 0-3-3z"/></svg></div><h3>Chat with your data</h3><p>Ask in plain language; get the answer and the reason in one line, with no dashboards to dig through.</p></article>
           <article class="tile" data-reveal data-reveal-delay="1"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 2 2 5-6"/></svg></div><h3>Get answers written up</h3><p>Summaries, breakdowns and reports generated on demand for a shift, a ledger, a region or a queue.</p></article>
           <article class="tile" data-reveal data-reveal-delay="2"><div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 11h7l-1 9 9-11h-7z"/></svg></div><h3>Automate the follow-through</h3><p>At-risk work flagged and the right person alerted automatically, while there's still time to fix it.</p></article>
         </div>
-
-        <!-- ============================================================
-             The agent on watch. A sensor head sweeps a live signal wall on a
-             6s clock; the pupil tracks the beam, and the one out-of-band
-             reading is flagged as the beam reaches it, at 3.55s, which is
-             exactly where the beam is when it crosses that bar.
-
-             All transform and opacity. Per-element origins, so transform-box
-             is fill-box and the bars scale from their own base (CLAUDE.md #7).
-             ============================================================ -->
-        <div class="agw" data-reveal>
-          <svg class="agw__svg" viewBox="0 20 960 210" role="img"
-               aria-label="A monitoring agent sweeping a wall of live readings and flagging the one that moves out of range">
-            <defs>
-              <linearGradient id="agwBeam" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#2ee0b4" stop-opacity="0"/>
-                <stop offset="0.45" stop-color="#2ee0b4" stop-opacity=".30"/>
-                <stop offset="1" stop-color="#2ee0b4" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-
-            <!-- the sensor head, fixed at the top -->
-            <g class="agw__head">
-              <rect class="agw__case" x="428" y="40" width="104" height="44" rx="14"/>
-              <rect class="agw__vent" x="452" y="48" width="56" height="5" rx="2.5"/>
-              <circle class="agw__lens" cx="480" cy="68" r="12"/>
-              <circle class="agw__pupil" cx="480" cy="68" r="5"/>
-              <path class="agw__mast" d="M480 84 V100"/>
-            </g>
-
-            <!-- the wall it is watching -->
-            <path class="agw__base" d="M34 178 H926"/>
-              <rect class="agw__bar" x="36.5" y="150.0" width="7" height="26" rx="3" style="--d:0.00s"/>
-              <rect class="agw__bar" x="78.4" y="142.0" width="7" height="34" rx="3" style="--d:0.28s"/>
-              <rect class="agw__bar" x="120.3" y="146.0" width="7" height="30" rx="3" style="--d:0.56s"/>
-              <rect class="agw__bar" x="162.2" y="134.0" width="7" height="42" rx="3" style="--d:0.84s"/>
-              <rect class="agw__bar" x="204.1" y="140.0" width="7" height="36" rx="3" style="--d:1.12s"/>
-              <rect class="agw__bar" x="246.0" y="146.0" width="7" height="30" rx="3" style="--d:1.40s"/>
-              <rect class="agw__bar" x="287.9" y="132.0" width="7" height="44" rx="3" style="--d:1.68s"/>
-              <rect class="agw__bar" x="329.8" y="138.0" width="7" height="38" rx="3" style="--d:0.00s"/>
-              <rect class="agw__bar" x="371.7" y="144.0" width="7" height="32" rx="3" style="--d:0.28s"/>
-              <rect class="agw__bar" x="413.6" y="130.0" width="7" height="46" rx="3" style="--d:0.56s"/>
-              <rect class="agw__bar" x="455.5" y="136.0" width="7" height="40" rx="3" style="--d:0.84s"/>
-              <rect class="agw__bar" x="497.5" y="142.0" width="7" height="34" rx="3" style="--d:1.12s"/>
-              <rect class="agw__bar" x="539.4" y="128.0" width="7" height="48" rx="3" style="--d:1.40s"/>
-              <rect class="agw__bar agw__bar--hot" x="581.3" y="104.0" width="7" height="72" rx="3" style="--d:1.68s"/>
-              <rect class="agw__bar" x="623.2" y="138.0" width="7" height="38" rx="3" style="--d:0.00s"/>
-              <rect class="agw__bar" x="665.1" y="132.0" width="7" height="44" rx="3" style="--d:0.28s"/>
-              <rect class="agw__bar" x="707.0" y="144.0" width="7" height="32" rx="3" style="--d:0.56s"/>
-              <rect class="agw__bar" x="748.9" y="136.0" width="7" height="40" rx="3" style="--d:0.84s"/>
-              <rect class="agw__bar" x="790.8" y="140.0" width="7" height="36" rx="3" style="--d:1.12s"/>
-              <rect class="agw__bar" x="832.7" y="146.0" width="7" height="30" rx="3" style="--d:1.40s"/>
-              <rect class="agw__bar" x="874.6" y="134.0" width="7" height="42" rx="3" style="--d:1.68s"/>
-              <rect class="agw__bar" x="916.5" y="142.0" width="7" height="34" rx="3" style="--d:0.00s"/>
-
-            <!-- the sweep -->
-            <rect class="agw__beam" x="34" y="100" width="46" height="78" fill="url(#agwBeam)"/>
-
-            <!-- what it caught -->
-            <g class="agw__flag" style="--hx:584.8px">
-              <circle class="agw__flagring" cx="584.8" cy="98" r="13"/>
-              <circle class="agw__flagdot" cx="584.8" cy="98" r="4.5"/>
-              <text class="agw__flaglbl" x="584.8" y="216" text-anchor="middle">Out of range</text>
-            </g>
-          </svg>
         </div>
+
+
 </div>
     </section>
 

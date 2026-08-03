@@ -267,7 +267,22 @@
    (CLAUDE.md #4). The head parks mid-line and every part reads as checked. */
 @media (prefers-reduced-motion: reduce) {
   .vbot__head, .vbot__beacon, .vbot__cone, .vbot__tick { animation: none !important; }
-  .vbot__head { offset-distance: 50%; }
+  /* 26%, not 50%: the rail runs 46 to 914, so 50% parks the head at x=480
+     where its scan cone clips the "PPE confirmed" label. 26% puts it at
+     x=272, in the gap between the first two stations. */
+  .vbot__head { offset-distance: 26%; }
   .vbot__tick { opacity: 1; }
   .vbot__cone { opacity: .7; }
+}
+
+/* Station labels under each checked part. The parts are 46 units wide and the
+   labels are wider than that, so they are centred on the part rather than
+   fitted inside it, and the viewBox gained ten units for the baseline. */
+.vbot__lbl {
+  font-family: var(--display); font-weight: 700; font-size: 9.5px;
+  letter-spacing: .06em; fill: var(--muted);
+}
+@media (max-width: 700px) {
+  /* the parts row is hidden at this width, so its labels go with it */
+  .vbot__lbl { display: none; }
 }

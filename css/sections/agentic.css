@@ -574,90 +574,74 @@
 }
 
 /* ==========================================================================
-   The agent on watch ("Put an agent on watch that never looks away")
+   The agent on its round  (.agr)
 
-   One 6s clock. The beam crosses 34 -> 880 linearly; the hot bar sits at
-   x=584.8, which is (584.8-34)/880 = 62.6% of the run, so the flag fires at
-   3.76s and clears before the sweep restarts. The pupil runs the same clock
-   so the head is always looking where the beam is.
+   Replaces the sensor-sweeping-a-signal-wall board that used to sit here. That
+   one read as Vision AI: a lens, a beam, a row of readings. An agent is better
+   said with a small machine that keeps walking a closed circuit and checking
+   in, so that is what this is.
+
+   582 units of circuit on a 9s loop, so a checkpoint at 12.4% of the path
+   lights at 1.12s. The delays below are those fractions, not eyeballed.
    ========================================================================== */
-.agw { margin-top: clamp(2.2rem, 4vw, 3.4rem); }
-.agw__svg {
-  width: 100%; max-width: 960px; margin-inline: auto;
-  height: auto; display: block; overflow: hidden;
+.agwrap {
+  display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 3.4rem); align-items: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
-.agw__bar, .agw__pupil, .agw__beam, .agw__flagring, .agw__lens {
-  transform-box: fill-box;
-}
-.agw__bar { transform-origin: center bottom; }
-.agw__flagring, .agw__lens { transform-origin: center; }
-
-.agw__case { fill: var(--white); stroke: var(--ink); stroke-width: 1.8; }
-.agw__vent { fill: var(--line); }
-.agw__lens { fill: var(--ink); }
-.agw__pupil { fill: var(--teal-bright); }
-.agw__mast { stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; }
-.agw__base { fill: none; stroke: var(--line); stroke-width: 1.6; stroke-linecap: round; }
-
-.agw__bar { fill: var(--line); }
-.agw__bar--hot { fill: var(--teal-deep); }
-
-.agw__flagring { fill: none; stroke: var(--teal); stroke-width: 1.6; opacity: 0; }
-.agw__flagdot  { fill: var(--teal-deep); opacity: 0; }
-.agw__flaglbl {
-  font-family: var(--display); font-weight: 800; font-size: 10px;
-  letter-spacing: .14em; text-transform: uppercase; fill: var(--teal-deep); opacity: 0;
+.agwrap__list { grid-template-columns: minmax(0, 1fr); gap: clamp(0.8rem, 2vw, 1.1rem); }
+@media (max-width: 860px) {
+  .agwrap { grid-template-columns: minmax(0, 1fr); }
+  .agr { max-width: 320px; margin-inline: auto; }
 }
 
-/* resting state: beam parked at the left, nothing flagged */
-.agw__beam { opacity: 0; }
-
-[data-reveal].in .agw__beam    { animation: agwSweep 6s linear infinite; }
-[data-reveal].in .agw__pupil   { animation: agwLook  6s linear infinite; }
-[data-reveal].in .agw__bar     { animation: agwBreathe 3.1s ease-in-out infinite; animation-delay: var(--d, 0s); }
-[data-reveal].in .agw__flagring{ animation: agwRing 6s ease-out infinite; }
-[data-reveal].in .agw__flagdot,
-[data-reveal].in .agw__flaglbl { animation: agwFlag 6s ease-out infinite; }
-
-@keyframes agwSweep {
-  0%        { transform: translateX(0);     opacity: 0; }
-  5%        { opacity: 1; }
-  92%       { opacity: 1; }
-  100%      { transform: translateX(846px); opacity: 0; }
+.agr__svg { width: 100%; height: auto; display: block; overflow: visible; }
+.agr__track {
+  fill: none; stroke: var(--line); stroke-width: 1.6;
+  stroke-dasharray: 3 5; stroke-linecap: round;
 }
-@keyframes agwLook {
-  0%   { transform: translateX(-9px); }
-  100% { transform: translateX(9px); }
+.agr__cp { fill: var(--white); stroke: var(--line); stroke-width: 1.6; }
+.agr__shell { fill: var(--white); stroke: var(--ink); stroke-width: 1.8; }
+.agr__vent { stroke: var(--line); stroke-width: 1.6; stroke-linecap: round; fill: none; }
+.agr__eye { fill: var(--teal-deep); }
+.agr__lbl {
+  font-family: var(--display); font-weight: 800; font-size: 12px;
+  letter-spacing: .18em; fill: var(--ink);
 }
-@keyframes agwBreathe {
-  0%, 100% { transform: scaleY(1); }
-  50%      { transform: scaleY(0.86); }
-}
-/* fires at 62.6% of the run, where the beam actually crosses the hot bar */
-@keyframes agwFlag {
-  0%, 60%   { opacity: 0; }
-  64%, 92%  { opacity: 1; }
-  100%      { opacity: 0; }
-}
-@keyframes agwRing {
-  0%, 60%  { opacity: 0; transform: scale(.55); }
-  66%      { opacity: .9; transform: scale(1); }
-  88%      { opacity: .35; transform: scale(1.35); }
-  100%     { opacity: 0; transform: scale(1.35); }
+.agr__sub {
+  font-family: var(--display); font-weight: 600; font-size: 10px;
+  letter-spacing: .1em; fill: var(--muted);
 }
 
-@media (max-width: 700px) { .agw__flaglbl { font-size: 12px; } }
+/* parked at the start of the circuit until the block is in view */
+.agr__bot { offset-distance: 0%; offset-rotate: 0deg; }
+.agr__cp  { transform-box: fill-box; transform-origin: center; }
 
-/* No continuous travel under reduced motion (CLAUDE.md #4). The board resolves
-   to the informative frame: beam over the hot bar, the catch flagged. */
+[data-reveal].in .agr__bot { animation: agrWalk 9s linear infinite; }
+[data-reveal].in .agr__eye { animation: agrBlinkless 2.6s ease-in-out infinite; }
+[data-reveal].in .agr__cp  { animation: agrCheck 9s ease-out infinite; }
+[data-reveal].in .agr__cp--1 { animation-delay: 1.12s; }
+[data-reveal].in .agr__cp--2 { animation-delay: 3.37s; }
+[data-reveal].in .agr__cp--3 { animation-delay: 5.62s; }
+[data-reveal].in .agr__cp--4 { animation-delay: 7.87s; }
+
+@keyframes agrWalk { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+/* the eye dims and lifts but never closes: it is on watch */
+@keyframes agrBlinkless { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@keyframes agrCheck {
+  0%, 4%   { fill: var(--white); stroke: var(--line); transform: scale(1); }
+  8%       { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
+  30%, 96% { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
+  100%     { fill: var(--white); stroke: var(--line); transform: scale(1); }
+}
+
+/* Continuous travel goes first under reduced motion (CLAUDE.md #4). The agent
+   stands at a checkpoint and every checkpoint reads as visited, which is the
+   informative frame. */
 @media (prefers-reduced-motion: reduce) {
-  .agw__beam, .agw__pupil, .agw__bar, .agw__flagring,
-  .agw__flagdot, .agw__flaglbl { animation: none !important; }
-  .agw__beam { opacity: 1; transform: translateX(528px); }
-  /* the pupil is frozen too, so point it at the catch rather than dead ahead */
-  .agw__pupil { transform: translateX(7px); }
-  .agw__flagdot, .agw__flaglbl { opacity: 1; }
-  .agw__flagring { opacity: .8; }
+  .agr__bot, .agr__eye, .agr__cp { animation: none !important; }
+  .agr__bot { offset-distance: 12.4%; }
+  .agr__cp { fill: var(--teal); stroke: var(--teal); }
 }
 
 /* ==========================================================================
@@ -739,3 +723,19 @@
 .agchatsec .ticks svg { color: var(--teal-deep); }
 
 @media (prefers-reduced-motion: reduce) { .agchat__live i { animation: none; } }
+
+/* ==========================================================================
+   10 · "From problem statement to production": content first, rail after
+
+   The stepper put its icon rail on top and the step content underneath, so the
+   reader met six abstract glyphs before any words. Flipped with order on a
+   flex column: the live step reads first, and the rail sits below it as the
+   navigation it actually is.
+
+   order on a flex parent rather than moving the markup, because .bstep__rail
+   is role="tablist" and the buttons control the panels: source order keeps
+   tab focus running rail-then-panel, which is the order a screen reader wants.
+   ========================================================================== */
+.bstep { display: flex; flex-direction: column; }
+.bstep__stage { order: 1; }
+.bstep__rail  { order: 2; margin-bottom: 0; margin-top: clamp(1.6rem, 3vw, 2.2rem); }
