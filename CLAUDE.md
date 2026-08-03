@@ -159,8 +159,9 @@ frame timing, grid alignment, reveals, rails and reduced motion.
   then must not evaporate. Success is only reported if one of the two writes
   actually succeeded. Credentials live in `config.php` on the server, which is
   gitignored; `config.sample.php` and `schema.sql` are the templates.
-  **The notification email goes over authenticated SMTP** (`lib/smtp.php`, no
-  dependencies), not `mail()`. `mail()` is still the fallback but on this host
+  **The notification email goes over authenticated SMTP**, not `mail()`. The
+  sender is inlined in `submit.php` with no dependencies, so the whole feature
+  is two files on the server: `submit.php` and `config.php`. `mail()` is still the fallback but on this host
   it silently fails: it posts from Hostinger's IP claiming `From: @apms.ai`,
   and apms.ai's SPF authorises Microsoft 365, not Hostinger, so Gmail spams or
   drops it. `mail()` returns true either way. Fill the `smtp` block in

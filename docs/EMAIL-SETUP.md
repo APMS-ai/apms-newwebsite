@@ -156,27 +156,25 @@ the behaviour that does not work here.
 
 ## 5 · Upload the files
 
-Two files, over FTP or File Manager, into `public_html`:
+Two files, over FTP or File Manager, into the directory the site is served
+from (`public_html/newwebsite/` on this install):
 
 ```
-lib/smtp.php      <- NEW. Create the lib/ directory first.
-submit.php        <- replaces the existing one
+submit.php        <- replaces the existing one. Self-contained: the SMTP
+                     sender is inside it, so there is no lib/ directory
+config.php        <- new, holds the credentials, never in the repository
 ```
 
 FTP credentials: **hPanel → Files → FTP Accounts**.
 
 Notes:
 
-- `lib/` is a new directory. Most FTP clients will not create it for you when
-  uploading a single file, so make it first.
-- Permissions, if your client asks: **644** for the two files, **755** for the
-  `lib/` directory.
-- `.htaccess` (already updated in the repository) denies `smtp.php` over HTTP,
-  so `https://apms.ai/lib/smtp.php` returns 403. `require_once` still works,
-  because Apache's `Require` controls HTTP requests, not filesystem includes.
-  If you have not uploaded the current `.htaccess`, do that too.
-- `config.php` stays where it is. Never upload it *from* the repository, because
-  it is not in the repository.
+- No directory to create, and no `.htaccess` change needed. The sender used to
+  live in `lib/smtp.php`; it is inside `submit.php` now, because the feature
+  failed three deploys in a row purely because that folder was never made.
+- Permissions, if your client asks: **644** for both files.
+- `config.php` is not in the repository and never will be. It is written for
+  you locally, gitignored, for uploading only.
 
 `DEPLOY.txt` lists all 79 files that belong on the server, and is generated:
 re-run `docs/gen-deploy-manifest.py` after adding or removing any file.
@@ -306,7 +304,7 @@ the whole domain. Change the `A` record only.
 
 ## 10 · Not verified here
 
-`lib/smtp.php` was written without a PHP runtime available in the authoring
+The SMTP sender in `submit.php` was written without a PHP runtime available in the authoring
 environment. It was checked by lexing for balanced delimiters and unterminated
 strings, **not** by `php -l` and **not** by sending a message.
 
