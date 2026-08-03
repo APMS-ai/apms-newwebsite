@@ -46,7 +46,7 @@ sending server, and either files the mail as spam or drops it outright.
 
 **The fix is not a better `From:` header.** It is to submit the message to a
 provider that has agreed to send for that account, so SPF and DKIM pass. That
-is what authenticated SMTP does, and `lib/smtp.php` now does it.
+is what authenticated SMTP does, and the sender inside `submit.php` does it.
 
 ---
 
@@ -79,7 +79,7 @@ want section 8 instead.
 **Copy it now.** Google will not show it again; if you lose it, delete the entry
 and make another.
 
-The spaces do not matter. `lib/smtp.php` strips whitespace from the password
+The spaces do not matter. `submit.php` strips whitespace from the password
 before authenticating, precisely because Google displays it in groups and people
 paste it as shown.
 
