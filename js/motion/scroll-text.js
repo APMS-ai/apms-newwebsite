@@ -34,14 +34,33 @@
     var nodes = Array.prototype.slice.call(el.childNodes);
     nodes.forEach(function (node) {
       if (node.nodeType === 3) {                         // text node
-        var tokens = byChar ? node.textContent.split("") : node.textContent.split(/(\s+)/);
-        tokens.forEach(function (t) {
-          if (t === "") return;
-          if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
-          var s = document.createElement("span");
-          s.className = "st-w";
-          s.textContent = t;
-          frag.appendChild(s);
+        /* Always split on whitespace FIRST, even when animating per character.
+           Every unit becomes an inline-block, and a line may break between any
+           two of them, so a bare character split lets the browser break inside
+           a word: "Everything it takes t" / "o run a smart factory" is what
+           about.html actually rendered, and "Transforming factorie" / "s into".
+           Characters are therefore nested inside a per-word wrapper that
+           carries white-space: nowrap, so a break can only land at a real
+           space. */
+        node.textContent.split(/(\s+)/).forEach(function (word) {
+          if (word === "") return;
+          if (/^\s+$/.test(word)) { frag.appendChild(document.createTextNode(word)); return; }
+          if (!byChar) {
+            var one = document.createElement("span");
+            one.className = "st-w";
+            one.textContent = word;
+            frag.appendChild(one);
+            return;
+          }
+          var wrap = document.createElement("span");
+          wrap.className = "st-word";
+          word.split("").forEach(function (ch) {
+            var s = document.createElement("span");
+            s.className = "st-w";
+            s.textContent = ch;
+            wrap.appendChild(s);
+          });
+          frag.appendChild(wrap);
         });
       } else if (node.nodeType === 1 && node.tagName === "BR") {
         frag.appendChild(node.cloneNode(true));          // keep line breaks intact

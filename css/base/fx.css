@@ -31,6 +31,9 @@
 
 /* --- split heading word units --- */
 .st-w { display: inline-block; will-change: transform, opacity, filter; }
+/* Holds one word's characters together. Each .st-w is an inline-block, so
+   without this a line can break between any two letters. */
+.st-word { white-space: nowrap; }
 .st-split { position: relative; }
 
 /* --- Whatamesh mesh gradient background on flat sections --- */
