@@ -185,10 +185,17 @@
 .pseq--light .pstep__viz svg [fill="#8ff0d6"],
 .pseq--light .pstep__viz svg [fill="url(#psTeal)"] { fill: #ffffff; }
 
-/* 2 · a few marks sit on the white page rather than on a body, so they need
-   the opposite treatment or they vanish: the connecting rails and the labels
-   printed outside the machines. */
-.pseq--light .pstep__viz svg text { fill: var(--teal-deep); }
+/* 2 · Labels split two ways and a blanket rule got one of them wrong.
+   Most are printed ON a dark body, so white is right for them. "RUNNING" is
+   printed on the page beside the machine, so white made it invisible; it is
+   classed .ps-t--page and inked dark. The phone's readouts sit on a near-black
+   screen and were coming out teal-deep, which is too dark to read there, so
+   they are classed .ps-t--screen and keep their bright values.
+
+   The connecting rails are drawn on the page too, so they stay teal. */
+.pseq--light .pstep__viz svg text { fill: #ffffff; }
+.pseq--light .pstep__viz svg text.ps-t--page { fill: var(--teal-deep); }
+.pseq--light .pstep__viz svg text.ps-t--screen { fill: var(--teal-bright); }
 .pseq--light .pstep__viz svg [stroke="#17c99b"] { stroke: rgba(23,201,155,0.45); }
 
 /* 3 · motion, across all three teals: deep for the small focal marks that need
@@ -233,9 +240,14 @@
 .pseq--robots .pstep { grid-template-columns: 1.15fr 1fr; }
 .pseq--robots .pstep__num { color: var(--teal-bright); }
 
-/* The section around it is already sec--dark, so the story must not paint its
-   own near-black over it or the band edges show. */
+/* The story has its own sec--white wrapper now, so it must not paint anything
+   of its own over it. pseq--light supplies the white; this keeps the base
+   .pseq near-black from winning on either. */
 .pseq--robots { background: transparent; }
+.pseq--light { background: transparent; }
+.pseq--light.pseq { background: var(--white); }
+section.sec--white > .pseq--light.pseq,
+section.sec--paper > .pseq--light.pseq { background: transparent; }
 
 @media (max-width: 820px) {
   /* stacked: copy first, artwork under it, matching the platform story */

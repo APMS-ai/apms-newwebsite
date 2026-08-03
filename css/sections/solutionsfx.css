@@ -264,23 +264,6 @@
   .iotp__card { opacity: 1; transform: none; }
 }
 
-/* ==========================================================================
-   The drum dots are styled in drum.css for the light section the ring sits in
-   on index.html: muted ink for the inactive labels, full ink for the active
-   one. This page puts the ring on sec--darker, where that reads at 3.62:1 and
-   1.09:1 respectively, so the active label was very nearly invisible.
-
-   Same trap as the bridge diagram earlier on this page: a component moved
-   between light and dark has to be re-inked, not just re-parented.
-   ========================================================================== */
-.sec--dark .drum.is-drum .drum__dots li,
-.sec--darker .drum.is-drum .drum__dots li { color: rgba(255,255,255,0.55); }
-.sec--dark .drum.is-drum .drum__dots li.is-on,
-.sec--darker .drum.is-drum .drum__dots li.is-on { color: #fff; }
-.sec--dark .drum.is-drum .drum__dots li span,
-.sec--darker .drum.is-drum .drum__dots li span { background: rgba(255,255,255,0.28); }
-.sec--dark .drum.is-drum .drum__dots li.is-on span,
-.sec--darker .drum.is-drum .drum__dots li.is-on span { background: var(--teal-bright); }
 
 /* ==========================================================================
    "From machine to dashboard": board on top, steps below as a pyramid

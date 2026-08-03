@@ -50,8 +50,20 @@
 
   var MAX = 6;   /* degrees. Past about 8 the type edges start to shimmer. */
 
+  /* Checked live, not once at bind time.
+     drum.js marks its cards [data-no-tilt] because the drum is the only writer
+     of transform on them, but drum.js loads AFTER this file. A bind-time-only
+     skip therefore attached the tilt anyway, and from then on hovering a drum
+     card wrote a tilt over the ring's own positioning: the card jittered while
+     the pointer sat still, and pointerleave's `transform = ""` cleared the
+     ring transform outright, so the card jumped to the centre until the next
+     scroll frame put it back. That is the flicker and the overwrite. */
+  function tiltBlocked(card) {
+    return !!(card.closest && card.closest("[data-no-tilt]"));
+  }
+
   Array.prototype.forEach.call(document.querySelectorAll(TILT), function (card) {
-    if (card.closest && card.closest("[data-no-tilt]")) return;
+    if (tiltBlocked(card)) return;
 
     /* js/enhance.js tags these same cards with the legacy `data-tilt`, and
        enhance.css then does two things we do not want: it kills the transform
@@ -67,13 +79,14 @@
     var px = 0, py = 0;
 
     card.addEventListener("pointerenter", function () {
+      if (tiltBlocked(card)) return;
       box = card.getBoundingClientRect();
       card.classList.add("is-tilting");
       card.style.willChange = "transform";
     });
 
     card.addEventListener("pointermove", function (e) {
-      if (!box) return;
+      if (!box || tiltBlocked(card)) return;
       px = e.clientX; py = e.clientY;
       schedule(function () {
         if (!box) return;
@@ -95,6 +108,9 @@
     });
 
     card.addEventListener("pointerleave", function () {
+      /* bail before the reset: clearing transform on a drum card throws away
+         the ring's positioning, which is the jump-to-centre bug */
+      if (tiltBlocked(card)) { box = null; return; }
       box = null;
       card.classList.remove("is-tilting");
       card.style.transform = "";

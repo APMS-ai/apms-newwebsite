@@ -99,3 +99,27 @@
      comfortably in one screen: heading, ring and labels together */
   .drum.is-drum { margin-top: clamp(1rem, 2vw, 1.6rem); }
 }
+
+/* ==========================================================================
+   Dots on a dark section
+
+   The rules above ink the dots for a light section: muted labels, full --ink
+   for the active one. Four of the five drums on the site now sit on sec--dark
+   or sec--darker, where --ink is 1.09:1 against the background, so the active
+   label was effectively invisible: the dot lit up next to a word you could not
+   read.
+
+   This lived in solutionsfx.css, which only loads on solutions.html, so it
+   fixed exactly one of the five. It belongs here, next to the rules it is
+   correcting, so it applies wherever a drum does.
+   ========================================================================== */
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .sec--dark .drum.is-drum .drum__dots li,
+  .sec--darker .drum.is-drum .drum__dots li { color: rgba(255,255,255,0.55); }
+  .sec--dark .drum.is-drum .drum__dots li.is-on,
+  .sec--darker .drum.is-drum .drum__dots li.is-on { color: #fff; }
+  .sec--dark .drum.is-drum .drum__dots li span,
+  .sec--darker .drum.is-drum .drum__dots li span { background: rgba(255,255,255,0.28); }
+  .sec--dark .drum.is-drum .drum__dots li.is-on span,
+  .sec--darker .drum.is-drum .drum__dots li.is-on span { background: var(--teal-bright); }
+}
