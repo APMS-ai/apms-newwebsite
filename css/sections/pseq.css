@@ -177,7 +177,7 @@
    The story paints its own band, so the wrapper needs no padding at all. */
 section.sec:has(> .pseq) { padding: 0; }
 
-.pseq--robots .pseq__track { height: 660vh; }        /* five steps */
+.pseq--robots .pseq__track { height: 528vh; }        /* four steps, 132vh each */
 .pseq--robots .pstep { grid-template-columns: 1.15fr 1fr; }
 .pseq--robots .pstep__num { color: var(--teal-bright); }
 

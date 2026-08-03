@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
 <link rel="stylesheet" href="css/motion/drum.css?v=7">
-<link rel="stylesheet" href="css/sections/pseq.css?v=24">
+<link rel="stylesheet" href="css/sections/pseq.css?v=25">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
@@ -205,7 +205,7 @@
              The illustrations speak the fx- vocabulary already in pseq.css
              (fx-spin, fx-float, fx-pulse, fx-arc, fx-wire, fx-bar,
              fx-breathe), so every one animates and honours reduced motion
-             without a single new keyframe. Five slides need five screens of
+             without a single new keyframe. Four slides need four screens of
              travel, hence the track override.
              ============================================================ -->
         <div class="pseq pseq--robots" data-pseq>
@@ -381,49 +381,8 @@
               </div>
             </div>
 
-            <div class="pstep">
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Floor care unit: holds the floor to one standard">
-
-                <circle class="fx-breathe" cx="280" cy="240" r="150" fill="url(#psGlow)"/>
-                <!-- floor, and the strip it has already done -->
-                <path fill="none" d="M120 352 H440" stroke="#2BE3B0" stroke-opacity=".35" stroke-width="1.8"/>
-                <path class="fx-wire" d="M120 352 H440" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
-                <!-- body -->
-                <path d="M176 220 h208 a22 22 0 0 1 22 22 v40 a22 22 0 0 1 -22 22 h-208 a22 22 0 0 1 -22 -22 v-40 a22 22 0 0 1 22 -22z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
-                <!-- bumper -->
-                <path d="M154 244 a22 22 0 0 1 22 -22 h208 a22 22 0 0 1 22 22" fill="none" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
-                <!-- top panel and tank -->
-                <rect x="216" y="180" width="128" height="40" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="232" y="192" width="96" height="16" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="240" y="196" width="12" height="9" rx="2"/><rect class="fx-bar d1" x="260" y="196" width="12" height="9" rx="2"/><rect class="fx-bar d2" x="280" y="196" width="12" height="9" rx="2"/><rect class="fx-bar d3" x="300" y="196" width="12" height="9" rx="2"/></g>
-                <!-- lidar puck -->
-                <rect x="260" y="158" width="40" height="22" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle class="fx-pulse" cx="280" cy="169" r="4" fill="#2BE3B0"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="169" r="48"/></g>
-                <!-- drive wheels -->
-                <g class="fx-spin"><circle cx="210" cy="330" r="20" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                  <path fill="none" d="M210 310 V350 M190 330 H230 M196 316 l28 28 M224 316 l-28 28" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.6"/></g>
-                <g class="fx-spin"><circle cx="350" cy="330" r="20" fill="#0a1622" stroke="#2BE3B0" stroke-width="2"/>
-                  <path fill="none" d="M350 310 V350 M330 330 H370 M336 316 l28 28 M364 316 l-28 28" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.6"/></g>
-                <!-- side brush on an arm off the body, so it reads as attached -->
-                <path fill="none" d="M170 298 L166 318" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
-                <g class="fx-spin"><circle cx="166" cy="334" r="15" fill="none" stroke="#2BE3B0" stroke-width="1.8"/>
-                  <path fill="none" d="M166 319 V349 M151 334 H181 M156 324 l20 20 M176 324 l-20 20" stroke="#2BE3B0" stroke-opacity=".7" stroke-width="1.6"/></g>
-                <!-- The scrub head: bristles under the body, squeegee behind them. Without
-                     these the unit was a blank slab that read as any wheeled robot. -->
-                <g fill="none" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="1.6" stroke-linecap="round">
-                  <path d="M242 306 v10"/><path d="M258 306 v10"/><path d="M274 306 v10"/>
-                  <path d="M290 306 v10"/><path d="M306 306 v10"/><path d="M322 306 v10"/>
-                </g>
-                <path fill="none" d="M238 344 H322" stroke="#2BE3B0" stroke-width="3" stroke-linecap="round" stroke-opacity=".7"/></svg></div>
-              <div class="pstep__copy">
-                <span class="pstep__num"><i></i>Autonomous, scheduled</span>
-                <h3>Floor Care</h3><div class="pstep__sub">Holds the floor to one standard</div>
-                <p>Sweeping and scrubbing on a fixed schedule rather than whenever somebody is free, with the route and the coverage recorded. The floor stays to the same standard on a night shift as it does on a Monday morning.</p>
               </div>
-            </div>
-              </div>
-              <div class="pseq__progress" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span><span></span></div>
+              <div class="pseq__progress" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
             </div>
           </div>
         </div>
