@@ -235,7 +235,7 @@
           status.textContent = "You'll hear back within one business day.";
           status.style.color = "";
         }
-        if (first) { setTimeout(function () { first.focus(); }, reduce ? 0 : 450); }
+        if (first) { setTimeout(function () { first.focus(); }, reduce ? 0 : 300); }
       });
     }());
 
@@ -347,7 +347,8 @@
           /* move the reading position onto the confirmation, once the turn has
              landed, so a screen reader and a keyboard both end up on it */
           var head = sent.querySelector(".fsent__h");
-          if (head) { setTimeout(function () { head.focus(); }, reduce ? 0 : 850); }
+          /* just after the 400ms turn lands, so focus does not move mid-rotation */
+          if (head) { setTimeout(function () { head.focus(); }, reduce ? 0 : 440); }
         }
         form.reset();
         CHECKS.forEach(function (spec) {

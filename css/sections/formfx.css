@@ -225,53 +225,105 @@
    visibility, not display, hides the face that is away: display:none cannot be
    part of a transition, and visibility still removes the hidden face from the
    tab order and from a screen reader, which opacity alone does not.
+
+   Two decisions came out of the UX pass rather than taste:
+
+     · 400ms, not the 800ms this started at. Complex transitions cap at 400ms
+       and anything past 500ms reads as sluggish. Turning back is 280ms, about
+       70% of the turn in, because an exit should feel quicker than an entrance
+     · exactly one thing animates, the tick drawing itself. The rule is one or
+       two elements per view at most, so there is no staggered text reveal and
+       the ring and halo are static. Restraint is the premium part here
    ========================================================================== */
 .fcard { position: relative; perspective: 1600px; }
 .fcard__inner {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.8s var(--ease-out);
+  transition: transform 0.28s var(--ease);          /* turning back */
 }
-.fcard.is-flipped .fcard__inner { transform: rotateY(180deg); }
+.fcard.is-flipped .fcard__inner {
+  transform: rotateY(180deg);
+  transition: transform 0.4s var(--ease-out);       /* turning to the receipt */
+}
 
 .fcard__face { backface-visibility: hidden; }
-/* the front sets the card's height; the back is laid over it */
+/* the front sets the card's height; the receipt is laid over it */
 .fcard__back {
   position: absolute; inset: 0;
   transform: rotateY(180deg);
   visibility: hidden;
-  display: flex; flex-direction: column; align-items: flex-start;
-  justify-content: center; gap: 0.9rem;
-  padding: clamp(1.4rem, 4vw, 2.2rem);
-  border: 1px solid var(--line); border-radius: var(--radius-lg);
-  background: var(--white); box-shadow: var(--shadow-md);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  gap: 0;
+  padding: clamp(1.6rem, 5vw, 2.6rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  overflow: hidden;
+}
+/* a single hairline of brand at the top edge, instead of a heavy shadow */
+.fcard__back::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--teal-deep), var(--teal-bright) 55%, var(--teal));
 }
 /* the swap lands halfway through the turn, so neither face is readable edge-on */
-.fcard__front { transition: visibility 0s linear 0.4s; }
-.fcard__back  { transition: visibility 0s linear 0.4s; }
+.fcard__front, .fcard__back { transition: visibility 0s linear 0.2s; }
 .fcard.is-flipped .fcard__front { visibility: hidden; }
 .fcard.is-flipped .fcard__back  { visibility: visible; }
 
-.fsent__tick { width: 56px; height: 56px; flex: none; }
-.fsent__ring { stroke: rgba(23,201,155,0.35); }
-.fsent__mark { stroke: var(--teal); }
-.fsent__h { font-size: 1.35rem; margin: 0; color: var(--ink); }
-.fsent__h:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
-.fsent__p { color: var(--body); margin: 0; max-width: 46ch; }
-.fsent__again { margin-top: 0.4rem; }
+/* ---------- the mark ---------- */
+/* A static wash behind the tick. A gradient is painted once into the layer;
+   stacked boxShadows would be a second thing to composite for no more effect. */
+.fsent__halo {
+  position: absolute; top: clamp(1.6rem, 5vw, 2.6rem); left: 50%;
+  width: 220px; height: 220px; margin-left: -110px; margin-top: -80px;
+  background: radial-gradient(circle, rgba(23,201,155,0.14), rgba(23,201,155,0) 68%);
+  pointer-events: none;
+}
+.fsent__tick { width: 60px; height: 60px; flex: none; position: relative; }
+.fsent__ring { stroke: rgba(23,201,155,0.4); }
+.fsent__mark { stroke: var(--teal-deep); }
+
+/* ---------- the words ---------- */
+.fsent__eyebrow {
+  display: block; margin-top: 1.1rem;
+  font-family: var(--display); font-weight: 700;
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--teal-deep);
+}
+.fsent__h {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(1.5rem, 3.4vw, 1.9rem); line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0.5rem 0 0; color: var(--ink);
+}
+.fsent__h:focus-visible { outline: 2px solid var(--teal); outline-offset: 6px; border-radius: 4px; }
+.fsent__p {
+  color: var(--body); line-height: 1.6;
+  margin: 0.6rem auto 0; max-width: 34ch;     /* inside the 35 to 60 char band */
+}
+.fsent__next {
+  margin: 1.2rem auto 0; padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  max-width: 34ch;
+  font-size: 0.9rem; line-height: 1.55; color: var(--muted);
+}
+.fsent__again {
+  margin-top: 1.4rem;
+  min-height: 48px;                            /* comfortably over the 44px floor */
+  align-items: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
-  /* the tick draws itself in, once, after the turn has finished */
+  /* the one animation: the tick draws itself, once, as the turn lands */
   .fsent__mark { stroke-dasharray: 34; stroke-dashoffset: 34; }
-  .fcard.is-flipped .fsent__mark { animation: fsentDraw 0.5s var(--ease-out) 0.5s forwards; }
-  .fcard.is-flipped .fsent__ring { animation: fsentRing 0.45s var(--ease-out) 0.35s backwards; }
+  .fcard.is-flipped .fsent__mark { animation: fsentDraw 0.26s var(--ease-out) 0.3s forwards; }
 }
 @keyframes fsentDraw { to { stroke-dashoffset: 0; } }
-@keyframes fsentRing { from { opacity: 0; transform: scale(0.8); } }
 
 /* Reduced motion: no turn and no draw. The card swaps faces outright and the
-   tick is simply already there, because a stroke animated from nothing is the
-   one thing that must not be re-enabled here (CLAUDE.md 4). */
+   tick is simply already there, because a stroke animated in from nothing is
+   the one thing that must not be re-enabled here (CLAUDE.md 4). */
 @media (prefers-reduced-motion: reduce) {
   .fcard__inner, .fcard.is-flipped .fcard__inner { transition: none; transform: none; }
   .fcard__back { position: static; transform: none; visibility: visible; display: none; }
