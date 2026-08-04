@@ -192,15 +192,20 @@
        happen here. These are shape checks for the person filling the form in;
        whatever receives this eventually still has to validate server side. */
     var CHECKS = [
-      { id: "cf-name",    msg: "Tell us your name.",
+      /* `max` mirrors the cap submit.php enforces on the same field. Without
+         it the only thing that stopped an over-long value was the server, and
+         it answers every validation failure with one generic line, so a
+         visitor who pasted too much was told their details were "missing or
+         do not look right", which is the one thing they were not. */
+      { id: "cf-name",    max: 120,  msg: "Tell us your name.",
         ok: function (v) { return v.trim().length > 1; } },
-      { id: "cf-email",   msg: "Enter a work email we can reply to.",
+      { id: "cf-email",   max: 190,  msg: "Enter a work email we can reply to.",
         ok: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); } },
-      { id: "cf-phone",   msg: "Enter a phone number, including country code.",
+      { id: "cf-phone",   max: 40,   msg: "Enter a phone number, including country code.",
         ok: function (v) { return (v.replace(/\D/g, "").length >= 7); } },
-      { id: "cf-company", msg: "Which company are you with?",
+      { id: "cf-company", max: 160,  msg: "Which company are you with?",
         ok: function (v) { return v.trim().length > 1; } },
-      { id: "cf-msg",     msg: "A line about your machines or lines is enough.",
+      { id: "cf-msg",     max: 5000, msg: "A line about your machines or lines is enough.",
         ok: function (v) { return v.trim().length > 9; } }
     ];
 
@@ -216,7 +221,13 @@
     function checkField(spec) {
       var el = document.getElementById(spec.id);
       if (!el) return true;
-      return setFieldError(el, spec.ok(el.value) ? "" : spec.msg);
+      var v = el.value;
+      /* Length is checked before shape, and says what is actually wrong. */
+      if (spec.max && v.trim().length > spec.max) {
+        return setFieldError(el, "Please shorten this to " + spec.max +
+                                 " characters or fewer.");
+      }
+      return setFieldError(el, spec.ok(v) ? "" : spec.msg);
     }
 
     /* clear a complaint as soon as the visitor fixes it, but never raise one

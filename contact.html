@@ -94,12 +94,12 @@
                 <label>Leave this field empty<input name="bot-field" tabindex="-1" autocomplete="off"></label>
               </p>
               <div class="form__row">
-                <div class="field"><label for="cf-name">Name *</label><input id="cf-name" name="name" required aria-describedby="cf-name-err"><span class="form__err" id="cf-name-err" role="alert"></span></div>
-                <div class="field"><label for="cf-email">Email *</label><input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err"><span class="form__err" id="cf-email-err" role="alert"></span></div>
+                <div class="field"><label for="cf-name">Name *</label><input id="cf-name" name="name" required aria-describedby="cf-name-err" maxlength="120" autocomplete="name"><span class="form__err" id="cf-name-err" role="alert"></span></div>
+                <div class="field"><label for="cf-email">Email *</label><input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err" maxlength="190" autocomplete="email"><span class="form__err" id="cf-email-err" role="alert"></span></div>
               </div>
               <div class="form__row">
-                <div class="field"><label for="cf-phone">Phone *</label><input id="cf-phone" name="phone" type="tel" required aria-describedby="cf-phone-err"><span class="form__err" id="cf-phone-err" role="alert"></span></div>
-                <div class="field"><label for="cf-company">Company *</label><input id="cf-company" name="company" required aria-describedby="cf-company-err"><span class="form__err" id="cf-company-err" role="alert"></span></div>
+                <div class="field"><label for="cf-phone">Phone *</label><input id="cf-phone" name="phone" type="tel" required aria-describedby="cf-phone-err" maxlength="40" autocomplete="tel"><span class="form__err" id="cf-phone-err" role="alert"></span></div>
+                <div class="field"><label for="cf-company">Company *</label><input id="cf-company" name="company" required aria-describedby="cf-company-err" maxlength="160" autocomplete="organization"><span class="form__err" id="cf-company-err" role="alert"></span></div>
               </div>
               <div class="field"><label for="cf-msg">How can we help? *</label><textarea id="cf-msg" name="message" required placeholder="e.g. We run 14 CNC machines and want live OEE and downtime alerts." aria-describedby="cf-msg-err"></textarea><span class="form__err" id="cf-msg-err" role="alert"></span></div>
               <button class="btn btn--primary btn--lg" type="submit">Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -257,7 +257,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=13"></script>
+  <script src="js/core/redesign.js?v=14"></script>
   <script src="js/core/enhance.js?v=7"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
