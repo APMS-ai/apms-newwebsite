@@ -110,7 +110,8 @@ function apms_smtp_send(
     string $body,
     string $replyEmail = '',
     string $replyName = '',
-    ?string &$err = null
+    ?string &$err = null,
+    string $html = ''
 ): bool {
     $err = null;
 
@@ -233,8 +234,6 @@ function apms_smtp_send(
         'To: ' . apms_smtp_addr($to),
         'Subject: ' . apms_smtp_header_value($subject),
         'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=utf-8',
-        'Content-Transfer-Encoding: base64',
     ];
     if ($replyEmail !== '') {
         /* So hitting Reply in Gmail answers the person who filled the form,
@@ -242,8 +241,34 @@ function apms_smtp_send(
         $headers[] = 'Reply-To: ' . apms_smtp_addr($replyEmail, $replyName);
     }
 
-    $payload = implode("\r\n", $headers) . "\r\n\r\n"
-             . chunk_split(base64_encode($body), 76, "\r\n");
+    if ($html !== '') {
+        /* multipart/alternative, not text/html. The plain text stays as the
+           fallback: a client that will not render HTML, a plain-text reader, and
+           anything that strips HTML all still get the enquiry. Order matters,
+           least-rich part first, because a client shows the LAST part it can
+           display.
+
+           The boundary is random hex, so it cannot collide with the content:
+           both parts are base64, whose alphabet excludes the '=' and '-' runs a
+           boundary needs. */
+        $b = 'apms_' . bin2hex(random_bytes(10));
+        $headers[] = 'Content-Type: multipart/alternative; boundary="' . $b . '"';
+        $payload = implode("\r\n", $headers) . "\r\n\r\n"
+                 . '--' . $b . "\r\n"
+                 . "Content-Type: text/plain; charset=utf-8\r\n"
+                 . "Content-Transfer-Encoding: base64\r\n\r\n"
+                 . chunk_split(base64_encode($body), 76, "\r\n")
+                 . '--' . $b . "\r\n"
+                 . "Content-Type: text/html; charset=utf-8\r\n"
+                 . "Content-Transfer-Encoding: base64\r\n\r\n"
+                 . chunk_split(base64_encode($html), 76, "\r\n")
+                 . '--' . $b . "--\r\n";
+    } else {
+        $headers[] = 'Content-Type: text/plain; charset=utf-8';
+        $headers[] = 'Content-Transfer-Encoding: base64';
+        $payload = implode("\r\n", $headers) . "\r\n\r\n"
+                 . chunk_split(base64_encode($body), 76, "\r\n");
+    }
     fwrite($fp, $payload);
     $say('.');
     if (!$step($read(), ['250'], 'end of DATA')) { $bye(); return false; }
@@ -410,9 +435,90 @@ if ($mailTo) {
           . "Message:\n$message\n\n"
           . "-- \nReceived (UTC): $now\nIP: $ip\n";
 
+    /* ---- the HTML part ----------------------------------------------------
+       Tables and inline styles only. A mail client may drop <style>, external
+       CSS, flex and grid, so none of those are used. Every value goes through
+       htmlspecialchars: this is visitor-supplied text landing in a document,
+       and an enquiry containing a tag must render as that tag's characters
+       rather than as markup. */
+    $e = static function (string $v): string {
+        return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    };
+    $row = static function (string $label, string $value, bool $last = false) use ($e): string {
+        return '<tr>'
+             . '<td style="padding:12px 24px;' . ($last ? '' : 'border-bottom:1px solid #e6ebf0;')
+             . 'font:600 12px/1.4 Arial,Helvetica,sans-serif;letter-spacing:.08em;'
+             . 'text-transform:uppercase;color:#5f6d7a;width:110px;vertical-align:top;">'
+             . $e($label) . '</td>'
+             . '<td style="padding:12px 24px 12px 0;' . ($last ? '' : 'border-bottom:1px solid #e6ebf0;')
+             . 'font:400 15px/1.5 Arial,Helvetica,sans-serif;color:#0c1a28;">'
+             . $value . '</td></tr>';
+    };
+
+    $html =
+      '<!DOCTYPE html><html><head><meta charset="utf-8">'
+    . '<meta name="viewport" content="width=device-width,initial-scale=1">'
+    . '<title>' . $e($subject) . '</title></head>'
+    . '<body style="margin:0;padding:0;background:#eef2f6;">'
+    . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"'
+    . ' style="background:#eef2f6;padding:24px 12px;"><tr><td align="center">'
+
+    /* width="100%" with a max-width cap, NOT width="600". A fixed 600 overflowed
+       a phone reading pane by 234px when measured, because the HTML width
+       attribute wins over max-width in the layout the attribute implies. Fluid
+       with a cap fits every width, and desktop Outlook simply fills its pane. */
+    . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"'
+    . ' style="width:100%;max-width:600px;background:#ffffff;border-radius:12px;'
+    . 'overflow:hidden;box-shadow:0 2px 8px rgba(12,26,40,.08);">'
+
+    /* header band */
+    . '<tr><td style="background:#0b1826;padding:22px 24px;">'
+    . '<div style="font:700 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.18em;'
+    . 'text-transform:uppercase;color:#2ee0b4;">APMS.ai</div>'
+    . '<div style="font:700 20px/1.3 Arial,Helvetica,sans-serif;color:#ffffff;'
+    . 'margin-top:6px;">New Book a Demo enquiry</div>'
+    . '</td></tr>'
+    . '<tr><td style="height:3px;background:#2ee0b4;font-size:0;line-height:0;">&nbsp;</td></tr>'
+
+    /* the five fields */
+    . '<tr><td style="padding:8px 0 0;">'
+    . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">'
+    . $row('Name', $e($name))
+    . $row('Email', '<a href="mailto:' . $e($email) . '" style="color:#0a7a61;">' . $e($email) . '</a>')
+    . $row('Phone', '<a href="tel:' . $e(preg_replace('/[^\d+]/', '', $phone))
+           . '" style="color:#0a7a61;">' . $e($phone) . '</a>')
+    . $row('Company', $e($company), true)
+    . '</table></td></tr>'
+
+    /* the message, given room of its own */
+    . '<tr><td style="padding:4px 24px 20px;">'
+    . '<div style="font:600 12px/1.4 Arial,Helvetica,sans-serif;letter-spacing:.08em;'
+    . 'text-transform:uppercase;color:#5f6d7a;margin:12px 0 8px;">Message</div>'
+    . '<div style="border-left:3px solid #2ee0b4;background:#f6f8fa;padding:14px 16px;'
+    . 'font:400 15px/1.65 Arial,Helvetica,sans-serif;color:#0c1a28;white-space:pre-wrap;'
+    . 'word-break:break-word;">' . nl2br($e($message)) . '</div>'
+    . '</td></tr>'
+
+    /* one obvious action */
+    . '<tr><td style="padding:0 24px 24px;">'
+    . '<a href="mailto:' . $e($email) . '?subject=' . rawurlencode('Re: your APMS.ai enquiry')
+    . '" style="display:inline-block;background:#17c99b;color:#04231c;'
+    . 'font:700 15px/1 Arial,Helvetica,sans-serif;padding:13px 22px;border-radius:8px;'
+    . 'text-decoration:none;">Reply to ' . $e($name) . '</a>'
+    . '</td></tr>'
+
+    /* provenance */
+    . '<tr><td style="background:#f6f8fa;border-top:1px solid #e6ebf0;padding:14px 24px;'
+    . 'font:400 12px/1.6 Arial,Helvetica,sans-serif;color:#5f6d7a;">'
+    . 'Received ' . $e($now) . ' UTC &nbsp;&middot;&nbsp; IP ' . $e($ip) . '<br>'
+    . 'Sent by the contact form on apms.ai. Reply goes straight to the enquirer.'
+    . '</td></tr>'
+
+    . '</table></td></tr></table></body></html>';
+
     $smtp = $cfg['smtp'] ?? [];
     if (!empty($smtp['host']) && !empty($smtp['user']) && !empty($smtp['pass'])) {
-        $mailOk = apms_smtp_send($smtp, $mailTo, $subject, $body, $email, $name, $mailErr);
+        $mailOk = apms_smtp_send($smtp, $mailTo, $subject, $body, $email, $name, $mailErr, $html);
         /* true only after the server answered 250 to the end of DATA */
         $mailProven = $mailOk;
         if (!$mailOk) {

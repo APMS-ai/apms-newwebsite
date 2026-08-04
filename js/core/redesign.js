@@ -218,6 +218,27 @@
       return !msg;
     }
 
+    /* Turning back: the form is already reset by the success handler, so this
+       only has to hide the confirmation and put focus somewhere sensible. */
+    (function () {
+      var card = document.getElementById("contact-card");
+      var sent = document.getElementById("contact-sent");
+      if (!card || !sent) return;
+      var again = sent.querySelector(".fsent__again");
+      if (!again) return;
+      again.addEventListener("click", function () {
+        card.classList.remove("is-flipped");
+        sent.setAttribute("aria-hidden", "true");
+        var first = document.getElementById("cf-name");
+        var status = document.getElementById("form-status");
+        if (status) {
+          status.textContent = "You'll hear back within one business day.";
+          status.style.color = "";
+        }
+        if (first) { setTimeout(function () { first.focus(); }, reduce ? 0 : 450); }
+      });
+    }());
+
     function checkField(spec) {
       var el = document.getElementById(spec.id);
       if (!el) return true;
@@ -307,6 +328,27 @@
         /* the server's own words if it sent any, so a partial success is
            reported as what it was rather than as a clean success */
         say(data.message || "Thanks. Your enquiry is with us and we'll be in touch shortly.", "var(--teal-deep)");
+
+        /* Turn the card over to the confirmation face. Only here, inside the
+           success branch, so it can never claim a send that did not happen:
+           submit.php answers 200 only once the enquiry actually reached MySQL,
+           the CSV, or a mail server that accepted it. */
+        var card = document.getElementById("contact-card");
+        var sent = document.getElementById("contact-sent");
+        if (card && sent) {
+          var who = (document.getElementById("cf-name") || {}).value || "";
+          var line = document.getElementById("contact-sent-msg");
+          if (line) {
+            line.textContent = (who.trim() ? "Thanks " + who.trim().split(/\s+/)[0] + ". " : "")
+              + "We have it. You will get a reply as soon as possible, usually within one business day.";
+          }
+          card.classList.add("is-flipped");
+          sent.setAttribute("aria-hidden", "false");
+          /* move the reading position onto the confirmation, once the turn has
+             landed, so a screen reader and a keyboard both end up on it */
+          var head = sent.querySelector(".fsent__h");
+          if (head) { setTimeout(function () { head.focus(); }, reduce ? 0 : 850); }
+        }
         form.reset();
         CHECKS.forEach(function (spec) {
           var el = document.getElementById(spec.id);

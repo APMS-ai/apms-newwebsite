@@ -215,3 +215,67 @@
   .field.is-ok::before { animation: none; }
   .btn.is-working::after { animation: none; }
 }
+
+/* ==========================================================================
+   THE SENT CARD
+   The form turns over to a confirmation once submit.php has said the enquiry
+   is stored. The container rotates, not the two faces, because rotating each
+   face separately leaves them fighting over the same space mid-turn.
+
+   visibility, not display, hides the face that is away: display:none cannot be
+   part of a transition, and visibility still removes the hidden face from the
+   tab order and from a screen reader, which opacity alone does not.
+   ========================================================================== */
+.fcard { position: relative; perspective: 1600px; }
+.fcard__inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s var(--ease-out);
+}
+.fcard.is-flipped .fcard__inner { transform: rotateY(180deg); }
+
+.fcard__face { backface-visibility: hidden; }
+/* the front sets the card's height; the back is laid over it */
+.fcard__back {
+  position: absolute; inset: 0;
+  transform: rotateY(180deg);
+  visibility: hidden;
+  display: flex; flex-direction: column; align-items: flex-start;
+  justify-content: center; gap: 0.9rem;
+  padding: clamp(1.4rem, 4vw, 2.2rem);
+  border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: var(--white); box-shadow: var(--shadow-md);
+}
+/* the swap lands halfway through the turn, so neither face is readable edge-on */
+.fcard__front { transition: visibility 0s linear 0.4s; }
+.fcard__back  { transition: visibility 0s linear 0.4s; }
+.fcard.is-flipped .fcard__front { visibility: hidden; }
+.fcard.is-flipped .fcard__back  { visibility: visible; }
+
+.fsent__tick { width: 56px; height: 56px; flex: none; }
+.fsent__ring { stroke: rgba(23,201,155,0.35); }
+.fsent__mark { stroke: var(--teal); }
+.fsent__h { font-size: 1.35rem; margin: 0; color: var(--ink); }
+.fsent__h:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+.fsent__p { color: var(--body); margin: 0; max-width: 46ch; }
+.fsent__again { margin-top: 0.4rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* the tick draws itself in, once, after the turn has finished */
+  .fsent__mark { stroke-dasharray: 34; stroke-dashoffset: 34; }
+  .fcard.is-flipped .fsent__mark { animation: fsentDraw 0.5s var(--ease-out) 0.5s forwards; }
+  .fcard.is-flipped .fsent__ring { animation: fsentRing 0.45s var(--ease-out) 0.35s backwards; }
+}
+@keyframes fsentDraw { to { stroke-dashoffset: 0; } }
+@keyframes fsentRing { from { opacity: 0; transform: scale(0.8); } }
+
+/* Reduced motion: no turn and no draw. The card swaps faces outright and the
+   tick is simply already there, because a stroke animated from nothing is the
+   one thing that must not be re-enabled here (CLAUDE.md 4). */
+@media (prefers-reduced-motion: reduce) {
+  .fcard__inner, .fcard.is-flipped .fcard__inner { transition: none; transform: none; }
+  .fcard__back { position: static; transform: none; visibility: visible; display: none; }
+  .fcard.is-flipped .fcard__back { display: flex; }
+  .fcard.is-flipped .fcard__front { display: none; visibility: visible; }
+  .fsent__mark { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+}

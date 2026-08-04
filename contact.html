@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=3">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
-  <link rel="stylesheet" href="css/sections/formfx.css?v=3">
+  <link rel="stylesheet" href="css/sections/formfx.css?v=4">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
 <link rel="stylesheet" href="css/sections/contactfx.css?v=5">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
@@ -88,6 +88,9 @@
                  browser posts it, submit.php stores it and redirects back here
                  with ?sent=1. bot-field is the honeypot; a person never sees it,
                  bots fill it in and submit.php drops those. -->
+            <div class="fcard" id="contact-card">
+              <div class="fcard__inner">
+              <div class="fcard__face fcard__front">
             <form id="contact-form" class="form" name="book-a-demo" method="POST"
                   action="submit.php" novalidate>
               <p class="form__hp" aria-hidden="true">
@@ -105,6 +108,25 @@
               <button class="btn btn--primary btn--lg" type="submit">Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
               <p class="form__note" id="form-status">You'll hear back within one business day.</p>
             </form>
+              </div>
+
+              <!-- The face the card turns to once submit.php has confirmed the
+                   enquiry is stored. Kept in the document rather than built by
+                   script so it is styled and measured with the page; visibility
+                   keeps it out of the tab order and out of a screen reader
+                   until it is actually showing. -->
+              <div class="fcard__face fcard__back" id="contact-sent" aria-hidden="true">
+                <svg class="fsent__tick" viewBox="0 0 48 48" role="img" aria-label="Sent">
+                  <circle class="fsent__ring" cx="24" cy="24" r="21" fill="none" stroke-width="2"/>
+                  <path class="fsent__mark" d="M15 24.5 L21.5 31 L33.5 18" fill="none"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3 class="fsent__h" tabindex="-1">Your enquiry is sent</h3>
+                <p class="fsent__p" id="contact-sent-msg">We have it. You will get a reply as soon as possible, usually within one business day.</p>
+                <button type="button" class="btn btn--ghost fsent__again">Send another enquiry</button>
+              </div>
+              </div>
+            </div>
           <div class="dflow" data-reveal data-reveal-delay="1">
             <svg viewBox="0 0 464 104" role="img" aria-label="You describe the line, our engineers walk it on your machines, and you leave with a number to judge a pilot against">
             <path class="df__rail" d="M64 46 H400"/>
@@ -257,7 +279,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=14"></script>
+  <script src="js/core/redesign.js?v=15"></script>
   <script src="js/core/enhance.js?v=7"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
