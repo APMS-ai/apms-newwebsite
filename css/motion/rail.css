@@ -59,15 +59,21 @@
 [data-agp-native] { overflow-x: auto; overflow-y: hidden; }
 
 /* fallback / touch: real horizontal scrolling with snap */
-.agp--native { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; }
+.agp--native { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
+/* padding-bottom was 1rem, reserved for the scrollbar that is now hidden. */
 .agp--native .agp__track { padding-inline: 2px; }
 /* `center` centres card one on load, so the rail looks like it starts at
    card two. `start` opens flush on the first card. */
 .agp--native .agp__track > * { scroll-snap-align: start; }
 .agp--native { scroll-padding-inline-start: 2px; }
-.agp--native::-webkit-scrollbar { height: 6px; }
-.agp--native::-webkit-scrollbar-thumb { background: rgba(23,201,155,0.45); border-radius: 99px; }
-.agp--native::-webkit-scrollbar-track { background: var(--line); border-radius: 99px; }
+/* No visible scrollbar. rail.js already carries the rail forward on its own
+   every 3.2s while it is on screen, and that movement is what tells a visitor
+   there is more to the side. A scrollbar underneath says the same thing a second
+   time and puts a piece of browser furniture in the middle of the page.
+   Scrolling by hand, wheel, trackpad, touch and keyboard all still work, and the
+   progress bar under the rail still shows the position. */
+.agp--native { scrollbar-width: none; -ms-overflow-style: none; }
+.agp--native::-webkit-scrollbar { height: 0; width: 0; }
 
 /* pinned mode: the rail is driven by transform, so nothing overflows the page */
 .agp--pinned { overflow: hidden; }

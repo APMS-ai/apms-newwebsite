@@ -343,21 +343,51 @@
 /* Continuous travel is exactly what must not survive reduced motion
    (CLAUDE.md #4). The head parks mid-line and every part reads as checked. */
 @media (prefers-reduced-motion: reduce) {
-  .vbot__head, .vbot__beacon, .vbot__cone, .vbot__tick { animation: none !important; }
+  .vbot__head, .vbot__beacon, .vbot__cone, .vbot__tick, .vbot__lbl { animation: none !important; }
   /* 26%, not 50%: the rail runs 46 to 914, so 50% parks the head at x=480
      where its scan cone clips the "PPE confirmed" label. 26% puts it at
      x=272, in the gap between the first two stations. */
   .vbot__head { offset-distance: 26%; }
   .vbot__tick { opacity: 1; }
   .vbot__cone { opacity: .7; }
+  .vbot__lbl { fill: var(--teal-deep); font-weight: 800; }
 }
 
 /* Station labels under each checked part. The parts are 46 units wide and the
    labels are wider than that, so they are centred on the part rather than
    fitted inside it, and the viewBox gained ten units for the baseline. */
+/* The label lights as the lens arrives over it and stays lit for the rest of the
+   pass, on the same 13s clock and the same station fractions as the checks above.
+   Reaching the cone down to the text was only half of it: a --muted label under a
+   teal wash is still a grey label, and the point of the picture is that the head
+   reads these words. */
 .vbot__lbl {
   font-family: var(--display); font-weight: 700; font-size: 9.5px;
   letter-spacing: .06em; fill: var(--muted);
+}
+[data-reveal].in .vbot__part--1 .vbot__lbl { animation: vbotLbl1 13s linear infinite; }
+[data-reveal].in .vbot__part--2 .vbot__lbl { animation: vbotLbl2 13s linear infinite; }
+[data-reveal].in .vbot__part--3 .vbot__lbl { animation: vbotLbl3 13s linear infinite; }
+[data-reveal].in .vbot__part--4 .vbot__lbl { animation: vbotLbl4 13s linear infinite; }
+@keyframes vbotLbl1 {
+  0%, 7.7%    { fill: var(--muted); font-weight: 700; }
+  8.9%, 97%   { fill: var(--teal-deep); font-weight: 800; }
+  100%         { fill: var(--muted); font-weight: 700; }
+}
+@keyframes vbotLbl2 {
+  0%, 19.9%    { fill: var(--muted); font-weight: 700; }
+  21.1%, 97%   { fill: var(--teal-deep); font-weight: 800; }
+  100%         { fill: var(--muted); font-weight: 700; }
+}
+@keyframes vbotLbl3 {
+  0%, 32.1%    { fill: var(--muted); font-weight: 700; }
+  33.3%, 97%   { fill: var(--teal-deep); font-weight: 800; }
+  100%         { fill: var(--muted); font-weight: 700; }
+}
+@keyframes vbotLbl4 {
+  0%, 44.3%    { fill: var(--muted); font-weight: 700; }
+  45.5%, 97%   { fill: var(--teal-deep); font-weight: 800; }
+  100%         { fill: var(--muted); font-weight: 700; }
 }
 @media (max-width: 700px) {
   /* the parts row is hidden at this width, so its labels go with it */

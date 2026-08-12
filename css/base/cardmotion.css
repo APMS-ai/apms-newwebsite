@@ -54,37 +54,18 @@ main > section:nth-of-type(even) {
   to   { clip-path: circle(150% at var(--cm-origin, 50% 50%)); }
 }
 
-/* ---------- idle: subtle horizontal drift, direction alternates by section ----------
-   .r-done only lands after reveal.css's own transition has finished and its
-   transform is resting at none, so this animation is the sole writer of
-   transform from here on. Later in the file than the wipe, so it replaces it. */
-@media (prefers-reduced-motion: no-preference) {
-  .has-reveal
-    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
-        .faq__item, .ind, .bento__c, .arch__layer, .stat,
-        .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-done {
-    animation: cmDrift 7.5s ease-in-out infinite;
-  }
+/* ---------- idle drift: removed ----------
+   Every .tile, .mod, .card, .ind, .stat and the rest carried cmDrift once it had
+   revealed: a permanent 7.5s infinite translateX of plus or minus 4px, staggered
+   so neighbours did not breathe in unison. Asked for directly, the small cards
+   are static now.
 
-  /* desync neighbours a little so a whole row doesn't breathe in unison */
-  .has-reveal
-    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
-        .faq__item, .ind, .bento__c, .arch__layer, .stat,
-        .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-done:nth-child(2n) {
-    animation-delay: -3.75s;
-  }
-  .has-reveal
-    :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
-        .faq__item, .ind, .bento__c, .arch__layer, .stat,
-        .grid2 > *, .grid3 > *, .grid4 > *)[data-r].r-done:nth-child(3n) {
-    animation-delay: -1.9s;
-  }
-}
+   It was costing frames as well as attention. An ablation on index.html put the
+   scroll bottleneck squarely on the number of CSS animations running at once,
+   and this was one per card on every page of the site, running forever whether
+   or not anyone was looking at it.
 
-@keyframes cmDrift {
-  0%, 100% { transform: translateX(calc(var(--cm-dir, 1) * -4px)); }
-  50%      { transform: translateX(calc(var(--cm-dir, 1) *  4px)); }
-}
+   The entrance wipe above stays: it runs once and ends. */
 
 /* ---------- hands off the bespoke components ----------
    These own their own transform from JS (drum.js, rail.js) or their own
@@ -102,8 +83,8 @@ main > section:nth-of-type(even) {
 /* Same posture as reveal.css's own reduced-motion block: the card just sits
    at its final, fully visible state. The wipe is positional movement (a
    circle growing across the box) so it is treated the same as a transform
-   here, not kept the way a11y-motion.css keeps pure state-changes. The drift
-   is continuous travel, which CLAUDE.md #4 says never to re-enable. */
+   here, not kept the way a11y-motion.css keeps pure state-changes. The drift it
+   used to switch off as well is gone from the file altogether. */
 @media (prefers-reduced-motion: reduce) {
   .has-reveal
     :is(.tile, .mod, .ag-cap, .ag-pat, .card, .why__item, .vs__card,
