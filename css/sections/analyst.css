@@ -72,6 +72,28 @@
 
 .anl__name { font-family: var(--display); font-weight: 900; font-size: 12.5px;
              letter-spacing: .08em; fill: #fff; text-anchor: middle; }
+/* TARA is four characters, so it sits inside the orb rather than on two lines
+   underneath it the way APMS / ANALYST had to. That frees the bottom of the
+   board for the reply. */
+.anl__name--orb { font-size: 17px; letter-spacing: .14em; }
+
+/* ---------- the answer coming back out ---------- */
+.anl__ansbox  { fill: rgba(23,201,155,0.12); stroke: var(--teal); stroke-width: 1.4; }
+.anl__anstail { fill: rgba(23,201,155,0.12); stroke: none; }
+.anl__anslbl  {
+  font-family: var(--display); font-weight: 800; font-size: 9px;
+  letter-spacing: .18em; fill: var(--teal-bright);
+}
+/* On the same 3.2s clock as the packets and with no delay of its own, showing
+   from 52% to 88% so it arrives after the inbound packets are on their way
+   rather than alongside them. */
+.anl__ans { opacity: 0; }
+[data-reveal].in .anl__ans { animation: anlAns 3.2s ease-out infinite; }
+@keyframes anlAns {
+  0%, 52%   { opacity: 0; transform: translateY(5px); }
+  62%, 88%  { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(0); }
+}
 
 /* ---------- the screen: the conversation, fused to the same rectangle ---------- */
 .anl__screen {
@@ -173,8 +195,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .anl__pkt, .anl__halo, .anl__dots i { animation: none !important; }
+  .anl__pkt, .anl__halo, .anl__dots i, .anl__ans { animation: none !important; }
   .anl__pkt { opacity: 1; offset-distance: 90%; }
+  /* the answer is the informative frame, so it stays: still, and already there */
+  .anl__ans { opacity: 1; transform: none; }
   .anl__halo { opacity: 0; }
   .anl__msg { animation: none; }
   .anl__send:hover { transform: none; }

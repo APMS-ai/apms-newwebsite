@@ -83,24 +83,10 @@
     dobs.observe(dash);
   }
 
-  /* ---------- Active Machines app: stagger the status-bar reveal ---------- */
-  var appList = document.querySelector("[data-app-list]");
-  if (appList && "IntersectionObserver" in window) {
-    var rows = Array.prototype.slice.call(appList.querySelectorAll(".app__row"));
-    var aobs = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        rows.forEach(function (r, i) {
-          if (reduce) { r.classList.add("in"); return; }
-          setTimeout(function () { r.classList.add("in"); }, i * 90);
-        });
-        aobs.disconnect();
-      });
-    }, { threshold: 0.3 });
-    aobs.observe(appList);
-  } else if (appList) {
-    appList.querySelectorAll(".app__row").forEach(function (r) { r.classList.add("in"); });
-  }
+  /* The Active Machines row stagger used to be here, driven off
+     [data-app-list]. That screen is an SVG now and its rows are staggered in
+     CSS (css/sections/appsvg.css), so there is nothing for JS to do. The
+     counts still animate: they carry data-count, handled above. */
 
   /* ---------- sticky pipeline sequencing ---------- */
   var pipe = document.querySelector(".pipe");

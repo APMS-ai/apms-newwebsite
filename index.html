@@ -15,13 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/motion/loader.css?v=2">
-  <link rel="stylesheet" href="css/base/redesign.css?v=19">
-  <link rel="stylesheet" href="css/base/enhance.css?v=27">
+  <link rel="stylesheet" href="css/base/redesign.css?v=20">
+  <link rel="stylesheet" href="css/base/enhance.css?v=28">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=6">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
-  <link rel="stylesheet" href="css/base/fx.css?v=3">
+  <link rel="stylesheet" href="css/base/fx.css?v=4">
   <link rel="stylesheet" href="css/sections/pseq.css?v=26">
   <link rel="stylesheet" href="css/sections/maint.css?v=2">
   <link rel="stylesheet" href="css/sections/maintui.css?v=5">
@@ -30,10 +30,11 @@
   <link rel="stylesheet" href="css/sections/loop.css?v=5">
   <link rel="stylesheet" href="css/motion/drum.css?v=10">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=3">
-  <link rel="stylesheet" href="css/sections/misfx.css?v=4">
-  <link rel="stylesheet" href="css/sections/analyst.css?v=12">
+  <link rel="stylesheet" href="css/sections/misfx.css?v=5">
+  <link rel="stylesheet" href="css/sections/analyst.css?v=13">
   <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
-  <link rel="stylesheet" href="css/sections/premiumfx.css?v=8">
+  <link rel="stylesheet" href="css/sections/premiumfx.css?v=9">
+  <link rel="stylesheet" href="css/sections/appsvg.css?v=4">
   <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
@@ -401,40 +402,221 @@
           </div>
 
           <div class="appwrap" data-reveal data-reveal-delay="1">
-            <div class="appscreen" role="img" aria-label="APMS app, Active Machines screen">
-              <span class="app__glow" aria-hidden="true"></span>
-              <div class="app__body">
-                <div class="app__title">Active Machines<span class="app__dot" aria-hidden="true"></span></div>
-                <p class="app__sub">Unit's active machine status at a glance</p>
+            <!-- Two boards, one wide and one tall, swapped at 760px, sharing every
+                 class name so the stylesheet and the data-count counters carry over.
+                 An SVG scales both ways: filling a 594px desktop column is the point,
+                 but at 390px the column is 312px and the 560-unit board rendered its
+                 row labels at 8.1px, worse than the mock. The tall board renders at a
+                 0.867 scale there instead of 0.557. Same pattern as .modflow and .aloop.
 
-                <div class="app__tiles">
-                  <div class="app__tile">
-                    <span class="app__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></svg></span>
-                    <span class="app__tile-meta"><b data-count="13">0</b><span>All</span></span>
-                  </div>
-                  <div class="app__tile">
-                    <span class="app__tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></svg><span class="pw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M6.4 6.4a8 8 0 1 0 11.2 0"/></svg></span></span>
-                    <span class="app__tile-meta is-off"><b data-count="5">0</b><span>Log Off</span></span>
-                  </div>
-                </div>
-
-                <div class="app__list" data-app-list>
-                  <div class="app__row"><span class="app__bar app__bar--blue"></span><span class="app__rt"><b>Setup</b><span>Machines logged in and in product setup status</span></span><span class="app__num app__num--blue" data-count="0">0</span></div>
-                  <div class="app__row"><span class="app__bar app__bar--green"></span><span class="app__rt"><b>Running</b><span>Machines logged in and in running status</span></span><span class="app__num app__num--green" data-count="6">0</span></div>
-                  <div class="app__row"><span class="app__bar app__bar--red"></span><span class="app__rt"><b>Stopped</b><span>Machines logged in and in interrupt status</span></span><span class="app__num app__num--red" data-count="1">0</span></div>
-                  <div class="app__row"><span class="app__bar"></span><span class="app__rt"><b>Waiting</b><span>Machines logged in and in waiting status</span></span><span class="app__num" data-count="0">0</span></div>
-                  <div class="app__row"><span class="app__bar"></span><span class="app__rt"><b>Idle</b><span>Machines logged in and in idle status</span></span><span class="app__num" data-count="1">0</span></div>
-                  <div class="app__row"><span class="app__bar"></span><span class="app__rt"><b>Maintenance</b><span>Machines logged in and in maintenance status</span></span><span class="app__num" data-count="0">0</span></div>
-                  <div class="app__row"><span class="app__bar"></span><span class="app__rt"><b>Bypass</b><span>Machines logged in and in bypass status</span></span><span class="app__num" data-count="0">0</span></div>
-                </div>
-              </div>
-
-              <nav class="app__tabs" aria-hidden="true">
-                <span class="app__tab is-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 13v4M12 9v8M16 12v5"/></svg>Overview</span>
-                <span class="app__tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></svg>Machines</span>
-                <span class="app__tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/></svg>Maintenance</span>
-                <span class="app__tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>Plan</span>
-              </nav>
+                 Was a .appscreen DOM mock of a phone: width min(316px, 100%) inside a
+                 594px column, so 278px of the column sat empty and the seven status
+                 rows had been shrunk to 9.6px descriptions and a 10.9px subtitle to fit.
+                 An SVG with a viewBox scales to the column it is given, so the type grows
+                 with the space instead of being squeezed into a fixed 316px. -->
+            <div class="appsvgwrap" data-app-svg>
+              <svg class="appsvg appsvg--wide" viewBox="0 0 560 445" role="img"
+                   aria-label="The APMS app on its Active Machines screen: 13 machines, 5 logged off, 6 running, 1 stopped and 1 idle, with the mix shown as a single bar">
+                <defs><linearGradient id="appsAccent" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#17c99b"/><stop offset="1" stop-color="#2ee0b4"/>
+                </linearGradient></defs>
+                <rect class="apps__card" x="0" y="0" width="560" height="445" rx="20"/>
+                <path class="apps__accent" d="M20 0 H540 A20 20 0 0 1 560 20 V6 H0 V20 A20 20 0 0 1 20 0 Z" fill="url(#appsAccent)"/>
+                <text class="apps__title" x="26" y="46">Active Machines</text>
+                <circle class="apps__live" cx="196" cy="41" r="4.5"/>
+                <text class="apps__sub" x="26" y="67">Unit&#8217;s active machine status at a glance</text>
+                <rect class="apps__bartrack" x="26" y="82" width="508" height="15" rx="7.5"/>
+                <rect class="apps__seg apps__seg--1" x="26.0" y="82" width="234.5" height="15" fill="#1f9d55"><title>Running: 6 of 13</title></rect>
+                <rect class="apps__seg apps__seg--2" x="260.5" y="82" width="39.1" height="15" fill="#e0574a"><title>Stopped: 1 of 13</title></rect>
+                <rect class="apps__seg apps__seg--3 apps__seg--dim" x="299.5" y="82" width="39.1" height="15"><title>Idle: 1 of 13</title></rect>
+                <rect class="apps__seg apps__seg--4 apps__seg--dim" x="338.6" y="82" width="195.4" height="15"><title>Log off: 5 of 13</title></rect>
+                <g class="apps__tile">
+                  <rect class="apps__tilebox" x="26" y="112" width="250" height="58" rx="12"/>
+                  <rect class="apps__tileico" x="38" y="122" width="38" height="38" rx="10"/>
+                  <g class="apps__tileglyph" transform="translate(45,129)">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/>
+                  </g>
+                  <text class="apps__tilenum" x="88" y="142" data-count="13">0</text>
+                  <text class="apps__tilelbl" x="88" y="159">All</text>
+                </g>
+                <g class="apps__tile">
+                  <rect class="apps__tilebox" x="284" y="112" width="250" height="58" rx="12"/>
+                  <rect class="apps__tileico" x="296" y="122" width="38" height="38" rx="10"/>
+                  <g class="apps__tileglyph" transform="translate(303,129)">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/>
+                  </g>
+                  <text class="apps__tilenum apps__tilenum--off" x="346" y="142" data-count="5">0</text>
+                  <text class="apps__tilelbl" x="346" y="159">Log Off</text>
+                </g>
+                <g class="apps__row apps__row--1">
+                  <rect class="apps__rowbar" x="26" y="182" width="4" height="19" rx="2" fill="#2f6bff"/>
+                  <text class="apps__rowlbl" x="42" y="196">Setup</text>
+                  <text class="apps__rownum" x="534" y="196" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 204 H534"/>
+                </g>
+                <g class="apps__row apps__row--2">
+                  <rect class="apps__rowbar" x="26" y="211" width="4" height="19" rx="2" fill="#1f9d55"/>
+                  <text class="apps__rowlbl" x="42" y="225">Running</text>
+                  <text class="apps__rownum" x="534" y="225" data-count="6" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 233 H534"/>
+                </g>
+                <g class="apps__row apps__row--3">
+                  <rect class="apps__rowbar" x="26" y="240" width="4" height="19" rx="2" fill="#e0574a"/>
+                  <text class="apps__rowlbl" x="42" y="254">Stopped</text>
+                  <text class="apps__rownum" x="534" y="254" data-count="1" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 262 H534"/>
+                </g>
+                <g class="apps__row apps__row--4">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="26" y="269" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="42" y="283">Waiting</text>
+                  <text class="apps__rownum apps__rownum--dim" x="534" y="283" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 291 H534"/>
+                </g>
+                <g class="apps__row apps__row--5">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="26" y="298" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="42" y="312">Idle</text>
+                  <text class="apps__rownum apps__rownum--dim" x="534" y="312" data-count="1" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 320 H534"/>
+                </g>
+                <g class="apps__row apps__row--6">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="26" y="327" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="42" y="341">Maintenance</text>
+                  <text class="apps__rownum apps__rownum--dim" x="534" y="341" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 349 H534"/>
+                </g>
+                <g class="apps__row apps__row--7">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="26" y="356" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="42" y="370">Bypass</text>
+                  <text class="apps__rownum apps__rownum--dim" x="534" y="370" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M26 378 H534"/>
+                </g>
+                <path class="apps__tabrule" d="M0 393 H560"/>
+                <g class="apps__tab apps__tab--on">
+                  <g class="apps__tabglyph" transform="translate(60.5,404)">
+                    <rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 13v4M12 9v8M16 12v5"/>
+                  </g>
+                  <text class="apps__tablbl" x="70.0" y="433" text-anchor="middle">Overview</text>
+                </g>
+                <g class="apps__tab">
+                  <g class="apps__tabglyph" transform="translate(200.5,404)">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/>
+                  </g>
+                  <text class="apps__tablbl" x="210.0" y="433" text-anchor="middle">Machines</text>
+                </g>
+                <g class="apps__tab">
+                  <g class="apps__tabglyph" transform="translate(340.5,404)">
+                    <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/>
+                  </g>
+                  <text class="apps__tablbl" x="350.0" y="433" text-anchor="middle">Maintenance</text>
+                </g>
+                <g class="apps__tab">
+                  <g class="apps__tabglyph" transform="translate(480.5,404)">
+                    <path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 7h6M9 11h6M9 15h4"/>
+                  </g>
+                  <text class="apps__tablbl" x="490.0" y="433" text-anchor="middle">Plan</text>
+                </g>
+              </svg>
+              <svg class="appsvg appsvg--tall" viewBox="0 0 360 630" role="img"
+                   aria-label="The APMS app on its Active Machines screen: 13 machines, 5 logged off, 6 running, 1 stopped and 1 idle, with the mix shown as a single bar">
+                <defs><linearGradient id="appsAccentT" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#17c99b"/><stop offset="1" stop-color="#2ee0b4"/>
+                </linearGradient></defs>
+                <rect class="apps__card" x="0" y="0" width="360" height="630" rx="20"/>
+                <path class="apps__accent" d="M20 0 H340 A20 20 0 0 1 360 20 V6 H0 V20 A20 20 0 0 1 20 0 Z" fill="url(#appsAccentT)"/>
+                <text class="apps__title" x="20" y="46">Active Machines</text>
+                <circle class="apps__live" cx="190" cy="41" r="4.5"/>
+                <text class="apps__sub" x="20" y="67">Unit&#8217;s active machine status at a glance</text>
+                <rect class="apps__bartrack" x="20" y="82" width="320" height="15" rx="7.5"/>
+                <rect class="apps__seg apps__seg--1" x="20.0" y="82" width="147.7" height="15" fill="#1f9d55"><title>Running: 6 of 13</title></rect>
+                <rect class="apps__seg apps__seg--2" x="167.7" y="82" width="24.6" height="15" fill="#e0574a"><title>Stopped: 1 of 13</title></rect>
+                <rect class="apps__seg apps__seg--3 apps__seg--dim" x="192.3" y="82" width="24.6" height="15"><title>Idle: 1 of 13</title></rect>
+                <rect class="apps__seg apps__seg--4 apps__seg--dim" x="216.9" y="82" width="123.1" height="15"><title>Log off: 5 of 13</title></rect>
+                <g class="apps__tile">
+                  <rect class="apps__tilebox" x="20" y="112" width="320" height="58" rx="12"/>
+                  <rect class="apps__tileico" x="32" y="122" width="38" height="38" rx="10"/>
+                  <g class="apps__tileglyph" transform="translate(39,129)">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/>
+                  </g>
+                  <text class="apps__tilenum" x="82" y="142" data-count="13">0</text>
+                  <text class="apps__tilelbl" x="82" y="159">All</text>
+                </g>
+                <g class="apps__tile">
+                  <rect class="apps__tilebox" x="20" y="178" width="320" height="58" rx="12"/>
+                  <rect class="apps__tileico" x="32" y="188" width="38" height="38" rx="10"/>
+                  <g class="apps__tileglyph" transform="translate(39,195)">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/>
+                  </g>
+                  <text class="apps__tilenum apps__tilenum--off" x="82" y="208" data-count="5">0</text>
+                  <text class="apps__tilelbl" x="82" y="225">Log Off</text>
+                </g>
+                <g class="apps__row apps__row--1">
+                  <rect class="apps__rowbar" x="20" y="248" width="4" height="19" rx="2" fill="#2f6bff"/>
+                  <text class="apps__rowlbl" x="36" y="262">Setup</text>
+                  <text class="apps__rownum" x="340" y="262" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 270 H340"/>
+                </g>
+                <g class="apps__row apps__row--2">
+                  <rect class="apps__rowbar" x="20" y="294" width="4" height="19" rx="2" fill="#1f9d55"/>
+                  <text class="apps__rowlbl" x="36" y="308">Running</text>
+                  <text class="apps__rownum" x="340" y="308" data-count="6" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 316 H340"/>
+                </g>
+                <g class="apps__row apps__row--3">
+                  <rect class="apps__rowbar" x="20" y="340" width="4" height="19" rx="2" fill="#e0574a"/>
+                  <text class="apps__rowlbl" x="36" y="354">Stopped</text>
+                  <text class="apps__rownum" x="340" y="354" data-count="1" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 362 H340"/>
+                </g>
+                <g class="apps__row apps__row--4">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="20" y="386" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="36" y="400">Waiting</text>
+                  <text class="apps__rownum apps__rownum--dim" x="340" y="400" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 408 H340"/>
+                </g>
+                <g class="apps__row apps__row--5">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="20" y="432" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="36" y="446">Idle</text>
+                  <text class="apps__rownum apps__rownum--dim" x="340" y="446" data-count="1" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 454 H340"/>
+                </g>
+                <g class="apps__row apps__row--6">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="20" y="478" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="36" y="492">Maintenance</text>
+                  <text class="apps__rownum apps__rownum--dim" x="340" y="492" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 500 H340"/>
+                </g>
+                <g class="apps__row apps__row--7">
+                  <rect class="apps__rowbar apps__rowbar--dim" x="20" y="524" width="4" height="19" rx="2"/>
+                  <text class="apps__rowlbl" x="36" y="538">Bypass</text>
+                  <text class="apps__rownum apps__rownum--dim" x="340" y="538" data-count="0" text-anchor="end">0</text>
+                  <path class="apps__rowrule" d="M20 546 H340"/>
+                </g>
+                <path class="apps__tabrule" d="M0 578 H360"/>
+                <g class="apps__tab apps__tab--on">
+                  <g class="apps__tabglyph" transform="translate(35.5,589)">
+                    <rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 13v4M12 9v8M16 12v5"/>
+                  </g>
+                  <text class="apps__tablbl" x="45.0" y="618" text-anchor="middle">Overview</text>
+                </g>
+                <g class="apps__tab">
+                  <g class="apps__tabglyph" transform="translate(125.5,589)">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/>
+                  </g>
+                  <text class="apps__tablbl" x="135.0" y="618" text-anchor="middle">Machines</text>
+                </g>
+                <g class="apps__tab">
+                  <g class="apps__tabglyph" transform="translate(215.5,589)">
+                    <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/>
+                  </g>
+                  <text class="apps__tablbl" x="225.0" y="618" text-anchor="middle">Maintenance</text>
+                </g>
+                <g class="apps__tab">
+                  <g class="apps__tabglyph" transform="translate(305.5,589)">
+                    <path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 7h6M9 11h6M9 15h4"/>
+                  </g>
+                  <text class="apps__tablbl" x="315.0" y="618" text-anchor="middle">Plan</text>
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -976,7 +1158,7 @@
         <div class="anl" data-analyst data-reveal>
           <div class="anl__phone">
             <div class="anl__glow">
-              <svg viewBox="0 0 300 176" role="img" aria-label="OEE, downtime and quality data all flowing into TARA" preserveAspectRatio="xMidYMid meet">
+              <svg viewBox="0 0 300 176" role="img" aria-label="OEE, downtime and quality data flowing into TARA, which answers back" preserveAspectRatio="xMidYMid meet">
                 <path class="anl__feed" d="M18 18 L118.4 78.8"/>
                 <text class="anl__lbl" x="18" y="10" text-anchor="start">OEE</text>
                 <path class="anl__feed" d="M150 18 V61"/>
@@ -1003,8 +1185,18 @@
                 <circle class="anl__halo anl__halo--2" cx="150" cy="98" r="38"/>
                 <circle class="anl__orb" cx="150" cy="98" r="38"/>
                 <circle class="anl__core" cx="150" cy="98" r="6.5"/>
-                <text class="anl__name" x="150" y="154">APMS</text>
-                <text class="anl__name" x="150" y="170">ANALYST</text>
+                <text class="anl__name anl__name--orb" x="150" y="104">TARA</text>
+                <!-- The answer coming back out. The three lanes above only showed
+                     data arriving, which is half of what the copy beside this claims:
+                     TARA is asked something and answers. The bubble is a chat reply
+                     because this whole block is a phone with a conversation in it, and
+                     it says ANSWER rather than a number, because a number here would be
+                     a result nobody can point at. -->
+                <g class="anl__ans">
+                  <path class="anl__anstail" d="M143 142 L150 134 L157 142 Z"/>
+                  <rect class="anl__ansbox" x="96" y="141" width="108" height="25" rx="8"/>
+                  <text class="anl__anslbl" x="150" y="157" text-anchor="middle">ANSWER</text>
+                </g>
               </svg>
             </div>
             <div class="anl__chips" data-analyst-chips>
@@ -1255,7 +1447,7 @@
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=16"></script>
+  <script src="js/core/redesign.js?v=17"></script>
   <script src="js/core/enhance.js?v=10"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>

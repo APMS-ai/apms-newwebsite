@@ -410,37 +410,12 @@
 }
 
 /* ==========================================================================
-   21 · App mockup — height comes from the content, not from a phone ratio
-
-   This used to force aspect-ratio: 9 / 19.5 and then stretch .app__body and
-   .app__list to fill it. The screen has seven status rows and a tab bar, which
-   is shorter than a 19.5:9 box, so the mockup carried dead space no matter
-   what was in it. Sizing to the content instead means the frame always ends
-   where the last row does.
+   21 · App mockup — removed
+   This section existed to fight the mock into a 316px frame: it shrank the
+   descriptions to 0.6rem and tuned row padding "against the measurement"
+   until the frame height matched the copy beside it. The screen is an SVG
+   now, which scales to its column, so none of that is needed.
    ========================================================================== */
-.appscreen {
-  width: min(316px, 100%);
-  display: flex; flex-direction: column;
-}
-.appscreen .app__body { padding: 0.95rem 0.9rem 0; flex: 0 0 auto; display: flex; flex-direction: column; }
-.appscreen .app__sub { margin: 0.05rem 0 0.5rem; font-size: 0.68rem; }
-.appscreen .app__tiles { margin-bottom: 0.45rem; gap: 0.45rem; }
-.appscreen .app__tile { padding: 0.36rem 0.5rem; }
-.appscreen .app__tile-meta b { font-size: 0.95rem; }
-.appscreen .app__list { flex: 0 0 auto; margin-bottom: 0; }
-/* The seven rows are what set the mockup's height. Their description was
-   wrapping to two lines at this width, which put each row at 92px and the
-   whole frame at 726. Tightened so the description fits one line and the row
-   lands near 40, without truncating a word of it. */
-/* Tuned against the measurement, not by eye: at 0.2rem padding the frame came
-   out 434 against the copy's 478, so it went back up until the two sit level. */
-.appscreen .app__row { padding: 0.34rem 0; }
-.appscreen .app__rt b { font-size: 0.78rem; line-height: 1.3; }
-.appscreen .app__rt span { font-size: 0.6rem; line-height: 1.3; display: block; }
-.appscreen .app__num { font-size: 1.05rem; }
-.appscreen .app__title { font-size: 0.95rem; }
-.appscreen .app__tabs { margin-top: 0; flex-shrink: 0; }
-.appscreen .app__tab { padding: 0.55rem 0.2rem; }
 
 /* ==========================================================================
    22 · why__item on .sec--darker — base only re-skins .sec--dark, add darker

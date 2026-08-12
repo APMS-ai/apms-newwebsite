@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-80 files
+81 files
 ----------------------------------------
 
   .htaccess
@@ -60,6 +60,7 @@ stylesheets off, which shipped a site with broken styling.
   css/sections/agentic.css
   css/sections/aiplus.css
   css/sections/analyst.css
+  css/sections/appsvg.css
   css/sections/bentofx.css
   css/sections/contactfx.css
   css/sections/floorgrid.css
