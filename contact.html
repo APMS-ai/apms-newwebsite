@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
-  <link rel="stylesheet" href="css/sections/formfx.css?v=7">
+  <link rel="stylesheet" href="css/sections/formfx.css?v=8">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
 <link rel="stylesheet" href="css/sections/contactfx.css?v=7">
 <link rel="stylesheet" href="css/motion/perf.css?v=6">
@@ -132,8 +132,14 @@
             </div>
           <div class="dflow" data-reveal data-reveal-delay="1">
             <svg viewBox="0 0 464 104" role="img" aria-label="You describe the line, our engineers walk it on your machines, and you leave with a number to judge a pilot against">
-            <path class="df__rail" d="M64 46 H400"/>
-            <path class="df__lit" d="M64 46 H400"/>
+            <!-- Two subpaths per line, not one line through the middle. The discs sit
+                 at cx 64, 232 and 400 with r=25, and each goes pale teal while its stage
+                 is live: rgba(23,201,155,.14), near enough transparent that a rail drawn
+                 64 to 400 showed straight through the circle. The segments stop 28 out
+                 from each centre, two units clear of the 26-unit outer edge. One path
+                 with two subpaths, so the lit sweep stays a single continuous dash. -->
+            <path class="df__rail" d="M92 46 H204 M260 46 H372"/>
+            <path class="df__lit" d="M92 46 H204 M260 46 H372"/>
             <g class="df__stage df__stage--1">
               <circle class="df__disc" cx="64" cy="46" r="25"/>
               <g transform="translate(64 46)"><path class="df__glyph" d="M-7-6h14v11a1.6 1.6 0 0 1-1.6 1.6H-5.4A1.6 1.6 0 0 1-7 15z" transform="translate(0 -4)"/><path class="df__glyph" d="M-4-3h8M-4 1h5"/></g>

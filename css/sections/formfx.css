@@ -155,10 +155,13 @@
 .df__rail { fill: none; stroke: var(--line); stroke-width: 2; stroke-linecap: round; }
 .df__lit {
   fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round;
-  stroke-dasharray: 380; stroke-dashoffset: 380;
+  /* 224 units: the two gaps between the discs, 112 each. It was 380, sized for a
+     single line that ran from the first disc's centre to the last one's, straight
+     through all three. The dash runs across both subpaths as one sweep. */
+  stroke-dasharray: 224; stroke-dashoffset: 224;
 }
 .dflow.in .df__lit { animation: dfLit 9s linear infinite; }
-@keyframes dfLit { 0% { stroke-dashoffset: 380; } 70%, 100% { stroke-dashoffset: 0; } }
+@keyframes dfLit { 0% { stroke-dashoffset: 224; } 70%, 100% { stroke-dashoffset: 0; } }
 
 .df__disc { fill: var(--white); stroke: var(--line); stroke-width: 2; }
 .df__glyph { fill: none; stroke: var(--muted); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
