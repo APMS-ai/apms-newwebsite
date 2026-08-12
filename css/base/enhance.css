@@ -193,8 +193,11 @@
   transform: scale(0); transition: transform 0.5s var(--ease-spring); }
 .sec--dark .tl__item::before, .sec--darker .tl__item::before { background: var(--ink-800); }
 .tl__item.in::before { transform: scale(1); }
-.tl__wk { font-family: var(--display); font-weight: 800; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-deep); }
-.sec--dark .tl__wk, .sec--darker .tl__wk { color: var(--teal-bright); }
+/* Was .tl__wk, holding "Week 1" ... "Week 5+". Renamed with the content: a
+   timeline that promises weeks is a delivery commitment nobody on this side can
+   make, and the steps are what the section is actually describing. */
+.tl__step { font-family: var(--display); font-weight: 800; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-deep); }
+.sec--dark .tl__step, .sec--darker .tl__step { color: var(--teal-bright); }
 .tl__item h3 { font-family: var(--display); font-size: 1.2rem; margin: 0.25rem 0 0.4rem; }
 .sec--dark .tl__item h3, .sec--darker .tl__item h3 { color: #fff; }
 .tl__item p { color: var(--body); font-size: 0.97rem; }
@@ -353,11 +356,8 @@
 /* ==========================================================================
    14 · MARQUEE ROW helper for logos / words
    ========================================================================== */
-.words { display: flex; gap: 2.4rem; width: max-content; align-items: center; animation: wall-scroll var(--dur, 34s) linear infinite; }
-.words b { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 3vw, 2.4rem); color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap; }
-.words b span { color: var(--teal-deep); }
-.sec--dark .words b, .sec--darker .words b { color: rgba(255,255,255,0.3); }
-.sec--dark .words b span, .sec--darker .words b span { color: var(--teal-bright); }
+/* .words is gone: vision-ai.html was the only page with one, and it is a
+   .wall of chiptags now (see item 20 in the commit for why). */
 
 /* ==========================================================================
    15 · GLASS INFO CARDS (used on dark hero sub-sections)
@@ -738,7 +738,6 @@ p { text-wrap: pretty; }
    full set, so the wrap is invisible and the run never empties on the right. */
 .qmarq { gap: 0; }
 .qmarq > .quote { margin-inline-end: 1.6rem; }
-.words b { font-weight: 800; }
 
 /* ==========================================================================
    29 · SIGNATURE HERO — split layout + live "Live Floor" console
@@ -1094,7 +1093,7 @@ h3 { letter-spacing: -0.012em; }
    REDUCED MOTION — disable all decorative motion
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .aurora > span, .gridfield, .grad-text, .qmarq, .words, .float, .ticker__lbl i { animation: none !important; }
+  .aurora > span, .gridfield, .grad-text, .qmarq, .float, .ticker__lbl i { animation: none !important; }
   .gauge__fg { transition: none; }
   [data-tilt] { transform: none !important; }
   .tile::after, .cap::after, .mod::after, .case::after, .ind::after, .step::after,

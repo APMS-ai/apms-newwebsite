@@ -15,13 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/motion/loader.css?v=2">
-  <link rel="stylesheet" href="css/base/redesign.css?v=18">
-  <link rel="stylesheet" href="css/base/enhance.css?v=26">
+  <link rel="stylesheet" href="css/base/redesign.css?v=19">
+  <link rel="stylesheet" href="css/base/enhance.css?v=27">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/motion/rail.css?v=8">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=6">
-  <link rel="stylesheet" href="css/sections/visionfx.css?v=11">
+  <link rel="stylesheet" href="css/sections/visionfx.css?v=15">
   <link rel="stylesheet" href="css/sections/visioncmp.css?v=2">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=3">
@@ -170,7 +170,12 @@
               </g>
 
             <!-- the head -->
-            <g class="vbot__head" style="offset-path:path('M46 104 H914')">
+            <!-- The head's path is NOT the rail. The rail is drawn 46 to 914 so it runs
+                 off both edges of the station row; the head travels 110 to 830, which
+                 is 60 units either side of the first and last station. Running it to
+                 the rail's end put it 144 units past the last station, parked on the
+                 tip, before it snapped back. -->
+            <g class="vbot__head" style="offset-path:path('M110 104 H830')">
               <path class="vbot__cone" d="M0 -12 L-34 44 L34 44 Z"/>
               <rect class="vbot__body" x="-27" y="-44" width="54" height="32" rx="9"/>
               <rect class="vbot__vent" x="-16" y="-38" width="32" height="4" rx="2"/>
@@ -316,7 +321,7 @@
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">Live on the line</span><h2 data-clip>Inspection, as it happens</h2><p class="sec__lead" style="margin-inline:auto;text-align:center;"><em class="ph">Illustrative live figures from a sample deployment.</em></p></div>
         <div class="vcon" data-reveal>
-          <svg viewBox="0 0 620 300" role="img" aria-label="An inline inspection station: parts travel the conveyor, the camera scans each one, a defect is boxed and the reject tally updates">
+          <svg viewBox="0 0 620 300" role="img" aria-label="An inline inspection station: parts travel the conveyor and the camera scans each one, passing the good parts and boxing a defective one as a reject, with the tally updating">
             <defs>
               <linearGradient id="vcCone" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#2ee0b4" stop-opacity=".55"/>
@@ -338,11 +343,25 @@
             <text class="vc__lbl" x="20" y="126">Conveyor</text>
             <rect class="vc__belt" x="16" y="140" width="588" height="56" rx="6"/>
             <g clip-path="url(#vcClip)"><g class="vc__hatch"><line x1="0" y1="196" x2="-10" y2="208"/><line x1="22" y1="196" x2="12" y2="208"/><line x1="44" y1="196" x2="34" y2="208"/><line x1="66" y1="196" x2="56" y2="208"/><line x1="88" y1="196" x2="78" y2="208"/><line x1="110" y1="196" x2="100" y2="208"/><line x1="132" y1="196" x2="122" y2="208"/><line x1="154" y1="196" x2="144" y2="208"/><line x1="176" y1="196" x2="166" y2="208"/><line x1="198" y1="196" x2="188" y2="208"/><line x1="220" y1="196" x2="210" y2="208"/><line x1="242" y1="196" x2="232" y2="208"/><line x1="264" y1="196" x2="254" y2="208"/><line x1="286" y1="196" x2="276" y2="208"/><line x1="308" y1="196" x2="298" y2="208"/><line x1="330" y1="196" x2="320" y2="208"/><line x1="352" y1="196" x2="342" y2="208"/><line x1="374" y1="196" x2="364" y2="208"/><line x1="396" y1="196" x2="386" y2="208"/><line x1="418" y1="196" x2="408" y2="208"/><line x1="440" y1="196" x2="430" y2="208"/><line x1="462" y1="196" x2="452" y2="208"/><line x1="484" y1="196" x2="474" y2="208"/><line x1="506" y1="196" x2="496" y2="208"/><line x1="528" y1="196" x2="518" y2="208"/><line x1="550" y1="196" x2="540" y2="208"/><line x1="572" y1="196" x2="562" y2="208"/><line x1="594" y1="196" x2="584" y2="208"/><line x1="616" y1="196" x2="606" y2="208"/><line x1="638" y1="196" x2="628" y2="208"/><line x1="660" y1="196" x2="650" y2="208"/></g></g>
-            <g clip-path="url(#vcClip)"><g class="vc__travel"><g transform="translate(0,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(150,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(300,0)"><rect class="vc__part vc__part--bad" x="0" y="150" width="54" height="34" rx="5"/><circle class="vc__flaw" cx="38" cy="162" r="3.4"/></g><g transform="translate(450,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g></g></g>
+            <g clip-path="url(#vcClip)"><g class="vc__travel"><g transform="translate(-450,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(-300,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(-150,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(0,0)"><rect class="vc__part vc__part--bad" x="0" y="150" width="54" height="34" rx="5"/><circle class="vc__flaw" cx="38" cy="162" r="3.4"/></g><g transform="translate(150,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(300,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(450,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g><g transform="translate(600,0)"><rect class="vc__part" x="0" y="150" width="54" height="34" rx="5"/></g></g></g>
 
-            <rect class="vc__box" x="252" y="146" width="62" height="42" rx="4"/>
-            <path class="vc__box-l" d="M252 158 v-12 h12 M314 158 v-12 h-12 M252 176 v12 h12 M314 176 v12 h-12"/>
-            <text class="vc__verdict" x="283" y="222" text-anchor="middle">SURFACE DEFECT &middot; REJECT</text>
+            <!-- Two verdicts, one per outcome, in the same place: the parts all
+                 pass the lens at the same x, so the box geometry is shared and only
+                 the outcome differs. Three inspections per cycle, PASS then REJECT
+                 then PASS, each appearing after its scan sweep finishes rather than
+                 during it. Before this there was one verdict, "REJECT", and it was
+                 drawn over a good part. -->
+            <g class="vc__ok">
+              <rect class="vc__box" x="252" y="146" width="62" height="42" rx="4"/>
+              <path class="vc__box-l" d="M252 158 v-12 h12 M314 158 v-12 h-12 M252 176 v12 h12 M314 176 v12 h-12"/>
+              <path class="vc__okmark" d="M270 167 l7 7 l14 -16"/>
+              <text class="vc__verdict" x="283" y="222" text-anchor="middle">WITHIN SPEC &middot; PASS</text>
+            </g>
+            <g class="vc__no">
+              <rect class="vc__box" x="252" y="146" width="62" height="42" rx="4"/>
+              <path class="vc__box-l" d="M252 158 v-12 h12 M314 158 v-12 h-12 M252 176 v12 h12 M314 176 v12 h-12"/>
+              <text class="vc__verdict" x="283" y="222" text-anchor="middle">SURFACE DEFECT &middot; REJECT</text>
+            </g>
 
             <text class="vc__lbl" x="20" y="248">First-pass yield</text>
             <rect x="20" y="256" width="240" height="8" rx="4" fill="rgba(255,255,255,0.09)"/>
@@ -391,14 +410,28 @@
     </section>
 
     <!-- ============ INDUSTRIES WORDS MARQUEE ============ -->
-    <section class="sec sec--paper marq-mask" style="overflow:hidden;">
+    <!-- no marq-mask or overflow:hidden here any more: .wall masks its own
+         edges, and two masks over one row dimmed the first and last chip to
+         nothing well before they reached the edge. -->
+    <section class="sec sec--paper">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Proven across</span><h2 data-clip>Wherever quality can't be <span class="accent">a guess</span></h2></div>
       </div>
-      <div class="container--wide" data-reveal>
-        <div class="words" style="--dur:32s;">
-          <b>Automotive <span>·</span></b><b>Electronics <span>·</span></b><b>Pharma <span>·</span></b><b>Food &amp; Beverage <span>·</span></b><b>Metal Fabrication <span>·</span></b><b>Packaging <span>·</span></b><b>Aerospace <span>·</span></b>
-          <b>Automotive <span>·</span></b><b>Electronics <span>·</span></b><b>Pharma <span>·</span></b><b>Food &amp; Beverage <span>·</span></b><b>Metal Fabrication <span>·</span></b><b>Packaging <span>·</span></b><b>Aerospace <span>·</span></b>
+      <!-- Was a .words marquee: seven industry names in big grey uppercase with
+           teal middots between them, sliding past forever. It read as a strip of
+           running text rather than a set of things. Same components as the
+           "Any make. Any age. Any protocol." wall on solutions.html now, with
+           this section's own seven industries and nothing added to them.
+
+           The seven chips are listed FOUR times, so the repeating unit is two
+           copies. wall-scroll translates the row by -50%, which means the unit
+           that has to cover the screen is half the row, not the whole of it: with
+           two copies the unit was 1,031px against a 1,440px viewport and the loop
+           left a 300px gap at the join. Four copies make the unit 2,062px, which
+           clears it. Any multiple other than an even one would also jump. -->
+      <div class="container--wide indwall" data-reveal>
+        <div class="wall" style="--dur:38s;">
+          <div class="wall__row"><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M4 17v-4l2-5h12l2 5v4"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/><path d="M7 12h10"/></svg>Automotive</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg>Electronics</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9" width="17" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.9 9.9 14 14"/></svg>Pharma</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a4 4 0 0 0 8 0V3"/><path d="M12 13v8M8 21h8"/></svg>Food &amp; Beverage</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a4 4 0 0 0-5 5L3 15v6h6l6.5-6.5a4 4 0 0 0 5-5l-3 3-3-3z"/></svg>Metal Fabrication</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Packaging</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2.5 3 3.5 6.5 3.5 10L21 16v2l-5.5-2-1 4 1.5 2h-8l1.5-2-1-4L3 18v-2l5.5-4C8.5 8.5 9.5 5 12 2z"/></svg>Aerospace</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M4 17v-4l2-5h12l2 5v4"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/><path d="M7 12h10"/></svg>Automotive</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg>Electronics</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9" width="17" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.9 9.9 14 14"/></svg>Pharma</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a4 4 0 0 0 8 0V3"/><path d="M12 13v8M8 21h8"/></svg>Food &amp; Beverage</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a4 4 0 0 0-5 5L3 15v6h6l6.5-6.5a4 4 0 0 0 5-5l-3 3-3-3z"/></svg>Metal Fabrication</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Packaging</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2.5 3 3.5 6.5 3.5 10L21 16v2l-5.5-2-1 4 1.5 2h-8l1.5-2-1-4L3 18v-2l5.5-4C8.5 8.5 9.5 5 12 2z"/></svg>Aerospace</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M4 17v-4l2-5h12l2 5v4"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/><path d="M7 12h10"/></svg>Automotive</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg>Electronics</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9" width="17" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.9 9.9 14 14"/></svg>Pharma</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a4 4 0 0 0 8 0V3"/><path d="M12 13v8M8 21h8"/></svg>Food &amp; Beverage</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a4 4 0 0 0-5 5L3 15v6h6l6.5-6.5a4 4 0 0 0 5-5l-3 3-3-3z"/></svg>Metal Fabrication</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Packaging</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2.5 3 3.5 6.5 3.5 10L21 16v2l-5.5-2-1 4 1.5 2h-8l1.5-2-1-4L3 18v-2l5.5-4C8.5 8.5 9.5 5 12 2z"/></svg>Aerospace</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M4 17v-4l2-5h12l2 5v4"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/><path d="M7 12h10"/></svg>Automotive</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg>Electronics</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9" width="17" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.9 9.9 14 14"/></svg>Pharma</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v6a4 4 0 0 0 8 0V3"/><path d="M12 13v8M8 21h8"/></svg>Food &amp; Beverage</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a4 4 0 0 0-5 5L3 15v6h6l6.5-6.5a4 4 0 0 0 5-5l-3 3-3-3z"/></svg>Metal Fabrication</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Packaging</span><span class="chiptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2.5 3 3.5 6.5 3.5 10L21 16v2l-5.5-2-1 4 1.5 2h-8l1.5-2-1-4L3 18v-2l5.5-4C8.5 8.5 9.5 5 12 2z"/></svg>Aerospace</span></div>
         </div>
       </div>
     </section>

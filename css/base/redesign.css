@@ -9,6 +9,10 @@
   --teal-bright: #2ee0b4;
   --teal-deep: #0a7a61;      /* AA on white AND on --paper at 12px: 5.29 / 4.97 */
   --teal-ink: #063d31;
+  /* The one non-teal accent, and only for a negative state: a reject
+     verdict, a falling delta. It is the colour .ticker__delta.down was
+     already using inline; named here so there is one of it. */
+  --warn: #ff8f7a;
 
   /* industrial ink (deep dark sections) */
   --ink-900: #070f19;

@@ -41,55 +41,94 @@
   50%      { opacity: .38; }
 }
 
-/* --- conveyor: belt hatching slides, parts ride along it --- */
+/* --- conveyor: belt hatching slides, parts ride along it ---
+   Spacing 150 and travel 450 = three spacings exactly, so the row cycles with
+   no sideways jump and three parts pass the lens per cycle. It used to travel
+   430 against a 150 spacing, which jumped at every join. */
 .vc__belt { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
 .vc__hatch { stroke: rgba(255,255,255,0.13); stroke-width: 2; }
 .vcon[data-reveal].in .vc__hatch { animation: vcBelt 1.1s linear infinite; }
 @keyframes vcBelt { to { transform: translateX(-22px); } }
 
 .vc__part { fill: rgba(255,255,255,0.14); stroke: rgba(255,255,255,0.3); stroke-width: 1.2; }
-.vc__part--bad { stroke: var(--teal-bright); }
-.vc__flaw { fill: var(--teal-bright); opacity: .9; }
+/* the defective one, and the flaw the camera finds on it, in the site's
+   existing negative colour rather than teal: a reject that is the same colour
+   as a pass is not telling you anything */
+.vc__part--bad { stroke: var(--warn); }
+.vc__flaw { fill: var(--warn); opacity: .9; }
 
-.vcon[data-reveal].in .vc__travel { animation: vcTravel 6.4s linear infinite; }
-@keyframes vcTravel { from { transform: translateX(0); } to { transform: translateX(430px); } }
+.vcon[data-reveal].in .vc__travel { animation: vcTravel 7.5s linear infinite; }
+@keyframes vcTravel { from { transform: translateX(0); } to { transform: translateX(450px); } }
 
-/* --- the scan line sweeps the inspection window --- */
+/* --- the scan line sweeps the window as each part arrives ---
+   Three sweeps per cycle, at 24.9%, 58.2%, 91.6%, which is where the three
+   parts actually reach the lens. One shared clock and no animation-delay: a
+   delay shifts a loop's reset as well as its start, which is what broke the
+   checks on the inspection head further up this file. */
 .vc__scan { stroke: var(--teal-bright); stroke-width: 1.6; opacity: 0; }
-.vcon[data-reveal].in .vc__scan { animation: vcScan 1.6s ease-in-out infinite; }
+.vcon[data-reveal].in .vc__scan { animation: vcScan 7.5s linear infinite; }
 @keyframes vcScan {
-  0%   { transform: translateX(0);  opacity: 0; }
-  12%  { opacity: .85; }
-  88%  { opacity: .85; }
-  100% { transform: translateX(104px); opacity: 0; }
+  0%             { transform: translateX(0);     opacity: 0; }
+  18.5%          { transform: translateX(0);     opacity: 0; }
+  19.1%          { opacity: .85; }
+  24.3%          { opacity: .85; }
+  24.9%          { transform: translateX(104px); opacity: 0; }
+  25.0%          { transform: translateX(0);     opacity: 0; }
+  51.8%          { transform: translateX(0);     opacity: 0; }
+  52.4%          { opacity: .85; }
+  57.6%          { opacity: .85; }
+  58.2%          { transform: translateX(104px); opacity: 0; }
+  58.3%          { transform: translateX(0);     opacity: 0; }
+  85.2%          { transform: translateX(0);     opacity: 0; }
+  85.8%          { opacity: .85; }
+  91.0%          { opacity: .85; }
+  91.6%          { transform: translateX(104px); opacity: 0; }
+  91.7%          { transform: translateX(0);     opacity: 0; }
+  100%           { transform: translateX(0);     opacity: 0; }
 }
 
-/* --- bounding box locks onto the defect as it passes the camera --- */
-.vc__box { fill: none; stroke: var(--teal-bright); stroke-width: 1.8; opacity: 0; }
-.vc__box-l { stroke: var(--teal-bright); stroke-width: 1.4; opacity: 0; }
-.vc__verdict { font-family: var(--display); font-weight: 800; font-size: 10px; fill: var(--teal-bright); opacity: 0; }
-.vcon[data-reveal].in .vc__box,
-.vcon[data-reveal].in .vc__box-l,
-.vcon[data-reveal].in .vc__verdict { animation: vcLock 6.4s linear infinite; }
-@keyframes vcLock {
-  0%, 41%   { opacity: 0; }
-  46%, 60%  { opacity: 1; }
-  66%, 100% { opacity: 0; }
+/* --- the verdict, after the sweep, matching the part under the lens --- */
+.vc__box { fill: none; stroke-width: 1.8; }
+.vc__box-l { stroke-width: 1.4; }
+.vc__verdict { font-family: var(--display); font-weight: 800; font-size: 10px; }
+.vc__okmark { fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.vc__ok { opacity: 0; }
+.vc__ok .vc__box, .vc__ok .vc__box-l, .vc__ok .vc__okmark { stroke: var(--teal-bright); }
+.vc__ok .vc__verdict { fill: var(--teal-bright); }
+
+.vc__no { opacity: 0; }
+.vc__no .vc__box, .vc__no .vc__box-l { stroke: var(--warn); }
+.vc__no .vc__verdict { fill: var(--warn); }
+
+.vcon[data-reveal].in .vc__ok { animation: vcPass 7.5s linear infinite; }
+.vcon[data-reveal].in .vc__no { animation: vcReject 7.5s linear infinite; }
+@keyframes vcPass {
+  0%, 24.9%   { opacity: 0; }
+  25.6%, 30.3% { opacity: 1; }
+  31.0%, 91.6%   { opacity: 0; }
+  92.3%, 97.0% { opacity: 1; }
+  97.7%, 100%    { opacity: 0; }
+}
+@keyframes vcReject {
+  0%, 58.2%   { opacity: 0; }
+  58.9%, 63.6% { opacity: 1; }
+  64.3%, 100%    { opacity: 0; }
 }
 
-/* --- tally: the reject counter ticks as the flagged part clears --- */
+/* --- tally: the counter ticks on the reject, at 58.2% --- */
 .vc__bar { fill: var(--teal); transform-origin: left center; }
-.vcon[data-reveal].in .vc__bar { animation: vcBar 6.4s ease-out infinite; }
+.vcon[data-reveal].in .vc__bar { animation: vcBar 7.5s ease-out infinite; }
 @keyframes vcBar {
-  0%, 60%   { transform: scaleX(.62); }
-  70%, 100% { transform: scaleX(.68); }
+  0%, 58.2%   { transform: scaleX(.62); }
+  70.2%, 100% { transform: scaleX(.68); }
 }
-.vc__blip { fill: var(--teal-bright); opacity: 0; transform-origin: center; }
-.vcon[data-reveal].in .vc__blip { animation: vcBlip 6.4s ease-out infinite; }
+.vc__blip { fill: var(--warn); opacity: 0; transform-origin: center; }
+.vcon[data-reveal].in .vc__blip { animation: vcBlip 7.5s ease-out infinite; }
 @keyframes vcBlip {
-  0%, 60%   { opacity: 0; transform: scale(.4); }
-  68%       { opacity: 1; transform: scale(1); }
-  84%, 100% { opacity: 0; transform: scale(1.6); }
+  0%, 58.2%     { opacity: 0; transform: scale(.4); }
+  62.2%       { opacity: 1; transform: scale(1); }
+  70.2%, 100% { opacity: 0; transform: scale(1.6); }
 }
 
 /* ==========================================================================
@@ -105,15 +144,20 @@
 .agp--pinned .vrail .tile:hover, .vrail.agp--pinned .tile:hover { transform: none; }
 
 /* ==========================================================================
-   3 · THE WORD MARQUEE, SMALLER
-   It was set at clamp(1.4rem, 3vw, 2.4rem), which dominated its section.
+   3 · THE INDUSTRY WALL
+   Was a .words marquee, shrunk once already because it dominated its section.
+   It is the same .chiptag wall as solutions.html now, so there is nothing
+   page-specific left to size: only the spacing above it.
    ========================================================================== */
-.words b { font-size: clamp(1rem, 1.7vw, 1.4rem); }
-.wall { --dur: 40s; }
+.indwall { margin-top: clamp(1.6rem, 3.5vw, 2.6rem); }
 
 @media (prefers-reduced-motion: reduce) {
   .vcon[data-reveal].in * { animation: none !important; }
-  .vc__box, .vc__box-l, .vc__verdict, .vc__scan, .vc__blip { opacity: 0 !important; }
+  .vc__scan, .vc__blip { opacity: 0 !important; }
+  /* one still verdict, the passing one, so the station reads as working
+     rather than as permanently rejecting */
+  .vc__no { opacity: 0 !important; }
+  .vc__ok { opacity: 1 !important; }
   .vc__bar { transform: scaleX(.65); }
 }
 
@@ -192,13 +236,27 @@
    The inspection head running the line
    ("Deep learning, on the line, in real time")
 
-   One 9s clock. The head travels the rail with offset-path; each part lights
-   on the same clock at the delay matching where the head actually is, so the
-   check lands under the lens rather than near it.
+   One 13s clock, and the head makes a round trip: out along the stations on
+   the first half, back on the second. It used to run offset-distance to 100%
+   of a path spanning the whole rail, x=46 to x=914, and hold there for the
+   last 12% of the clock. The last station is at x=770, so the head sailed 144
+   units past it, parked on the rail's end tip and then snapped back to the
+   start, which is what "stopping after the line" was describing. Its path now
+   spans the stations with a run-in and run-out of 60 units, x=110 to x=830,
+   and the return leg replaces the snap.
 
-   Rail x-span is 46 to 914, so a part at x sits at (x-46)/868 of the run:
-     170 -> 14.3%  -> 1.29s     570 -> 60.4% -> 5.44s
-     370 -> 37.3%  -> 3.36s     770 -> 83.4% -> 7.51s
+   Each check appears only once the lens is over its station, and every tick
+   shares this one clock with NO animation-delay. Delays were the second bug:
+   a delay shifts the reset as well as the start, so from the second pass
+   onward each tick was already lit while the head was still at the far end.
+   Each tick has its own window instead, opening at its station and closing at
+   the end of the cycle, so the first pass and the tenth look identical.
+
+   Travel path spans 110 to 830, 720 units, so a station at x sits at
+   (x-110)/720 along it. The outbound leg runs 4% to 48% of the clock,
+   linearly, so that station is reached at 4 + 44f percent:
+     170 -> 0.083 -> 7.7%      570 -> 0.639 -> 32.1%
+     370 -> 0.361 -> 19.9%     770 -> 0.917 -> 44.3%
    ========================================================================== */
 .vbot { margin-top: clamp(2rem, 4vw, 3.2rem); }
 .vbot__svg {
@@ -234,28 +292,47 @@
 /* resting state: parked at the start, so nothing sits at the SVG origin */
 .vbot__head { offset-distance: 0%; offset-rotate: 0deg; }
 
-[data-reveal].in .vbot__head   { animation: vbotRun 9s cubic-bezier(.55,0,.45,1) infinite; }
+[data-reveal].in .vbot__head   { animation: vbotRun 13s linear infinite; }
 [data-reveal].in .vbot__beacon { animation: vbotBeacon 1.4s ease-in-out infinite; }
 [data-reveal].in .vbot__cone   { animation: vbotCone 1.4s ease-in-out infinite; }
-[data-reveal].in .vbot__tick   { animation: vbotTick 9s linear infinite; }
-[data-reveal].in .vbot__part--1 .vbot__tick { animation-delay: 1.29s; }
-[data-reveal].in .vbot__part--2 .vbot__tick { animation-delay: 3.36s; }
-[data-reveal].in .vbot__part--3 .vbot__tick { animation-delay: 5.44s; }
-[data-reveal].in .vbot__part--4 .vbot__tick { animation-delay: 7.51s; }
+/* one clock, no delays: see the note above for why a delay broke this */
+[data-reveal].in .vbot__part--1 .vbot__tick { animation: vbotTick1 13s linear infinite; }
+[data-reveal].in .vbot__part--2 .vbot__tick { animation: vbotTick2 13s linear infinite; }
+[data-reveal].in .vbot__part--3 .vbot__tick { animation: vbotTick3 13s linear infinite; }
+[data-reveal].in .vbot__part--4 .vbot__tick { animation: vbotTick4 13s linear infinite; }
 
 @keyframes vbotRun {
-  0%        { offset-distance: 0%; }
-  6%        { offset-distance: 0%; }
-  88%       { offset-distance: 100%; }
-  94%, 100% { offset-distance: 100%; }
+  /* out along the stations, then home again. The two holds are the turn: a
+     head that reverses instantly reads as a glitch rather than a pass. */
+  0%,   4%   { offset-distance: 0%; }
+  48%,  56%  { offset-distance: 100%; }
+  96%, 100%  { offset-distance: 0%; }
 }
 @keyframes vbotBeacon { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
 @keyframes vbotCone   { 0%, 100% { opacity: 1; } 50% { opacity: .62; } }
-/* the check appears as the lens arrives and stays for the rest of the pass */
-@keyframes vbotTick {
-  0%       { opacity: 0; }
-  1%, 96%  { opacity: 1; }
-  100%     { opacity: 0; }
+
+/* A check appears as the lens reaches its station and stays for the rest of
+   the cycle, so the line fills up left to right as the head works along it.
+   Each window starts at the station time computed in the note above. */
+@keyframes vbotTick1 {
+  0%, 7.7%   { opacity: 0; }
+  8.9%, 97%  { opacity: 1; }
+  100%        { opacity: 0; }
+}
+@keyframes vbotTick2 {
+  0%, 19.9%   { opacity: 0; }
+  21.1%, 97%  { opacity: 1; }
+  100%        { opacity: 0; }
+}
+@keyframes vbotTick3 {
+  0%, 32.1%   { opacity: 0; }
+  33.3%, 97%  { opacity: 1; }
+  100%        { opacity: 0; }
+}
+@keyframes vbotTick4 {
+  0%, 44.3%   { opacity: 0; }
+  45.5%, 97%  { opacity: 1; }
+  100%        { opacity: 0; }
 }
 
 @media (max-width: 700px) {
