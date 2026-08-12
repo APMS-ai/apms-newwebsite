@@ -50,7 +50,7 @@
 .ft__brand p { font-size: .9rem; line-height: 1.65; max-width: 34ch; margin-bottom: 1.3rem; }
 
 .ft__badges { display: flex; flex-wrap: wrap; gap: .4rem; }
-.ft__badges span {
+.ft__badges span, .ft__badges a {
   font-family: var(--display); font-weight: 700; font-size: .68rem;
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--teal-bright);
@@ -130,3 +130,26 @@
 @media (max-width: 620px) {
   .ft__bottom { flex-direction: column-reverse; align-items: flex-start; }
 }
+
+/* ==========================================================================
+   Footer mark and solution badges
+   ==========================================================================
+   The badges were plain <span>. They name the four solution lines, which is
+   exactly what someone scanning a footer clicks, so they are links now and
+   need the affordance to match.
+
+   The mark is a link to #main, the top of the page you are already on, rather
+   than to index.html. A footer logo that navigates away is a dead end at the
+   bottom of a long page; the header logo still goes home.
+   ========================================================================== */
+.ft__home { display: inline-block; border-radius: 6px; }
+.ft__home:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+.ft__home img { transition: opacity 0.2s; }
+.ft__home:hover img { opacity: 0.82; }
+
+.ft__badges a {
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.ft__badges a:hover { color: var(--teal-bright); border-color: rgba(46,224,180,0.55); }
+.ft__badges a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
