@@ -63,7 +63,12 @@
 }
 
 .anl__orb  { fill: rgba(23,201,155,0.10); stroke: var(--teal); stroke-width: 1.6; }
-.anl__core { fill: var(--teal); }
+/* .anl__core was a filled teal disc at the orb's exact centre. TARA's lettering
+   now sits there and the disc was showing through it, so the disc is gone. The
+   name gets a dark plate behind it instead: the orb's own fill is only 10% teal
+   over a section background that varies, and white 17px letters need something
+   definite behind them. */
+.anl__plate { fill: rgba(4,18,28,0.72); }
 .anl__halo { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0;
              transform-origin: 150px 98px; }
 [data-reveal].in .anl__halo { animation: anlHalo 3.2s ease-out infinite; }

@@ -31,9 +31,9 @@
   <link rel="stylesheet" href="css/motion/drum.css?v=13">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=3">
   <link rel="stylesheet" href="css/sections/misfx.css?v=6">
-  <link rel="stylesheet" href="css/sections/analyst.css?v=13">
+  <link rel="stylesheet" href="css/sections/analyst.css?v=14">
   <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
-  <link rel="stylesheet" href="css/sections/premiumfx.css?v=10">
+  <link rel="stylesheet" href="css/sections/premiumfx.css?v=12">
   <link rel="stylesheet" href="css/sections/appsvg.css?v=4">
   <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
   <link rel="stylesheet" href="css/motion/perf.css?v=6">
@@ -1185,7 +1185,11 @@
                 <circle class="anl__halo" cx="150" cy="98" r="38"/>
                 <circle class="anl__halo anl__halo--2" cx="150" cy="98" r="38"/>
                 <circle class="anl__orb" cx="150" cy="98" r="38"/>
-                <circle class="anl__core" cx="150" cy="98" r="6.5"/>
+                <!-- The filled core used to sit here, a 6.5r teal disc at exactly
+                     150,98. The name now occupies that spot, so the disc was
+                     directly behind the letters and washed them out. The two halo
+                     rings already give the orb its pulse. -->
+                <rect class="anl__plate" x="112" y="86" width="76" height="26" rx="13"/>
                 <text class="anl__name anl__name--orb" x="150" y="104">TARA</text>
                 <!-- The answer coming back out. The three lanes above only showed
                      data arriving, which is half of what the copy beside this claims:

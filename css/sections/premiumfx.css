@@ -76,7 +76,10 @@
    which is exactly the shape of a raster cost. The glow now sits only on
    marks that hold still, and the moving parts get their lift from the
    gradient underneath them instead. */
-.anl__core { fill: #2ee0b4; filter: url(#pxGlow); }
+/* .anl__core is gone from the markup. It was a filled teal disc at the orb's
+   exact centre carrying filter: url(#pxGlow), and TARA's name now sits in that
+   spot, so the glow was blooming straight through the lettering. That is why the
+   word was hard to read. */
 .anl__orb  { fill: url(#pxOrb); stroke: rgba(46,224,180,0.55); }
 
 /* the travelling marks: brighter and slightly larger, but never filtered */
@@ -106,7 +109,6 @@
 @media (hover: none), (pointer: coarse) {
   .sec--dark, .sec--darker, .pseq { background-image: linear-gradient(160deg, var(--ink-900), var(--ink-800)); }
   .sec--paper { background-image: none; }
-  .anl__core { filter: none; }
 }
 
 /* Reduced motion is not only about movement: a glow that sits under moving
@@ -114,7 +116,6 @@
 @media (prefers-reduced-motion: reduce) {
   .sec--dark, .sec--darker, .pseq { background-image: linear-gradient(160deg, var(--ink-900), var(--ink-800)); }
   .sec--paper { background-image: none; }
-  .anl__core { filter: none; }
   .anl__feed, .aloop__track { stroke: rgba(255,255,255,0.14); }
 }
 
@@ -223,15 +224,14 @@
 [data-reveal].in .anl__pkt--3b { animation: anlPkt 3.2s linear 1.48s infinite; }
 
 /* No breathing core. It was written as an `r` animation, and `r` is geometry:
-   it re-rasterises the shape every frame, and this is the one element still
-   carrying filter: url(#pxGlow), so the blur was being re-run 60 times a
-   second too. The halo rings already give the orb a pulse and they animate
-   transform, which is free. */
+   it re-rasterises the shape every frame. The core is gone entirely now (the
+   TARA lettering occupies the orb centre), and the halo rings give the pulse
+   by animating transform, which is free. */
 
 @media (prefers-reduced-motion: reduce) {
   .anl__trail { animation: none !important; opacity: .3; stroke-dashoffset: 60; }
   .anl__pkt--1b, .anl__pkt--2b, .anl__pkt--3b { animation: none !important; opacity: .5; }
-  .anl__core { animation: none !important; }
+  .anl__plate { /* static by nature */ }
 }
 
 /* ==========================================================================
