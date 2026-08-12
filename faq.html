@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
-  <link rel="stylesheet" href="css/sections/faqpage.css?v=1">
+  <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
   <link rel="stylesheet" href="css/motion/perf.css?v=6">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
@@ -71,29 +71,28 @@
       <div class="container">
         <div class="phero__wrap phero__wrap--center" data-reveal>
           <span class="kicker">Answers</span>
-          <h1>FAQs.</h1>
+          <h1 class="faq__h1">FAQs.</h1>
           <p>Forty questions across the four things APMS does, none of them repeated from the four on each product page.</p>
         </div>
-      </div>
-    </section>
 
-    <!-- Four sections of ten. The nav is plain anchors: the page works with
-         scripting off, and each product page links straight to its own section. -->
-    <section class="sec sec--paper faqnav__sec">
-      <div class="container">
+        <!-- The four routes belong to the hero, not to a band of their own. As a
+             separate sec--paper section this was a 150px pale stripe between the
+             dark hero and the dark first section. Plain anchors, so the page still
+             works with scripting off. -->
         <nav class="faqnav" aria-label="Jump to a section">
-          <a class="faqnav__a" href="#iiot"><b>Industrial IoT</b><span>10 questions</span></a>
-          <a class="faqnav__a" href="#vision"><b>Vision AI</b><span>10 questions</span></a>
-          <a class="faqnav__a" href="#motion"><b>Motion AI</b><span>10 questions</span></a>
-          <a class="faqnav__a" href="#agents"><b>AI Agents</b><span>10 questions</span></a>
+        <a class="faqnav__a" href="#iiot"><b>Industrial IoT</b><span>10 questions</span></a>
+        <a class="faqnav__a" href="#vision"><b>Vision AI</b><span>10 questions</span></a>
+        <a class="faqnav__a" href="#motion"><b>Motion AI</b><span>10 questions</span></a>
+        <a class="faqnav__a" href="#agents"><b>AI Agents</b><span>10 questions</span></a>
         </nav>
       </div>
     </section>
 
-    <section class="sec sec--dark faqsec" id="iiot">
+
+    <section class="sec sec--paper faqsec" id="iiot">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
-          <span class="kicker">Industrial IoT</span>
+          <span class="h-eyebrow">Industrial IoT</span>
           <h2 data-clip>Connecting machines, reading them and getting the numbers out.</h2>
         </div>
         <div class="faq" data-reveal>
@@ -114,10 +113,10 @@
       </div>
     </section>
 
-    <section class="sec sec--paper faqsec" id="vision">
+    <section class="sec sec--dark faqsec" id="vision">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
-          <span class="h-eyebrow">Vision AI</span>
+          <span class="kicker">Vision AI</span>
           <h2 data-clip>What the cameras can check, how a model is proved and where it runs.</h2>
         </div>
         <div class="faq" data-reveal>
@@ -138,10 +137,10 @@
       </div>
     </section>
 
-    <section class="sec sec--dark faqsec" id="motion">
+    <section class="sec sec--paper faqsec" id="motion">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
-          <span class="kicker">Motion AI</span>
+          <span class="h-eyebrow">Motion AI</span>
           <h2 data-clip>The two units, what they carry, and how a deployment starts.</h2>
         </div>
         <div class="faq" data-reveal>
@@ -162,10 +161,10 @@
       </div>
     </section>
 
-    <section class="sec sec--paper faqsec" id="agents">
+    <section class="sec sec--dark faqsec" id="agents">
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
-          <span class="h-eyebrow">AI Agents</span>
+          <span class="kicker">AI Agents</span>
           <h2 data-clip>How the work is scoped, what holds an agent back, and what TARA is.</h2>
         </div>
         <div class="faq" data-reveal>

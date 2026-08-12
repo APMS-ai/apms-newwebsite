@@ -13,35 +13,46 @@
    Four cards, one per section. An explicit four-column grid, not auto-fit:
    auto-fit picks whatever fits and orphans the last card (rule 6). Four items
    divide into 4, 2 and 1 cleanly. */
-.faqnav__sec { padding-block: clamp(1.6rem, 3.5vw, 2.4rem); }
+/* .phero h1 is uppercase site-wide, which renders "FAQs." as "FAQS." and throws
+   away the lowercase s that the whole naming decision was about. This is the one
+   hero whose heading is an initialism, so it keeps its own casing. */
+.phero h1.faq__h1 { text-transform: none; }
+
+/* It lives in the hero now, on the dark gradient, so it is sized to the hero's
+   own measure rather than to a section of its own. */
 .faqnav {
   display: grid; gap: 0.8rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 980px; margin-inline: auto;
+  max-width: 900px; margin: clamp(1.8rem, 4vw, 2.6rem) auto 0;
+  text-align: left;
 }
 @media (max-width: 780px) { .faqnav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 420px) { .faqnav { grid-template-columns: minmax(0, 1fr); } }
 
 .faqnav__a {
   display: grid; gap: 0.15rem; align-content: center;
-  padding: 0.9rem 1.1rem;
-  border: 1px solid var(--line); border-radius: 12px;
-  background: var(--white); box-shadow: var(--shadow-sm);
+  padding: 0.85rem 1.05rem;
+  border: 1px solid var(--line-dark); border-radius: 12px;
+  /* Nearly opaque, not a 4% white wash. The hero's animated network sits
+     directly behind these and every line and node was showing through the
+     labels. A solid ground is also cheaper than a backdrop-filter, which is
+     ruled out here anyway. */
+  background: rgba(7,24,36,0.78);
   text-decoration: none;
-  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease),
-              box-shadow 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease),
+              transform 0.2s var(--ease);
 }
 .faqnav__a b {
-  font-family: var(--display); font-weight: 800; font-size: 1rem; color: var(--ink);
+  font-family: var(--display); font-weight: 800; font-size: 0.98rem; color: #fff;
 }
 .faqnav__a span {
-  font-size: 0.78rem; color: var(--muted);
+  font-size: 0.78rem; color: var(--on-dark-soft);
 }
 .faqnav__a:hover, .faqnav__a:focus-visible {
-  border-color: var(--teal); transform: translateY(-2px);
-  box-shadow: 0 14px 30px -18px rgba(12,26,40,0.35);
+  border-color: var(--teal); background: rgba(10,40,44,0.88);
+  transform: translateY(-2px);
 }
-.faqnav__a:hover b, .faqnav__a:focus-visible b { color: var(--teal-deep); }
+.faqnav__a:hover b, .faqnav__a:focus-visible b { color: var(--teal-bright); }
 
 /* ---------- back to the product page, under each section ---------- */
 .faqsec__back { text-align: center; margin-top: clamp(1.4rem, 3vw, 2rem); }
