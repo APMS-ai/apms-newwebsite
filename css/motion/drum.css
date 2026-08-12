@@ -19,13 +19,76 @@
 
 .drum { margin-top: clamp(2rem, 4vw, 3rem); }
 
+/* ---------- the mode control ----------
+   drum.js inserts this, and only on a screen wide enough and with motion
+   allowed, so it never offers a ring that cannot run. The ring is opt in: the
+   default is the grid below, because a pinned section that holds the page still
+   until you have turned every card is an ambush for anyone who was reading
+   past it. */
+.drum__mode {
+  display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+.drum__modebtn {
+  font-family: var(--display); font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  padding: 0.5rem 1.05rem; border-radius: 99px;
+  border: 1px solid var(--line); background: var(--white); color: var(--body);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease),
+              background-color 0.2s var(--ease);
+}
+.drum__modebtn:hover { border-color: var(--teal); color: var(--teal-deep); }
+.drum__modebtn[aria-pressed="true"] {
+  background: var(--teal); border-color: var(--teal); color: #04231c;
+}
+.drum__modenote { font-size: 0.8rem; color: var(--muted); }
+
+/* the drums on dark sections need the inverse treatment */
+.sec--dark .drum__modebtn, .sec--darker .drum__modebtn {
+  background: rgba(255,255,255,0.04); border-color: var(--line-dark);
+  color: var(--on-dark-soft);
+}
+.sec--dark .drum__modebtn:hover, .sec--darker .drum__modebtn:hover {
+  border-color: var(--teal); color: var(--teal);
+}
+.sec--dark .drum__modebtn[aria-pressed="true"],
+.sec--darker .drum__modebtn[aria-pressed="true"] {
+  background: var(--teal); border-color: var(--teal); color: #04231c;
+}
+.sec--dark .drum__modenote, .sec--darker .drum__modenote { color: var(--on-dark-soft); }
+
 /* ---------- fallback: the layout wherever the ring is not used ---------- */
+/* This is what almost everyone now sees, since the ring is opt in, so the
+   column count has to divide the card count instead of being a flat three.
+   The six drums hold 6, 5, 4, 4, 3 and 3 cards: three columns suits 6 and 3,
+   and takes 5 as three then two, but it left the four-card sections with a
+   single orphan card on a second row. Four cards go two up.
+
+   Counted two ways on purpose: :has() reads the markup so the grid is right
+   with scripting off, and drum.js also stamps data-n, so the grid is right in
+   a browser without :has(). Neither depends on the other. */
 .drum__ring {
   display: grid; gap: 1.1rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-@media (max-width: 900px) { .drum__ring { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .drum__ring { grid-template-columns: 1fr; } }
+.drum__ring:has(> :last-child:nth-child(4)),
+.drum__ring[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* The :has() selector above has to be repeated in these queries. A media query
+   adds no specificity, so `.drum__ring` alone loses to
+   `.drum__ring:has(...)` and the four-card rings stayed two up at 390px, at
+   about 150px a card. */
+@media (max-width: 900px) {
+  .drum__ring,
+  .drum__ring:has(> :last-child:nth-child(4)),
+  .drum__ring[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .drum__ring,
+  .drum__ring:has(> :last-child:nth-child(4)),
+  .drum__ring[data-n="4"] { grid-template-columns: 1fr; }
+}
 .drum__dots { display: none; }
 
 /* ==========================================================================
@@ -44,6 +107,7 @@
   }
   .is-drumsec .sec__head { margin-bottom: 0; }
 
+  .drum.is-drum .drum__mode { margin-bottom: clamp(0.6rem, 1.6vh, 1.1rem); }
   .drum.is-drum .drum__stage {
     height: 50vh; min-height: 340px;
     display: block; position: relative;

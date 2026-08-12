@@ -18,6 +18,17 @@
 }
 @keyframes aloopFlow { to { stroke-dashoffset: -26; } }
 
+/* loop.js turns the flow into a progress line that grows from the live node to
+   the next one, and sets the dash properties itself. The marching-dash
+   animation has to stop or it would fight those inline values every frame.
+   Without JS the class is never added and the dashes keep marching, which is
+   the old behaviour and a reasonable fallback. */
+.aloop__flow.is-driven {
+  animation: none;
+  opacity: 0.9; stroke-width: 3;
+  transition: none;
+}
+
 .aloop__comet { fill: var(--teal); }
 .aloop__comet-halo { fill: var(--teal); opacity: 0.18; }
 
@@ -168,6 +179,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .aloop__flow, .aloop__comet, .aloop__comet-halo { animation: none !important; }
+  /* loop.js does not auto-advance under this preference, so the fill and the
+     comet simply sit at whichever step the reader chose. Nothing travels. */
   .aloop__ring { animation: none !important; opacity: 0 !important; }
   .gl-wave, .gl-bar1, .gl-bar2, .gl-bar3, .gl-fcast, .gl-dot, .gl-bolt { animation: none !important; }
   .gl-fcast { stroke-dashoffset: 0 !important; }

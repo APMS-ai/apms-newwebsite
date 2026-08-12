@@ -15,11 +15,27 @@
 
 .agp { position: relative; margin-top: clamp(2rem, 4vw, 3rem); }
 .agp__track {
-  display: flex; gap: 1.1rem; align-items: stretch;
+  display: flex; gap: var(--agp-gap, 1.1rem); align-items: stretch;
   will-change: transform;
 }
-/* every direct child of the track is a card, whatever class the page uses */
-.agp__track > * { flex: 0 0 clamp(292px, 27vw, 360px); }
+/* Every direct child of the track is a card, whatever class the page uses.
+   Sized so exactly four fit the track instead of three and a bit: subtract the
+   three gaps between four cards, then quarter what is left. The old
+   clamp(292px, 27vw, 360px) resolved to 360px on a 1240px container, which is
+   3.4 cards and left a sliver of the fourth showing.
+
+   A floor keeps it usable once the track is narrow, but it has to sit BELOW
+   the four-up width or it wins and there is no point to the rest: a 1240px
+   container gives a 1144px track, so four cards are 272px each. 288px was
+   measured overriding that and leaving 3.8 cards. 240px is the real floor,
+   which only engages under about 1030px, where the 2-up breakpoint is close
+   anyway. */
+.agp__track { --agp-gap: 1.1rem; --agp-per-view: 4; }
+.agp__track > * {
+  flex: 0 0 max(240px, calc((100% - (var(--agp-per-view) - 1) * var(--agp-gap)) / var(--agp-per-view)));
+}
+@media (max-width: 900px)  { .agp__track { --agp-per-view: 2; } }
+@media (max-width: 620px)  { .agp__track { --agp-per-view: 1; } }
 
 /* Pages were setting `height: 100%` on their rail cards to equalise them, but
    that is self-defeating: giving a flex item a definite cross-size stops

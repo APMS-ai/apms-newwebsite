@@ -1,7 +1,7 @@
 /* ==========================================================================
    APMS.ai — enhancement layer · behaviour (vanilla, dependency-free)
    Ambient backgrounds · card tilt · magnetic buttons · parallax ·
-   heading clip-reveal · SVG draw · radial gauges · live ticker · pill tabs.
+   SVG draw · radial gauges · live ticker · pill tabs.
    Additive to redesign.js. All motion respects prefers-reduced-motion.
    ========================================================================== */
 (function () {
@@ -42,30 +42,15 @@
     }
   });
 
-  /* ---------- 2 · heading clip-reveal (split into line spans) ---------- */
-  if (!reduce && "IntersectionObserver" in window) {
-    var clipObs = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        each(".clip-line", e.target, function (l) { l.classList.add("in"); });
-        clipObs.unobserve(e.target);
-      });
-    }, { threshold: 0.4 });
-    each("[data-clip]", document, function (h) {
-      // wrap each existing child-node line; keep inline markup intact by wrapping whole content once
-      if (h.querySelector(".clip-line")) return;
-      var html = h.innerHTML;
-      h.innerHTML = "";
-      h.classList.add("clip-reveal");
-      var parts = html.split(/<br\s*\/?>/i);
-      parts.forEach(function (p) {
-        var span = document.createElement("span");
-        span.className = "clip-line"; span.innerHTML = p;
-        h.appendChild(span);
-      });
-      clipObs.observe(h);
-    });
-  }
+  /* ---------- 2 · heading reveals ----------
+     Owned entirely by js/motion/scroll-text.js. There used to be a second
+     system here: a [data-clip] hook that wrapped a heading into .clip-line
+     spans and slid them up. scroll-text.js already animates `.sec__head h2`
+     and hero h1s with the page's own data-fx recipe, so any heading carrying
+     data-clip was animated twice, and two headings on the same page looked
+     different purely by whether they had the attribute. The hook, its observer
+     and the .clip-line CSS are all gone; scroll-text.js now also matches
+     [data-clip] so the few such headings outside a .sec__head still animate. */
 
   /* ---------- auto-hook: magnetic on the primary hero/CTA buttons only ----------
      (3D tilt removed site-wide in favour of a restrained, premium clean-lift on hover) */
@@ -205,18 +190,12 @@
     });
   }
 
-  /* ---------- 10 · pill tabs (product tour) ---------- */
-  each("[data-ptabs]", document, function (wrap) {
-    var tabs = Array.prototype.slice.call(wrap.querySelectorAll(".ptab"));
-    var panes = Array.prototype.slice.call(wrap.querySelectorAll(".ppane"));
-    tabs.forEach(function (t) {
-      t.addEventListener("click", function () {
-        var key = t.dataset.tab;
-        tabs.forEach(function (x) { x.classList.toggle("is-active", x === t); });
-        panes.forEach(function (p) { p.classList.toggle("is-active", p.dataset.pane === key); });
-      });
-    });
-  });
+  /* ---------- 10 · pill tabs (product tour) ----------
+     Removed. The product tour's four tab buttons repeated, word for word, the
+     four labelled nodes in the diagram directly above them, so the strip is
+     gone and the nodes are the tabs. js/sections/loop.js owns that, including
+     the roles, the arrow keys and the auto-advance. Nothing else on the site
+     uses .ptab. */
 
   /* ---------- 11 · to-top button reveal (redesign.js handles primary; guard) ---------- */
   /* handled in redesign.js — nothing to do here */

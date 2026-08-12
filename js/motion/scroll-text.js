@@ -27,7 +27,11 @@
   };
   var recipe = RECIPES[STYLE] || RECIPES.fadeup;
 
-  var targets = document.querySelectorAll(".phero h1, .hero h1, .sec__head h2, [data-fx-text]");
+  /* [data-clip] is in this list because enhance.js no longer animates those
+     headings; without it the handful that sit outside a .sec__head would not
+     animate at all. */
+  var targets = document.querySelectorAll(
+    ".phero h1, .hero h1, .sec__head h2, [data-clip], [data-fx-text]");
 
   function splitUnits(el, byChar) {
     var frag = document.createDocumentFragment();
@@ -101,12 +105,31 @@
     anime(props);
   }
 
+  /* Put a heading back to its pre-animation state. anime.remove() first, or a
+     run still in flight would keep writing over the reset. */
+  function rearm(el) {
+    var units = el.querySelectorAll(".st-w");
+    anime.remove(units);
+    for (var i = 0; i < units.length; i++) {
+      units[i].style.opacity = "0";
+      units[i].style.transform = "";
+      units[i].style.filter = "";
+    }
+  }
+
   var prepared = [];
   for (var t = 0; t < targets.length; t++) { var p = prep(targets[t]); if (p) prepared.push(p); }
 
   if ("IntersectionObserver" in window) {
+    /* Kept observed rather than unobserved after the first play, so the heading
+       animates again on the way back up. Leaving the view resets its units to
+       the hidden state; anime() is called fresh on each entry, so an
+       interrupted run is simply replaced rather than queued behind. */
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { play(e.target); io.unobserve(e.target); } });
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { play(e.target); }
+        else { rearm(e.target); }
+      });
     }, { threshold: 0.25, rootMargin: "0px 0px -8% 0px" });
     prepared.forEach(function (el) { io.observe(el); });
   } else {

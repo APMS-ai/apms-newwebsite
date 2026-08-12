@@ -75,12 +75,6 @@
 [data-reveal="left"].in, [data-reveal="right"].in, [data-reveal="scale"].in { transform: none; }
 [data-reveal="blur"].in { filter: blur(0); }
 
-/* heading clip-reveal: wraps into .clip-line spans via JS */
-.clip-reveal { overflow: hidden; }
-.clip-line { display: block; transform: translateY(110%); transition: transform 0.55s var(--ease-out); }
-.clip-line.in { transform: none; }
-.clip-line:nth-child(2) { transition-delay: 0.05s; }
-.clip-line:nth-child(3) { transition-delay: 0.1s; }
 
 /* gradient / shimmer text utility */
 .grad-text {
@@ -322,19 +316,11 @@
 .ticker__delta.down { color: #ff8f7a; }
 
 /* ==========================================================================
-   12 · PILL TABS (product tour / accordion helper)
+   12 · PRODUCT TOUR PANES
+   The .ptabs / .ptab pill strip that used to sit here is gone with the markup:
+   its four buttons repeated the four labelled nodes of the diagram above them.
+   The nodes are the tabs now (js/sections/loop.js), so only the panes remain.
    ========================================================================== */
-.ptabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; }
-/* Four tabs wrapped 3 then 1 on narrow screens, leaving the last one adrift
-   under a gap. A two-column grid keeps them paired. */
-@media (max-width: 620px) {
-  .ptabs { display: grid; grid-template-columns: 1fr 1fr; }
-  .ptabs > * { width: 100%; text-align: center; justify-content: center; }
-}
-.ptab { font-family: var(--display); font-weight: 700; font-size: 0.9rem; padding: 0.55rem 1.1rem; border-radius: 99px; border: 1px solid var(--line); color: var(--body); transition: 0.25s; background: var(--white); }
-.sec--dark .ptab, .sec--darker .ptab { border-color: var(--line-dark); color: var(--on-dark-soft); background: rgba(255,255,255,0.03); }
-.ptab:hover { border-color: var(--teal); color: var(--teal-deep); }
-.ptab.is-active { background: var(--teal); color: #04231c; border-color: var(--teal); box-shadow: var(--shadow-teal); }
 .ppane { display: none; animation: fadeUp 0.6s var(--ease-out); }
 .ppane.is-active { display: block; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -1109,7 +1095,6 @@ h3 { letter-spacing: -0.012em; }
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .aurora > span, .gridfield, .grad-text, .qmarq, .words, .float, .ticker__lbl i { animation: none !important; }
-  .clip-line { transform: none !important; }
   .gauge__fg { transition: none; }
   [data-tilt] { transform: none !important; }
   .tile::after, .cap::after, .mod::after, .case::after, .ind::after, .step::after,

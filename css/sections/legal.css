@@ -1,0 +1,188 @@
+/* ==========================================================================
+   APMS.ai — legal.css
+   Layout for the privacy policy.
+
+   The policy is 16 sections long. In a single 760px column that is one very
+   tall, very narrow ribbon of text with the whole right half of a desktop
+   screen empty, and no way to tell how much is left or to reach section 14
+   without scrolling past thirteen others.
+
+   So it reads horizontally on a wide screen: a sticky contents list on the
+   left that marks where you are, the policy itself on the right at a wider
+   measure, and the short closing sections paired two-up instead of stacked.
+   Below 900px it collapses back to one column with the contents list as a
+   collapsed summary, because a sticky sidebar on a phone is just lost height.
+
+   APMS teal only.
+   ========================================================================== */
+
+.legal {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* ---------- contents ---------- */
+.legal__toc {
+  position: sticky;
+  /* clear of the fixed header, plus a little breathing room */
+  top: calc(var(--header-h) + 1.5rem);
+  /* its own scroller: 16 entries are taller than a short viewport, and a
+     sticky box taller than the screen simply stops sticking */
+  max-height: calc(100svh - var(--header-h) - 3rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.4rem;
+}
+ /* It is a <details> so the phone layout can collapse it. On a wide screen it
+    is always open and the summary is just a label: pointer-events off, because
+    a heading that closes the contents when you click it is a trap. */
+.legal__toc summary {
+  font-family: var(--display); font-weight: 900;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 0.85rem;
+  list-style: none; pointer-events: none;
+}
+.legal__toc summary::-webkit-details-marker { display: none; }
+.legal__toc ol {
+  list-style: none; margin: 0; padding: 0;
+  counter-reset: legal;
+  border-left: 1px solid var(--line);
+}
+.legal__toc li { counter-increment: legal; margin: 0; }
+.legal__toc a {
+  display: flex; gap: 0.6rem;
+  font-size: 0.85rem; line-height: 1.35;
+  color: var(--body); text-decoration: none;
+  padding: 0.4rem 0 0.4rem 0.85rem;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.legal__toc a::before {
+  content: counter(legal, decimal-leading-zero);
+  flex: none;
+  font-family: var(--display); font-weight: 800; font-size: 0.7rem;
+  color: var(--muted); padding-top: 0.15em;
+  transition: color 0.2s var(--ease);
+}
+.legal__toc a:hover { color: var(--teal-deep); }
+.legal__toc a:hover::before { color: var(--teal-deep); }
+.legal__toc a.is-here {
+  color: var(--teal-deep); font-weight: 700;
+  border-left-color: var(--teal);
+}
+.legal__toc a.is-here::before { color: var(--teal); }
+
+/* ---------- the policy ---------- */
+/* Wider than .prose's 760px but still a measure, not a full-bleed line. 82ch
+   is about 740px here, which fills the 832px column with a normal right
+   margin instead of leaving the old 480px of dead space. */
+.legal__body { max-width: 82ch; }
+.legal__body > *:first-child { margin-top: 0; }
+
+.legal__sec { scroll-margin-top: calc(var(--header-h) + 2rem); }
+.legal__sec + .legal__sec { margin-top: clamp(1.9rem, 3.4vw, 2.8rem); }
+.legal__sec h2 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  text-transform: none; margin: 0 0 0.65rem;
+  padding-top: 0.9rem; border-top: 1px solid var(--line);
+  display: flex; gap: 0.75rem; align-items: baseline;
+}
+.legal__sec:first-child h2 { padding-top: 0; border-top: 0; }
+.legal__sec h2 .legal__n {
+  flex: none;
+  font-size: 0.72rem; font-weight: 900; letter-spacing: 0.1em;
+  color: var(--teal-deep);
+}
+.legal__sec p, .legal__sec li { color: var(--body); margin-bottom: 0.85rem; }
+.legal__sec ul { list-style: disc; padding-left: 1.3rem; }
+.legal__sec li { margin-bottom: 0.4rem; }
+.legal__sec a { color: var(--teal-deep); text-decoration: underline; }
+
+/* The stamp at the top of the policy, out of the numbered run. */
+.legal__stamp {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--display); font-weight: 700;
+  font-size: 0.78rem; letter-spacing: 0.06em;
+  color: var(--teal-deep);
+  background: rgba(23,201,155,0.09); border: 1px solid rgba(23,201,155,0.28);
+  border-radius: 99px; padding: 0.4rem 0.9rem;
+  margin-bottom: clamp(1.4rem, 3vw, 2rem);
+}
+
+/* ---------- the short closing sections, paired ----------
+   Children, Security, Third-party links, Changes and Customer communication
+   are two or three sentences each. Stacked full width they are five near-empty
+   bands; paired they fill the row and the page stops feeling like a list of
+   headings. Ordered reading still works: the pair reads left then right. */
+@media (min-width: 900px) {
+  .legal__pairs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 clamp(1.8rem, 3vw, 2.6rem);
+    margin-top: clamp(1.9rem, 3.4vw, 2.8rem);
+  }
+  .legal__pairs .legal__sec + .legal__sec { margin-top: 0; }
+  /* every cell needs its own rule, not just the ones after a sibling */
+  .legal__pairs .legal__sec h2 { padding-top: 0.9rem; border-top: 1px solid var(--line); }
+  .legal__pairs .legal__sec { padding-bottom: 1.2rem; }
+}
+
+/* ---------- contact, as the one card on the page ---------- */
+.legal__contact {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  background: var(--white);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(1.3rem, 3vw, 2rem);
+  box-shadow: var(--shadow-sm);
+}
+.legal__contact h2 { padding-top: 0; border-top: 0; }
+.legal__contact .legal__rows {
+  display: grid; gap: 0.5rem 1.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.9rem;
+}
+.legal__contact .legal__rows > div { min-width: 0; }
+/* the address is one long line; email and phone pair beside each other */
+.legal__contact .legal__wide { grid-column: 1 / -1; }
+.legal__contact dt {
+  font-family: var(--display); font-weight: 800;
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.15rem;
+}
+.legal__contact dd { margin: 0; color: var(--body); overflow-wrap: anywhere; }
+@media (max-width: 620px) {
+  .legal__contact .legal__rows { grid-template-columns: 1fr; }
+}
+
+/* ---------- one column below 900px ----------
+   The sidebar becomes a closed <details> so the contents list is still there
+   for anyone who wants to jump, without spending a screen of height on it. */
+@media (max-width: 899px) {
+  .legal { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+  .legal__toc {
+    position: static; max-height: none; overflow: visible;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+  }
+  .legal__toc[open] { padding-bottom: 1.1rem; }
+  .legal__toc summary {
+    pointer-events: auto; margin: 0;
+    font-family: var(--display); font-weight: 800;
+    font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink); cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .legal__toc summary::-webkit-details-marker { display: none; }
+  .legal__toc summary::after {
+    content: ""; width: 8px; height: 8px; flex: none;
+    border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg); transition: transform 0.2s var(--ease);
+  }
+  .legal__toc[open] summary::after { transform: rotate(-135deg); }
+  .legal__toc ol { margin-top: 0.8rem; }
+  .legal__body { max-width: none; }
+}
