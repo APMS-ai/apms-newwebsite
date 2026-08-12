@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-78 files
+80 files
 ----------------------------------------
 
   .htaccess
@@ -65,6 +65,7 @@ stylesheets off, which shipped a site with broken styling.
   css/sections/floorgrid.css
   css/sections/formfx.css
   css/sections/indsteps.css
+  css/sections/legal.css
   css/sections/loop.css
   css/sections/maint.css
   css/sections/maintnew.css
@@ -95,6 +96,7 @@ stylesheets off, which shipped a site with broken styling.
   js/sections/agentic.js
   js/sections/analyst.js
   js/sections/formfx.js
+  js/sections/legal.js
   js/sections/loop.js
   js/sections/pseq.js
   js/vendor/ScrollTrigger.min.js
