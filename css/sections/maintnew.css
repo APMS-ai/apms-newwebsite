@@ -64,36 +64,99 @@
 .mk2__sheet { fill: rgba(255,255,255,0.035); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
 .mk2__rule  { stroke: rgba(255,255,255,0.10); stroke-width: 1; }
 
+/* One 7s clock and no animation-delay anywhere in this panel. The rows, the
+   ticks and the pills used to be staggered with delays on a shared 6.5s loop,
+   and a delay shifts a loop's reset as well as its start: row 1 restarted at
+   6.5s and row 4 at 8s, so the sheet never cleared as one. Each element has its
+   own window below instead, and all of them clear together at 88%. */
 .mk2__row { opacity: 0; transform: translateX(-6px); }
-.mpanel[data-reveal].in .mk2__row { animation: mkRow 6.5s var(--ease-out) infinite; }
-.mpanel[data-reveal].in .mk2__row--2 { animation-delay: .5s; }
-.mpanel[data-reveal].in .mk2__row--3 { animation-delay: 1s; }
-.mpanel[data-reveal].in .mk2__row--4 { animation-delay: 1.5s; }
-@keyframes mkRow {
-  0%, 6%    { opacity: 0; transform: translateX(-6px); }
-  14%, 88%  { opacity: 1; transform: translateX(0); }
-  96%, 100% { opacity: 0; transform: translateX(-6px); }
+.mpanel[data-reveal].in .mk2__row--1 { animation: mkRow1 7.0s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__row--2 { animation: mkRow2 7.0s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__row--3 { animation: mkRow3 7.0s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__row--4 { animation: mkRow4 7.0s var(--ease-out) infinite; }
+
+@keyframes mkRow1 {
+  0%, 6%     { opacity: 0; transform: translateX(-6px); }
+  11%, 88%  { opacity: 1; transform: translateX(0); }
+  96%, 100%   { opacity: 0; transform: translateX(-6px); }
+}
+@keyframes mkRow2 {
+  0%, 20%     { opacity: 0; transform: translateX(-6px); }
+  25%, 88%  { opacity: 1; transform: translateX(0); }
+  96%, 100%   { opacity: 0; transform: translateX(-6px); }
+}
+@keyframes mkRow3 {
+  0%, 34%     { opacity: 0; transform: translateX(-6px); }
+  39%, 88%  { opacity: 1; transform: translateX(0); }
+  96%, 100%   { opacity: 0; transform: translateX(-6px); }
+}
+@keyframes mkRow4 {
+  0%, 48%     { opacity: 0; transform: translateX(-6px); }
+  53%, 88%  { opacity: 1; transform: translateX(0); }
+  96%, 100%   { opacity: 0; transform: translateX(-6px); }
 }
 
-.mk2__tick { stroke: var(--teal-bright); stroke-width: 2; fill: none; stroke-linecap: round;
-             stroke-linejoin: round; stroke-dasharray: 12; stroke-dashoffset: 12; }
-.mpanel[data-reveal].in .mk2__tick { animation: mkTick 6.5s var(--ease-out) infinite; }
-.mpanel[data-reveal].in .mk2__tick--2 { animation-delay: .5s; }
-.mpanel[data-reveal].in .mk2__tick--3 { animation-delay: 1s; }
-.mpanel[data-reveal].in .mk2__tick--4 { animation-delay: 1.5s; }
-@keyframes mkTick { 0%,10% { stroke-dashoffset: 12; } 20%,88% { stroke-dashoffset: 0; } 96%,100% { stroke-dashoffset: 12; } }
+/* The mark is 21.3 units long, so the dash pattern has to be at least that or
+   the end of the long arm is simply never painted. It was 12 against a 17.70
+   path, which cut the long arm down to 6.3 and left two equal arms: a V. */
+.mk2__tick {
+  stroke: var(--teal-bright); stroke-width: 2.4; fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 23; stroke-dashoffset: 23;
+}
+.mpanel[data-reveal].in .mk2__tick--1 { animation: mkTick1 7.0s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__tick--2 { animation: mkTick2 7.0s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__tick--3 { animation: mkTick3 7.0s var(--ease-out) infinite; }
+.mpanel[data-reveal].in .mk2__tick--4 { animation: mkTick4 7.0s var(--ease-out) infinite; }
 
-/* the status the sheet moves through, one at a time */
+@keyframes mkTick1 {
+  0%, 8%     { stroke-dashoffset: 23; }
+  16%, 88%  { stroke-dashoffset: 0; }
+  96%, 100%   { stroke-dashoffset: 23; }
+}
+@keyframes mkTick2 {
+  0%, 22%     { stroke-dashoffset: 23; }
+  30%, 88%  { stroke-dashoffset: 0; }
+  96%, 100%   { stroke-dashoffset: 23; }
+}
+@keyframes mkTick3 {
+  0%, 36%     { stroke-dashoffset: 23; }
+  44%, 88%  { stroke-dashoffset: 0; }
+  96%, 100%   { stroke-dashoffset: 23; }
+}
+@keyframes mkTick4 {
+  0%, 50%     { stroke-dashoffset: 23; }
+  58%, 88%  { stroke-dashoffset: 0; }
+  96%, 100%   { stroke-dashoffset: 23; }
+}
+
+/* the status the sheet moves through, one at a time, after the fields are in */
 .mk2__pill { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
 .mk2__pilllbl { font-family: var(--display); font-weight: 700; font-size: 10px; fill: rgba(255,255,255,0.5); }
 .mk2__on { fill: rgba(23,201,155,0.16); stroke: var(--teal); stroke-width: 1.3; opacity: 0; }
-.mpanel[data-reveal].in .mk2__on { animation: mkOn 6.5s steps(1,end) infinite; }
-.mpanel[data-reveal].in .mk2__on--2 { animation-delay: 1.6s; }
-.mpanel[data-reveal].in .mk2__on--3 { animation-delay: 3.2s; }
-@keyframes mkOn { 0%,24% { opacity: 1; } 25%,100% { opacity: 0; } }
+.mpanel[data-reveal].in .mk2__on--1 { animation: mkOn1 7.0s steps(1,end) infinite; }
+.mpanel[data-reveal].in .mk2__on--2 { animation: mkOn2 7.0s steps(1,end) infinite; }
+.mpanel[data-reveal].in .mk2__on--3 { animation: mkOn3 7.0s steps(1,end) infinite; }
+
+@keyframes mkOn1 {
+  0%, 56%    { opacity: 0; }
+  56%, 68% { opacity: 1; }
+  68%, 100%  { opacity: 0; }
+}
+@keyframes mkOn2 {
+  0%, 68%    { opacity: 0; }
+  68%, 80% { opacity: 1; }
+  80%, 100%  { opacity: 0; }
+}
+@keyframes mkOn3 {
+  0%, 80%    { opacity: 0; }
+  80%, 88% { opacity: 1; }
+  88%, 100%  { opacity: 0; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .mk1__fill, .mk1__hit, .mk1__wo, .mk2__row, .mk2__tick, .mk2__on { animation: none !important; }
+  /* the informative frame is the completed sheet */
   .mk1__fill { transform: scaleX(.72); }
   .mk1__fill--c { transform: scaleX(1); }
   .mk1__hit, .mk1__wo, .mk2__row { opacity: 1; transform: none; }
