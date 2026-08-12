@@ -150,6 +150,10 @@
   /* draw a path only when its step is active */
   .pseq .fx-draw   { stroke-dasharray: 620; stroke-dashoffset: 620; }
   .pseq .pstep.is-active .fx-draw { animation: pseqDraw 1.5s var(--ease-out) 0.15s forwards; }
+  /* the arrowhead lands as the line arrives, not before it: the draw runs
+     0.15s to 1.65s, so this starts at 1.45s and is done just after */
+  .pseq .fx-arrow  { transform-box: fill-box; transform-origin: center; opacity: 0; }
+  .pseq .pstep.is-active .fx-arrow { animation: pseqArrow 0.42s var(--ease-out) 1.45s forwards; }
 
   @keyframes pseqSpin    { to { transform: rotate(360deg); } }
   @keyframes pseqBreathe { 0%,100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.12); opacity: 0.22; } }
@@ -159,6 +163,8 @@
   @keyframes pseqBarGlow { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
   @keyframes pseqFloat   { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes pseqDraw    { to { stroke-dashoffset: 0; } }
+  @keyframes pseqArrow   { from { opacity: 0; transform: scale(0.5); }
+                           to   { opacity: 1; transform: scale(1); } }
 }
 
 /* ==========================================================================

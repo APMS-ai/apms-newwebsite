@@ -581,8 +581,21 @@
    said with a small machine that keeps walking a closed circuit and checking
    in, so that is what this is.
 
-   582 units of circuit on a 9s loop, so a checkpoint at 12.4% of the path
-   lights at 1.12s. The delays below are those fractions, not eyeballed.
+   582 units of circuit on a 9s loop. Each checkpoint lights at its own real
+   fraction along the path, and each is named after one of the jobs listed in
+   "Where agents earn their keep" further down the page, so the board says what
+   the round is for rather than just that there is one.
+
+     cp1 (150,45)  INVOICES     72.0 units -> 12.4%
+     cp2 (250,102) ORDERS      217.0       -> 37.3%
+     cp3 (150,160) COMPLIANCE  363.0       -> 62.4%
+     cp4 (50,102)  INBOX       508.9       -> 87.4%
+
+   One clock, no animation-delay. The four used to share one keyframe set offset
+   by delay, which shifts a loop's reset as well as its start: all four reset at
+   different moments and the board never showed a completed round. Now they
+   light in turn and all reset together at the top of the lap, so the round
+   fills up and starts again.
    ========================================================================== */
 .agwrap {
   display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
@@ -617,31 +630,87 @@
 .agr__bot { offset-distance: 0%; offset-rotate: 0deg; }
 .agr__cp  { transform-box: fill-box; transform-origin: center; }
 
+/* the label sits outside the track, muted until its point is checked */
+.agr__cplbl {
+  font-family: var(--display); font-weight: 800; font-size: 8.5px;
+  letter-spacing: .1em; fill: var(--muted);
+}
+
 [data-reveal].in .agr__bot { animation: agrWalk 9s linear infinite; }
 [data-reveal].in .agr__eye { animation: agrBlinkless 2.6s ease-in-out infinite; }
-[data-reveal].in .agr__cp  { animation: agrCheck 9s ease-out infinite; }
-[data-reveal].in .agr__cp--1 { animation-delay: 1.12s; }
-[data-reveal].in .agr__cp--2 { animation-delay: 3.37s; }
-[data-reveal].in .agr__cp--3 { animation-delay: 5.62s; }
-[data-reveal].in .agr__cp--4 { animation-delay: 7.87s; }
+[data-reveal].in .agr__cp--1    { animation: agrCheck1 9s ease-out infinite; }
+[data-reveal].in .agr__cplbl--1 { animation: agrLabel1 9s ease-out infinite; }
+[data-reveal].in .agr__cp--2    { animation: agrCheck2 9s ease-out infinite; }
+[data-reveal].in .agr__cplbl--2 { animation: agrLabel2 9s ease-out infinite; }
+[data-reveal].in .agr__cp--3    { animation: agrCheck3 9s ease-out infinite; }
+[data-reveal].in .agr__cplbl--3 { animation: agrLabel3 9s ease-out infinite; }
+[data-reveal].in .agr__cp--4    { animation: agrCheck4 9s ease-out infinite; }
+[data-reveal].in .agr__cplbl--4 { animation: agrLabel4 9s ease-out infinite; }
 
 @keyframes agrWalk { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 /* the eye dims and lifts but never closes: it is on watch */
 @keyframes agrBlinkless { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
-@keyframes agrCheck {
-  0%, 4%   { fill: var(--white); stroke: var(--line); transform: scale(1); }
-  8%       { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
-  30%, 96% { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
-  100%     { fill: var(--white); stroke: var(--line); transform: scale(1); }
+
+/* INVOICES, at 12.4% of the circuit */
+@keyframes agrCheck1 {
+  0%, 12.4%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
+  14.2%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
+  16.9%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
+  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
+}
+@keyframes agrLabel1 {
+  0%, 12.4%    { fill: var(--muted); }
+  14.2%, 98%   { fill: var(--teal-deep); }
+  100%         { fill: var(--muted); }
+}
+
+/* ORDERS, at 37.3% of the circuit */
+@keyframes agrCheck2 {
+  0%, 37.3%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
+  39.1%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
+  41.8%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
+  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
+}
+@keyframes agrLabel2 {
+  0%, 37.3%    { fill: var(--muted); }
+  39.1%, 98%   { fill: var(--teal-deep); }
+  100%         { fill: var(--muted); }
+}
+
+/* COMPLIANCE, at 62.4% of the circuit */
+@keyframes agrCheck3 {
+  0%, 62.4%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
+  64.2%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
+  66.9%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
+  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
+}
+@keyframes agrLabel3 {
+  0%, 62.4%    { fill: var(--muted); }
+  64.2%, 98%   { fill: var(--teal-deep); }
+  100%         { fill: var(--muted); }
+}
+
+/* INBOX, at 87.5% of the circuit */
+@keyframes agrCheck4 {
+  0%, 87.5%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
+  89.3%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
+  92.0%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
+  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
+}
+@keyframes agrLabel4 {
+  0%, 87.5%    { fill: var(--muted); }
+  89.3%, 98%   { fill: var(--teal-deep); }
+  100%         { fill: var(--muted); }
 }
 
 /* Continuous travel goes first under reduced motion (CLAUDE.md #4). The agent
    stands at a checkpoint and every checkpoint reads as visited, which is the
    informative frame. */
 @media (prefers-reduced-motion: reduce) {
-  .agr__bot, .agr__eye, .agr__cp { animation: none !important; }
+  .agr__bot, .agr__eye, .agr__cp, .agr__cplbl { animation: none !important; }
   .agr__bot { offset-distance: 12.4%; }
   .agr__cp { fill: var(--teal); stroke: var(--teal); }
+  .agr__cplbl { fill: var(--teal-deep); }
 }
 
 /* ==========================================================================

@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/base/footer.css?v=6">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=3">
-  <link rel="stylesheet" href="css/sections/pseq.css?v=25">
+  <link rel="stylesheet" href="css/sections/pseq.css?v=26">
   <link rel="stylesheet" href="css/sections/maint.css?v=2">
   <link rel="stylesheet" href="css/sections/maintui.css?v=5">
   <link rel="stylesheet" href="css/sections/aiplus.css?v=9">
@@ -356,14 +356,23 @@
                 <h3>Result</h3><div class="pstep__sub">Output &amp; uptime</div>
                 <p>The result is measurable: higher output, more uptime, and losses you can finally put a number on.</p>
               </div>
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Output and uptime rising">
+              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="A bar chart of output and uptime with a trend line rising to an arrow">
                 <circle class="fx-breathe" cx="280" cy="230" r="130" fill="url(#psGlow)"/>
                 <rect x="110" y="110" width="340" height="230" rx="16" fill="url(#psBody)" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="2"/>
                 <path d="M140 300 H420 M140 300 V140" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
                 <g fill="url(#psTeal)"><rect class="fx-bar" x="170" y="240" width="24" height="60" rx="3"/><rect class="fx-bar d1" x="220" y="220" width="24" height="80" rx="3"/><rect class="fx-bar d2" x="270" y="190" width="24" height="110" rx="3"/><rect class="fx-bar d3" x="320" y="160" width="24" height="140" rx="3"/></g>
                 <path class="fx-draw" d="M150 280 L200 250 L260 220 L320 180 L400 130" fill="none" stroke="#8ff0d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M400 130 l-3 22 M400 130 l16 8" stroke="#8ff0d6" stroke-width="3" stroke-linecap="round" fill="none"/>
-                <circle class="fx-pulse" cx="400" cy="130" r="5" fill="#2BE3B0"/>
+                <!-- A real arrowhead on the trend line. What was here was two loose
+                     strokes, "M400 130 l-3 22 M400 130 l16 8": one pointing almost
+                     straight down and one down-right, which is not an arrowhead in any
+                     direction, let alone the line's. The line's last segment runs
+                     (320,180) to (400,130), so its unit direction is (0.848, -0.530);
+                     this triangle is built on that, tip 405.7,126.4 and a 16-unit base
+                     square to it, so it points where the line is actually going. The
+                     line's round cap at 400,130 finishes inside the triangle and is
+                     hidden by it. -->
+                <circle class="fx-pulse" cx="404" cy="127" r="10" fill="#2BE3B0" opacity=".28"/>
+                <path class="fx-arrow" d="M405.7 126.4 L397.2 141.2 L388.8 127.6 Z" fill="#8ff0d6"/>
                 <text x="140" y="332" font-family="Barlow,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8ff0d6">OUTPUT &amp; UPTIME</text>
               </svg></div>
             </div>
