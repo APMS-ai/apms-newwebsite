@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
 <link rel="stylesheet" href="css/sections/solutionsfx.css?v=14">
-<link rel="stylesheet" href="css/motion/drum.css?v=10">
+<link rel="stylesheet" href="css/motion/drum.css?v=13">
   <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
 <link rel="stylesheet" href="css/motion/perf.css?v=6">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
@@ -91,13 +91,13 @@
           <h2 data-clip>Every machine speaks<br><span class="accent">a language of its own</span></h2>
           <p class="sec__lead" style="margin-inline:auto;text-align:center;">Machines were never built to talk to each other, so the numbers your floor produces stay locked inside each one.</p>
         </div>
-        <!-- The four problems ride the same ring component as the platform
-             pillars on index.html. Below 901px, or under reduced motion,
-             drum.js never builds and this falls back to a plain grid, which
-             is why the cards keep their .tile class. -->
+        <!-- The four problems use the same component as the platform pillars on
+             index.html. It was an orbiting ring with a grid fallback; the ring and
+             the control that offered it were removed, so the grid is all there is
+             and the cards keep their .tile class. -->
         <div class="drum" data-drum>
           <div class="drum__stage">
-            <div class="drum__ring">
+            <div class="drum__ring" data-n="4">
               <article class="tile drum__card" data-i="0" data-reveal>
                 <div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></div>
                 <h3>Data trapped inside every machine</h3>
@@ -584,7 +584,6 @@
   <script src="js/motion/iconlife.js?v=1"></script>
   <script src="js/core/perf.js?v=5"></script>
   <script src="js/motion/gscroll.js?v=2"></script>
-  <script src="js/motion/drum.js?v=9"></script>
   <script src="js/motion/motion.js?v=6"></script>
 </body>
 </html>

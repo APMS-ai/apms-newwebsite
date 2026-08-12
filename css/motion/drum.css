@@ -19,170 +19,55 @@
 
 .drum { margin-top: clamp(2rem, 4vw, 3rem); }
 
-/* ---------- the mode control ----------
-   drum.js inserts this, and only on a screen wide enough and with motion
-   allowed, so it never offers a ring that cannot run. The ring is opt in: the
-   default is the grid below, because a pinned section that holds the page still
-   until you have turned every card is an ambush for anyone who was reading
-   past it. */
-.drum__mode {
-  display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: clamp(1.1rem, 2.5vw, 1.6rem);
-}
-.drum__modebtn {
-  font-family: var(--display); font-weight: 700; font-size: 0.85rem;
-  letter-spacing: 0.01em;
-  padding: 0.5rem 1.05rem; border-radius: 99px;
-  border: 1px solid var(--line); background: var(--white); color: var(--body);
-  cursor: pointer;
-  transition: border-color 0.2s var(--ease), color 0.2s var(--ease),
-              background-color 0.2s var(--ease);
-}
-.drum__modebtn:hover { border-color: var(--teal); color: var(--teal-deep); }
-.drum__modebtn[aria-pressed="true"] {
-  background: var(--teal); border-color: var(--teal); color: #04231c;
-}
-.drum__modenote { font-size: 0.8rem; color: var(--muted); }
+/* ---------- the card grid ----------
+   This is the only presentation now that the ring is gone, so the column count
+   has to divide the card count at EVERY width, not just the widest one
+   (project note 6). The six grids hold 6, 5, 4, 4, 3 and 3 cards.
 
-/* the drums on dark sections need the inverse treatment */
-.sec--dark .drum__modebtn, .sec--darker .drum__modebtn {
-  background: rgba(255,255,255,0.04); border-color: var(--line-dark);
-  color: var(--on-dark-soft);
-}
-.sec--dark .drum__modebtn:hover, .sec--darker .drum__modebtn:hover {
-  border-color: var(--teal); color: var(--teal);
-}
-.sec--dark .drum__modebtn[aria-pressed="true"],
-.sec--darker .drum__modebtn[aria-pressed="true"] {
-  background: var(--teal); border-color: var(--teal); color: #04231c;
-}
-.sec--dark .drum__modenote, .sec--darker .drum__modenote { color: var(--on-dark-soft); }
+   data-n is authored into the markup, so these are plain attribute selectors
+   with no :has() needed and nothing set by a script. Measured before this: a
+   blanket two columns below 900px left motion-ai on [2,2,1] and both
+   three-card grids on [2,1], a single card alone on a last row. */
+.drum__ring { display: grid; gap: 1.1rem; }
 
-/* ---------- fallback: the layout wherever the ring is not used ---------- */
-/* This is what almost everyone now sees, since the ring is opt in, so the
-   column count has to divide the card count instead of being a flat three.
-   The six drums hold 6, 5, 4, 4, 3 and 3 cards: three columns suits 6 and 3,
-   and takes 5 as three then two, but it left the four-card sections with a
-   single orphan card on a second row. Four cards go two up.
+/* 1440 down to 901 */
+.drum__ring[data-n="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }  /* 3        */
+.drum__ring[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }  /* 2 + 2    */
+.drum__ring[data-n="5"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }  /* 3 + 2    */
+.drum__ring[data-n="6"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }  /* 3 + 3    */
 
-   Counted two ways on purpose: :has() reads the markup so the grid is right
-   with scripting off, and drum.js also stamps data-n, so the grid is right in
-   a browser without :has(). Neither depends on the other. */
-.drum__ring {
-  display: grid; gap: 1.1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.drum__ring:has(> :last-child:nth-child(4)),
-.drum__ring[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-/* The :has() selector above has to be repeated in these queries. A media query
-   adds no specificity, so `.drum__ring` alone loses to
-   `.drum__ring:has(...)` and the four-card rings stayed two up at 390px, at
-   about 150px a card. */
+/* 900 down to 781: only the six steps down, to 2 + 2 + 2. */
 @media (max-width: 900px) {
-  .drum__ring,
-  .drum__ring:has(> :last-child:nth-child(4)),
-  .drum__ring[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .drum__ring[data-n="6"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* 780 and below, the three-card and five-card grids go to ONE column rather
+   than staying three across. Neither can use two columns without leaving a card
+   alone on a last row, so three across is the only alternative, and measured it
+   gives 180px a card at 700 and 142px at 561. A tile carrying an icon, a
+   heading and a paragraph needs more than that, and full width is better than
+   cramped. The four-card and six-card grids are still comfortable at two
+   across, 239px and 221px at the bottom of their range, so they hold on. */
+@media (max-width: 780px) {
+  .drum__ring[data-n="3"],
+  .drum__ring[data-n="5"] { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 560 and below: one column throughout, which cannot orphan anything. */
 @media (max-width: 560px) {
-  .drum__ring,
-  .drum__ring:has(> :last-child:nth-child(4)),
-  .drum__ring[data-n="4"] { grid-template-columns: 1fr; }
+  .drum__ring[data-n="4"],
+  .drum__ring[data-n="6"] { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* A ring with no data-n should still look deliberate rather than collapse to a
+   single column, so the bare element keeps a sensible default. */
+.drum__ring:not([data-n]) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .drum__ring:not([data-n]) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .drum__ring:not([data-n]) { grid-template-columns: minmax(0, 1fr); } }
+
 .drum__dots { display: none; }
 
-/* ==========================================================================
-   THE RING
-   Switched on by js/drum.js adding .is-drum, so a page whose script fails is
-   still a perfectly good grid of six cards.
-   ========================================================================== */
-@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
 
-  /* the section is held still, so heading, ring and labels have to share one
-     screen: no page padding to spare and nothing below the fold */
-  .is-drumsec {
-    min-height: 100vh;
-    padding-block: clamp(1.5rem, 4vh, 3rem) !important;
-    display: grid; align-content: center;
-  }
-  .is-drumsec .sec__head { margin-bottom: 0; }
-
-  .drum.is-drum .drum__mode { margin-bottom: clamp(0.6rem, 1.6vh, 1.1rem); }
-  .drum.is-drum .drum__stage {
-    height: 50vh; min-height: 340px;
-    display: block; position: relative;
-    perspective: 1600px;
-    perspective-origin: 50% 50%;
-  }
-
-  .drum.is-drum .drum__ring {
-    display: block; position: absolute; inset: 0;
-    transform-style: preserve-3d;
-  }
-
-  .drum.is-drum .drum__card {
-    position: absolute; top: 50%; left: 50%;
-    width: min(330px, 25vw); margin: 0;
-    /* `translate` is its own property and is applied before `transform`, so the
-       card can be centred on its own box here while js keeps sole ownership of
-       `transform`. Two writers on one property is what caused the tilt bug. */
-    translate: -50% -50%;
-    transition: opacity .3s linear, box-shadow .45s var(--swift, ease),
-                border-color .45s var(--swift, ease);
-    will-change: transform, opacity;
-  }
-
-  /* A card on the ring has to occlude the cards behind it.
-
-     On the dark pages these inherit rgba(255,255,255,.035) from the shared
-     card style: a 3.5% panel. Flat in a grid, but on a ring it means the card
-     behind shows straight through the one in front and the two sets of text
-     read as a double exposure. That is the "overwriting" that was reported on
-     motion-ai, and fading the rear cards only softened it, because a side
-     card at 0.39 still overlaps the front card by about a third.
-
-     So give the card a solid panel of its own. The four dark drum sections
-     all run the same linear-gradient(160deg, #070f19, #0b1826), so one shade
-     sits correctly on every one of them; #111f2e is that gradient lifted by
-     roughly the 3.5% white it replaces, which keeps the look and makes the
-     card opaque. Scoped to .is-drum, so the reduced-motion and mobile grid
-     fallback keeps the glass panel it was designed with. */
-  .sec--dark .drum.is-drum .drum__card,
-  .sec--darker .drum.is-drum .drum__card {
-    background-color: #111f2e;
-  }
-
-  /* the one at the front of the orbit */
-  .drum.is-drum .drum__card.is-front {
-    border-color: rgba(23, 201, 155, .5);
-    box-shadow: 0 46px 100px -44px rgba(0, 0, 0, .55);
-  }
-
-  /* ---------- the step indicator ---------- */
-  /* the cards are absolutely positioned and taller than the stage box, so the
-     labels have to be lifted above them explicitly */
-  .drum.is-drum .drum__dots {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: .5rem 1.1rem; margin: .4rem auto 0; padding: 0; max-width: 780px;
-    list-style: none; position: relative; z-index: 500;
-  }
-  .drum.is-drum .drum__dots li {
-    display: inline-flex; align-items: center; gap: .5rem;
-    font-family: var(--display); font-weight: 700; font-size: .78rem;
-    color: var(--muted); transition: color .3s var(--swift, ease);
-  }
-  .drum.is-drum .drum__dots li span {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--line);
-    transition: background .3s var(--swift, ease), transform .3s var(--spring, ease);
-  }
-  .drum.is-drum .drum__dots li.is-on { color: var(--ink); }
-  .drum.is-drum .drum__dots li.is-on span { background: var(--teal); transform: scale(1.5); }
-
-  /* the section is held still while the ring turns, so it needs to sit
-     comfortably in one screen: heading, ring and labels together */
-  .drum.is-drum { margin-top: clamp(1rem, 2vw, 1.6rem); }
-}
 
 /* ==========================================================================
    Dots on a dark section
@@ -197,13 +82,18 @@
    fixed exactly one of the five. It belongs here, next to the rules it is
    correcting, so it applies wherever a drum does.
    ========================================================================== */
-@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
-  .sec--dark .drum.is-drum .drum__dots li,
-  .sec--darker .drum.is-drum .drum__dots li { color: rgba(255,255,255,0.55); }
-  .sec--dark .drum.is-drum .drum__dots li.is-on,
-  .sec--darker .drum.is-drum .drum__dots li.is-on { color: #fff; }
-  .sec--dark .drum.is-drum .drum__dots li span,
-  .sec--darker .drum.is-drum .drum__dots li span { background: rgba(255,255,255,0.28); }
-  .sec--dark .drum.is-drum .drum__dots li.is-on span,
-  .sec--darker .drum.is-drum .drum__dots li.is-on span { background: var(--teal-bright); }
-}
+
+/* ==========================================================================
+   The ring is gone
+   This file used to carry an orbiting 3D carousel, switched on by .is-drum, and
+   a control above the cards that offered it. The control was removed on request;
+   with nothing left to add .is-drum the ring was unreachable, so it went too
+   rather than sit in the build as roughly 110 lines nobody can reach.
+
+   What is left is the grid above, which is what every visitor has actually been
+   seeing. The markup keeps .drum, .drum__stage, .drum__ring and .drum__card
+   because those are the hooks the grid is written against, and data-n now lives
+   in the HTML rather than being set by a script.
+
+   Both are recoverable from git history if the carousel is ever wanted back.
+   ========================================================================== */

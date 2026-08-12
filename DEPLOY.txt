@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-83 files
+82 files
 ----------------------------------------
 
   .htaccess
@@ -87,7 +87,6 @@ stylesheets off, which shipped a site with broken styling.
   js/core/reveal.js
   js/core/smooth.js
   js/core/ui-fx.js
-  js/motion/drum.js
   js/motion/gscroll.js
   js/motion/iconlife.js
   js/motion/loader.js
