@@ -199,6 +199,9 @@
 
 /* the travelling light. dasharray/offset are in pathLength units, so 14 is
    14% of whatever lane it is on and all three read identically. */
+/* The travelling light, on the same clock as the packet it runs ahead of.
+   dasharray and offset are in pathLength units, so 14 is 14% of whatever lane
+   it is on and all three read identically. */
 .anl__trail {
   fill: none;
   stroke: var(--teal-bright);
@@ -207,22 +210,53 @@
   stroke-dashoffset: 114;
   opacity: 0;
 }
-[data-reveal].in .anl__trail { animation: anlTrail 3.2s cubic-bezier(.45,0,.2,1) infinite; }
-[data-reveal].in .anl__trail--2 { animation-delay: .6s; }
-[data-reveal].in .anl__trail--3 { animation-delay: 1.2s; }
-@keyframes anlTrail {
-  0%       { stroke-dashoffset: 114; opacity: 0; }
-  12%      { opacity: .55; }
-  80%      { opacity: .35; }
-  100%     { stroke-dashoffset: 14;  opacity: 0; }
+[data-reveal].in .anl__trail--1 { animation: anlTrail1 4.4s cubic-bezier(.45,0,.2,1) infinite; }
+[data-reveal].in .anl__trail--2 { animation: anlTrail2 4.4s cubic-bezier(.45,0,.2,1) infinite; }
+[data-reveal].in .anl__trail--3 { animation: anlTrail3 4.4s cubic-bezier(.45,0,.2,1) infinite; }
+
+@keyframes anlTrail1 {
+  0%, 4%   { stroke-dashoffset: 114; opacity: 0; }
+  7%        { opacity: .55; }
+  27%        { opacity: .3; }
+  30%, 100% { stroke-dashoffset: 14; opacity: 0; }
+}
+@keyframes anlTrail2 {
+  0%, 16%   { stroke-dashoffset: 114; opacity: 0; }
+  19%        { opacity: .55; }
+  39%        { opacity: .3; }
+  42%, 100% { stroke-dashoffset: 14; opacity: 0; }
+}
+@keyframes anlTrail3 {
+  0%, 28%   { stroke-dashoffset: 114; opacity: 0; }
+  31%        { opacity: .55; }
+  51%        { opacity: .3; }
+  54%, 100% { stroke-dashoffset: 14; opacity: 0; }
 }
 
-/* the chasing packet: same path, half a beat behind, dimmer and smaller */
+/* the chasing packet: same lane, a beat behind, dimmer and smaller */
 .anl__pkt--1b, .anl__pkt--2b, .anl__pkt--3b { fill: var(--teal); opacity: .6; }
-[data-reveal].in .anl__pkt--1b { animation: anlPkt 3.2s linear .28s infinite; }
-[data-reveal].in .anl__pkt--2b { animation: anlPkt 3.2s linear .88s infinite; }
-[data-reveal].in .anl__pkt--3b { animation: anlPkt 3.2s linear 1.48s infinite; }
+[data-reveal].in .anl__pkt--1b { animation: anlPktB1 4.4s linear infinite; }
+[data-reveal].in .anl__pkt--2b { animation: anlPktB2 4.4s linear infinite; }
+[data-reveal].in .anl__pkt--3b { animation: anlPktB3 4.4s linear infinite; }
 
+@keyframes anlPktB1 {
+  0%, 7%   { opacity: 0; offset-distance: 0%; }
+  9%        { opacity: .6; offset-distance: 6%; }
+  31%        { opacity: .6; offset-distance: 94%; }
+  33%, 100% { opacity: 0; offset-distance: 100%; }
+}
+@keyframes anlPktB2 {
+  0%, 19%   { opacity: 0; offset-distance: 0%; }
+  21%        { opacity: .6; offset-distance: 6%; }
+  43%        { opacity: .6; offset-distance: 94%; }
+  45%, 100% { opacity: 0; offset-distance: 100%; }
+}
+@keyframes anlPktB3 {
+  0%, 31%   { opacity: 0; offset-distance: 0%; }
+  33%        { opacity: .6; offset-distance: 6%; }
+  55%        { opacity: .6; offset-distance: 94%; }
+  57%, 100% { opacity: 0; offset-distance: 100%; }
+}
 /* No breathing core. It was written as an `r` animation, and `r` is geometry:
    it re-rasterises the shape every frame. The core is gone entirely now (the
    TARA lettering occupies the orb centre), and the halo rings give the pulse

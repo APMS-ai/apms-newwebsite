@@ -52,14 +52,56 @@
 }
 /* the lines never animate, only what travels on them, so the diagram still
    reads when it is paused off screen or under reduced motion */
+/* ==========================================================================
+   ONE CLOCK, 4.4s, NO DELAYS
+   Three sources report in turn, each label lights as its packet lands, the orb
+   pulses once it holds all three, then TARA answers and it clears. It used to
+   be four loops on four different animation-delays, resetting at four
+   different moments, so the answer could show before the data arrived.
+   ========================================================================== */
 .anl__pkt { fill: var(--teal-bright); }
-[data-reveal].in .anl__pkt { animation: anlPkt 3.2s linear infinite; }
-[data-reveal].in .anl__pkt--2 { animation-delay: .6s; }
-[data-reveal].in .anl__pkt--3 { animation-delay: 1.2s; }
-@keyframes anlPkt {
-  0%      { opacity: 0; offset-distance: 0%; }
-  8%, 90% { opacity: 1; }
-  100%    { opacity: 0; offset-distance: 100%; }
+[data-reveal].in .anl__pkt--1 { animation: anlPkt1 4.4s linear infinite; }
+[data-reveal].in .anl__pkt--2 { animation: anlPkt2 4.4s linear infinite; }
+[data-reveal].in .anl__pkt--3 { animation: anlPkt3 4.4s linear infinite; }
+
+@keyframes anlPkt1 {
+  0%, 4%    { opacity: 0; offset-distance: 0%; }
+  6%         { opacity: 1; offset-distance: 6%; }
+  28%         { opacity: 1; offset-distance: 94%; }
+  30%, 100%  { opacity: 0; offset-distance: 100%; }
+}
+@keyframes anlPkt2 {
+  0%, 16%    { opacity: 0; offset-distance: 0%; }
+  18%         { opacity: 1; offset-distance: 6%; }
+  40%         { opacity: 1; offset-distance: 94%; }
+  42%, 100%  { opacity: 0; offset-distance: 100%; }
+}
+@keyframes anlPkt3 {
+  0%, 28%    { opacity: 0; offset-distance: 0%; }
+  30%         { opacity: 1; offset-distance: 6%; }
+  52%         { opacity: 1; offset-distance: 94%; }
+  54%, 100%  { opacity: 0; offset-distance: 100%; }
+}
+
+/* each source label lights as its own packet lands, and holds to the reset */
+[data-reveal].in .anl__lbl--1 { animation: anlLbl1 4.4s linear infinite; }
+[data-reveal].in .anl__lbl--2 { animation: anlLbl2 4.4s linear infinite; }
+[data-reveal].in .anl__lbl--3 { animation: anlLbl3 4.4s linear infinite; }
+
+@keyframes anlLbl1 {
+  0%, 30%      { fill: rgba(255,255,255,0.5); }
+  32%, 92%   { fill: var(--teal-bright); }
+  98%, 100%    { fill: rgba(255,255,255,0.5); }
+}
+@keyframes anlLbl2 {
+  0%, 42%      { fill: rgba(255,255,255,0.5); }
+  44%, 92%   { fill: var(--teal-bright); }
+  98%, 100%    { fill: rgba(255,255,255,0.5); }
+}
+@keyframes anlLbl3 {
+  0%, 54%      { fill: rgba(255,255,255,0.5); }
+  56%, 92%   { fill: var(--teal-bright); }
+  98%, 100%    { fill: rgba(255,255,255,0.5); }
 }
 
 .anl__orb  { fill: rgba(23,201,155,0.10); stroke: var(--teal); stroke-width: 1.6; }
@@ -69,11 +111,21 @@
    over a section background that varies, and white 17px letters need something
    definite behind them. */
 .anl__plate { fill: rgba(4,18,28,0.72); }
+/* the orb acknowledges the third arrival rather than pulsing on its own timer */
 .anl__halo { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0;
              transform-origin: 150px 98px; }
-[data-reveal].in .anl__halo { animation: anlHalo 3.2s ease-out infinite; }
-[data-reveal].in .anl__halo--2 { animation-delay: 1.1s; }
-@keyframes anlHalo { 0% { opacity: .5; transform: scale(.85); } 70%, 100% { opacity: 0; transform: scale(1.5); } }
+[data-reveal].in .anl__halo    { animation: anlHalo 4.4s ease-out infinite; }
+[data-reveal].in .anl__halo--2 { animation: anlHalo2 4.4s ease-out infinite; }
+@keyframes anlHalo {
+  0%, 54%   { opacity: 0; transform: scale(.85); }
+  62%       { opacity: .5; }
+  86%, 100% { opacity: 0; transform: scale(1.5); }
+}
+@keyframes anlHalo2 {
+  0%, 60%   { opacity: 0; transform: scale(.85); }
+  68%       { opacity: .35; }
+  90%, 100% { opacity: 0; transform: scale(1.6); }
+}
 
 .anl__name { font-family: var(--display); font-weight: 900; font-size: 12.5px;
              letter-spacing: .08em; fill: #fff; text-anchor: middle; }
@@ -93,11 +145,11 @@
    from 52% to 88% so it arrives after the inbound packets are on their way
    rather than alongside them. */
 .anl__ans { opacity: 0; }
-[data-reveal].in .anl__ans { animation: anlAns 3.2s ease-out infinite; }
+[data-reveal].in .anl__ans { animation: anlAns 4.4s ease-out infinite; }
 @keyframes anlAns {
-  0%, 52%   { opacity: 0; transform: translateY(5px); }
-  62%, 88%  { opacity: 1; transform: translateY(0); }
-  96%, 100% { opacity: 0; transform: translateY(0); }
+  0%, 60%     { opacity: 0; transform: translateY(6px); }
+  70%, 92% { opacity: 1; transform: translateY(0); }
+  98%, 100% { opacity: 0; transform: translateY(0); }
 }
 
 /* ---------- the screen: the conversation, fused to the same rectangle ---------- */
@@ -200,7 +252,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .anl__pkt, .anl__halo, .anl__dots i, .anl__ans { animation: none !important; }
+  .anl__pkt, .anl__halo, .anl__dots i, .anl__ans, .anl__lbl { animation: none !important; }
+  /* all three sources read as reported, which is the informative frame */
+  .anl__lbl { fill: var(--teal-bright); }
   .anl__pkt { opacity: 1; offset-distance: 90%; }
   /* the answer is the informative frame, so it stays: still, and already there */
   .anl__ans { opacity: 1; transform: none; }
