@@ -1,0 +1,72 @@
+/* ==========================================================================
+   APMS.ai — faqpage.css
+   faq.html, and the "See all FAQs" link that sends people to it.
+
+   The accordion itself is the site's existing .faq component, unchanged, so
+   this file only owns what is new: the jump nav at the top, the back-link under
+   each section, and the closing block.
+
+   APMS teal only.
+   ========================================================================== */
+
+/* ---------- the jump nav ----------
+   Four cards, one per section. An explicit four-column grid, not auto-fit:
+   auto-fit picks whatever fits and orphans the last card (rule 6). Four items
+   divide into 4, 2 and 1 cleanly. */
+.faqnav__sec { padding-block: clamp(1.6rem, 3.5vw, 2.4rem); }
+.faqnav {
+  display: grid; gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 980px; margin-inline: auto;
+}
+@media (max-width: 780px) { .faqnav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .faqnav { grid-template-columns: minmax(0, 1fr); } }
+
+.faqnav__a {
+  display: grid; gap: 0.15rem; align-content: center;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--white); box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease),
+              box-shadow 0.2s var(--ease);
+}
+.faqnav__a b {
+  font-family: var(--display); font-weight: 800; font-size: 1rem; color: var(--ink);
+}
+.faqnav__a span {
+  font-size: 0.78rem; color: var(--muted);
+}
+.faqnav__a:hover, .faqnav__a:focus-visible {
+  border-color: var(--teal); transform: translateY(-2px);
+  box-shadow: 0 14px 30px -18px rgba(12,26,40,0.35);
+}
+.faqnav__a:hover b, .faqnav__a:focus-visible b { color: var(--teal-deep); }
+
+/* ---------- back to the product page, under each section ---------- */
+.faqsec__back { text-align: center; margin-top: clamp(1.4rem, 3vw, 2rem); }
+
+/* ---------- the closing block ---------- */
+.faqmore { max-width: 720px; margin-inline: auto; text-align: center; }
+.faqmore h2 { text-wrap: balance; }
+.faqmore p { color: var(--on-dark-soft); margin: 0.8rem 0 1.6rem; }
+.faqmore__actions {
+  display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center;
+}
+
+/* ==========================================================================
+   "See all FAQs", on the six pages that carry a four-question FAQ.
+   Loaded site-wide from here rather than duplicated per page.
+   ========================================================================== */
+.faqall {
+  display: flex; justify-content: center;
+  margin-top: clamp(1.3rem, 3vw, 1.9rem);
+}
+/* The link sits directly under a .faq, which is capped at 820px and centred, so
+   it lines up with the accordion rather than with the container. */
+.faqall .btn { max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .faqnav__a { transition: none; }
+  .faqnav__a:hover, .faqnav__a:focus-visible { transform: none; }
+}

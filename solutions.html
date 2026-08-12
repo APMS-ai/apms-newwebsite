@@ -22,13 +22,14 @@
   <link rel="stylesheet" href="css/base/footer.css?v=6">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=4">
-  <link rel="stylesheet" href="css/motion/rail.css?v=8">
+  <link rel="stylesheet" href="css/motion/rail.css?v=10">
   <link rel="stylesheet" href="css/sections/bentofx.css?v=7">
   <link rel="stylesheet" href="css/sections/floorgrid.css?v=6">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
 <link rel="stylesheet" href="css/sections/solutionsfx.css?v=13">
 <link rel="stylesheet" href="css/motion/drum.css?v=10">
+  <link rel="stylesheet" href="css/sections/faqpage.css?v=1">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
@@ -459,12 +460,15 @@
     <!-- ============ FAQ ============ -->
     <section class="sec sec--paper" id="faq">
       <div class="container">
-        <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Questions, answered</span><h2 data-clip>Industrial IoT, explained</h2></div>
+        <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Industrial IoT</span><h2 data-clip>FAQs</h2></div>
         <div class="faq" data-reveal>
           <div class="faq__item"><button class="faq__q">Can you connect machines without a controller network?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. Where a controller can't be tapped directly, retrofit sensors for vibration, current and temperature capture machine state, so even the oldest equipment joins the same live view.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">How is OEE calculated?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Availability × Performance × Quality, computed automatically from live machine state, cycle data and quality results, broken down by machine, line and shift, with loss analysis you can act on.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">Will it slow down or risk our machines?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. APMS reads machine state passively at a secure edge. It does not write to or control your equipment, and connection happens with no production stoppage.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">Can we start with just a few machines?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Absolutely. The platform scales from single-machine monitoring to enterprise-wide across multiple lines and plant locations. Start small and expand when you're ready.</p></div></div></div>
+        <div class="faqall" data-reveal>
+          <a class="btn btn--ghost" href="faq.html#iiot">See all Industrial IoT FAQs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
         </div>
       </div>
     </section>
@@ -517,7 +521,7 @@
           <a href="about.html">About APMS</a>
           <a href="industries.html">Industries</a>
           <a href="about.html#about">How we work</a>
-          <a href="about.html#faq">FAQ</a>
+          <a href="faq.html">FAQs</a>
           <a href="contact.html">Contact</a>
           <a href="privacy.html">Privacy policy</a>
         </div>
@@ -563,7 +567,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=17"></script>
+  <script src="js/core/redesign.js?v=18"></script>
   <script src="js/core/enhance.js?v=10"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>

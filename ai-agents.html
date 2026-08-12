@@ -22,13 +22,14 @@
   <link rel="stylesheet" href="css/base/footer.css?v=6">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=4">
-  <link rel="stylesheet" href="css/motion/rail.css?v=8">
-<link rel="stylesheet" href="css/sections/agentic.css?v=19">
+  <link rel="stylesheet" href="css/motion/rail.css?v=10">
+<link rel="stylesheet" href="css/sections/agentic.css?v=21">
 <link rel="stylesheet" href="css/sections/agarch.css?v=1">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
   <link rel="stylesheet" href="css/sections/aiplus.css?v=9">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
 <link rel="stylesheet" href="css/motion/drum.css?v=10">
+  <link rel="stylesheet" href="css/sections/faqpage.css?v=1">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
@@ -434,8 +435,14 @@
           <h2 data-clip>Problems, and the agents<br>we'd <span class="accent">build to order.</span></h2>
           <p class="sec__lead" style="margin-inline:auto;text-align:center;">These aren't products on a shelf. They're patterns. Each one starts with a problem statement a real team has said out loud. If yours sounds like one of these, we already know where to start. If it doesn't, tell us anyway.</p>
         </div>
+      </div>
 
-        <div class="agp" data-agp data-agp-native>
+      <div class="container container--wide">
+        <!-- The rail sits in a container--wide, not the 1240px container: at 4 per
+             view a 1240 track gives 272px cards, and 272px is what made these
+             684px tall, 2.5 times taller than wide. 1440 gives about 337px each,
+             which is where most of the height reduction comes from. -->
+        <div class="agp agp--pat" data-agp data-agp-native>
           <div class="agp__track">
             <article class="ag-pat" data-reveal>
             <div class="ag-pat__head">
@@ -852,12 +859,15 @@
     <!-- ============ FAQ ============ -->
     <section class="sec sec--darker" id="faq">
       <div class="container">
-        <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Before you bring us a problem</span><h2 data-clip>What people usually want to know</h2></div>
+        <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Before you bring us a problem</span><h2 data-clip>FAQs</h2></div>
         <div class="faq" data-reveal>
           <div class="faq__item"><button class="faq__q">Where does the agent get its answers?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>From your own live APMS data: machine status, downtime reasons, production and quality. It reasons over that data, so answers reflect what's actually happening on your floor, not generic advice.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">Can it take actions on its own?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes, within limits you set. It can raise alerts, escalate by role and schedule follow-ups automatically, and you decide which actions need a human to confirm first.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">Is our data used to train external models?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. Your production data stays yours and is used to answer your questions, not to train shared or third-party models.</p></div></div></div>
           <div class="faq__item"><button class="faq__q">How long before we see something real?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>A working proof on your own data during the design phase, typically weeks rather than quarters. A full production build usually lands in 12 to 20 weeks depending on how many systems it has to integrate with and how clean the data is when we arrive.</p></div></div></div>
+        <div class="faqall" data-reveal>
+          <a class="btn btn--ghost" href="faq.html#agents">See all AI Agents FAQs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
         </div>
       </div>
     </section>
@@ -910,7 +920,7 @@
           <a href="about.html">About APMS</a>
           <a href="industries.html">Industries</a>
           <a href="about.html#about">How we work</a>
-          <a href="about.html#faq">FAQ</a>
+          <a href="faq.html">FAQs</a>
           <a href="contact.html">Contact</a>
           <a href="privacy.html">Privacy policy</a>
         </div>
@@ -956,7 +966,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=17"></script>
+  <script src="js/core/redesign.js?v=18"></script>
   <script src="js/core/enhance.js?v=10"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>

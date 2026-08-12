@@ -24,8 +24,9 @@
   <link rel="stylesheet" href="css/base/fx.css?v=4">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=2">
-<link rel="stylesheet" href="css/sections/aboutfx.css?v=3">
+<link rel="stylesheet" href="css/sections/aboutfx.css?v=5">
 <link rel="stylesheet" href="css/motion/drum.css?v=10">
+  <link rel="stylesheet" href="css/sections/faqpage.css?v=1">
 <link rel="stylesheet" href="css/motion/perf.css?v=4">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
 </head>
@@ -288,24 +289,104 @@
       <div class="container">
         <div class="sec__head sec__head--center" data-reveal>
           <span class="kicker" style="justify-content:center;">How we work</span>
-          <h2 data-clip>Engineering principles,<br>not <span class="accent">slideware</span></h2>
+          <h2 data-clip>Principles, by the team<br>that <span class="accent">has to keep them</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Six of these were already how we work. They are sorted by whose job it is to hold to them, and four more are written down alongside.</p>
         </div>
-        <div class="bento bento--six" data-reveal>
-          <div class="bento__c bento__c--n"><div class="bento__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="9.5" width="11" height="10.5" rx="1.6"/><path d="M5.5 9.5V7M10.5 9.5V7"/><circle cx="16" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><path d="M18.3 12.6a4 4 0 0 1 0 5.8"/><path d="M20.8 10.6a7.6 7.6 0 0 1 0 9.8"/></svg></div><h3>Retrofit before replace</h3><p>The machines you already own stay. We read them as they are, whatever the make, the age or the protocol, rather than making a capital request the first answer to every question.</p></div>
-          <div class="bento__c bento__c--n"><div class="bento__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4.5-5 3.5 3 4-6"/><circle cx="17.5" cy="15.5" r="4"/><path d="M20.5 18.5 22.5 20.5"/></svg></div><h3>A number has to survive scrutiny</h3><p>Every figure traces back to the signal and the timestamp it came from. If a supervisor cannot check where it came from, the report gets argued with instead of acted on.</p></div>
-          <div class="bento__c bento__c--n"><div class="bento__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10" stroke-dasharray="2.5 2.5"/></svg></div><h3>Nothing ships as a black box</h3><p>An alert shows what set it off and which reading crossed which limit. A score nobody can question is a score the floor learns to ignore.</p></div>
-          <div class="bento__c bento__c--n"><div class="bento__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 17h16"/><path d="M4 12h9" stroke-width="2.6" stroke="currentColor"/><path d="m15.5 12 2 2 4-4.5"/></svg></div><h3>Proved on one line first</h3><p>We start on a line you choose, measured against a number you set. If it will not hold up there it has no business being rolled out across the plant.</p></div>
-          <div class="bento__c bento__c--n"><div class="bento__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M15 7h6v6h-6z"/><path d="M17 10h2"/></svg></div><h3>Built to be handed over</h3><p>Your engineers get the drawings, the logic and the training to run it themselves. We would rather be called for the next problem than be a permanent dependency on this one.</p></div>
-          <div class="bento__c bento__c--n"><div class="bento__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 3 19h18z"/><path d="M12 10v4"/><circle cx="12" cy="16.6" r="1" fill="currentColor" stroke="none"/></svg></div><h3>When it is unsure, it says so</h3><p>Models that hit their confidence limit stop and ask a person. One flagged part costs a minute of attention. One wrong automatic decision can cost a shift of output.</p></div>
+
+        <!-- Three teams. The six that were here were all filed as engineering
+             principles, but two of them were not: handing over happens after
+             go-live and proving on one line happens before anything is agreed.
+             Column counts divide the card counts (4 and 3), never auto-fit. -->
+        <div class="prin">
+          <section class="prin__grp" data-reveal>
+            <div class="prin__label">
+              <h3>Development</h3>
+              <p>What gets built, and how</p>
+            </div>
+            <div class="prin__cards prin__cards--4">
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="9.5" width="11" height="10.5" rx="1.6"/><path d="M5.5 9.5V7M10.5 9.5V7"/><circle cx="16" cy="14.5" r="1.1" fill="currentColor" stroke="none"/><path d="M18.3 12.6a4 4 0 0 1 0 5.8"/><path d="M20.8 10.6a7.6 7.6 0 0 1 0 9.8"/></svg></div>
+                <h4>Retrofit before replace</h4>
+                <p>The machines you already own stay. We read them as they are, whatever the make, the age or the protocol, rather than making a capital request the first answer to every question.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4.5-5 3.5 3 4-6"/><circle cx="17.5" cy="15.5" r="4"/><path d="M20.5 18.5 22.5 20.5"/></svg></div>
+                <h4>A number has to survive scrutiny</h4>
+                <p>Every figure traces back to the signal and the timestamp it came from. If a supervisor cannot check where it came from, the report gets argued with instead of acted on.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10" stroke-dasharray="2.5 2.5"/></svg></div>
+                <h4>Nothing ships as a black box</h4>
+                <p>An alert shows what set it off and which reading crossed which limit. A score nobody can question is a score the floor learns to ignore.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 3 19h18z"/><path d="M12 10v4"/><circle cx="12" cy="16.6" r="1" fill="currentColor" stroke="none"/></svg></div>
+                <h4>When it is unsure, it says so</h4>
+                <p>Models that hit their confidence limit stop and ask a person. One flagged part costs a minute of attention. One wrong automatic decision can cost a shift of output.</p>
+              </article>
+            </div>
+          </section>
+          <section class="prin__grp" data-reveal>
+            <div class="prin__label">
+              <h3>Support</h3>
+              <p>After it is running</p>
+            </div>
+            <div class="prin__cards prin__cards--3">
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M15 7h6v6h-6z"/><path d="M17 10h2"/></svg></div>
+                <h4>Built to be handed over</h4>
+                <p>Your engineers get the drawings, the logic and the training to run it themselves. We would rather be called for the next problem than be a permanent dependency on this one.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h5l2 5-2.5 1.5a11 11 0 0 0 4 4L14 13l5 2v5a1.6 1.6 0 0 1-1.8 1.6A16 16 0 0 1 3.4 6.8A1.6 1.6 0 0 1 5 5z"/></svg></div>
+                <h4>One number to call</h4>
+                <p>Sensors, vision, robotics and software are built by the same people, so nothing falls into the gap between suppliers. When something does go wrong there is one number to call and no argument about whose fault it is.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 3 3 5-7"/><path d="M16 8h5v5"/><path d="M3 21h18" stroke-dasharray="2.5 3"/></svg></div>
+                <h4>It should be better in a year</h4>
+                <p>Edge cases from your line are fed back and models are retrained, and agents are tuned against what actually happened rather than what the demo did. Accuracy is meant to compound after go-live, not decay.</p>
+              </article>
+            </div>
+          </section>
+          <section class="prin__grp" data-reveal>
+            <div class="prin__label">
+              <h3>Sales</h3>
+              <p>Before anything is agreed</p>
+            </div>
+            <div class="prin__cards prin__cards--3">
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 17h16"/><path d="M4 12h9" stroke-width="2.6" stroke="currentColor"/><path d="m15.5 12 2 2 4-4.5"/></svg></div>
+                <h4>Proved on one line first</h4>
+                <p>We start on a line you choose, measured against a number you set. If it will not hold up there it has no business being rolled out across the plant.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8.2 8.2l7.6 7.6"/></svg></div>
+                <h4>We will say when the answer is no</h4>
+                <p>Working out whether this is the right answer is part of scoping, and telling you it is not is a possible outcome of it. Our engineers spent their careers inside plants, and it shows as much in what we tell you not to bother with as in what we build.</p>
+              </article>
+              <article class="prin__c">
+                <div class="prin__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/></svg></div>
+                <h4>Scoped in your words</h4>
+                <p>You describe the bottleneck in your own words. There is no template to fill in and no readiness questionnaire to pass before anyone will talk to you about it.</p>
+              </article>
+            </div>
+          </section>
         </div>
       </div>
     </section>
 
     <section class="sec sec--paper" id="faq">
       <div class="container">
-        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">Questions, answered</span><h2>Frequently asked</h2></div>
-        <div class="faq">
-          <div class="faq__item"><button class="faq__q">Do we need to replace our machines?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. Keep the machines you already run. APMS taps any make, age or protocol with edge hardware, so new equipment and decades-old machines connect the same way, with no production stoppage.</p></div></div></div><div class="faq__item"><button class="faq__q">How long does deployment take?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Most floors go live in weeks, not quarters. Your machines connect, your data comes together, and dashboards and alerts take shape around how your teams already work.</p></div></div></div><div class="faq__item"><button class="faq__q">Does it integrate with our ERP/MES?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. Open APIs and standard protocols push live production data into your ERP, MES and BI tools.</p></div></div></div><div class="faq__item"><button class="faq__q">Is our data secure?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Your data is collected at a secure on-site edge and streamed with encryption. You keep ownership and control throughout.</p></div></div></div>
+        <div class="sec__head sec__head--center" data-reveal><span class="kicker" style="justify-content:center;">About the team</span><h2>FAQs</h2></div>
+        <div class="faq" data-reveal>
+          <div class="faq__item"><button class="faq__q">Who actually builds this?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Engineers who spent their careers inside plants rather than around them. That shows in what gets built and in what we tell you not to bother with.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Do we deal with one supplier or four?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>One. Sensors, vision, robotics and software are built by the same people, so nothing falls into the gap between suppliers and there is one number to call when something does go wrong.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Will we be dependent on you afterwards?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Not by design. Your engineers get the drawings, the logic and the training to run it themselves. We would rather be called for the next problem than be a permanent dependency on this one.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How do you prove it works before we commit to a rollout?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>We start on a line you pick, measured against a number you set. If it does not hold up there, it has no business being rolled out across the plant.</p></div></div></div>
+        <div class="faqall" data-reveal>
+          <a class="btn btn--ghost" href="faq.html">See all FAQs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
         </div>
       </div>
     </section>
@@ -358,7 +439,7 @@
           <a href="about.html">About APMS</a>
           <a href="industries.html">Industries</a>
           <a href="about.html#about">How we work</a>
-          <a href="about.html#faq">FAQ</a>
+          <a href="faq.html">FAQs</a>
           <a href="contact.html">Contact</a>
           <a href="privacy.html">Privacy policy</a>
         </div>
@@ -404,7 +485,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=17"></script>
+  <script src="js/core/redesign.js?v=18"></script>
   <script src="js/core/enhance.js?v=10"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>

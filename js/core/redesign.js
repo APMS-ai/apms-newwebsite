@@ -153,14 +153,20 @@
     if (reduce) hv.removeAttribute("autoplay"), hv.pause && hv.pause();
   }
 
-  /* ---------- FAQ accordion ---------- */
+  /* ---------- FAQ accordion ----------
+     One open at a time WITHIN a .faq, not within the document. It used to close
+     every open item on the page, which was the same thing while every page had a
+     single .faq; faq.html has four, and closing a question in AI Agents because
+     someone opened one in Vision AI reads as a bug. Falls back to the document
+     if an item is somehow not inside a .faq. */
   document.querySelectorAll(".faq__item").forEach(function (item) {
     var q = item.querySelector(".faq__q");
     if (!q) return;
+    var group = item.closest(".faq") || document;
     q.setAttribute("aria-expanded", "false");
     q.addEventListener("click", function () {
       var open = item.classList.contains("open");
-      document.querySelectorAll(".faq__item.open").forEach(function (o) {
+      group.querySelectorAll(".faq__item.open").forEach(function (o) {
         o.classList.remove("open"); var b = o.querySelector(".faq__q"); if (b) b.setAttribute("aria-expanded", "false");
       });
       item.classList.toggle("open", !open);

@@ -280,42 +280,77 @@
 /* rail mechanics (.agp*) live in css/rail.css, shared with solutions.html */
 
 
+/* Tightened, and the head given a band so the card is not one flat column of
+   grey text. Measured at 1440: it was 272 wide by 684 tall, an aspect of 0.40,
+   which is what "the cards are bigger" was describing. Nothing is removed and
+   nothing is truncated; the reduction comes from a wider track (container--wide,
+   about 337px a card instead of 272), tighter leading and a chip row that does
+   not wrap.
+     A true landscape rectangle at four per view is not reachable while the card
+   carries all five blocks: head 46, quote 96, build 172, chips 63 and measure
+   103 plus 154 of margins. Getting to 272x250 would mean dropping the chips and
+   the measure line, which is published copy, so that is a decision to ask for
+   rather than take. */
 .ag-pat {
   position: relative;
   display: flex; flex-direction: column;
-  padding: 1.6rem 1.5rem 1.5rem;
+  padding: 0 1.15rem 1.1rem;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
   transition: box-shadow .45s var(--ease), border-color .45s var(--ease);
 }
 /* the card at the centre of the rail is the "live" one */
 .ag-pat.is-live { border-color: rgba(23,201,155,0.5); box-shadow: var(--shadow-md); }
 .agp--native .ag-pat:hover { border-color: rgba(23,201,155,0.45); box-shadow: var(--shadow-md); }
-.ag-pat__head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
-.ag-pat__viz { width: 46px; height: 46px; flex: none; }
-.ag-pat__viz .gz { stroke: var(--teal-deep); }
-.ag-pat h3 { font-size: 1.08rem; line-height: 1.25; }
-.ag-pat__q {
-  font-style: italic; color: var(--body); font-size: 0.94rem; line-height: 1.6;
-  border-left: 3px solid rgba(23,201,155,0.5); padding-left: 0.85rem; margin-bottom: 0.95rem;
+/* full-bleed tinted band, so the title reads as a header rather than as the
+   first line of the paragraph below it */
+.ag-pat__head {
+  display: flex; align-items: center; gap: 0.7rem;
+  margin: 0 -1.15rem 0.9rem; padding: 0.85rem 1.15rem;
+  background: rgba(23,201,155,0.07);
+  border-bottom: 1px solid rgba(23,201,155,0.18);
 }
-.ag-pat__build { color: var(--body); font-size: 0.93rem; line-height: 1.65; margin-bottom: 1rem; }
+.ag-pat__viz { width: 34px; height: 34px; flex: none; }
+.ag-pat__viz .gz { stroke: var(--teal-deep); }
+.ag-pat h3 { font-size: 1rem; line-height: 1.22; }
+.ag-pat__q {
+  font-style: italic; color: var(--ink); font-size: 0.9rem; line-height: 1.5;
+  border-left: 3px solid rgba(23,201,155,0.5); padding-left: 0.8rem; margin-bottom: 0.8rem;
+}
+.ag-pat__build { color: var(--body); font-size: 0.88rem; line-height: 1.55; margin-bottom: 0.8rem; }
 .ag-pat__build b { color: var(--ink); }
-.ag-pat__parts { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+/* One row that scrolls rather than four chips wrapping onto two or three rows.
+   The row is inside a card inside a horizontal rail, so it has to be exempt from
+   Lenis or the gesture is eaten and the row looks broken (project note 4);
+   smooth.js auto-detects scrollable containers, which is what covers it. */
+.ag-pat__parts {
+  display: flex; gap: 0.35rem; margin-bottom: 0.75rem;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: none; padding-bottom: 2px;
+}
+.ag-pat__parts::-webkit-scrollbar { display: none; }
 .ag-pat__parts span {
-  font-family: var(--display); font-weight: 600; font-size: 0.71rem;
+  flex: none; white-space: nowrap;
+  font-family: var(--display); font-weight: 600; font-size: 0.68rem;
   letter-spacing: 0.05em; text-transform: uppercase;
   color: var(--teal-deep); background: rgba(23,201,155,0.09);
   border: 1px solid rgba(23,201,155,0.22);
-  padding: 0.26rem 0.6rem; border-radius: 6px;
+  padding: 0.22rem 0.5rem; border-radius: 6px;
 }
 .ag-pat__kpi {
-  margin-top: auto; padding-top: 0.9rem; border-top: 1px solid var(--line);
-  font-size: 0.85rem; color: var(--muted);
+  margin-top: auto; padding-top: 0.7rem; border-top: 1px solid var(--line);
+  font-size: 0.79rem; line-height: 1.45; color: var(--muted);
 }
-.ag-pat__kpi b { color: var(--teal-deep); font-family: var(--display); letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; display: block; margin-bottom: 0.25rem; }
+.ag-pat__kpi b { color: var(--teal-deep); font-family: var(--display); letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.68rem; display: block; margin-bottom: 0.15rem; }
+
+/* No per-view override here. rail.css already defaults to 4 and steps down to 2
+   below 900px and 1 below 620px, and `.agp--pat .agp__track` is two classes
+   against rail.css's one: a media query adds no specificity, so this rule beat
+   every breakpoint and pinned the rail at 4 up. Measured: 240px cards showing
+   1.28 of them in a 312px track on a phone. The default is what is wanted. */
 
 /* ==========================================================================
    4 · ARCHITECTURE DIAGRAM (animated SVG)

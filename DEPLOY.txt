@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-81 files
+83 files
 ----------------------------------------
 
   .htaccess
@@ -32,6 +32,7 @@ stylesheets off, which shipped a site with broken styling.
   ai-agents.html
   config.sample.php
   contact.html
+  faq.html
   index.html
   industries.html
   motion-ai.html
@@ -63,6 +64,7 @@ stylesheets off, which shipped a site with broken styling.
   css/sections/appsvg.css
   css/sections/bentofx.css
   css/sections/contactfx.css
+  css/sections/faqpage.css
   css/sections/floorgrid.css
   css/sections/formfx.css
   css/sections/indsteps.css

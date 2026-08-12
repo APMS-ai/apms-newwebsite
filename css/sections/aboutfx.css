@@ -57,3 +57,70 @@
   .ajourney__halo { animation: none !important; opacity: 0 !important; }
   .ajourney__comet, .ajourney__comet-halo { visibility: hidden !important; }
 }
+
+
+/* ==========================================================================
+   PRINCIPLES, BY TEAM
+   Was one flat bento of six unlabelled cards. Sorted into development, support
+   and sales, because two of the six were not engineering principles: handing
+   over is what happens after go-live, and proving on one line is what happens
+   before anything is agreed.
+
+   Column counts divide the card counts, 4 and 3, rather than auto-fit, which
+   picks whatever fits and orphans the last card (project note 6).
+   ========================================================================== */
+.prin { display: grid; gap: clamp(1.6rem, 3.5vw, 2.6rem); }
+
+.prin__grp {
+  display: grid; gap: clamp(0.9rem, 2vw, 1.4rem);
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  align-items: start;
+}
+.prin__grp + .prin__grp { padding-top: clamp(1.4rem, 3vw, 2.2rem); border-top: 1px solid var(--line-dark); }
+
+.prin__label { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+.prin__label h3 {
+  font-family: var(--display); font-weight: 900;
+  font-size: clamp(1.1rem, 2vw, 1.4rem); color: #fff; margin: 0;
+}
+.prin__label p {
+  font-size: 0.85rem; color: var(--on-dark-soft); margin: 0.25rem 0 0;
+}
+
+.prin__cards { display: grid; gap: 0.9rem; }
+.prin__cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.prin__cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.prin__c {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--line-dark); border-radius: 14px;
+  padding: 1.1rem 1.15rem;
+}
+.prin__ico { width: 34px; height: 34px; color: var(--teal-bright); margin-bottom: 0.7rem; }
+.prin__ico svg { width: 100%; height: 100%; display: block; }
+.prin__c h4 {
+  font-family: var(--display); font-weight: 800; font-size: 1rem;
+  color: #fff; margin: 0 0 0.4rem; line-height: 1.25;
+}
+.prin__c p { color: var(--on-dark-soft); font-size: 0.89rem; line-height: 1.6; margin: 0; }
+
+/* Below 900px the label stops being a sidebar and becomes a heading above its
+   cards, and a sticky label in a one-column stack is just a thing that follows
+   you down the page. */
+@media (max-width: 900px) {
+  .prin__grp { grid-template-columns: minmax(0, 1fr); }
+  .prin__label { position: static; }
+  /* The four-card group goes two up, which is 2 and 2. The three-card group
+     STAYS three up: two columns would leave one card alone on a second row,
+     which is the orphan rule 6 exists to stop. Measured at 900px it was
+     3 cards / 2 columns / 2 rows before this. */
+  .prin__cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Below 620 three across is too narrow to read, and two across would orphan,
+   so the threes go to one column while the fours stay paired. */
+@media (max-width: 620px) {
+  .prin__cards--3 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .prin__cards--4 { grid-template-columns: minmax(0, 1fr); }
+}

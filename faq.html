@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQs | APMS.ai</title>
+  <meta name="description" content="Answers about APMS Industrial IoT, Vision AI, Motion AI and AI Agents: what connects, what it checks, what runs on the edge and how a build is scoped.">
+  <meta property="og:title" content="FAQs | APMS.ai">
+  <meta property="og:description" content="Forty answers across Industrial IoT, Vision AI, Motion AI and AI Agents.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/apms-logo.png">
+  <link rel="canonical" href="https://apms.ai/faq">
+  <link rel="icon" type="image/png" href="assets/apms-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/motion/loader.css?v=2">
+  <link rel="stylesheet" href="css/base/redesign.css?v=20">
+  <link rel="stylesheet" href="css/base/enhance.css?v=28">
+  <link rel="stylesheet" href="css/base/polish.css?v=2">
+  <link rel="stylesheet" href="css/base/iconlife.css?v=1">
+  <link rel="stylesheet" href="css/base/footer.css?v=6">
+  <link rel="stylesheet" href="css/base/reveal.css?v=1">
+  <link rel="stylesheet" href="css/base/fx.css?v=4">
+  <link rel="stylesheet" href="css/motion/motion.css?v=6">
+  <link rel="stylesheet" href="css/sections/faqpage.css?v=1">
+  <link rel="stylesheet" href="css/motion/perf.css?v=4">
+  <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
+</head>
+<body data-fx="fadeup">
+  <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
+    <div class="ldr__inner">
+      <img class="ldr__mark" src="assets/apms-mark.png" alt="" width="212" height="228">
+      <span class="ldr__track"><i class="ldr__bar"></i></span>
+      <span class="ldr__word">Industrial intelligence</span>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+  <header class="hdr is-stuck">
+    <div class="hdr__row">
+      <a class="hdr__logo" href="index.html" aria-label="APMS.ai home"><img src="assets/apms-logo.png" alt="APMS.ai" width="176" height="40"></a>
+      <nav class="hdr__nav" aria-label="Primary">
+        <a href="index.html">Platform</a>
+        <a href="solutions.html">Industrial IoT</a>
+        <a href="vision-ai.html">Vision AI</a>
+        <a href="motion-ai.html">Motion AI</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="industries.html">Industries</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="hdr__cta">
+        <a class="btn btn--primary" href="contact.html">Book a Demo</a>
+      </div>
+      <button class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <nav class="mnav" aria-label="Mobile">
+    <button class="mnav__close" aria-label="Close menu">&times;</button>
+        <a href="index.html">Platform</a>
+        <a href="solutions.html">Industrial IoT</a>
+        <a href="vision-ai.html">Vision AI</a>
+        <a href="motion-ai.html">Motion AI</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="industries.html">Industries</a>
+        <a href="about.html">About</a>
+    <a class="btn btn--primary" href="contact.html">Book a Demo</a>
+  </nav>
+  <main id="main">
+
+    <section class="phero">
+      <div class="container">
+        <div class="phero__wrap" data-reveal>
+          <span class="kicker">Answers</span>
+          <h1>FAQs.</h1>
+          <p>Forty questions across the four things APMS does, none of them repeated from the four on each product page.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Four sections of ten. The nav is plain anchors: the page works with
+         scripting off, and each product page links straight to its own section. -->
+    <section class="sec sec--paper faqnav__sec">
+      <div class="container">
+        <nav class="faqnav" aria-label="Jump to a section">
+          <a class="faqnav__a" href="#iiot"><b>Industrial IoT</b><span>10 questions</span></a>
+          <a class="faqnav__a" href="#vision"><b>Vision AI</b><span>10 questions</span></a>
+          <a class="faqnav__a" href="#motion"><b>Motion AI</b><span>10 questions</span></a>
+          <a class="faqnav__a" href="#agents"><b>AI Agents</b><span>10 questions</span></a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="sec sec--dark faqsec" id="iiot">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker">Industrial IoT</span>
+          <h2 data-clip>Connecting machines, reading them and getting the numbers out.</h2>
+        </div>
+        <div class="faq" data-reveal>
+          <div class="faq__item"><button class="faq__q">Which controllers and protocols work out of the box?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Fanuc FOCAS, Siemens S7, Mazak, Haas and Mitsubishi on the CNC side; Allen-Bradley, Delta, Modbus TCP and EtherNet/IP for PLCs; and OPC-UA and MQTT as the open standards. They are drivers, not gateways you have to hand-build, and none of them locks you to a vendor.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What hardware has to go on site?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Rugged HMI and edge hardware that taps your controllers and sensors securely. It goes in without stopping production and without replacing anything you already run.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can a machine with no controller be monitored at all?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. CNC, PLC, robots, standalone sensors and PLC-less assets all connect. Where there is no controller to tap, retrofit sensors for vibration, current and temperature carry the machine's state instead, so the oldest asset on the floor appears in the same live view as the newest.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Who sees what?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Access is role-based. Operators, supervisors and management each see the part that matters to them, and only that part.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How does a stop get a reason against it?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Every stop is captured and classified the moment it happens, then ranked by what it costs. That is what turns a downtime total into a list of losses you can work through in order.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Does data only flow out of APMS, or both ways?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Both ways. Open APIs and standard industrial protocols push live production, downtime and quality into your ERP, MES and BI tools, and read back from them.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Is there a mobile app, or only a control-room screen?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Both, and they are the same system. The app is live on any device and role-based, from the control room to a phone on the floor, with alerts the moment reality drifts from plan.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What stops two systems reporting different numbers?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Every signal is cleaned, normalised and unified into one model, so there is a single source of truth rather than a plant view and an office view. Your ERP, MES and BI read the same numbers your control room does, at the same moment.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How current is “live”?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Controllers and sensors are polled continuously and the model is current to the second across the whole plant. Machine state is streamed second by second, not written up at the end of a shift.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can one deployment cover more than one plant?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. The platform runs from a single monitored machine up to enterprise-wide across multiple lines and plant locations.</p></div></div></div>
+        </div>
+        <div class="faqsec__back" data-reveal>
+          <a class="btn btn--ghost" href="solutions.html">Back to Industrial IoT<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--paper faqsec" id="vision">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="h-eyebrow">Vision AI</span>
+          <h2 data-clip>What the cameras can check, how a model is proved and where it runs.</h2>
+        </div>
+        <div class="faq" data-reveal>
+          <div class="faq__item"><button class="faq__q">What can Vision AI check besides defects?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>The same platform behind any camera also does assembly verification, PPE and safety compliance, zone and intrusion monitoring, process and anomaly monitoring, counting, sorting and inventory, OCR and traceability, ergonomics and activity analysis, and perimeter security.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How is a model proved before it goes live?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Accuracy, false-accept and false-reject rates are measured against your acceptance criteria before go-live, not after. If it does not clear the criteria you set, it does not go on the line.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Where does the model actually run?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Inline, on the edge device beside the line. That is what lets it inspect every part at line speed and fire sort or alert actions immediately.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Does accuracy drift over time?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>It is designed to go the other way. New edge cases from your line are fed back and the model is retrained, so accuracy compounds instead of decaying.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can it reject a part by itself?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes, where you want it to. A flagged part can trigger PLC sort or reject signals inline, alert an operator, and leave a traceable record, all from the same decision.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Does it replace our existing quality process?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. It works alongside the process you already run and plugs into major MES and SCADA platforms, so it becomes another gate in your system rather than a parallel one.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What does it keep for an audit?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Audit-ready logs for traceability and compliance, with the image kept alongside every decision, so a judgement can be reviewed later rather than taken on trust.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can it read printed codes and labels?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. It reads labels, lot codes, serials and barcodes, checks print quality, and builds a traceability record from what it reads.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How does it cope with lighting and part orientation changing?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Models are trained and augmented specifically for it: lighting, orientation and rare-defect variation are part of the training set rather than something discovered on the line.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Does quality data sit apart from machine data?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No, and that is the point. Every defect and image flows into the same intelligence layer as your machines, so quality sits beside OEE and downtime in one view instead of in a separate system.</p></div></div></div>
+        </div>
+        <div class="faqsec__back" data-reveal>
+          <a class="btn btn--ghost" href="vision-ai.html">Back to Vision AI<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--dark faqsec" id="motion">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="kicker">Motion AI</span>
+          <h2 data-clip>The two units, what they carry, and how a deployment starts.</h2>
+        </div>
+        <div class="faq" data-reveal>
+          <div class="faq__item"><button class="faq__q">What is the difference between the two robots?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>SMART Patrolling does autonomous security and surveillance rounds: checkpoint navigation, perimeter watch and incident verification. SMART Assistance is a task unit for heavy, hazardous and repetitive work: material movement, work in high-risk zones and jobs that cause ergonomic injury. Both report into the same platform.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Why legs rather than wheels?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Gantries, cable trays, gratings, kerbs and wet or uneven floor stop a wheeled platform. Four legs keep a steady sensor payload over all of it, which is what makes an unmanned round possible at the hours nobody wants to walk it.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Do we need floor markings or guide tape?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. Routes are planned by the robot around whatever is actually in the aisle that shift. There are no floor magnets, no guide tape and no line marking to maintain when the layout changes.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What sensors does a unit carry?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>LiDAR and depth sensing for navigation and obstacle avoidance, HD and thermal vision for incident verification and heat signatures, and gas and acoustic sensing for leaks, smoke and abnormal sound. Decisions are made on board.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What can a patrol actually detect?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Analogue and digital gauge readings, thermal hotspots on motors and panels, and leaks or abnormal noise. Every reading is timestamped to the route point it was taken at.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can it inspect places people should not go?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>That is one of the main reasons to use one. Confined spaces, high heat and live electrical zones get inspected without putting a person in them, and the task unit handles extreme heat, chemical and confined areas.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Is there an aerial option?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. Roofs, stacks, high racking, yard stock and the outer fence line are a scaffold job or a long walk on foot; from the air they are a scheduled flight, and the footage lands in the same place as everything else.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What happens when something is found on a round?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>The unit gives first-level visual confirmation with HD or thermal imaging, classifies what it is seeing, and transmits the feed straight to the control room. On-site verification happens within minutes rather than at the next manual patrol.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can a person take over?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>At any point. Edge autonomy covers navigation and routine decisions without constant remote control, and a human can always take over or review what it did.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How does a deployment start?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>In four steps: we map the task, the safety zones and the integration points with your team; the robot learns the environment, checkpoints and no-go areas; a supervised pilot runs alongside your people while behaviour, logs and alerts are validated; then feeds connect to the control room and it rolls out to more routes or shifts.</p></div></div></div>
+        </div>
+        <div class="faqsec__back" data-reveal>
+          <a class="btn btn--ghost" href="motion-ai.html">Back to Motion AI<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--paper faqsec" id="agents">
+      <div class="container">
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="h-eyebrow">AI Agents</span>
+          <h2 data-clip>How the work is scoped, what holds an agent back, and what TARA is.</h2>
+        </div>
+        <div class="faq" data-reveal>
+          <div class="faq__item"><button class="faq__q">Do you sell an off-the-shelf agent?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. There is no catalogue to pick from. The patterns on the AI Agents page are examples of problems real teams have described, not products on a shelf; the engineering underneath is the same and it gets pointed at your process.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What if an agent is the wrong answer for our problem?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Then we say so. Working out whether an agent is the right answer is part of scoping, and telling you it is not is a possible outcome of it.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How long does a build take?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>A typical build runs 12 to 20 weeks, depending on how many systems it has to touch. You see working software well before the end of that.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What stops it acting when it should not?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Limits set before anything is built. Scoping records what it must never do alone, and where a human has to stay in the loop is decided at design time rather than added afterwards. Nothing acts past the approval you configured.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">How would we know when it is wrong?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Because that is built as its own piece of work: test sets, scored runs, thresholds it has to clear before it goes live, and a defined way for it to stop and ask instead of guessing.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What does it do when it does not know?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>It says so. An agent that invents an answer is worse than one that declines, so not knowing is a supported outcome rather than a failure mode.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Can it answer from our own documents?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>Yes. Manuals, SOPs, drawings, contracts, tickets and history become queryable, and answers come back with the source and revision cited. Permissions are respected, so people see only what they are allowed to.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Which systems can it touch?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>The ones you already run: ERP and CRM through to MES, ticketing and email. The point of the integration work is that a process completes without a hand-off queue in the middle of it.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">Is this only for the shop floor?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>No. The same pattern is used in manufacturing, logistics and supply chain, finance and accounting, banking and insurance, customer service, IT and internal ops, healthcare and pharma, construction and projects, retail and e-commerce, energy and utilities, legal and compliance, and HR. If the work is repetitive, judgement-heavy and spread across systems, the shape is the same.</p></div></div></div>
+          <div class="faq__item"><button class="faq__q">What is TARA, and is it running today?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq__a"><div><p>TARA is the operations agent, and it is the one that runs today. It reads live machine, downtime, production and quality data, explains which loss driver and which asset and which moment, and can notify maintenance or set a standing watch. The other patterns on that page are builds scoped to your systems.</p></div></div></div>
+        </div>
+        <div class="faqsec__back" data-reveal>
+          <a class="btn btn--ghost" href="ai-agents.html">Back to AI Agents<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Said plainly rather than answered with a guess. Pricing, contract terms,
+         support response times and where data is hosted are all things the site
+         does not state, and inventing any of them here would be worse than
+         sending the question to a person. -->
+    <section class="sec sec--darker">
+      <div class="container">
+        <div class="faqmore" data-reveal>
+          <h2>Not answered here?</h2>
+          <p>Pricing, contract terms, support cover and where your data is hosted depend on your floor and your systems, so they are worth a conversation rather than a general answer. Ask an engineer directly.</p>
+          <div class="faqmore__actions">
+            <a class="btn btn--primary btn--lg" href="contact.html">Ask a question<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn--ghost btn--lg" href="index.html">See the platform</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="ft">
+    <div class="container">
+      <div class="ft__grid">
+
+        <div class="ft__brand">
+          <a class="ft__home" href="#main" aria-label="Back to the top of this page"><img src="assets/apms-logo.png" alt="APMS.ai" width="150" height="34"></a>
+          <p>The real-time intelligence layer for modern manufacturing. Machines, vision, robotics and AI, engineered as one and answerable to one team.</p>
+          <div class="ft__badges">
+            <a href="solutions.html">Industrial IoT</a><a href="vision-ai.html">Vision AI</a><a href="motion-ai.html">Robotics</a><a href="ai-agents.html">AI Agents</a>
+          </div>
+        </div>
+
+        <div class="ft__col">
+          <h4>Platform</h4>
+          <a href="index.html">Platform overview</a>
+          <a href="solutions.html#modules">Platform modules</a>
+          <a href="solutions.html#modules">Machine monitoring</a>
+          <a href="solutions.html#modules">OEE &amp; loss analysis</a>
+          <a href="solutions.html#modules">Downtime tracking</a>
+          <a href="solutions.html#modules">Maintenance &amp; job sheets</a>
+          <a href="vision-ai.html#applications">Quality inspection</a>
+        </div>
+
+        <div class="ft__col">
+          <h4>Solutions</h4>
+          <a href="solutions.html">Industrial IoT</a>
+          <a href="vision-ai.html">Vision AI</a>
+          <a href="motion-ai.html">Motion AI</a>
+          <a href="ai-agents.html">AI Agents</a>
+        </div>
+
+        <div class="ft__col">
+          <h4>Company</h4>
+          <a href="about.html">About APMS</a>
+          <a href="industries.html">Industries</a>
+          <a href="about.html#about">How we work</a>
+          <a href="faq.html">FAQs</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy policy</a>
+        </div>
+
+        <div class="ft__col ft__contact">
+          <h4>Get in touch</h4>
+          <div class="ft__block">
+            <span class="ft__label">Phone</span>
+            <a href="tel:+918050176508">+91 80501 76508</a>
+          </div>
+          <div class="ft__block">
+            <span class="ft__label">Email</span>
+            <a href="mailto:info@apms.ai">info@apms.ai</a>
+            <a href="mailto:sales@apms.ai">sales@apms.ai</a>
+          </div>
+          <div class="ft__block">
+            <span class="ft__label">Bengaluru office</span>
+            <address>#5, 10th Cross Rd, Siddaiah Road, Wilson Garden,<br>Bengaluru, Karnataka 560027, India</address>
+          </div>
+          <div class="ft__block">
+            <a class="ft__cta" href="contact.html">Book a Demo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ft__bottom">
+        <div class="ft__legal">
+          <span>&copy; <span id="yr">2025</span> APMS AI INNOVATIONS Pvt. Ltd.</span>
+          <i aria-hidden="true"></i>
+          <span>Bengaluru, India</span>
+          <i aria-hidden="true"></i>
+          <a href="privacy.html">Privacy</a>
+          <i aria-hidden="true"></i>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="ft__social">
+          <a href="https://www.linkedin.com/company/apmsai/" target="_blank" rel="noopener" aria-label="APMS.ai on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.02 8h4.96V24H.02zm7.98 0h4.76v2.2h.07c.66-1.25 2.28-2.57 4.7-2.57 5.02 0 5.95 3.3 5.95 7.6V24h-4.96v-7.7c0-1.84-.03-4.2-2.56-4.2-2.56 0-2.95 2-2.95 4.06V24H8z"/></svg></a>
+          <a href="https://www.instagram.com/apms.ai?igsh=MXdqMDZ3NTl6eGt2Zg==" target="_blank" rel="noopener" aria-label="APMS.ai on Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.23 1 .5 1.4.94.44.44.71.84.94 1.4.17.42.36 1.03.42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2a3.8 3.8 0 0 1-.94 1.4c-.44.44-.84.71-1.4.94-.42.17-1.03.36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.8 3.8 0 0 1-1.4-.94 3.8 3.8 0 0 1-.94-1.4c-.17-.42-.36-1.03-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.23-.6.5-1 .94-1.4.44-.44.84-.71 1.4-.94.42-.17 1.03-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.8.07-1 .05-1.5.21-1.8.33-.4.15-.6.32-.9.62-.3.3-.47.5-.62.9-.12.3-.28.8-.33 1.8C3.5 8.5 3.5 8.9 3.5 12s0 3.5.07 4.8c.05 1 .21 1.5.33 1.8.15.4.32.6.62.9.3.3.5.47.9.62.3.12.8.28 1.8.33 1.3.06 1.7.07 4.8.07s3.5 0 4.8-.07c1-.05 1.5-.21 1.8-.33.4-.15.6-.32.9-.62.3-.3.47-.5.62-.9.12-.3.28-.8.33-1.8.06-1.3.07-1.7.07-4.8s0-3.5-.07-4.8c-.05-1-.21-1.5-.33-1.8-.15-.4-.32-.6-.62-.9-.3-.3-.5-.47-.9-.62-.3-.12-.8-.28-1.8-.33C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2zm6.2-2.2a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <script src="js/motion/loader.js?v=1"></script>
+  <script src="js/core/redesign.js?v=18"></script>
+  <script src="js/core/enhance.js?v=10"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/anime.min.js"></script>
+  <script src="js/core/smooth.js?v=4"></script>
+  <script src="js/motion/site-fx.js?v=6"></script>
+  <script src="js/core/polish.js?v=1"></script>
+  <script src="js/core/ui-fx.js?v=1"></script>
+  <script src="js/motion/scroll-text.js?v=3"></script>
+  <script src="js/motion/mesh-bg.js?v=3"></script>
+  <script src="js/core/reveal.js?v=1"></script>
+  <script src="js/motion/iconlife.js?v=1"></script>
+  <script src="js/core/perf.js?v=3"></script>
+  <script src="js/motion/gscroll.js?v=2"></script>
+  <script src="js/motion/motion.js?v=6"></script>
+</body>
+</html>

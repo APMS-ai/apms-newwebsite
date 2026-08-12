@@ -34,6 +34,13 @@
 .agp__track > * {
   flex: 0 0 max(240px, calc((100% - (var(--agp-per-view) - 1) * var(--agp-gap)) / var(--agp-per-view)));
 }
+/* A 3-up step between 901 and 1100, because four-up in that band asks for cards
+   narrower than the 240px floor and the floor wins: measured 3.31 cards showing
+   at 1024, which is a sliver of a fourth. The boundary was found by measuring
+   rather than by arithmetic on the container width: the track is narrower than
+   the container, so 1100 was still too low and 1101 showed 3.61 cards. 1200 is
+   where four of them actually fit. */
+@media (max-width: 1200px) { .agp__track { --agp-per-view: 3; } }
 @media (max-width: 900px)  { .agp__track { --agp-per-view: 2; } }
 @media (max-width: 620px)  { .agp__track { --agp-per-view: 1; } }
 
