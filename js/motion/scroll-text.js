@@ -102,6 +102,12 @@
     if (recipe.scale)      props.scale = recipe.scale;
     if (recipe.rotate)     props.rotate = recipe.rotate;
     if (recipe.filter)     props.filter = recipe.filter;
+    /* Promise the layers only while the run is actually happening. .st-w used
+       to carry a permanent will-change (transform, opacity and filter) from
+       fx.css: 41 promoted layers on index alone, held for the life of the page
+       because headings re-arm rather than unobserve. */
+    el.classList.add("st-run");
+    props.complete = function () { el.classList.remove("st-run"); };
     anime(props);
   }
 
@@ -110,6 +116,7 @@
   function rearm(el) {
     var units = el.querySelectorAll(".st-w");
     anime.remove(units);
+    el.classList.remove("st-run");   /* and give the layers back */
     for (var i = 0; i < units.length; i++) {
       units[i].style.opacity = "0";
       units[i].style.transform = "";

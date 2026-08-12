@@ -22,8 +22,22 @@
   animation-play-state: paused !important;
 }
 
-/* Transitions are untouched on purpose: the reveal system uses them, and a
-   paused transition would strand a card half faded in. */
+/* Transitions are cut off screen too, which the first version of this file did
+   not do. The worry was stranding a card half faded in, and CSS has no way to
+   pause a transition, only to remove it, which snaps the element to its end
+   state. Two things make that safe here:
+
+     · the element is outside the viewport plus a third of a screen, so the snap
+       cannot be seen. When the section wakes it is simply already revealed.
+     · reveal.js adds .r-done from a setTimeout(1800) as well as from
+       transitionend, so the state machine cannot get stuck waiting for an event
+       that a removed transition will never fire.
+
+   Measured running transitions in off-screen sections before this: 17 on index,
+   43 on vision-ai. */
+.fx-idle, .fx-idle *, .fx-idle *::before, .fx-idle *::after {
+  transition: none !important;
+}
 
 /* ==========================================================================
    COMPOSITOR LAYERS
@@ -33,6 +47,31 @@
    element has arrived.
    ========================================================================== */
 [data-reveal].in { will-change: auto; }
+
+/* Measured at 45% down index.html: 106 elements holding a layer, 7 of them on
+   screen. Each rule below gives one group back. */
+
+/* 1 · split heading words, 41 of them. Promised only while a heading runs. */
+.st-run .st-w { will-change: transform, opacity; }
+
+/* 2 · the ambient auroras, 24 of them. enhance.js puts three spans in every
+   dark section, and index has eight. Each span is roughly 660x660 at 1440 with
+   filter: blur(60px) and mix-blend-mode: screen, so a promoted layer is an
+   expensive thing to keep resident, and perf.js pausing the drift does not
+   release it. The drift is a transform, so the browser promotes it while it
+   runs and drops it when idle, which is the behaviour we want. */
+.aurora > span { will-change: auto; }
+
+/* 3 · everything not yet revealed. polish.css promises a layer to every
+   [data-reveal] that has not arrived, which on a 19,852px page means most of
+   the document at any moment. The reveal is opacity and transform, both of
+   which the compositor handles without being told in advance. */
+[data-reveal]:not(.in) { will-change: auto; }
+
+/* 4 · reveal.css releases on .r-done, but a few elements never reach it
+   (drum cards, the trust row), so release on .r-in as well: by then the
+   transition is running and the browser has already promoted what it needs. */
+.has-reveal [data-r].r-in { will-change: auto; }
 
 /* The rail track only moves while it is being dragged or auto-advanced. */
 .agp__track { will-change: auto; }

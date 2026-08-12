@@ -140,8 +140,12 @@
   .pseq .fx-arc    { transform-box: fill-box; transform-origin: center; animation: pseqArc 4.4s ease-out infinite; opacity: 0; }
   .pseq .fx-arc.a1 { animation-delay: 1.1s; } .pseq .fx-arc.a2 { animation-delay: 2.2s; }
   /* travelling glow pulse: a short bright segment glides along each path */
+  /* No drop-shadow. This animates stroke-dashoffset, and a filtered element has
+     to be re-rasterised on every frame of that animation: seven of them run at
+     once in a single story, which is the "don't animate a filter on many
+     elements at once" case in the project notes. The bright stroke and the
+     dash already read as a travelling pulse without it. */
   .pseq .fx-wire   { stroke-dasharray: 24 460; stroke-linecap: round;
-    filter: drop-shadow(0 0 5px #2ee0b4) drop-shadow(0 0 10px rgba(46,224,180,0.65));
     animation: pseqGlow 3s linear infinite; }
   .pseq .fx-bar    { animation: pseqBarGlow 3s ease-in-out infinite; }
   .pseq .fx-bar.d1 { animation-delay: 0.4s; } .pseq .fx-bar.d2 { animation-delay: 0.8s; } .pseq .fx-bar.d3 { animation-delay: 1.2s; }

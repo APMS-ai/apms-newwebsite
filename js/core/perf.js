@@ -52,9 +52,11 @@
         }
       }
     }, {
-      /* a full screen of slack either side: sections wake up before they
-         are reached, so a fast flick never lands on a frozen console */
-      rootMargin: "100% 0px 100% 0px",
+      /* A third of a screen of slack either side. It was a full screen, which
+         kept about three viewports of animation alive at once. A third is still
+         300px at this viewport, far more than a frame's worth of fast scrolling,
+         so nothing is caught mid-entrance. */
+      rootMargin: "33% 0px 33% 0px",
       threshold: 0
     });
 

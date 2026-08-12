@@ -20,23 +20,30 @@
   position: absolute; inset: 0; overflow: hidden; pointer-events: none;
   z-index: 0; opacity: 0.9;
 }
+/* No blur, and no permanent will-change. enhance.js puts three of these in every
+   dark section, so index carries 24, each about 660x660 at 1440. A 60px blur on
+   a radial-gradient that already fades to transparent at 70% buys very little
+   and costs a full-size filter pass per element: removing it measured 25 to 30%
+   off the mean frame time on index. The gradient is softened slightly to make
+   up the difference. will-change is handled in perf.css: the drift is a
+   transform, so the browser promotes it while it runs and drops it when idle. */
 .aurora > span {
-  position: absolute; border-radius: 50%; filter: blur(60px);
-  opacity: 0.5; mix-blend-mode: screen; will-change: transform;
+  position: absolute; border-radius: 50%;
+  opacity: 0.5; mix-blend-mode: screen;
 }
 .aurora > span:nth-child(1) {
   width: 46vw; height: 46vw; left: -8vw; top: -12vw;
-  background: radial-gradient(circle, rgba(23,201,155,0.55), transparent 70%);
+  background: radial-gradient(circle, rgba(23,201,155,0.55), transparent 62%);
   animation: drift1 22s var(--ease) infinite alternate;
 }
 .aurora > span:nth-child(2) {
   width: 38vw; height: 38vw; right: -6vw; top: 20%;
-  background: radial-gradient(circle, rgba(76,201,240,0.34), transparent 70%);
+  background: radial-gradient(circle, rgba(76,201,240,0.34), transparent 62%);
   animation: drift2 27s var(--ease) infinite alternate;
 }
 .aurora > span:nth-child(3) {
   width: 34vw; height: 34vw; left: 30%; bottom: -14vw;
-  background: radial-gradient(circle, rgba(46,224,180,0.30), transparent 70%);
+  background: radial-gradient(circle, rgba(46,224,180,0.30), transparent 62%);
   animation: drift3 31s var(--ease) infinite alternate;
 }
 @keyframes drift1 { to { transform: translate3d(14vw, 8vw, 0) scale(1.15); } }
