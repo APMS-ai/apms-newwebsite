@@ -428,8 +428,12 @@ body.lighttop .hdr:not(.is-stuck) .burger span { background: var(--ink); }
 /* ==========================================================================
    CAPABILITIES
    ========================================================================== */
-.caps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
-@media (max-width: 820px) { .caps { grid-template-columns: 1fr; } }
+/* Four cards, four across. It was two across, which is a legal 2 + 2 but not
+   what "four cards visible" asks for. 4 divides 4, then 2 divides 4, so every
+   step is a full row. */
+.caps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4rem; }
+@media (max-width: 1100px) { .caps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px)  { .caps { grid-template-columns: minmax(0, 1fr); } }
 .cap {
   position: relative; overflow: hidden; border-radius: var(--radius-lg);
   border: 1px solid var(--line); background: var(--white); padding: 2rem;

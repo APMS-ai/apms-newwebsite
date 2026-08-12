@@ -125,7 +125,12 @@
 /* ==========================================================================
    RAILS — horizontal scrollers, same as the other pages
    ========================================================================== */
-.mrail .agp__track > * { flex: 0 0 clamp(280px, 26vw, 340px); }
+/* No card-width override here. This used to be
+     flex: 0 0 clamp(280px, 26vw, 340px);
+   which is two classes against rail.css's one, so it beat the shared
+   --agp-per-view sizing outright and these rails ignored the four-up rule
+   completely. Same specificity trap that pinned the pattern rail at four up on a
+   phone earlier. Sizing belongs to rail.css for every rail on the site. */
 /* height comes from rail.css stretch, not from here (see note in rail.css) */
 .mrail .fstrip__cell { border: 1px solid var(--line-dark); border-radius: 14px; }
 

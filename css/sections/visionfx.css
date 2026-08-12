@@ -136,7 +136,12 @@
    Two grids become rails (css/rail.css + js/rail.js). Only the sizing and the
    live-card treatment are page-specific.
    ========================================================================== */
-.vrail .agp__track > * { flex: 0 0 clamp(280px, 26vw, 340px); }
+/* No card-width override here. This used to be
+     flex: 0 0 clamp(280px, 26vw, 340px);
+   which is two classes against rail.css's one, so it beat the shared
+   --agp-per-view sizing outright and these rails ignored the four-up rule
+   completely. Same specificity trap that pinned the pattern rail at four up on a
+   phone earlier. Sizing belongs to rail.css for every rail on the site. */
 /* no height here: rail.css equalises cards with align-items: stretch, and a
    definite height on a flex item cancels that (see the note in rail.css) */
 .vrail .tile.is-live { border-color: rgba(46,224,180,0.5); box-shadow: 0 26px 56px -30px rgba(0,0,0,0.7); }
