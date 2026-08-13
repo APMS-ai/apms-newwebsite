@@ -38,12 +38,15 @@
 .apph__island { fill: #08090b; }
 .apph__lens   { fill: #10222b; stroke: rgba(120,200,230,0.30); stroke-width: 1; }
 .apph__btn    { fill: #2a2c31; }
-.apph__home   { fill: rgba(255,255,255,0.32); }
+/* the board fills the glass now, so the home indicator sits on white, not on a
+   dark screen: white on white was invisible */
+.apph__home   { fill: rgba(12,26,40,0.30); }
 
 /* ---------- the card ---------- */
-/* The app board sits inside the phone's screen, so its own outer radius would
-   show as a rounded white card floating on a dark screen. Square corners, and
-   the screen behind it supplies the rounding. */
+/* The app board is the screen: it fills the glass edge to edge and is clipped
+   to the screen's 45 radius (#appsScreenClip in the markup). Square corners of
+   its own, because the clip supplies the rounding. Before the clip existed the
+   two bottom corners overhung the rounded screen by 12 units of white. */
 .apps__card   { fill: #ffffff; stroke: none; rx: 0; }
 .apps__accent { fill: url(#appsAccent); }
 

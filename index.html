@@ -30,11 +30,11 @@
   <link rel="stylesheet" href="css/sections/loop.css?v=5">
   <link rel="stylesheet" href="css/motion/drum.css?v=13">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=4">
-  <link rel="stylesheet" href="css/sections/misfx.css?v=6">
-  <link rel="stylesheet" href="css/sections/analyst.css?v=15">
+  <link rel="stylesheet" href="css/sections/misfx.css?v=7">
+  <link rel="stylesheet" href="css/sections/analyst.css?v=16">
   <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
   <link rel="stylesheet" href="css/sections/premiumfx.css?v=13">
-  <link rel="stylesheet" href="css/sections/appsvg.css?v=6">
+  <link rel="stylesheet" href="css/sections/appsvg.css?v=7">
   <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
   <link rel="stylesheet" href="css/motion/perf.css?v=6">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
@@ -420,7 +420,14 @@
                    aria-label="The APMS app on a phone, on its Active Machines screen: 13 machines, 5 logged off, 6 running, 1 stopped and 1 idle, with the mix shown as a single bar">
                 <defs><linearGradient id="appsAccentT" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0" stop-color="#17c99b"/><stop offset="1" stop-color="#2ee0b4"/>
-                </linearGradient></defs>
+                </linearGradient>
+                <!-- The board is square-cornered and the screen is not, so at the two
+                     bottom corners 12 units of white sat outside the screen and over the
+                     bezel. Clipping to the screen shape is what makes it a screen: the
+                     board now fills the glass edge to edge and the corners are cut by
+                     the same 45 radius. -->
+                <clipPath id="appsScreenClip"><rect x="12" y="12" width="360" height="696" rx="45"/></clipPath>
+                </defs>
                 <!-- Device, from the real proportions rather than by eye: iPhone 15 is 393 by
                      852pt with a corner radius of about 55pt and a Dynamic Island of about
                      125 by 37pt, which at this 384-unit width comes to a 54 radius and a
@@ -435,10 +442,15 @@
                 <rect class="apph__btn" x="383" y="212" width="3" height="86" rx="1.5"/>
                 <!-- The app keeps its own 360 x 630 board, inset by the bezel and the status
                      area so the island floats over it rather than sitting on the title. -->
-                <g transform="translate(12,64)">
-              
-                <rect class="apps__card" x="0" y="0" width="360" height="630" rx="20"/>
-                <path class="apps__accent" d="M20 0 H340 A20 20 0 0 1 360 20 V6 H0 V20 A20 20 0 0 1 20 0 Z" fill="url(#appsAccentT)"/>
+                <g clip-path="url(#appsScreenClip)"><g transform="translate(12,64)">
+
+                <!-- the board fills the whole glass, from the top edge (-52 here, which
+                     is y=12 on the device) to the bottom edge, and the clip rounds it -->
+                <rect class="apps__card" x="0" y="-52" width="360" height="696" rx="0"/>
+                <!-- the accent is a straight rule across the top of the content now:
+                     it used to carry the card's own 20 radius, which only made sense
+                     when the board was a floating card rather than the screen itself -->
+                <rect class="apps__accent" x="0" y="0" width="360" height="6" fill="url(#appsAccentT)"/>
                 <text class="apps__title" x="20" y="46">Active Machines</text>
                 <circle class="apps__live" cx="190" cy="41" r="4.5"/>
                 <text class="apps__sub" x="20" y="67">Unit&#8217;s active machine status at a glance</text>
@@ -532,10 +544,10 @@
                   </g>
                   <text class="apps__tablbl" x="315.0" y="621" text-anchor="middle">Plan</text>
                 </g>
-                </g>
+                </g></g>
                 <rect class="apph__island" x="131" y="26" width="122" height="36" rx="18"/>
                 <circle class="apph__lens" cx="233" cy="44" r="5"/>
-                <rect class="apph__home" x="142" y="700" width="100" height="4.5" rx="2.25"/>
+                <rect class="apph__home" x="142" y="694" width="100" height="4.5" rx="2.25"/>
               </svg>
             </div>
           </div>
@@ -1001,7 +1013,10 @@
               <text class="mis__lbl" x="40" y="168">First-pass yield</text>
               <text class="mis__val" x="200" y="168" text-anchor="end">97.2%</text>
             </g>
-            <path class="mis__tick" d="M176 52l5 5 10-11"/>
+            <!-- signed off. The badge is static and the tick draws inside it;
+                 pathLength normalises the dash so the whole tick actually draws. -->
+            <circle class="mis__tickbadge" cx="185" cy="52" r="14"/>
+            <path class="mis__tick" pathLength="100" d="M178 52.5l5 5 10.5-11.5"/>
             <g class="mis__fly">
               <rect x="188" y="92" width="34" height="26" rx="4" fill="rgba(23,201,155,0.18)" stroke="#17c99b" stroke-width="1.2"/>
               <path d="M194 100h22M194 106h16M194 112h12" stroke="#2ee0b4" stroke-width="1.6" stroke-linecap="round"/>
@@ -1080,11 +1095,11 @@
             <div class="anl__glow">
               <svg viewBox="0 0 300 176" role="img" aria-label="OEE, downtime and quality data flowing into TARA, which answers back" preserveAspectRatio="xMidYMid meet">
                 <path class="anl__feed" d="M18 18 L118.4 78.8"/>
-                <text class="anl__lbl anl__lbl--1" x="18" y="10" text-anchor="start">OEE</text>
+                <text class="anl__lbl anl__lbl--1" x="18" y="3" text-anchor="start">OEE</text>
                 <path class="anl__feed" d="M150 18 V61"/>
-                <text class="anl__lbl anl__lbl--2" x="150" y="10" text-anchor="middle">DOWNTIME</text>
+                <text class="anl__lbl anl__lbl--2" x="150" y="3" text-anchor="middle">DOWNTIME</text>
                 <path class="anl__feed" d="M282 18 L181.6 78.8"/>
-                <text class="anl__lbl anl__lbl--3" x="282" y="10" text-anchor="end">QUALITY</text>
+                <text class="anl__lbl anl__lbl--3" x="282" y="3" text-anchor="end">QUALITY</text>
                 <!-- A light runs the lane ahead of each packet. These are separate
                      paths laid over the feeds, so the feed itself is never the thing
                      being animated and can never blink to empty (CLAUDE.md #7).
@@ -1101,6 +1116,31 @@
                 <circle class="anl__pkt anl__pkt--1b" r="1.9" style="offset-path:path('M18 18 L118.4 78.8')"/>
                 <circle class="anl__pkt anl__pkt--2b" r="1.9" style="offset-path:path('M150 18 V61')"/>
                 <circle class="anl__pkt anl__pkt--3b" r="1.9" style="offset-path:path('M282 18 L181.6 78.8')"/>
+                <!-- Each source now says what it is and moves in its own way, so the
+                     three lanes are not one animation repeated three times: OEE is a
+                     gauge that sweeps as it reports, downtime is two bars that stop and
+                     a ring that pulses, quality is a tick that draws. All three are on
+                     the same 4.4s clock as the packet in their own lane. -->
+                <g class="anl__src anl__src--1" transform="translate(18,18)">
+                  <circle class="anl__srcring" r="9.5"/>
+                  <path class="anl__gaugetrack" d="M-5.5 2.6 A 6 6 0 1 1 5.5 2.6"/>
+                  <path class="anl__gauge" pathLength="100" d="M-5.5 2.6 A 6 6 0 1 1 5.5 2.6"/>
+                  <rect class="anl__needle" x="-0.7" y="-3.4" width="1.4" height="6" rx="0.7"/>
+                </g>
+                <g class="anl__src anl__src--2" transform="translate(150,18)">
+                  <circle class="anl__srcpulse" r="9.5"/>
+                  <circle class="anl__srcring" r="9.5"/>
+                  <rect class="anl__stopbar anl__stopbar--l" x="-3.8" y="-4" width="2.8" height="8" rx="1.2"/>
+                  <rect class="anl__stopbar anl__stopbar--r" x="1" y="-4" width="2.8" height="8" rx="1.2"/>
+                </g>
+                <g class="anl__src anl__src--3" transform="translate(282,18)">
+                  <circle class="anl__srcring" r="9.5"/>
+                  <path class="anl__qticktrack" d="M-4.2 0.2 L-1.2 3.4 L4.4 -3.6"/>
+                  <path class="anl__qtick" pathLength="100" d="M-4.2 0.2 L-1.2 3.4 L4.4 -3.6"/>
+                </g>
+                <!-- TARA holds a slow scanning ring of her own, so the centre is alive
+                     between answers rather than only when the third packet lands -->
+                <circle class="anl__scan" cx="150" cy="98" r="45"/>
                 <circle class="anl__halo" cx="150" cy="98" r="38"/>
                 <circle class="anl__halo anl__halo--2" cx="150" cy="98" r="38"/>
                 <circle class="anl__orb" cx="150" cy="98" r="38"/>
@@ -1152,9 +1192,6 @@
           <span class="kicker" style="justify-content:center;">Partner program</span>
           <h2 data-clip>Partners make <span class="accent">more possible</span></h2>
           <p>Transformation works best as an ecosystem: specialists whose skills compound into real value for discrete manufacturers. A few reasons the APMS Partner Network is worth joining.</p>
-          <div class="cta__actions" style="margin-top:1.8rem;">
-            <a class="btn btn--primary" href="contact.html">Apply Today <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div>
         </div>
 
         <div class="problem__grid">
@@ -1283,7 +1320,7 @@
           <a class="btn btn--primary btn--lg" href="contact.html">Book a Demo
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn btn--ghost btn--lg" href="ai-agents.html">Meet the AI Agent</a>
+          <a class="btn btn--ghost btn--lg" href="#tara">Meet TARA</a>
         </div>
       </div>
     </section>

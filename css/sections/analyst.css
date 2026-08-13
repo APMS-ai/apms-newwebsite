@@ -104,7 +104,58 @@
   98%, 100%    { fill: rgba(255,255,255,0.5); }
 }
 
+/* ==========================================================================
+   THE THREE SOURCES, EACH WITH ITS OWN SIGNATURE
+   The lanes were identical: three dots on three lines, three labels lighting
+   the same way. Each source now behaves like the thing it measures, on the
+   same 4.4s clock, in the window where its own packet is travelling.
+     OEE       a gauge sweeps and its needle swings across (4% to 28%)
+     DOWNTIME  the bars stop dead and the ring pulses out (16% to 40%)
+     QUALITY   a tick draws itself (28% to 52%)
+   The rings and the gauge track are static: they are the base strokes, and
+   base strokes never animate away (CLAUDE.md #7).
+   ========================================================================== */
+.anl__srcring    { fill: rgba(4,18,28,0.72); stroke: rgba(46,224,180,0.42); stroke-width: 1.2; }
+.anl__gaugetrack { fill: none; stroke: rgba(46,224,180,0.22); stroke-width: 2; stroke-linecap: round; }
+.anl__gauge      { fill: none; stroke: var(--teal-bright); stroke-width: 2; stroke-linecap: round;
+                   stroke-dasharray: 100; stroke-dashoffset: 100; }
+.anl__needle     { fill: rgba(255,255,255,0.78);
+                   transform-box: fill-box; transform-origin: center bottom;
+                   transform: rotate(-84deg); }
+.anl__stopbar    { fill: rgba(255,255,255,0.55); }
+.anl__srcpulse   { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0;
+                   transform-box: fill-box; transform-origin: center; }
+.anl__qticktrack { fill: none; stroke: rgba(46,224,180,0.22); stroke-width: 1.8;
+                   stroke-linecap: round; stroke-linejoin: round; }
+.anl__qtick      { fill: none; stroke: var(--teal-bright); stroke-width: 1.8;
+                   stroke-linecap: round; stroke-linejoin: round;
+                   stroke-dasharray: 100; stroke-dashoffset: 100; }
+
+[data-reveal].in .anl__gauge { animation: anlGauge 4.4s var(--ease-out) infinite; }
+[data-reveal].in .anl__needle    { animation: anlNeedle 4.4s var(--ease-out) infinite; }
+[data-reveal].in .anl__stopbar   { animation: anlStop 4.4s steps(1,end) infinite; }
+[data-reveal].in .anl__stopbar--r{ animation-delay: .22s; }
+[data-reveal].in .anl__srcpulse  { animation: anlSrcPulse 4.4s ease-out infinite; }
+[data-reveal].in .anl__qtick     { animation: anlQtick 4.4s var(--ease-out) infinite; }
+
+@keyframes anlGauge  { 0%,4% { stroke-dashoffset: 100; } 28%,92% { stroke-dashoffset: 0; } 98%,100% { stroke-dashoffset: 100; } }
+@keyframes anlNeedle { 0%,4% { transform: rotate(-84deg); } 28%,92% { transform: rotate(84deg); } 98%,100% { transform: rotate(-84deg); } }
+@keyframes anlStop   { 0%,16% { fill: rgba(255,255,255,0.35); } 18%,92% { fill: var(--teal-bright); } 94%,100% { fill: rgba(255,255,255,0.35); } }
+@keyframes anlSrcPulse {
+  0%, 16%   { opacity: 0; transform: scale(.7); }
+  22%       { opacity: .55; }
+  40%, 100% { opacity: 0; transform: scale(1.7); }
+}
+@keyframes anlQtick  { 0%,28% { stroke-dashoffset: 100; } 46%,92% { stroke-dashoffset: 0; } 98%,100% { stroke-dashoffset: 100; } }
+
 .anl__orb  { fill: rgba(23,201,155,0.10); stroke: var(--teal); stroke-width: 1.6; }
+/* TARA's own scanning ring: a dashed circle turning slowly, so the centre reads
+   as listening the whole time rather than only when a packet lands */
+.anl__scan { fill: none; stroke: rgba(46,224,180,0.34); stroke-width: 1.1;
+             stroke-dasharray: 3 13; stroke-linecap: round;
+             transform-origin: 150px 98px; }
+[data-reveal].in .anl__scan { animation: anlScan 16s linear infinite; }
+@keyframes anlScan { to { transform: rotate(360deg); } }
 /* .anl__core was a filled teal disc at the orb's exact centre. TARA's lettering
    now sits there and the disc was showing through it, so the disc is gone. The
    name gets a dark plate behind it instead: the orb's own fill is only 10% teal
@@ -197,16 +248,22 @@
 
 /* ---------- the three preset questions, centered below APMS Analyst ---------- */
 /* takes the slack between the diagram and the input, and centres in it */
+/* One question per line, and each on a single line. Wrapped chips broke
+   "Where are today's quality rejects coming from?" across two rows inside a
+   pill, which read as three ragged blocks rather than three questions. The
+   type is smaller because that is what a 43 character question costs in a
+   396px phone. */
 .anl__chips {
   flex: 1 1 auto;
-  display: flex; flex-wrap: wrap; justify-content: center;
-  align-content: center; gap: .6rem;
-  padding: 1rem .9rem 1.4rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: .55rem;
+  padding: 1rem .6rem 1.4rem; text-align: center;
 }
 .anl__chip {
-  font: inherit; font-size: .89rem; color: rgba(255,255,255,0.78);
+  font: inherit; font-size: .78rem; color: rgba(255,255,255,0.78);
+  white-space: nowrap; max-width: 100%;
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 999px; padding: .65rem 1.1rem; cursor: pointer;
+  border-radius: 999px; padding: .6rem .95rem; cursor: pointer;
   transition: transform .2s var(--ease-out), background .2s, border-color .2s;
 }
 .anl__chip:hover, .anl__chip:focus-visible {
@@ -245,14 +302,25 @@
 .anl__send:disabled { opacity: .45; cursor: not-allowed; transform: none; }
 
 @media (max-width: 620px) {
-  .anl__lbl { font-size: 13px; }
+  .anl__lbl { font-size: 12px; }
+  /* the longest question is 43 characters and the frame is narrower here */
+  .anl__chip { font-size: .72rem; padding: .55rem .8rem; }
   .anl__msg { max-width: 94%; }
   /* on a real phone the frame stops pretending to be one */
   .anl__phone { min-height: 660px; border-radius: 36px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .anl__pkt, .anl__halo, .anl__dots i, .anl__ans, .anl__lbl { animation: none !important; }
+  .anl__pkt, .anl__halo, .anl__dots i, .anl__ans, .anl__lbl,
+  .anl__gauge, .anl__needle, .anl__stopbar, .anl__srcpulse, .anl__qtick,
+  .anl__scan { animation: none !important; }
+  /* each source shown as it reads once it has reported: the gauge full, the
+     needle at its stop, the tick drawn. Nothing travels and nothing rotates. */
+  .anl__gauge { stroke-dashoffset: 0; }
+  .anl__needle { transform: rotate(84deg); }
+  .anl__stopbar { fill: var(--teal-bright); }
+  .anl__srcpulse { opacity: 0; }
+  .anl__qtick { stroke-dashoffset: 0; }
   /* all three sources read as reported, which is the informative frame */
   .anl__lbl { fill: var(--teal-bright); }
   .anl__pkt { opacity: 1; offset-distance: 90%; }

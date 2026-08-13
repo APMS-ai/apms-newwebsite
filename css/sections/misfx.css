@@ -52,11 +52,15 @@
 }
 
 /* ---------- beat two: signed off ---------- */
+.mis__tickbadge { fill: rgba(23,201,155,0.12); stroke: rgba(23,201,155,0.45); stroke-width: 1; }
+/* pathLength normalises the dash to the path, which is what was wrong: the tick
+   is 21.9 units long and the dash was 16, so the last third of the long arm was
+   permanently cut off and the tick never finished drawing. */
 .mis__tick { fill: none; stroke: var(--teal-deep); stroke-width: 2.2;
              stroke-linecap: round; stroke-linejoin: round;
-             stroke-dasharray: 16; stroke-dashoffset: 16; }
+             stroke-dasharray: 100; stroke-dashoffset: 100; }
 [data-reveal].in .mis__tick { animation: misTick 9s var(--ease-out) infinite; }
-@keyframes misTick { 0%,34% { stroke-dashoffset: 16; } 44%,88% { stroke-dashoffset: 0; } 96%,100% { stroke-dashoffset: 16; } }
+@keyframes misTick { 0%,34% { stroke-dashoffset: 100; } 44%,88% { stroke-dashoffset: 0; } 96%,100% { stroke-dashoffset: 100; } }
 
 /* ---------- beat three: it leaves ---------- */
 .mis__fly { opacity: 0; }
