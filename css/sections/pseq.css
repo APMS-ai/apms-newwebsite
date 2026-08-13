@@ -197,3 +197,169 @@ section.sec:has(> .pseq) { padding: 0; }
   .pseq--robots .pstep__viz { order: 2; }
   .pseq--robots .pstep__copy { order: 1; }
 }
+
+/* ==========================================================================
+   THE FLEET, MOVING LIKE THE REAL THING
+   ("A unit for each kind of job")
+
+   Both units were drawings with a few lights blinking on them. They now move
+   the way the machines they depict actually move, and the two are deliberately
+   NOT the same animation, because the two views are not the same:
+
+   · The humanoid is drawn front on. A walk cycle is unreadable from the front,
+     so it does what a bipedal unit really does while it waits: it holds its
+     balance. The weight shifts side to side, the unloaded foot lifts and
+     lands, the arms counter-swing and the head scans. 2.4s a cycle.
+   · The quadruped is drawn side on, so it trots. Diagonal pairs, 182 with 374
+     and 226 with 330, the knee folding as each leg swings through, the body
+     bobbing twice a stride and the sensor head holding level against it. 0.9s
+     a stride, which is about the cadence these units trot at.
+
+   Every group turns about a real joint. transform-box: view-box here, because
+   these origins are joint coordinates on the whole board, not the centre of
+   the part being turned: the knee is at 252,302 whatever the shin's own box
+   is. CLAUDE.md #7 records the opposite case, where fill-box was needed for
+   per-element origins; both are now in this file, a few hundred lines apart.
+
+   Only the step you are looking at animates. The other three sit at opacity 0
+   behind it, and a hidden robot walking is four gaits of work for nothing.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .pseq .uni-leg, .pseq .uni-shin, .pseq .uni-arm, .pseq .uni-fore,
+  .pseq .uni-body, .pseq .uni-head,
+  .pseq .q4-leg, .pseq .q4-low, .pseq .q4-body, .pseq .q4-head {
+    transform-box: view-box;
+  }
+
+  /* ---------- humanoid: weight on one foot, then the other ---------- */
+  .pseq .uni-leg--l  { transform-origin: 252px 232px; }
+  .pseq .uni-leg--r  { transform-origin: 308px 232px; }
+  .pseq .uni-shin--l { transform-origin: 252px 302px; }
+  .pseq .uni-shin--r { transform-origin: 308px 302px; }
+  .pseq .uni-arm--l  { transform-origin: 206px 140px; }
+  .pseq .uni-arm--r  { transform-origin: 354px 140px; }
+  .pseq .uni-fore--l { transform-origin: 206px 214px; }
+  .pseq .uni-fore--r { transform-origin: 354px 214px; }
+  .pseq .uni-head    { transform-origin: 280px 108px; }
+
+  .pseq .pstep.is-active .uni-body   { animation: uniSway 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-leg--l { animation: uniStepL 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-leg--r { animation: uniStepR 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-shin--l{ animation: uniShinL 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-shin--r{ animation: uniShinR 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-arm--l { animation: uniArmL 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-arm--r { animation: uniArmR 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-fore--l{ animation: uniForeL 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-fore--r{ animation: uniForeR 2.4s ease-in-out infinite; }
+  .pseq .pstep.is-active .uni-head   { animation: uniLook 6.4s ease-in-out infinite; }
+
+  /* the hips travel over the standing foot and dip as the weight lands on it:
+     that dip is the whole reason it reads as weight rather than as a slide */
+  @keyframes uniSway {
+    0%, 100% { transform: translate(-4px, 0); }
+    25%      { transform: translate(-2px, -3px); }
+    50%      { transform: translate(4px, 0); }
+    75%      { transform: translate(2px, -3px); }
+  }
+  /* the free foot lifts while the body is over the other one */
+  @keyframes uniStepL {
+    0%, 30%   { transform: translateY(0) rotate(0deg); }
+    50%       { transform: translateY(-9px) rotate(-3.5deg); }
+    70%, 100% { transform: translateY(0) rotate(0deg); }
+  }
+  @keyframes uniStepR {
+    0%        { transform: translateY(-9px) rotate(3.5deg); }
+    20%, 80%  { transform: translateY(0) rotate(0deg); }
+    100%      { transform: translateY(-9px) rotate(3.5deg); }
+  }
+  /* the knee folds as the foot comes up and straightens before it lands */
+  @keyframes uniShinL {
+    0%, 32%   { transform: rotate(0deg); }
+    50%       { transform: rotate(7deg); }
+    68%, 100% { transform: rotate(0deg); }
+  }
+  @keyframes uniShinR {
+    0%        { transform: rotate(-7deg); }
+    18%, 82%  { transform: rotate(0deg); }
+    100%      { transform: rotate(-7deg); }
+  }
+  /* the arms counter the hips, which is what keeps a biped upright */
+  @keyframes uniArmL  { 0%, 100% { transform: rotate(5deg); }  50% { transform: rotate(-6deg); } }
+  @keyframes uniArmR  { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+  @keyframes uniForeL { 0%, 100% { transform: rotate(3deg); }  50% { transform: rotate(-4deg); } }
+  @keyframes uniForeR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(4deg); } }
+  /* the head is on its own slower clock: it is looking around, not balancing */
+  @keyframes uniLook {
+    0%, 30%   { transform: rotate(-3.5deg); }
+    50%, 80%  { transform: rotate(3.5deg); }
+    100%      { transform: rotate(-3.5deg); }
+  }
+
+  /* ---------- quadruped: a trot ---------- */
+  .pseq .q4-leg--r1 { transform-origin: 182px 232px; }
+  .pseq .q4-leg--r2 { transform-origin: 226px 236px; }
+  .pseq .q4-leg--f1 { transform-origin: 330px 236px; }
+  .pseq .q4-leg--f2 { transform-origin: 374px 232px; }
+  .pseq .q4-low--r1 { transform-origin: 166px 284px; }
+  .pseq .q4-low--r2 { transform-origin: 240px 290px; }
+  .pseq .q4-low--f1 { transform-origin: 316px 290px; }
+  .pseq .q4-low--f2 { transform-origin: 390px 284px; }
+  .pseq .q4-head    { transform-origin: 429px 155px; }
+
+  /* r1 with f2 is one diagonal, r2 with f1 the other */
+  .pseq .pstep.is-active .q4-leg--r1,
+  .pseq .pstep.is-active .q4-leg--f2 { animation: q4SwingA 0.9s ease-in-out infinite; }
+  .pseq .pstep.is-active .q4-leg--r2,
+  .pseq .pstep.is-active .q4-leg--f1 { animation: q4SwingB 0.9s ease-in-out infinite; }
+  .pseq .pstep.is-active .q4-low--r1,
+  .pseq .pstep.is-active .q4-low--f2 { animation: q4KneeA 0.9s ease-in-out infinite; }
+  .pseq .pstep.is-active .q4-low--r2,
+  .pseq .pstep.is-active .q4-low--f1 { animation: q4KneeB 0.9s ease-in-out infinite; }
+  .pseq .pstep.is-active .q4-body    { animation: q4Bob 0.9s ease-in-out infinite; }
+  .pseq .pstep.is-active .q4-head    { animation: q4Level 0.9s ease-in-out infinite; }
+
+  @keyframes q4SwingA {
+    0%, 100% { transform: rotate(-15deg); }
+    50%      { transform: rotate(15deg); }
+  }
+  @keyframes q4SwingB {
+    0%, 100% { transform: rotate(15deg); }
+    50%      { transform: rotate(-15deg); }
+  }
+  /* the knee folds through the swing and is straight again for the footfall,
+     which is the difference between a trot and four sticks waving */
+  @keyframes q4KneeA {
+    0%, 100% { transform: rotate(0deg); }
+    25%      { transform: rotate(24deg); }
+    50%      { transform: rotate(0deg); }
+    75%      { transform: rotate(-5deg); }
+  }
+  @keyframes q4KneeB {
+    0%, 100% { transform: rotate(0deg); }
+    25%      { transform: rotate(-5deg); }
+    50%      { transform: rotate(0deg); }
+    75%      { transform: rotate(24deg); }
+  }
+  /* twice a stride: the body rises on each diagonal footfall */
+  @keyframes q4Bob {
+    0%, 50%, 100% { transform: translateY(0); }
+    25%, 75%      { transform: translateY(-3.5px); }
+  }
+  /* and the head gives most of it back, which is the uncanny part of watching
+     one of these walk: the body works and the sensor stays still */
+  @keyframes q4Level {
+    0%, 50%, 100% { transform: translateY(0); }
+    25%, 75%      { transform: translateY(2.2px); }
+  }
+}
+
+/* Continuous travel, so under reduced motion neither unit moves at all: both
+   stand in exactly the pose the markup draws, which is what they looked like
+   before any of this (CLAUDE.md #4). */
+@media (prefers-reduced-motion: reduce) {
+  .pseq .uni-leg, .pseq .uni-shin, .pseq .uni-arm, .pseq .uni-fore,
+  .pseq .uni-body, .pseq .uni-head,
+  .pseq .q4-leg, .pseq .q4-low, .pseq .q4-body, .pseq .q4-head {
+    animation: none !important; transform: none !important;
+  }
+}

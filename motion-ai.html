@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
 <link rel="stylesheet" href="css/motion/drum.css?v=15">
-<link rel="stylesheet" href="css/sections/pseq.css?v=27">
+<link rel="stylesheet" href="css/sections/pseq.css?v=28">
   <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
 <link rel="stylesheet" href="css/motion/perf.css?v=6">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
@@ -218,38 +218,62 @@
               <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Humanoid robot: works where people already work">
 
                 <circle class="fx-breathe" cx="280" cy="210" r="150" fill="url(#psGlow)"/>
-                <!-- feet, planted, centred under each shin -->
-                <path d="M229 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
-                <path d="M285 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
-                <!-- shins, knees, thighs: narrower and set closer together -->
-                <rect x="242" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="298" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="252" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="308" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="240" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="296" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <!-- pelvis and torso -->
-                <rect x="228" y="206" width="104" height="34" rx="11" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <path d="M228 118 h104 a14 14 0 0 1 14 14 v56 a16 16 0 0 1 -16 16 h-100 a16 16 0 0 1 -16 -16 v-56 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
-                <rect x="244" y="148" width="72" height="24" rx="7" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="255" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d1" x="268" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d2" x="281" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d3" x="294" y="155" width="7" height="10" rx="2"/></g>
-                <!-- shoulders and arms, tucked against the torso edge -->
-                <circle cx="206" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="354" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="197" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="345" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="198" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <rect x="346" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <!-- gripper hands -->
-                <path fill="none" d="M202 264 v13 M210 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
-                <path fill="none" d="M350 264 v13 M358 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
-                <!-- neck and head -->
-                <path fill="none" d="M280 118 v-10" stroke="#2BE3B0" stroke-width="2"/>
-                <rect x="246" y="64" width="68" height="44" rx="16" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                <rect x="258" y="76" width="44" height="14" rx="7" fill="#0a1622"/>
-                <circle class="fx-pulse" cx="270" cy="83" r="4" fill="#2BE3B0"/>
-                <circle class="fx-pulse d1" cx="290" cy="83" r="4" fill="#2BE3B0"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="86" r="52"/></g></svg></div>
+                <!-- Jointed, so it can hold its balance on the spot the way a
+                     real humanoid does: every group below turns about one
+                     actual joint, and pseq.css drives them. Drawing order is
+                     unchanged, so the stacking is exactly what it was.
+                     Hips 252,232 and 308,232. Knees 252,302 and 308,302. -->
+                <g class="uni-leg uni-leg--l">
+                  <g class="uni-shin uni-shin--l">
+                    <!-- foot, planted, centred under the shin -->
+                    <path d="M229 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
+                    <rect x="242" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                    <circle cx="252" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                  </g>
+                  <rect x="240" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                </g>
+                <g class="uni-leg uni-leg--r">
+                  <g class="uni-shin uni-shin--r">
+                    <path d="M285 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
+                    <rect x="298" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                    <circle cx="308" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                  </g>
+                  <rect x="296" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                </g>
+                <!-- everything above the hips rides the weight shift together -->
+                <g class="uni-body">
+                  <!-- pelvis and torso -->
+                  <rect x="228" y="206" width="104" height="34" rx="11" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                  <path d="M228 118 h104 a14 14 0 0 1 14 14 v56 a16 16 0 0 1 -16 16 h-100 a16 16 0 0 1 -16 -16 v-56 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
+                  <rect x="244" y="148" width="72" height="24" rx="7" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.4"/>
+                  <g fill="url(#psTeal)"><rect class="fx-bar" x="255" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d1" x="268" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d2" x="281" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d3" x="294" y="155" width="7" height="10" rx="2"/></g>
+                  <!-- shoulders 206,140 and 354,140; elbows 206,214 and 354,214 -->
+                  <g class="uni-arm uni-arm--l">
+                    <circle cx="206" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                    <rect x="197" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                    <g class="uni-fore uni-fore--l">
+                      <rect x="198" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                      <path fill="none" d="M202 264 v13 M210 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                  </g>
+                  <g class="uni-arm uni-arm--r">
+                    <circle cx="354" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                    <rect x="345" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                    <g class="uni-fore uni-fore--r">
+                      <rect x="346" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                      <path fill="none" d="M350 264 v13 M358 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                  </g>
+                  <!-- neck and head; the head turns about the neck at 280,108 -->
+                  <path fill="none" d="M280 118 v-10" stroke="#2BE3B0" stroke-width="2"/>
+                  <g class="uni-head">
+                    <rect x="246" y="64" width="68" height="44" rx="16" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                    <rect x="258" y="76" width="44" height="14" rx="7" fill="#0a1622"/>
+                    <circle class="fx-pulse" cx="270" cy="83" r="4" fill="#2BE3B0"/>
+                    <circle class="fx-pulse d1" cx="290" cy="83" r="4" fill="#2BE3B0"/>
+                  </g>
+                  <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="86" r="52"/></g>
+                </g></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Bipedal</span>
                 <h3>Humanoid</h3><div class="pstep__sub">Works where people already work</div>
@@ -261,42 +285,75 @@
               <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Quadruped robot: goes where wheels give up">
 
                 <circle class="fx-breathe" cx="280" cy="230" r="150" fill="url(#psGlow)"/>
-                <!-- four legs, hip / knee / ankle, front pair mid-stride -->
-                <g class="fx-float"><path d="M182 232 l-16 52 l22 44" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
-                <path d="M226 236 l14 54 l-18 42" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M330 236 l-14 54 l18 42" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                <g class="fx-float d2"><path d="M374 232 l16 52 l-22 44" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
-                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8">
-                  <circle cx="166" cy="284" r="6.5"/><circle cx="240" cy="290" r="6.5"/>
-                  <circle cx="316" cy="290" r="6.5"/><circle cx="390" cy="284" r="6.5"/>
+                <!-- Four legs, each hip / knee / foot as its own pair of
+                     segments so the knee can fold. Each leg path was one
+                     three-point polyline before, which can only be moved as a
+                     rigid stick; split at the knee they trot.
+                     Hips 182,232 - 226,236 - 330,236 - 374,232.
+                     Knees 166,284 - 240,290 - 316,290 - 390,284.
+                     The head is on the right, so 330 and 374 are the front
+                     pair, and the diagonals that swing together are
+                     182 with 374, and 226 with 330. -->
+                <g class="q4-leg q4-leg--r1">
+                  <path d="M182 232 L166 284" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g class="q4-low q4-low--r1">
+                    <path d="M166 284 L188 328" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M181 332 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
+                    <circle cx="188" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                  </g>
+                  <circle cx="166" cy="284" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                  <circle cx="182" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
                 </g>
-                <g fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round">
-                  <path d="M181 332 h14"/><path d="M215 336 h14"/>
-                  <path d="M327 336 h14"/><path d="M361 332 h14"/>
+                <g class="q4-leg q4-leg--r2">
+                  <path d="M226 236 L240 290" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g class="q4-low q4-low--r2">
+                    <path d="M240 290 L222 332" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M215 336 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
+                    <circle cx="222" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                  </g>
+                  <circle cx="240" cy="290" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                  <circle cx="226" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
                 </g>
-                <circle cx="188" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="222" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="334" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="368" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <!-- hip actuators -->
-                <circle cx="182" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="226" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="330" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle cx="374" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <!-- body: shallower than it was, still tapered toward the head -->
-                <path d="M182 184 h176 l26 16 v22 a14 14 0 0 1 -14 14 h-202 a14 14 0 0 1 -14 -14 v-24 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
-                <rect x="200" y="200" width="110" height="12" rx="6" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="208" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d1" x="224" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d2" x="240" y="203" width="9" height="7" rx="2"/></g>
-                <!-- neck and sensor head -->
-                <path fill="none" d="M382 196 l22 -22" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
-                <rect x="400" y="136" width="58" height="38" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                <rect x="410" y="148" width="38" height="12" rx="6" fill="#0a1622"/>
-                <circle class="fx-pulse" cx="421" cy="154" r="3.5" fill="#2BE3B0"/>
-                <circle class="fx-pulse d1" cx="437" cy="154" r="3.5" fill="#2BE3B0"/>
-                <!-- lidar sweep off the head -->
-                <path class="fx-wire" d="M458 155 H520" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
-                <path class="fx-breathe" d="M458 155 L536 112 L536 198 Z" fill="url(#psGlow)" opacity=".5"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><path d="M466 137 a22 22 0 0 1 0 36"/></g></svg></div>
+                <g class="q4-leg q4-leg--f1">
+                  <path d="M330 236 L316 290" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g class="q4-low q4-low--f1">
+                    <path d="M316 290 L334 332" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M327 336 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
+                    <circle cx="334" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                  </g>
+                  <circle cx="316" cy="290" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                  <circle cx="330" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                </g>
+                <g class="q4-leg q4-leg--f2">
+                  <path d="M374 232 L390 284" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g class="q4-low q4-low--f2">
+                    <path d="M390 284 L368 328" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M361 332 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
+                    <circle cx="368" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
+                  </g>
+                  <circle cx="390" cy="284" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                  <circle cx="374" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
+                </g>
+                <!-- body, head and sensors ride the bob together -->
+                <g class="q4-body">
+                  <!-- body: shallower than it was, still tapered toward the head -->
+                  <path d="M182 184 h176 l26 16 v22 a14 14 0 0 1 -14 14 h-202 a14 14 0 0 1 -14 -14 v-24 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
+                  <rect x="200" y="200" width="110" height="12" rx="6" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
+                  <g fill="url(#psTeal)"><rect class="fx-bar" x="208" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d1" x="224" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d2" x="240" y="203" width="9" height="7" rx="2"/></g>
+                  <!-- neck and sensor head: the head holds level against the bob,
+                       which is the thing that makes these robots look uncanny -->
+                  <path fill="none" d="M382 196 l22 -22" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
+                  <g class="q4-head">
+                    <rect x="400" y="136" width="58" height="38" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
+                    <rect x="410" y="148" width="38" height="12" rx="6" fill="#0a1622"/>
+                    <circle class="fx-pulse" cx="421" cy="154" r="3.5" fill="#2BE3B0"/>
+                    <circle class="fx-pulse d1" cx="437" cy="154" r="3.5" fill="#2BE3B0"/>
+                    <!-- lidar sweep off the head -->
+                    <path class="fx-wire" d="M458 155 H520" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
+                    <path class="fx-breathe" d="M458 155 L536 112 L536 198 Z" fill="url(#psGlow)" opacity=".5"/>
+                    <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><path d="M466 137 a22 22 0 0 1 0 36"/></g>
+                  </g>
+                </g></svg></div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Four-legged</span>
                 <h3>Quadruped</h3><div class="pstep__sub">Goes where wheels give up</div>
