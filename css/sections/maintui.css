@@ -60,11 +60,6 @@
    SHARED SVG VOCABULARY
    ========================================================================== */
 .mc * { transform-box: view-box; }
-.mc__panel { fill: rgba(0,0,0,0.24); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
-.mc__lbl   { font-family: var(--display); font-weight: 800; font-size: 10px; letter-spacing: .1em; fill: rgba(255,255,255,0.55); text-transform: uppercase; }
-.mc__val   { font-family: var(--display); font-weight: 900; fill: #fff; }
-.mc__sub   { font-family: var(--text); font-size: 9.5px; fill: rgba(255,255,255,0.5); }
-.mc__teal  { fill: var(--teal-bright); }
 
 /* ==========================================================================
    CONSOLE 1 · MAINTENANCE
@@ -96,6 +91,5 @@
 /* lane counters tick as the job lands */
 
 @media (prefers-reduced-motion: reduce) {
-  .mc1__tracer, .mc1__alert, .mc1__alertring,
   .mpanel:hover { transform: none; }
 }

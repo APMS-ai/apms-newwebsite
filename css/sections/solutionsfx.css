@@ -4,8 +4,9 @@
    & integrations section. Floor signals converge on the APMS platform, then
    diverge into the business systems that consume them.
 
-   Different concept from the Ask APMS Analyst orb above it (.aorb, which
-   only converges) and from the About page loop (.aloop, a closed track):
+   Different concept from the old Ask APMS Analyst orb (.aorb, removed in the
+   cleanup audit; it only converged) and from the About page loop (.aloop, a
+   closed track):
    this one is a through-flow, one hub, one side in and a different side out.
 
    Same visual DNA as the rest of the page: APMS teal only, thin static

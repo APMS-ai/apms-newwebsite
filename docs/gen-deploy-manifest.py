@@ -11,7 +11,7 @@ os.chdir(os.environ['SITE'])
 SKIP_DIRS = {'.git', '_standalone', 'docs', '.hallmark', 'node_modules', '.claude',
              'apms-enquiries'}
 SKIP_PREFIX = ('_snapshot_',)   # dated backups, whatever they are called
-NEVER = ['.gitignore', '.gitattributes', 'CLAUDE.md', 'netlify.toml',
+NEVER = ['.gitignore', '.gitattributes', 'CLAUDE.md',
          'DEPLOY.txt', 'apms-site.zip', 'config.php', 'schema.sql']
 
 upload = []

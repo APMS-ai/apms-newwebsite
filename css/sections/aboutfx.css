@@ -1,63 +1,12 @@
 /* ==========================================================================
    APMS.ai — aboutfx.css
-   "One path, four disciplines" — the About page's own diagram: decades of
-   shopfloor experience rising into one connected, accountable platform.
-   Same visual family as loop.css and analyst.css (thin teal strokes, a
-   travelling comet, a halo pulse at the destination), built for this
-   section's own content rather than copied from either.
-   Sits on a light (sec--paper) background, so it borrows loop.css's
-   light-mode tokens: var(--white), var(--line), var(--ink), var(--muted).
+   The About page section styles.
+
+   This file used to open with .ajourney, a rising four-node timeline with a
+   travelling comet. Its markup is no longer on the page and nothing else
+   referenced it, so the 44 lines went in the cleanup audit; git history has
+   them if the diagram is ever wanted back.
    ========================================================================== */
-
-.ajourney { max-width: 900px; margin: clamp(1.6rem, 4vw, 2.4rem) auto 0; }
-.ajourney__svg { width: 100%; height: auto; display: block; overflow: visible; }
-.ajourney__svg * { transform-box: fill-box; }
-
-/* ---------- the rising path ---------- */
-.ajourney__track { fill: none; stroke: var(--line); stroke-width: 1.6; }
-.ajourney__flow {
-  fill: none; stroke: var(--teal); stroke-width: 1.8; stroke-linecap: round;
-  opacity: 0.45; stroke-dasharray: 8 14;
-}
-[data-reveal].in .ajourney__flow { animation: ajourneyFlow 2.4s linear infinite; }
-@keyframes ajourneyFlow { to { stroke-dashoffset: -22; } }
-
-/* comet: hidden until its motion path starts, so it never flashes at the
-   document origin before animateMotion begins */
-.ajourney__comet { fill: var(--teal-bright); visibility: hidden; }
-.ajourney__comet-halo { fill: var(--teal-bright); opacity: 0.16; visibility: hidden; }
-
-/* ---------- waypoint nodes ---------- */
-.ajourney__disc { fill: var(--white); stroke: var(--line); stroke-width: 1.6; }
-.ajourney__yr {
-  font-family: var(--display); font-weight: 800; font-size: 10px;
-  letter-spacing: 0.08em; fill: var(--muted);
-}
-.ajourney__lbl {
-  font-family: var(--display); font-weight: 700; font-size: 12.5px;
-  fill: var(--ink);
-}
-
-/* the destination node (Smart factory, today) is the one already-arrived
-   point: filled teal, with a slow halo the others don't get */
-.ajourney__n--dest .ajourney__disc { fill: var(--teal); stroke: var(--teal); }
-.ajourney__n--dest .ajourney__yr,
-.ajourney__n--dest .ajourney__lbl { fill: var(--teal-deep); font-weight: 800; }
-.ajourney__halo { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0; transform-origin: center; }
-[data-reveal].in .ajourney__halo { animation: ajourneyHalo 3s ease-out infinite; }
-@keyframes ajourneyHalo { 0% { opacity: 0.55; transform: scale(0.8); } 70%, 100% { opacity: 0; transform: scale(1.6); } }
-
-@media (max-width: 620px) {
-  .ajourney__lbl { font-size: 11.5px; }
-  .ajourney__yr { font-size: 9px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ajourney__flow { animation: none !important; opacity: 0.3; }
-  .ajourney__halo { animation: none !important; opacity: 0 !important; }
-  .ajourney__comet, .ajourney__comet-halo { visibility: hidden !important; }
-}
-
 
 /* ==========================================================================
    PRINCIPLES, BY TEAM

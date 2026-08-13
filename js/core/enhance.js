@@ -89,26 +89,9 @@
     });
   }
 
-  /* ---------- 5 · lightweight parallax ---------- */
-  var parallax = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
-  if (parallax.length && !reduce) {
-    var pTick = false;
-    function onP() {
-      if (pTick) return; pTick = true;
-      requestAnimationFrame(function () {
-        pTick = false;
-        var vh = innerHeight;
-        parallax.forEach(function (el) {
-          var speed = parseFloat(el.dataset.parallax) || 0.15;
-          var r = el.getBoundingClientRect();
-          var mid = r.top + r.height / 2 - vh / 2;
-          el.style.transform = "translate3d(0," + (-mid * speed).toFixed(1) + "px,0)";
-        });
-      });
-    }
-    addEventListener("scroll", onP, { passive: true });
-    onP();
-  }
+  /* 5 was a [data-parallax] scroll handler. No page carries that attribute,
+     so it was a scroll listener and a rAF that ran on every page to move
+     nothing; it went in the cleanup audit. */
 
   /* ---------- 6 · radial gauges (draw ring + count value on view) ---------- */
   var gauges = Array.prototype.slice.call(document.querySelectorAll(".gauge"));

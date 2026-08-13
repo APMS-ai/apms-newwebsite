@@ -98,7 +98,7 @@
    rather than being one flat plane.
    ========================================================================== */
 @media (hover: hover) and (pointer: fine) {
-  .tile__ico, .mod__ico, .bento__ico, .cap__ico, .istep__viz {
+  .tile__ico, .mod__ico, .bento__ico, .cap__ico {
     transition: transform .45s var(--spring), background .35s var(--swift);
   }
   [data-tilt3d]:hover .tile__ico,

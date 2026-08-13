@@ -100,7 +100,7 @@
        against the card gives the consoles some depth as they pass. */
     var panels = gsap.utils.toArray([
       ".mpanel__console svg", ".mfx svg", ".arc__viz svg", ".cvcmp svg",
-      ".vcon", ".aorb svg", ".loopwrap svg", ".modflow svg"
+      ".vcon", ".loopwrap svg", ".modflow svg"
     ].join(","));
 
     panels.forEach(function (el) {

@@ -73,12 +73,7 @@
     animation: gzBlink 1.9s steps(1,end) infinite 1.26s !important;
   }
 
-  /* ---------- css\aiplus.css ---------- */
-  html [data-reveal].in .arep__tick {
-    animation: aTick 5s var(--ease-out) infinite !important;
-  }
-
-  /* ---------- css\bentofx.css ---------- */
+    /* ---------- css\bentofx.css ---------- */
   html .bfl__dot {
     animation: bflDot 2.2s ease-in-out infinite !important;
   }
@@ -94,12 +89,7 @@
     animation: dfLbl 9s linear infinite !important;
   }
 
-  /* ---------- css\illus.css ---------- */
-  html .phero__art .fx-pulse {
-    animation: ilPulse 1.7s ease-in-out infinite !important;
-  }
-
-  /* ---------- css\loop.css ---------- */
+    /* ---------- css\loop.css ---------- */
   html .aloop__n.is-live .gl-bolt {
     animation: glBolt 1.7s ease-in-out infinite !important;
   }
@@ -118,18 +108,7 @@
     animation: mTick 3.6s cubic-bezier(.22,.61,.36,1) infinite .85s !important;
   }
 
-  /* ---------- css\maintui.css ---------- */
-  html .mc2__dot--open {
-    animation: mc2Stage 9s steps(1,end) infinite !important;
-  }
-  html .mc2__dot--run {
-    animation: mc2Run 9s steps(1,end) infinite !important;
-  }
-  html .mc2__dot--done {
-    animation: mc2Done 9s steps(1,end) infinite !important;
-  }
-
-  /* ---------- css\motionfx.css ---------- */
+    /* ---------- css\motionfx.css ---------- */
   html .mfx[data-reveal].in .mf__load {
     animation: mfLoad 5.2s steps(1, end) infinite !important;
   }

@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-82 files
+84 files
 ----------------------------------------
 
   .htaccess
@@ -67,7 +67,6 @@ stylesheets off, which shipped a site with broken styling.
   css/sections/faqpage.css
   css/sections/floorgrid.css
   css/sections/formfx.css
-  css/sections/indsteps.css
   css/sections/legal.css
   css/sections/loop.css
   css/sections/maint.css
@@ -87,6 +86,8 @@ stylesheets off, which shipped a site with broken styling.
   js/core/reveal.js
   js/core/smooth.js
   js/core/ui-fx.js
+  js/motion/drift.js
+  js/motion/drumrail.js
   js/motion/gscroll.js
   js/motion/iconlife.js
   js/motion/loader.js
@@ -100,6 +101,7 @@ stylesheets off, which shipped a site with broken styling.
   js/sections/formfx.js
   js/sections/legal.js
   js/sections/loop.js
+  js/sections/phone.js
   js/sections/pseq.js
   js/vendor/ScrollTrigger.min.js
   js/vendor/anime.min.js
@@ -114,7 +116,6 @@ Never upload these:
   .gitignore
   .gitattributes
   CLAUDE.md
-  netlify.toml
   DEPLOY.txt
   apms-site.zip
   config.php

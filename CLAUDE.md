@@ -132,7 +132,7 @@ frame timing, grid alignment, reveals, rails and reduced motion.
   `git log origin/main..main --oneline` to see what is waiting.
 - To preview without deploying: `python -m http.server 8080` in the project
   root, then open `http://localhost:8080`. Everything works locally except the
-  `netlify.toml` headers and redirects.
+  `.htaccess` headers and redirects, which need the real server.
 - GitHub: `Sudhanvahp/APMS.ai-Website` (**private**).
 - **Hosting is Hostinger now** (LiteSpeed + PHP + MySQL), uploaded over FTP to
   `public_html`. `DEPLOY.txt` is the file manifest and is **generated**, not
@@ -149,13 +149,14 @@ frame timing, grid alignment, reveals, rails and reduced motion.
   previews and 107 KB of `_snapshot_*/css` being served with HTTP 200, plus
   `DEPLOY.txt`. `.htaccess` now denies them by directory, because being out of
   the repository is not the same as being off the web.
-- `netlify.toml` is kept for reference only and must not be uploaded.
-  Everything it did is restated in `.htaccess`, which LiteSpeed reads:
-  security headers, caching, extensionless URLs, the 404 page and the old
-  WordPress redirects.
+- **`netlify.toml` is gone** (cleanup audit). Everything it did is in
+  `.htaccess`, which LiteSpeed reads: security headers, caching, extensionless
+  URLs, the 404 page and the old WordPress redirects. It had been kept "for
+  reference" while shipping over FTP to a host that never reads it, which is
+  one more file to keep in step for no reader. Git history has it.
 - **`v1-first-deploy` is frozen at `1e33c73`** — the first deployed version.
   Never commit to it or move it.
-- No build command. Publish directory is `.`. Config in `netlify.toml`.
+- No build command. The repository root IS the site.
 - Commit messages: say what changed and **why**, including the measurement if
   the change was a fix.
 

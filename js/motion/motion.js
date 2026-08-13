@@ -45,7 +45,7 @@
      ================================================================== */
   var TILT = [
     ".tile", ".mod", ".bento__c", ".arc__card", ".ag-cap", ".ag-pat", ".ag-ind",
-    ".mpanel", ".problem__card", ".case", ".fstrip__cell", ".icard", ".istep__pts span"
+    ".mpanel", ".problem__card", ".case", ".fstrip__cell", ".icard"
   ].join(",");
 
   var MAX = 6;   /* degrees. Past about 8 the type edges start to shimmer. */
