@@ -11,8 +11,8 @@ os.chdir(os.environ['SITE'])
 SKIP_DIRS = {'.git', '_standalone', 'docs', '.hallmark', 'node_modules', '.claude',
              'apms-enquiries'}
 SKIP_PREFIX = ('_snapshot_',)   # dated backups, whatever they are called
-NEVER = ['.gitignore', '.gitattributes', 'CLAUDE.md',
-         'DEPLOY.txt', 'apms-site.zip', 'config.php', 'schema.sql']
+NEVER = ['.gitignore', '.gitattributes',
+         'DEPLOY.txt', 'apms-site.zip', 'config.php']
 
 upload = []
 for root, dirs, files in os.walk('.'):
@@ -52,10 +52,10 @@ out.append('  redirects, the 404 page, caching and the security headers. Turn on
 out.append('  "show hidden files" or it will look like it uploaded and it will')
 out.append('  not be there.')
 out.append('')
-out.append('  config.php is NOT in this list and is NOT in the repository. Copy')
-out.append('  config.sample.php to config.php on the server and fill in the')
-out.append('  database details. Without it the form still works and still keeps')
-out.append('  every enquiry in the CSV, it just does not write to MySQL.')
+out.append('  config.php is NOT in this list and is NOT in the repository. Its')
+out.append('  shape is documented in the header of submit.php: create it there')
+out.append('  and fill in the database details. Without it the form still works')
+out.append('  and still keeps every enquiry in the CSV, it just skips MySQL.')
 out.append('')
 out.append('This list is generated, not hand-kept. To refresh it after adding or')
 out.append('removing files, re-run the generator in the scratchpad rather than')
@@ -84,7 +84,8 @@ for d, note in [('_standalone', '(unlinked previews, one pulls React from a CDN)
         out.append('  %-21s %s' % (d + '/', note))
 out.append('')
 out.append('Run once on the server, in hPanel > Databases > phpMyAdmin > SQL:')
-out.append('  the contents of schema.sql, which creates the enquiries table.')
+out.append('  the CREATE TABLE in the header of submit.php, which makes the')
+out.append('  enquiries table.')
 out.append('')
 
 io.open('DEPLOY.txt', 'w', encoding='utf-8', newline='').write('\n'.join(out))

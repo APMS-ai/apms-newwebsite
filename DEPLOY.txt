@@ -12,10 +12,10 @@ Upload to the web root (public_html), keeping the folder structure.
   "show hidden files" or it will look like it uploaded and it will
   not be there.
 
-  config.php is NOT in this list and is NOT in the repository. Copy
-  config.sample.php to config.php on the server and fill in the
-  database details. Without it the form still works and still keeps
-  every enquiry in the CSV, it just does not write to MySQL.
+  config.php is NOT in this list and is NOT in the repository. Its
+  shape is documented in the header of submit.php: create it there
+  and fill in the database details. Without it the form still works
+  and still keeps every enquiry in the CSV, it just skips MySQL.
 
 This list is generated, not hand-kept. To refresh it after adding or
 removing files, re-run the generator in the scratchpad rather than
@@ -23,14 +23,13 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-84 files
+83 files
 ----------------------------------------
 
   .htaccess
   404.html
   about.html
   ai-agents.html
-  config.sample.php
   contact.html
   faq.html
   index.html
@@ -115,12 +114,11 @@ Never upload these:
 
   .gitignore
   .gitattributes
-  CLAUDE.md
   DEPLOY.txt
   apms-site.zip
   config.php
-  schema.sql
   docs/                 (notes)
 
 Run once on the server, in hPanel > Databases > phpMyAdmin > SQL:
-  the contents of schema.sql, which creates the enquiries table.
+  the CREATE TABLE in the header of submit.php, which makes the
+  enquiries table.

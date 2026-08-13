@@ -88,8 +88,8 @@ paste it as shown.
 ## 4 · Fill in `config.php` on the server
 
 `config.php` lives in `public_html` and is **not** in the repository, because it
-holds the database password. If it is not there yet, copy `config.sample.php`
-to `config.php` first.
+holds the database password. If it is not there yet, create it: the full set of
+keys it has to return is in the header of `submit.php`.
 
 **hPanel → Files → File Manager → `public_html`**, then edit `config.php`.
 

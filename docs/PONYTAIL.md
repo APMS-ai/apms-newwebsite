@@ -53,4 +53,4 @@ real parse time. That makes the rule sharper here than it would be elsewhere:
 ## Applying it
 
 `git log --oneline --grep="clear out"` for the passes already done, and see
-CLAUDE.md section 3 for what must never be deployed.
+the .gitignore and .htaccess for what must never be deployed.

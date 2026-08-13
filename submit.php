@@ -19,12 +19,63 @@
    Only those three count. mail() does not, because it reports a success it
    has no way to know about.
 
-   Credentials live in config.php, which is NOT in the repository. Copy
-   config.sample.php to config.php on the server and fill it in.
-
    Self-contained on purpose: the SMTP sender is in this file, so the whole
    feature is two files on the server, submit.php and config.php, with no
    directory to create.
+
+   --------------------------------------------------------------------------
+   SETTING IT UP ON A NEW SERVER
+
+   config.php is NOT in the repository: it holds the database password. There
+   used to be a config.sample.php to copy; it was removed, so the shape it
+   documented lives here now. Create config.php next to this file, returning:
+
+     <?php return [
+       'db' => [
+         'host' => 'localhost',
+         'port' => 3306,
+         'name' => '',              // empty disables MySQL; the CSV still runs
+         'user' => '',
+         'pass' => '',
+       ],
+       'notify_to'   => 'info@apms.ai',
+       'notify_from' => 'no-reply@apms.ai',
+       'storage_dir' => __DIR__ . '/../apms-enquiries',   // OUTSIDE public_html
+       'smtp' => [
+         'host'      => '',         // e.g. smtp.gmail.com
+         'port'      => 587,        // 587 with tls, or 465 with ssl
+         'secure'    => 'tls',      // 'tls' | 'ssl' | '' for none
+         'user'      => '',         // the full email address
+         'pass'      => '',         // an app password, not the account password
+         'from'      => '',         // defaults to 'user' when blank
+         'from_name' => 'APMS.ai website',
+         'timeout'   => 20,
+       ],
+     ];
+
+   And the table this writes to, which was schema.sql. Run it once in phpMyAdmin.
+   utf8mb4 throughout, because MySQL's "utf8" is three bytes and truncates at
+   the first four-byte character, which includes every emoji a visitor can type:
+
+     CREATE TABLE IF NOT EXISTS enquiries (
+       id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
+       received_utc  DATETIME     NOT NULL,
+       name          VARCHAR(120) NOT NULL,
+       email         VARCHAR(190) NOT NULL,
+       phone         VARCHAR(40)  NOT NULL,
+       company       VARCHAR(160) NOT NULL,
+       message       TEXT         NOT NULL,
+       ip            VARCHAR(45)  DEFAULT NULL,   -- 45 chars so IPv6 fits
+       user_agent    VARCHAR(255) DEFAULT NULL,
+       handled       TINYINT(1)   NOT NULL DEFAULT 0,
+       PRIMARY KEY (id),
+       KEY idx_received (received_utc),
+       KEY idx_email (email),
+       KEY idx_handled (handled)
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+   docs/EMAIL-SETUP.md has the step by step, and a table mapping every error
+   this file logs to its cause.
    ========================================================================== */
 
 declare(strict_types=1);
@@ -57,8 +108,8 @@ declare(strict_types=1);
      · RFC 2047 encoding for a non-ASCII subject or display name
      · a real error string on every failure path, for the caller to log
 
-   It speaks to any SMTP server. Gmail is the documented case in
-   config.sample.php because that is what was asked for.
+   It speaks to any SMTP server. Gmail is the documented case above, because
+   that is what was asked for.
 
    Inlined here rather than kept in lib/smtp.php so that deploying this is one
    file, with no directory to create and no include path to get wrong. That
