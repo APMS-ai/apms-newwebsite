@@ -303,8 +303,20 @@
 .vbot__beacon{ fill: var(--teal); }
 .vbot__cone  { fill: url(#vbotCone); }
 
-/* resting state: parked at the start, so nothing sits at the SVG origin */
-.vbot__head { offset-distance: 0%; offset-rotate: 0deg; }
+/* resting state: parked at the start, so nothing sits at the SVG origin.
+
+   transform-box: view-box on the head, against the fill-box the rest of this
+   SVG uses, and it is not a style choice: offset-path resolves its
+   coordinates against the element's reference box, so under fill-box the
+   path point 110,104 was measured from the head's OWN bounding box rather
+   than from the board. That put the head 62 units below where the geometry
+   says it is, which is why its light fell in the gap under the four labels
+   instead of on them: the cone covered y 154 to 224 and the words sit at 146
+   to 158. Measured, both ways.
+
+   Everything else here keeps fill-box, because those origins really are
+   per-element (CLAUDE.md #7). */
+.vbot__head { offset-distance: 0%; offset-rotate: 0deg; transform-box: view-box; }
 
 [data-reveal].in .vbot__head   { animation: vbotRun 13s linear infinite; }
 [data-reveal].in .vbot__beacon { animation: vbotBeacon 1.4s ease-in-out infinite; }
