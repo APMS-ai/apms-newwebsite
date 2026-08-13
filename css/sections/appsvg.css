@@ -114,29 +114,35 @@
 
 /* ==========================================================================
    Get the app: the two store links under the phone.
+
+   Solid white, not the outlined button used elsewhere on this section. These
+   are store badges: they are recognised by their own colours on their own
+   background, and an outline on a dark section left them reading as two more
+   ghost buttons rather than as Play and the App Store.
    ========================================================================== */
 .appstores {
   display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem;
   margin-top: 1.4rem;
 }
 .appstore {
-  display: inline-flex; align-items: center; gap: .6rem;
-  padding: .6rem 1rem;
-  border: 1px solid rgba(255,255,255,0.22); border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-  color: #fff; text-decoration: none;
-  transition: background .2s var(--ease-out), border-color .2s, transform .2s var(--ease-out);
+  display: inline-flex; align-items: center; gap: .65rem;
+  padding: .58rem 1.05rem;
+  border: 1px solid rgba(12,26,40,0.10); border-radius: 12px;
+  background: #ffffff; color: var(--ink); text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out);
 }
 .appstore:hover, .appstore:focus-visible {
-  background: rgba(23,201,155,0.12); border-color: var(--teal); transform: translateY(-1px);
+  transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.3);
 }
-.appstore svg { width: 22px; height: 22px; flex: none; fill: currentColor; }
+/* the marks keep their own colours, so nothing here sets fill */
+.appstore__ico { width: 22px; height: 22px; flex: none; }
 .appstore span { display: grid; line-height: 1.15; text-align: left; }
 .appstore small {
-  font-family: var(--text); font-size: .66rem; letter-spacing: .04em;
-  text-transform: uppercase; color: rgba(255,255,255,0.6);
+  font-family: var(--text); font-size: .64rem; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--muted);
 }
-.appstore b { font-family: var(--display); font-weight: 700; font-size: .95rem; }
+.appstore b { font-family: var(--display); font-weight: 800; font-size: .95rem; color: var(--ink); }
 
 @media (max-width: 380px) {
   .appstores { flex-direction: column; }
