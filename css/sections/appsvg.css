@@ -1,26 +1,23 @@
 /* ==========================================================================
    APMS.ai — appsvg.css
-   The Active Machines screen, as an SVG.
+   The app's Active Machines screen, drawn from a screenshot of the real thing.
 
-   It replaces a DOM mock of a phone. That mock was `width: min(316px, 100%)`
-   inside a .dashwrap column measuring 594px at 1440, so 278px of the column
-   sat empty, and fitting seven status rows plus a description line each into
-   316px had pushed the descriptions to 9.6px and the subtitle to 10.9px. That
-   is what "compressed" meant, and no amount of tuning inside a fixed 316px
-   frame fixes it.
+   It is deliberately the app's own layout and nothing else: two counters side
+   by side, seven status rows on a light panel, each with the line of
+   explanation the app shows under its name, the numbers in the app's status
+   colours, and the four tabs.
 
-   An SVG with a viewBox scales to whatever width the column gives it, so the
-   type grows with the space. The seven near-identical row descriptions are gone
-   with it ("Machines logged in and in X status", seven times) and their space
-   went to a single bar showing the mix, which is what "at a glance" promises.
-
-   White card on a dark section, because it is a product UI and reads as one.
-   Status colours are the same three the mock used.
+   An earlier version dropped those explanation lines and replaced them with a
+   single bar showing the mix. That was a reasonable call when the phone was
+   capped at 320px and the lines came out at 9.6px, but the app has no such bar
+   and this is meant to be a picture of the app. The lines are back, the bar is
+   gone, and the phone is wider instead: at 400px a line renders near 8.7px,
+   which is small, and it is small on the real handset too.
    ========================================================================== */
 
 /* A phone has a size. Capped so it does not become a 594px-wide slab on a
-   desktop column, and so it does not shrink below readability on a narrow one. */
-.appsvgwrap { width: 100%; max-width: 320px; margin-inline: auto; }
+   desktop column, and wide enough that the app's own type survives. */
+.appsvgwrap { width: 100%; max-width: 400px; margin-inline: auto; }
 .appsvg { width: 100%; height: auto; display: block; overflow: visible; }
 /* The shadow belongs to the device, not to the drawing, and drop-shadow on a
    filter is a full extra paint pass over the element's whole box. */
@@ -28,55 +25,57 @@
 /* per-element origins, not the whole board (project note 7) */
 .appsvg * { transform-box: fill-box; }
 
-/* ---------- the device ----------
-   One board now, in an iPhone 15 style frame. There were two, landscape and
-   portrait, swapped at 760px; a phone frame is portrait, so the landscape one is
-   gone and this is the only style. */
+/* ---------- the device ---------- */
 .apph__body   { fill: #1c1d21; }
 .apph__rim    { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 1.2; }
 .apph__screen { fill: #05141d; }
 .apph__island { fill: #08090b; }
 .apph__lens   { fill: #10222b; stroke: rgba(120,200,230,0.30); stroke-width: 1; }
 .apph__btn    { fill: #2a2c31; }
-/* the board fills the glass now, so the home indicator sits on white, not on a
+/* the board fills the glass, so the home indicator sits on white, not on a
    dark screen: white on white was invisible */
 .apph__home   { fill: rgba(12,26,40,0.30); }
 
-/* ---------- the card ---------- */
-/* The app board is the screen: it fills the glass edge to edge and is clipped
+/* ---------- the board ----------
+   The app board IS the screen: it fills the glass edge to edge and is clipped
    to the screen's 45 radius (#appsScreenClip in the markup). Square corners of
    its own, because the clip supplies the rounding. Before the clip existed the
    two bottom corners overhung the rounded screen by 12 units of white. */
 .apps__card   { fill: #ffffff; stroke: none; rx: 0; }
 .apps__accent { fill: url(#appsAccent); }
 
-.apps__title { font-family: var(--display); font-weight: 800; font-size: 21px;
+.apps__title { font-family: var(--display); font-weight: 800; font-size: 15.5px;
                fill: var(--ink); letter-spacing: -0.01em; }
-.apps__sub   { font-family: var(--text); font-size: 12.5px; fill: var(--muted); }
-.apps__live  { fill: #1f9d55; }
+.apps__sub   { font-family: var(--text); font-size: 9.6px; fill: var(--muted); }
 
-/* ---------- the mix bar ---------- */
-.apps__bartrack { fill: var(--paper-2); }
-.apps__seg      { fill: var(--teal); transform-origin: left center; }
-.apps__seg--dim { fill: #c9d3dc; }
-
-/* ---------- the tiles ---------- */
-.apps__tilebox   { fill: none; stroke: var(--line); stroke-width: 1.4; }
-.apps__tileico   { fill: var(--paper-2); }
-.apps__tileglyph { fill: none; stroke: var(--teal-deep); stroke-width: 1.8;
+/* ---------- the two counters ---------- */
+.apps__tilebox   { fill: #ffffff; stroke: var(--line); stroke-width: 1.2; }
+.apps__tileglyph { fill: none; stroke: #2f4fb3; stroke-width: 1.7;
                    stroke-linecap: round; stroke-linejoin: round; }
-.apps__tilenum   { font-family: var(--display); font-weight: 900; font-size: 22px; fill: var(--ink); }
-.apps__tilenum--off { fill: var(--muted); }
-.apps__tilelbl   { font-family: var(--text); font-size: 11.5px; fill: var(--muted); }
+/* the power badge on the logged-off counter */
+.apps__tilebadge { fill: #2ee0b4; }
+.apps__tilepower { fill: none; stroke: #04231c; stroke-width: 2.6;
+                   stroke-linecap: round; stroke-linejoin: round; }
+.apps__tilenum   { font-family: var(--display); font-weight: 800; font-size: 17px; }
+.apps__tilenum--g { fill: #17651f; }
+.apps__tilenum--r { fill: #d1453a; }
+.apps__tilelbl   { font-family: var(--text); font-size: 9.6px; fill: var(--ink); }
 
-/* ---------- the status rows ---------- */
-.apps__rowbar      { fill: var(--muted); }
-.apps__rowbar--dim { fill: #c9d3dc; }
-.apps__rowlbl { font-family: var(--display); font-weight: 700; font-size: 14.5px; fill: var(--ink); }
-.apps__rownum { font-family: var(--display); font-weight: 900; font-size: 19px; fill: var(--ink); }
-.apps__rownum--dim { fill: #9aa8b4; }
-.apps__rowrule { stroke: var(--line); stroke-width: 1; fill: none; }
-.apps__row:last-of-type .apps__rowrule { stroke: transparent; }
+/* ---------- the status list ---------- */
+.apps__list { fill: #f5f7f8; }
+/* the app's four colours: setup blue, running green, stopped red, the rest
+   neutral. The bar and the number of a row always agree. */
+.apps__rowbar      { fill: #9aa4ac; }
+.apps__rowbar--b   { fill: #16357a; }
+.apps__rowbar--g   { fill: #17651f; }
+.apps__rowbar--r   { fill: #d1453a; }
+.apps__rowlbl  { font-family: var(--display); font-weight: 700; font-size: 12px; fill: var(--ink); }
+.apps__rowdesc { font-family: var(--text); font-size: 8.4px; fill: #93a0a9; }
+.apps__rownum  { font-family: var(--display); font-weight: 800; font-size: 16.5px; fill: #9aa4ac; }
+.apps__rownum--b { fill: #16357a; }
+.apps__rownum--g { fill: #17651f; }
+.apps__rownum--r { fill: #d1453a; }
+.apps__rowrule { stroke: rgba(12,26,40,0.09); stroke-width: 1; fill: none; }
 
 /* ---------- the tab bar ---------- */
 .apps__tabrule  { stroke: var(--line); stroke-width: 1; fill: none; }
@@ -84,53 +83,62 @@
                   stroke-linecap: round; stroke-linejoin: round; }
 .apps__tablbl   { font-family: var(--display); font-weight: 600; font-size: 11px; fill: var(--muted); }
 .apps__tab--on .apps__tabglyph { stroke: var(--teal-deep); }
-.apps__tab--on .apps__tablbl   { fill: var(--teal-deep); }
+.apps__tab--on .apps__tablbl   { fill: var(--ink); font-weight: 800; }
 
 /* ==========================================================================
-   Motion. Two things move and nothing else: the bar segments grow in once, and
-   the live dot pulses. The counts are animated by redesign.js, which counts up
-   anything with data-count through textContent, and that works the same on an
-   SVG <text> as on a <span>.
+   Motion. The rows arrive in order and the counts count up; nothing travels.
+   redesign.js animates anything with data-count through textContent, and that
+   works the same on an SVG <text> as on a <span>.
    ========================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  .apps__seg { transform: scaleX(0); }
-  [data-reveal].in .apps__seg { animation: appsSeg 0.62s var(--ease-out) forwards; }
-  [data-reveal].in .apps__seg--1 { animation-delay: 0.10s; }
-  [data-reveal].in .apps__seg--2 { animation-delay: 0.22s; }
-  [data-reveal].in .apps__seg--3 { animation-delay: 0.34s; }
-  [data-reveal].in .apps__seg--4 { animation-delay: 0.46s; }
-  @keyframes appsSeg { to { transform: scaleX(1); } }
-
-  /* the rows arrive in order, the way the DOM version's did */
   .apps__row { opacity: 0; }
   [data-reveal].in .apps__row { animation: appsRow 0.44s var(--ease-out) forwards; }
-  [data-reveal].in .apps__row--1 { animation-delay: 0.30s; }
-  [data-reveal].in .apps__row--2 { animation-delay: 0.37s; }
-  [data-reveal].in .apps__row--3 { animation-delay: 0.44s; }
-  [data-reveal].in .apps__row--4 { animation-delay: 0.51s; }
-  [data-reveal].in .apps__row--5 { animation-delay: 0.58s; }
-  [data-reveal].in .apps__row--6 { animation-delay: 0.65s; }
-  [data-reveal].in .apps__row--7 { animation-delay: 0.72s; }
+  [data-reveal].in .apps__row--1 { animation-delay: 0.16s; }
+  [data-reveal].in .apps__row--2 { animation-delay: 0.23s; }
+  [data-reveal].in .apps__row--3 { animation-delay: 0.30s; }
+  [data-reveal].in .apps__row--4 { animation-delay: 0.37s; }
+  [data-reveal].in .apps__row--5 { animation-delay: 0.44s; }
+  [data-reveal].in .apps__row--6 { animation-delay: 0.51s; }
+  [data-reveal].in .apps__row--7 { animation-delay: 0.58s; }
   @keyframes appsRow { to { opacity: 1; } }
 
-  /* a state light that changes without moving: kept under reduced motion */
-  [data-reveal].in .apps__live { animation: appsLive 1.7s ease-in-out infinite; }
-  @keyframes appsLive { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .apps__tile { opacity: 0; }
+  [data-reveal].in .apps__tile { animation: appsRow 0.44s var(--ease-out) 0.06s forwards; }
 }
 
 /* Nothing here travels, so under reduced motion the only thing to do is show
-   the finished state. The pulsing dot stays: it changes opacity without moving
-   anything, which is the one category note 4 allows back. */
+   the finished state. */
 @media (prefers-reduced-motion: reduce) {
-  .apps__seg { transform: scaleX(1); }
-  .apps__row { opacity: 1; }
-  .apps__live { animation: appsLive 1.7s ease-in-out infinite; }
-  @keyframes appsLive { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .apps__row, .apps__tile { opacity: 1; }
 }
 
-@media (max-width: 520px) {
-  /* the labels are the first thing to get tight on a phone; the viewBox scales
-     everything down together, so lift the two smallest a little */
-  .apps__sub    { font-size: 13.5px; }
-  .apps__tablbl { font-size: 12px; }
+/* ==========================================================================
+   Get the app: the two store links under the phone.
+   ========================================================================== */
+.appstores {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem;
+  margin-top: 1.4rem;
+}
+.appstore {
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: .6rem 1rem;
+  border: 1px solid rgba(255,255,255,0.22); border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  color: #fff; text-decoration: none;
+  transition: background .2s var(--ease-out), border-color .2s, transform .2s var(--ease-out);
+}
+.appstore:hover, .appstore:focus-visible {
+  background: rgba(23,201,155,0.12); border-color: var(--teal); transform: translateY(-1px);
+}
+.appstore svg { width: 22px; height: 22px; flex: none; fill: currentColor; }
+.appstore span { display: grid; line-height: 1.15; text-align: left; }
+.appstore small {
+  font-family: var(--text); font-size: .66rem; letter-spacing: .04em;
+  text-transform: uppercase; color: rgba(255,255,255,0.6);
+}
+.appstore b { font-family: var(--display); font-weight: 700; font-size: .95rem; }
+
+@media (max-width: 380px) {
+  .appstores { flex-direction: column; }
+  .appstore { justify-content: center; }
 }
