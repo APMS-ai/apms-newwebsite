@@ -334,3 +334,63 @@
   .fcard.is-flipped .fcard__front { display: none; visibility: visible; }
   .fsent__mark { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
 }
+
+/* ==========================================================================
+   The phone field: a country dialling code and a national number
+
+   Two controls in one field, so they read as one answer. The select carries
+   the country names, because that is what people look for; the dialling code
+   it resolves to is repeated as a fixed prefix on the number box, because a
+   select showing "United Arab Emirates +971" truncates before the number the
+   visitor actually needs to see. The prefix and the box share one border, so
+   the pair reads as a single input rather than two.
+
+   The select gets a fixed share rather than being sized to its content: one
+   that resized as you changed country would move the number box under the
+   cursor.
+   ========================================================================== */
+/* Two controls need more than half a row. The pair Phone + Company gets a
+   1.5/1 split rather than the even one the other rows use: at 1440 that is a
+   140px select and a 190px number box, against the 103px box an even split
+   left, which could not show a UAE number and its dialling code at once.
+   :has() is already used elsewhere in this codebase, and below 620px the row
+   is one column anyway. */
+/* Above the stacking breakpoint only: redesign.css turns .form__row into one
+   column at 620px with a plain class selector, and this rule outranks it, so
+   unscoped it kept two columns on a phone and squeezed the number box to
+   29px. */
+@media (min-width: 621px) {
+  .form__row:has(.field--phone) { grid-template-columns: 1.5fr 1fr; }
+}
+.phone { display: grid; grid-template-columns: minmax(0, 8.75rem) minmax(0, 1fr); gap: .5rem; }
+.phone__cc { padding-inline: .7rem .5rem; text-overflow: ellipsis; }
+
+.phone__num {
+  display: flex; align-items: center; min-width: 0;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--white);
+  transition: border-color .2s, box-shadow .2s;
+}
+.phone__dial {
+  flex: none; padding: 0 .1rem 0 1rem;
+  font-family: var(--display); font-weight: 700; color: var(--muted);
+  user-select: none;
+}
+/* the box owns the border now, so the input inside gives it up */
+.form .field .phone__num input, .phone__num input {
+  border: 0; background: transparent; box-shadow: none;
+  padding-left: .45rem; min-width: 0;
+}
+.form .field .phone__num input:focus, .phone__num input:focus { box-shadow: none; border: 0; }
+.phone__num:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(23,201,155,0.15); }
+
+/* the two states the rest of the form uses, on the wrapper instead of the input */
+.field--phone.is-ok .phone__num  { border-color: rgba(23,201,155,.55); }
+.field--phone.is-bad .phone__num { border-color: #d68a80; box-shadow: 0 0 0 3px rgba(180,69,58,.10); }
+.field--phone.is-ok::before { bottom: 2.1rem; }
+/* the tick is parked on the right of the field, which is the right of the
+   number box: keep the digits out from under it */
+.field--phone.is-ok .phone__num input { padding-right: 1.9rem; }
+
+@media (max-width: 380px) {
+  .phone { grid-template-columns: 1fr; }
+}

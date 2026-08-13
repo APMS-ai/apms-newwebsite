@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
-  <link rel="stylesheet" href="css/sections/formfx.css?v=8">
+  <link rel="stylesheet" href="css/sections/formfx.css?v=12">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
 <link rel="stylesheet" href="css/sections/contactfx.css?v=7">
 <link rel="stylesheet" href="css/motion/perf.css?v=6">
@@ -101,7 +101,22 @@
                 <div class="field"><label for="cf-email">Email *</label><input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err" maxlength="190" autocomplete="email"><span class="form__err" id="cf-email-err" role="alert"></span></div>
               </div>
               <div class="form__row">
-                <div class="field"><label for="cf-phone">Phone *</label><input id="cf-phone" name="phone" type="tel" required aria-describedby="cf-phone-err" maxlength="40" autocomplete="tel"><span class="form__err" id="cf-phone-err" role="alert"></span></div>
+                <!-- Country first, then the national number. js/sections/phone.js
+                     fills the select, applies that country's digit rules and posts
+                     the composed E.164 form in a hidden "phone" field. With no JS
+                     the visible box keeps name="phone" and the server check that
+                     was here before still applies. -->
+                <div class="field field--phone">
+                  <label for="cf-phone">Phone *</label>
+                  <div class="phone">
+                    <select id="cf-cc" class="phone__cc" aria-label="Country dialling code"></select>
+                    <span class="phone__num">
+                      <span class="phone__dial" id="cf-dial" aria-hidden="true">+91</span>
+                      <input id="cf-phone" name="phone" type="tel" required aria-describedby="cf-phone-err" maxlength="40" autocomplete="tel" inputmode="tel">
+                    </span>
+                  </div>
+                  <span class="form__err" id="cf-phone-err" role="alert"></span>
+                </div>
                 <div class="field"><label for="cf-company">Company *</label><input id="cf-company" name="company" required aria-describedby="cf-company-err" maxlength="160" autocomplete="organization"><span class="form__err" id="cf-company-err" role="alert"></span></div>
               </div>
               <div class="field"><label for="cf-msg">How can we help? *</label><textarea id="cf-msg" name="message" required placeholder="e.g. We run 14 CNC machines and want live OEE and downtime alerts." aria-describedby="cf-msg-err"></textarea><span class="form__err" id="cf-msg-err" role="alert"></span></div>
@@ -287,7 +302,7 @@
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   <script src="js/motion/loader.js?v=1"></script>
-  <script src="js/core/redesign.js?v=18"></script>
+  <script src="js/core/redesign.js?v=19"></script>
   <script src="js/core/enhance.js?v=10"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
@@ -303,7 +318,8 @@
   <script src="js/motion/iconlife.js?v=1"></script>
   <script src="js/core/perf.js?v=5"></script>
   <script src="js/motion/gscroll.js?v=2"></script>
-  <script src="js/sections/formfx.js?v=3"></script>
+  <script src="js/sections/phone.js?v=1"></script>
+  <script src="js/sections/formfx.js?v=4"></script>
   <script src="js/motion/motion.js?v=6"></script>
 </body>
 </html>

@@ -193,8 +193,20 @@
         ok: function (v) { return v.trim().length > 1; } },
       { id: "cf-email",   max: 190,  msg: "Enter a work email we can reply to.",
         ok: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); } },
-      { id: "cf-phone",   max: 40,   msg: "Enter a phone number, including country code.",
-        ok: function (v) { return (v.replace(/\D/g, "").length >= 7); } },
+      /* The phone field is a country select plus a national number
+         (js/sections/phone.js), and the rule is whatever that country's is:
+         10 digits for India, 8 for Qatar. Both msg and ok defer to it when it
+         is loaded, and fall back to the old shape check when it is not, which
+         is what any page without that script gets. */
+      { id: "cf-phone",   max: 40,
+        msg: function () {
+          return window.APMSPhone ? window.APMSPhone.msg()
+                                  : "Enter a phone number, including country code.";
+        },
+        ok: function (v) {
+          return window.APMSPhone ? window.APMSPhone.ok()
+                                  : (v.replace(/\D/g, "").length >= 7);
+        } },
       { id: "cf-company", max: 160,  msg: "Which company are you with?",
         ok: function (v) { return v.trim().length > 1; } },
       { id: "cf-msg",     max: 5000, msg: "A line about your machines or lines is enough.",
@@ -240,7 +252,8 @@
         return setFieldError(el, "Please shorten this to " + spec.max +
                                  " characters or fewer.");
       }
-      return setFieldError(el, spec.ok(v) ? "" : spec.msg);
+      var msg = typeof spec.msg === "function" ? spec.msg() : spec.msg;
+      return setFieldError(el, spec.ok(v) ? "" : msg);
     }
 
     /* clear a complaint as soon as the visitor fixes it, but never raise one

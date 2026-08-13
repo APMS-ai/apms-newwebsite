@@ -117,7 +117,10 @@
        The thresholds match the checks in redesign.js that gate submit. */
     watch(document.getElementById("cf-name"), function (v) { return v.trim().length > 1; });
     watch(document.getElementById("cf-email"), looksLikeEmail);
-    watch(document.getElementById("cf-phone"), function (v) { return v.replace(/\D/g, "").length >= 7; });
+    /* same rule the submit gate uses: whatever the chosen country's is */
+    watch(document.getElementById("cf-phone"), function (v) {
+      return window.APMSPhone ? window.APMSPhone.ok() : v.replace(/\D/g, "").length >= 7;
+    });
     watch(document.getElementById("cf-company"), function (v) { return v.trim().length > 1; });
     watch(document.getElementById("cf-msg"), function (v) { return v.trim().length > 9; });
 

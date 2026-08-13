@@ -154,7 +154,10 @@
    It is the same .chiptag wall as solutions.html now, so there is nothing
    page-specific left to size: only the spacing above it.
    ========================================================================== */
-.indwall { margin-top: clamp(1.6rem, 3.5vw, 2.6rem); }
+/* The four cards sit between the heading and this strip now, so the gap has
+   to read as "and here they are" rather than as a new section. Same job the
+   .protowall gap does under the solutions cards, at the same kind of size. */
+.indwall { margin-top: clamp(2.6rem, 6vw, 4.4rem); }
 
 @media (prefers-reduced-motion: reduce) {
   .vcon[data-reveal].in * { animation: none !important; }
@@ -275,15 +278,21 @@
 .vbot__rail { fill: none; stroke: var(--line); stroke-width: 2; stroke-linecap: round; }
 .vbot__ticks path { stroke: var(--line); stroke-width: 1.4; }
 
-.vbot__part rect {
-  fill: var(--white); stroke: var(--line); stroke-width: 1.4;
-  transition: none;
-}
+/* The check DRAWS, it does not appear. Two beats per station is the whole
+   point of this sequence: the head arrives and the part is scanned, and only
+   then is it ticked. A check that pops on at the same instant the scan starts
+   is a check nobody believes. pathLength normalises the dash so the whole
+   stroke draws whatever the real path length is. */
 .vbot__tick {
   fill: none; stroke: var(--teal-deep); stroke-width: 2.4;
   stroke-linecap: round; stroke-linejoin: round;
-  opacity: 0;
+  opacity: 0; stroke-dasharray: 100; stroke-dashoffset: 100;
 }
+/* the scan line, sweeping the width of the part */
+.vbot__scan { fill: var(--teal-bright); opacity: 0; }
+/* the part itself lights while it is being read, and holds a teal edge once
+   it has passed */
+.vbot__box { fill: var(--white); stroke: var(--line); stroke-width: 1.4; }
 
 /* the head */
 .vbot__body  { fill: var(--white); stroke: var(--ink); stroke-width: 1.8; }
@@ -305,6 +314,14 @@
 [data-reveal].in .vbot__part--2 .vbot__tick { animation: vbotTick2 13s linear infinite; }
 [data-reveal].in .vbot__part--3 .vbot__tick { animation: vbotTick3 13s linear infinite; }
 [data-reveal].in .vbot__part--4 .vbot__tick { animation: vbotTick4 13s linear infinite; }
+[data-reveal].in .vbot__part--1 .vbot__scan { animation: vbotScan1 13s linear infinite; }
+[data-reveal].in .vbot__part--2 .vbot__scan { animation: vbotScan2 13s linear infinite; }
+[data-reveal].in .vbot__part--3 .vbot__scan { animation: vbotScan3 13s linear infinite; }
+[data-reveal].in .vbot__part--4 .vbot__scan { animation: vbotScan4 13s linear infinite; }
+[data-reveal].in .vbot__part--1 .vbot__box  { animation: vbotBox1 13s linear infinite; }
+[data-reveal].in .vbot__part--2 .vbot__box  { animation: vbotBox2 13s linear infinite; }
+[data-reveal].in .vbot__part--3 .vbot__box  { animation: vbotBox3 13s linear infinite; }
+[data-reveal].in .vbot__part--4 .vbot__box  { animation: vbotBox4 13s linear infinite; }
 
 @keyframes vbotRun {
   /* out along the stations, then home again. The two holds are the turn: a
@@ -316,28 +333,89 @@
 @keyframes vbotBeacon { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
 @keyframes vbotCone   { 0%, 100% { opacity: 1; } 50% { opacity: .62; } }
 
-/* A check appears as the lens reaches its station and stays for the rest of
-   the cycle, so the line fills up left to right as the head works along it.
-   Each window starts at the station time computed in the note above. */
+/* ==========================================================================
+   Two beats at every station, on the same 13s clock and with no delays.
+   The head reaches station i at a%, computed in the note above:
+     1 -> 7.7%   2 -> 19.9%   3 -> 32.1%   4 -> 44.3%
+   From there:
+     a-0.6 to a+2.4   the part lights and the scan line sweeps across it
+     a+2.6 to a+4.6   the check draws, and the label goes teal
+   Everything then holds until 97% so the row fills up left to right, and
+   clears together at the reset. Delays are still banned here for the reason
+   in the note above: a delay moves the reset too, so from the second pass on
+   the ticks were lit while the head was still at the far end.
+   ========================================================================== */
+@keyframes vbotScan1 {
+  0%, 7.1%   { opacity: 0; transform: translateX(0); }
+  7.3%       { opacity: 1; transform: translateX(0); }
+  10.1%       { opacity: 1; transform: translateX(42px); }
+  10.3%, 100% { opacity: 0; transform: translateX(42px); }
+}
+@keyframes vbotBox1 {
+  0%, 7.1%       { stroke: var(--line); fill: var(--white); }
+  7.3%, 10.3% { stroke: var(--teal-bright); fill: rgba(46,224,180,0.10); }
+  12.3%, 97%      { stroke: var(--teal-deep); fill: rgba(23,201,155,0.07); }
+  100%                 { stroke: var(--line); fill: var(--white); }
+}
 @keyframes vbotTick1 {
-  0%, 7.7%   { opacity: 0; }
-  8.9%, 97%  { opacity: 1; }
-  100%        { opacity: 0; }
+  0%, 10.3%   { opacity: 0; stroke-dashoffset: 100; }
+  10.4%       { opacity: 1; stroke-dashoffset: 100; }
+  12.3%, 97%  { opacity: 1; stroke-dashoffset: 0; }
+  100%             { opacity: 0; stroke-dashoffset: 100; }
+}
+@keyframes vbotScan2 {
+  0%, 19.3%   { opacity: 0; transform: translateX(0); }
+  19.5%       { opacity: 1; transform: translateX(0); }
+  22.3%       { opacity: 1; transform: translateX(42px); }
+  22.5%, 100% { opacity: 0; transform: translateX(42px); }
+}
+@keyframes vbotBox2 {
+  0%, 19.3%       { stroke: var(--line); fill: var(--white); }
+  19.5%, 22.5% { stroke: var(--teal-bright); fill: rgba(46,224,180,0.10); }
+  24.5%, 97%      { stroke: var(--teal-deep); fill: rgba(23,201,155,0.07); }
+  100%                 { stroke: var(--line); fill: var(--white); }
 }
 @keyframes vbotTick2 {
-  0%, 19.9%   { opacity: 0; }
-  21.1%, 97%  { opacity: 1; }
-  100%        { opacity: 0; }
+  0%, 22.5%   { opacity: 0; stroke-dashoffset: 100; }
+  22.6%       { opacity: 1; stroke-dashoffset: 100; }
+  24.5%, 97%  { opacity: 1; stroke-dashoffset: 0; }
+  100%             { opacity: 0; stroke-dashoffset: 100; }
+}
+@keyframes vbotScan3 {
+  0%, 31.5%   { opacity: 0; transform: translateX(0); }
+  31.7%       { opacity: 1; transform: translateX(0); }
+  34.5%       { opacity: 1; transform: translateX(42px); }
+  34.7%, 100% { opacity: 0; transform: translateX(42px); }
+}
+@keyframes vbotBox3 {
+  0%, 31.5%       { stroke: var(--line); fill: var(--white); }
+  31.7%, 34.7% { stroke: var(--teal-bright); fill: rgba(46,224,180,0.10); }
+  36.7%, 97%      { stroke: var(--teal-deep); fill: rgba(23,201,155,0.07); }
+  100%                 { stroke: var(--line); fill: var(--white); }
 }
 @keyframes vbotTick3 {
-  0%, 32.1%   { opacity: 0; }
-  33.3%, 97%  { opacity: 1; }
-  100%        { opacity: 0; }
+  0%, 34.7%   { opacity: 0; stroke-dashoffset: 100; }
+  34.8%       { opacity: 1; stroke-dashoffset: 100; }
+  36.7%, 97%  { opacity: 1; stroke-dashoffset: 0; }
+  100%             { opacity: 0; stroke-dashoffset: 100; }
+}
+@keyframes vbotScan4 {
+  0%, 43.7%   { opacity: 0; transform: translateX(0); }
+  43.9%       { opacity: 1; transform: translateX(0); }
+  46.7%       { opacity: 1; transform: translateX(42px); }
+  46.9%, 100% { opacity: 0; transform: translateX(42px); }
+}
+@keyframes vbotBox4 {
+  0%, 43.7%       { stroke: var(--line); fill: var(--white); }
+  43.9%, 46.9% { stroke: var(--teal-bright); fill: rgba(46,224,180,0.10); }
+  48.9%, 97%      { stroke: var(--teal-deep); fill: rgba(23,201,155,0.07); }
+  100%                 { stroke: var(--line); fill: var(--white); }
 }
 @keyframes vbotTick4 {
-  0%, 44.3%   { opacity: 0; }
-  45.5%, 97%  { opacity: 1; }
-  100%        { opacity: 0; }
+  0%, 46.9%   { opacity: 0; stroke-dashoffset: 100; }
+  47.0%       { opacity: 1; stroke-dashoffset: 100; }
+  48.9%, 97%  { opacity: 1; stroke-dashoffset: 0; }
+  100%             { opacity: 0; stroke-dashoffset: 100; }
 }
 
 @media (max-width: 700px) {
@@ -348,12 +426,20 @@
 /* Continuous travel is exactly what must not survive reduced motion
    (CLAUDE.md #4). The head parks mid-line and every part reads as checked. */
 @media (prefers-reduced-motion: reduce) {
-  .vbot__head, .vbot__beacon, .vbot__cone, .vbot__tick, .vbot__lbl { animation: none !important; }
-  /* 26%, not 50%: the rail runs 46 to 914, so 50% parks the head at x=480
-     where its scan cone clips the "PPE confirmed" label. 26% puts it at
-     x=272, in the gap between the first two stations. */
-  .vbot__head { offset-distance: 26%; }
-  .vbot__tick { opacity: 1; }
+  .vbot__head, .vbot__beacon, .vbot__cone, .vbot__tick, .vbot__lbl,
+  .vbot__scan, .vbot__box { animation: none !important; }
+  /* 22%, not 50%: the rail runs 46 to 914, so 50% parks the head at x=480
+     where its scan cone clips the "PPE confirmed" label. The labels are about
+     90 units wide on 200-unit spacing, so the only clear gap between the first
+     two runs 215 to 325, and the cone is 46 either side: the centre has to
+     land between 261 and 279. 22% puts it at x=268. 26% was 297, which
+     overhung "Quality passed" by 18 units. */
+  .vbot__head { offset-distance: 22%; }
+  .vbot__tick { opacity: 1; stroke-dashoffset: 0; }
+  /* a line sweeping a part is travel, so there is none: the parts simply read
+     as checked, which is the informative frame */
+  .vbot__scan { opacity: 0; }
+  .vbot__box { stroke: var(--teal-deep); fill: rgba(23,201,155,0.07); }
   .vbot__cone { opacity: .7; }
   .vbot__lbl { fill: var(--teal-deep); font-weight: 800; }
 }
@@ -375,24 +461,28 @@
 [data-reveal].in .vbot__part--3 .vbot__lbl { animation: vbotLbl3 13s linear infinite; }
 [data-reveal].in .vbot__part--4 .vbot__lbl { animation: vbotLbl4 13s linear infinite; }
 @keyframes vbotLbl1 {
-  0%, 7.7%    { fill: var(--muted); font-weight: 700; }
-  8.9%, 97%   { fill: var(--teal-deep); font-weight: 800; }
-  100%         { fill: var(--muted); font-weight: 700; }
+  0%, 7.1%       { fill: var(--muted); font-weight: 700; }
+  7.3%, 10.3% { fill: var(--ink); font-weight: 800; }
+  12.3%, 97%      { fill: var(--teal-deep); font-weight: 800; }
+  100%                 { fill: var(--muted); font-weight: 700; }
 }
 @keyframes vbotLbl2 {
-  0%, 19.9%    { fill: var(--muted); font-weight: 700; }
-  21.1%, 97%   { fill: var(--teal-deep); font-weight: 800; }
-  100%         { fill: var(--muted); font-weight: 700; }
+  0%, 19.3%       { fill: var(--muted); font-weight: 700; }
+  19.5%, 22.5% { fill: var(--ink); font-weight: 800; }
+  24.5%, 97%      { fill: var(--teal-deep); font-weight: 800; }
+  100%                 { fill: var(--muted); font-weight: 700; }
 }
 @keyframes vbotLbl3 {
-  0%, 32.1%    { fill: var(--muted); font-weight: 700; }
-  33.3%, 97%   { fill: var(--teal-deep); font-weight: 800; }
-  100%         { fill: var(--muted); font-weight: 700; }
+  0%, 31.5%       { fill: var(--muted); font-weight: 700; }
+  31.7%, 34.7% { fill: var(--ink); font-weight: 800; }
+  36.7%, 97%      { fill: var(--teal-deep); font-weight: 800; }
+  100%                 { fill: var(--muted); font-weight: 700; }
 }
 @keyframes vbotLbl4 {
-  0%, 44.3%    { fill: var(--muted); font-weight: 700; }
-  45.5%, 97%   { fill: var(--teal-deep); font-weight: 800; }
-  100%         { fill: var(--muted); font-weight: 700; }
+  0%, 43.7%       { fill: var(--muted); font-weight: 700; }
+  43.9%, 46.9% { fill: var(--ink); font-weight: 800; }
+  48.9%, 97%      { fill: var(--teal-deep); font-weight: 800; }
+  100%                 { fill: var(--muted); font-weight: 700; }
 }
 @media (max-width: 700px) {
   /* the parts row is hidden at this width, so its labels go with it */

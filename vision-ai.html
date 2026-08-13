@@ -21,13 +21,13 @@
   <link rel="stylesheet" href="css/motion/rail.css?v=13">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=6">
-  <link rel="stylesheet" href="css/sections/visionfx.css?v=19">
+  <link rel="stylesheet" href="css/sections/visionfx.css?v=21">
   <link rel="stylesheet" href="css/sections/visioncmp.css?v=2">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
     <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
-<link rel="stylesheet" href="css/motion/drum.css?v=13">
+<link rel="stylesheet" href="css/motion/drum.css?v=15">
   <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
 <link rel="stylesheet" href="css/motion/perf.css?v=6">
   <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
@@ -154,23 +154,35 @@
 
             <!-- parts on the belt -->
               <g class="vbot__part vbot__part--1">
-                <rect x="147" y="120" width="46" height="22" rx="5"/>
-                <path class="vbot__tick" d="M178 125.5 L167 136.5 l-5 -5"/>
+                <rect class="vbot__box" x="147" y="120" width="46" height="22" rx="5"/>
+                <!-- the scan: a line sweeping the part while the head is over
+                     it, before anything is ticked -->
+                <rect class="vbot__scan" x="149" y="122" width="2" height="18" rx="1"/>
+                <path class="vbot__tick" pathLength="100" d="M178 125.5 L167 136.5 l-5 -5"/>
                 <text class="vbot__lbl" x="170.0" y="156" text-anchor="middle">Motion tracked</text>
               </g>
               <g class="vbot__part vbot__part--2">
-                <rect x="347" y="120" width="46" height="22" rx="5"/>
-                <path class="vbot__tick" d="M378 125.5 L367 136.5 l-5 -5"/>
+                <rect class="vbot__box" x="347" y="120" width="46" height="22" rx="5"/>
+                <!-- the scan: a line sweeping the part while the head is over
+                     it, before anything is ticked -->
+                <rect class="vbot__scan" x="349" y="122" width="2" height="18" rx="1"/>
+                <path class="vbot__tick" pathLength="100" d="M378 125.5 L367 136.5 l-5 -5"/>
                 <text class="vbot__lbl" x="370.0" y="156" text-anchor="middle">Quality passed</text>
               </g>
               <g class="vbot__part vbot__part--3">
-                <rect x="547" y="120" width="46" height="22" rx="5"/>
-                <path class="vbot__tick" d="M578 125.5 L567 136.5 l-5 -5"/>
+                <rect class="vbot__box" x="547" y="120" width="46" height="22" rx="5"/>
+                <!-- the scan: a line sweeping the part while the head is over
+                     it, before anything is ticked -->
+                <rect class="vbot__scan" x="549" y="122" width="2" height="18" rx="1"/>
+                <path class="vbot__tick" pathLength="100" d="M578 125.5 L567 136.5 l-5 -5"/>
                 <text class="vbot__lbl" x="570.0" y="156" text-anchor="middle">PPE confirmed</text>
               </g>
               <g class="vbot__part vbot__part--4">
-                <rect x="747" y="120" width="46" height="22" rx="5"/>
-                <path class="vbot__tick" d="M778 125.5 L767 136.5 l-5 -5"/>
+                <rect class="vbot__box" x="747" y="120" width="46" height="22" rx="5"/>
+                <!-- the scan: a line sweeping the part while the head is over
+                     it, before anything is ticked -->
+                <rect class="vbot__scan" x="749" y="122" width="2" height="18" rx="1"/>
+                <path class="vbot__tick" pathLength="100" d="M778 125.5 L767 136.5 l-5 -5"/>
                 <text class="vbot__lbl" x="770.0" y="156" text-anchor="middle">SOP followed</text>
               </g>
 
@@ -425,7 +437,23 @@
          nothing well before they reached the edge. -->
     <section class="sec sec--paper">
       <div class="container">
-        <div class="sec__head sec__head--center" data-reveal><span class="h-eyebrow">Proven across</span><h2 data-clip>Wherever quality can't be <span class="accent">a guess</span></h2></div>
+        <div class="sec__head sec__head--center" data-reveal>
+          <span class="h-eyebrow">Proven across</span>
+          <h2 data-clip>Wherever quality can't be <span class="accent">a guess</span></h2>
+          <p class="sec__lead" style="margin-inline:auto;text-align:center;">Four kinds of line, one reason for each: the thing that decides pass or fail is too small, too fast or too repetitive for an eye to catch every time.</p>
+        </div>
+        <!-- Cards over the marquee, the same shape the "Any make. Any age. Any
+             protocol" wall on solutions.html uses: four groups that say why,
+             then the running strip that names the industries. The cards
+             deliberately do not restate the checks listed in "Where you can put
+             Vision AI to work" further up the page; they are the reason those
+             checks exist on that kind of line. -->
+        <div class="fstrip fstrip--white" data-reveal>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M4 17v-4l2-5h12l2 5v4"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg></div><h3>Automotive &amp; metal</h3><p>Panels, welds and machined parts, where a surface flaw not found on the line is found by the customer.</p></div>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg></div><h3>Electronics &amp; aerospace</h3><p>Assemblies where what decides pass or fail is smaller than anyone can reliably see, shift after shift.</p></div>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v4l3 5v9H6v-9l3-5z"/><path d="M6 15h12"/></svg></div><h3>Pharma, food &amp; beverage</h3><p>Regulated lines where every unit has to be checked and the check has to be evidenced, not asserted.</p></div>
+          <div class="fstrip__cell"><div class="fstrip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></div><h3>Packaging &amp; labelling</h3><p>The last gate before a pallet leaves, where a wrong code or a broken seal travels the whole way downstream.</p></div>
+        </div>
       </div>
       <!-- Was a .words marquee: seven industry names in big grey uppercase with
            teal middots between them, sliding past forever. It read as a strip of
