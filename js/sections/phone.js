@@ -117,7 +117,6 @@
 
   var sel   = document.getElementById("cf-cc");
   var input = document.getElementById("cf-phone");
-  var dial  = document.getElementById("cf-dial");
   if (!sel || !input) return;
 
   /* ---------- build the list ---------- */
@@ -186,7 +185,6 @@
     input.setAttribute("aria-label", "Phone number, " + c.name + ", country code plus " + c.dial);
     /* max is national digits; the separators people type need room too */
     input.setAttribute("maxlength", String(c.max + 8));
-    if (dial) dial.textContent = "+" + c.dial;
     compose();
     /* re-check only a field that has already been complained about, so
        changing the country never raises a fresh complaint mid-answer */
