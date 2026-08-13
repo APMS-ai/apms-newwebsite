@@ -67,6 +67,87 @@
 
 .drum__dots { display: none; }
 
+/* ==========================================================================
+   .drum--rail — the same six cards as one horizontal rail
+
+   Opt-in per drum, because the other four drums on the site are still grids.
+   Everything about it is meant to say "this scrolls sideways" before anyone
+   has touched it: the fourth card is deliberately cut off at the right edge,
+   the edge itself fades, and there are two arrows under the row. The 300ms
+   step per gesture is in js/motion/drumrail.js; a jump that happens instantly
+   is a jump nobody sees.
+   ========================================================================== */
+.drum--rail .drum__ring {
+  display: flex; flex-wrap: nowrap; align-items: stretch;
+  gap: 1.1rem;
+  overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  padding: 4px 4px 6px;
+  /* The native bar is redundant next to the arrows and the fade, and on
+     Windows it is a permanent grey slab under the cards. */
+  scrollbar-width: none; -ms-overflow-style: none;
+  /* the right edge fades out, so the cut-off card reads as "more this way"
+     rather than as a card that got clipped by accident */
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 46px), transparent 100%);
+          mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 46px), transparent 100%);
+}
+.drum--rail .drum__ring::-webkit-scrollbar { display: none; }
+.drum--rail .drum__ring:focus-visible { outline: 2px solid var(--teal); outline-offset: 6px; border-radius: 8px; }
+/* At the far right there is nothing more to show, so the fade would be lying. */
+.drum--rail .drum__ring.is-end {
+  -webkit-mask-image: none; mask-image: none;
+}
+.drum--rail .drum__card {
+  flex: 0 0 clamp(258px, 27vw, 336px);
+  scroll-snap-align: start;
+}
+
+/* ---------- the controls under the rail ---------- */
+.drum__nav {
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  margin-top: 1.4rem;
+}
+.drum__arrow {
+  flex: none; width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line);
+  transition: background .2s var(--ease-out), border-color .2s, color .2s, opacity .2s;
+}
+.drum__arrow svg { width: 19px; height: 19px; }
+.drum__arrow:hover:not(:disabled) { background: var(--teal); border-color: var(--teal); color: #04231c; }
+.drum__arrow:disabled { opacity: .32; cursor: default; }
+
+/* the six labels are already in the markup for screen readers; on the rail
+   they are indicators, so only the dot itself shows */
+.drum--rail .drum__dots {
+  display: flex; align-items: center; gap: .5rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.drum--rail .drum__dots li { font-size: 0; line-height: 0; }
+.drum--rail .drum__dots span {
+  display: block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--line-strong, rgba(12,26,40,0.22));
+  transition: background .2s, transform .2s var(--ease-out);
+}
+.drum--rail .drum__dots .is-on span { background: var(--teal-deep); transform: scale(1.5); }
+
+/* On a dark section the ink and hairlines above are invisible. */
+.sec--dark .drum__arrow, .sec--darker .drum__arrow {
+  color: #fff; border-color: rgba(255,255,255,0.18);
+}
+.sec--dark .drum--rail .drum__dots span,
+.sec--darker .drum--rail .drum__dots span { background: rgba(255,255,255,0.22); }
+.sec--dark .drum--rail .drum__dots .is-on span,
+.sec--darker .drum--rail .drum__dots .is-on span { background: var(--teal); }
+
+@media (max-width: 560px) {
+  /* one card at a time, with the next one peeking */
+  .drum--rail .drum__card { flex: 0 0 min(82%, 300px); }
+}
+
 
 
 /* ==========================================================================

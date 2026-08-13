@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/sections/aiplus.css?v=9">
   <link rel="stylesheet" href="css/motion/motion.css?v=6">
   <link rel="stylesheet" href="css/sections/loop.css?v=5">
-  <link rel="stylesheet" href="css/motion/drum.css?v=13">
+  <link rel="stylesheet" href="css/motion/drum.css?v=14">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=4">
   <link rel="stylesheet" href="css/sections/misfx.css?v=7">
   <link rel="stylesheet" href="css/sections/analyst.css?v=16">
@@ -175,9 +175,15 @@
           <h2>One platform, <span class="accent">end to end</span></h2>
           <p>Software, hardware and AI engineered as one. Everything you need to connect, understand and act on your shop floor.</p>
         </div>
-                <div class="drum" data-drum>
+                <!-- The six platform cards read as a rail here rather than a 3 + 3
+             grid: they are one sequence, and a rail says so. Every horizontal
+             gesture moves exactly one card over 300ms (js/motion/drumrail.js),
+             slow enough to be seen happening, which is what tells a visitor the
+             row scrolls at all. -->
+        <div class="drum drum--rail" data-drum data-drumrail>
           <div class="drum__stage">
-            <div class="drum__ring" data-n="6">
+            <div class="drum__ring" data-n="6" data-scrollable tabindex="0"
+                 role="group" aria-label="Platform capabilities, scrollable sideways">
               <article class="tile drum__card" data-i="0">
               <div class="tile__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></svg></div>
               <h3>Platform Overview</h3>
@@ -211,14 +217,22 @@
               </article>
             </div>
           </div>
-          <ol class="drum__dots" aria-hidden="true">
-            <li class="is-on"><span></span>Platform Overview</li>
-            <li><span></span>Intelligent MES</li>
-            <li><span></span>Machine Monitoring</li>
-            <li><span></span>TARA</li>
-            <li><span></span>Vision AI</li>
-            <li><span></span>Software, Hardware &amp; AI, one platform</li>
-          </ol>
+          <div class="drum__nav">
+            <button type="button" class="drum__arrow" data-drum-dir="-1" aria-label="Previous capability">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+            </button>
+            <ol class="drum__dots" aria-hidden="true">
+              <li class="is-on"><span></span>Platform Overview</li>
+              <li><span></span>Intelligent MES</li>
+              <li><span></span>Machine Monitoring</li>
+              <li><span></span>TARA</li>
+              <li><span></span>Vision AI</li>
+              <li><span></span>Software, Hardware &amp; AI, one platform</li>
+            </ol>
+            <button type="button" class="drum__arrow" data-drum-dir="1" aria-label="Next capability">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -1430,6 +1444,7 @@
   <script src="js/motion/gscroll.js?v=2"></script>
   <script src="js/sections/loop.js?v=2"></script>
   <script src="js/motion/motion.js?v=6"></script>
+  <script src="js/motion/drumrail.js?v=2"></script>
   <script src="js/sections/analyst.js?v=5"></script>
 </body>
 </html>
