@@ -75,42 +75,13 @@ function initRail(stage) {
     } else { showAll(); }
 
     /* ---- carry the rail forward on its own ----
-       A horizontal scroller inside a vertical page is easy to miss, so the
-       cards advance themselves while the rail is on screen. Any human input
-       (pointer, wheel, touch, keyboard, or scrolling the rail by hand) stops
-       the auto-advance for good: it should never fight the visitor. */
-    var auto = null, held = false, onScreen = false;
-
-    function step() {
-      if (held || !onScreen) return;
-      var max = stage.scrollWidth - stage.clientWidth;
-      if (max <= 0) return;
-      var card = cards[0].getBoundingClientRect().width + 18;   /* + track gap */
-      var next = stage.scrollLeft + card;
-      /* Where the rail overflows by less than one card, a full card step always
-         overshoots the end. Wrapping on overshoot meant those rails reset to 0
-         on every tick and so never moved at all. Land on the end first, and only
-         wrap once there is genuinely nothing left to show. */
-      if (next > max) next = stage.scrollLeft >= max - 4 ? 0 : max;
-      stage.scrollTo({ left: next, behavior: "smooth" });
-    }
-    function start() { if (!auto && !held) auto = setInterval(step, 3200); }
-    function stop()  { if (auto) { clearInterval(auto); auto = null; } }
-    function surrender() { held = true; stop(); }
-
-    ["pointerdown", "wheel", "touchstart", "keydown"].forEach(function (ev) {
-      stage.addEventListener(ev, surrender, { passive: true });
-    });
-    stage.addEventListener("mouseenter", stop);
-    stage.addEventListener("mouseleave", start);
-    stage.addEventListener("focusin", surrender);
-
-    if (!reduce && window.IntersectionObserver) {
-      new IntersectionObserver(function (es) {
-        onScreen = es[0].isIntersecting;
-        onScreen ? start() : stop();
-      }, { threshold: 0.35 }).observe(stage);
-    }
+       Owned by js/motion/drift.js now, which drifts every rail on the site
+       continuously at 24px a second rather than jumping a whole card every
+       3.2s. This file must not also write scrollLeft: two writers on one
+       property is the thing CLAUDE.md #4 is about. All that is left here is
+       telling drift.js the rail exists, since it only became .agp--native a
+       moment ago. */
+    if (window.APMSDrift) window.APMSDrift.scan();
   }
 
   if (!canPin) { goNative(); return; }

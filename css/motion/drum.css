@@ -82,7 +82,8 @@
   gap: 1.1rem;
   overflow-x: auto; overflow-y: hidden;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
+  /* no scroll snapping: drift.js moves this rail a few pixels a frame, and
+     snap would drag it back to the nearest card every time it paused */
   scroll-padding-inline: 4px;
   padding: 4px 4px 6px;
   /* The native bar is redundant next to the arrows and the fade, and on
@@ -101,7 +102,6 @@
 }
 .drum--rail .drum__card {
   flex: 0 0 clamp(258px, 27vw, 336px);
-  scroll-snap-align: start;
 }
 
 /* ---------- the controls under the rail ---------- */

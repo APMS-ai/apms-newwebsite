@@ -13,13 +13,15 @@
    · A gesture lock. Trackpads fire dozens of wheel events per swipe, so
      without one, a single flick would queue six steps. While a step is
      running, further wheel events are swallowed.
-   · Snapping is switched off for the length of the tween. scroll-snap and a
-     per-frame scrollLeft write are two things steering the same value, and
-     the browser wins the argument halfway through.
+   · The rail is handed over for the length of the step. js/motion/drift.js
+     drifts this same rail continuously, and two scripts writing one scrollLeft
+     is the thing CLAUDE.md #4 warns about, so a step calls APMSDrift.hold().
+     For the same reason the rail carries no scroll-snap: snap would drag it
+     back to the nearest card every time the drift paused.
    · Vertical wheel is never touched. Turning page scroll into sideways travel
      traps the visitor in the section, which is the opposite of the point.
 
-   Under reduced motion the step is instant and the opening nudge never runs.
+   Under reduced motion the step is instant and nothing drifts.
    Lenis must not eat the gesture, so the ring carries data-scrollable, which
    is on smooth.js's exemption list (CLAUDE.md #4).
    ========================================================================== */
@@ -70,8 +72,10 @@
       if (reduce) { ring.scrollLeft = to; sync(); if (done) done(); return; }
 
       busy = true;
-      var snap = ring.style.scrollSnapType;
-      ring.style.scrollSnapType = "none";
+      /* the rail also drifts on its own (js/motion/drift.js); hand it over for
+         the length of the step and a beat after, so only one of us is writing
+         scrollLeft at a time */
+      if (window.APMSDrift) window.APMSDrift.hold(ring, STEP_MS + 1600);
       var t0 = performance.now();
 
       (function frame(now) {
@@ -80,10 +84,7 @@
            legible at 300ms rather than reading as a glitch */
         ring.scrollLeft = from + delta * (1 - Math.pow(1 - p, 3));
         if (p < 1) { raf = requestAnimationFrame(frame); }
-        else {
-          ring.style.scrollSnapType = snap;
-          busy = false; sync(); if (done) done();
-        }
+        else { busy = false; sync(); if (done) done(); }
       })(t0);
     }
 
@@ -146,26 +147,9 @@
        but the widths can change with a fallback font */
     window.addEventListener("load", function () { measure(); sync(); });
 
-    /* ---------- the opening nudge ----------
-       One 300ms move to the second card and back, the first time the rail is
-       on screen. It is the same motion a gesture produces, which is the point:
-       it shows what the row does before anyone has to guess. Any real input
-       cancels it, and it never runs twice. */
-    if (reduce || !window.IntersectionObserver) return;
-    var nudged = false;
-    ["pointerdown", "wheel", "touchstart", "keydown"].forEach(function (ev) {
-      ring.addEventListener(ev, function () { nudged = true; }, { passive: true, once: true });
-    });
-    var io = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting || nudged) return;
-      nudged = true; io.disconnect();
-      setTimeout(function () {
-        var back = ring.scrollLeft;
-        glide(targetOf(1), function () {
-          setTimeout(function () { glide(back); }, 460);
-        });
-      }, 520);
-    }, { threshold: 0.45 });
-    io.observe(drum);
+    /* There used to be an opening nudge here: one 300ms move to card two and
+       back, the first time the rail came into view, to show that the row moves.
+       js/motion/drift.js now drifts the rail continuously the whole time it is
+       on screen, which says the same thing for longer, so the nudge went. */
   }
 })();

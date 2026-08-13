@@ -59,16 +59,17 @@
 [data-agp-native] { overflow-x: auto; overflow-y: hidden; }
 
 /* fallback / touch: real horizontal scrolling with snap */
-.agp--native { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
+/* No scroll snapping. js/motion/drift.js walks these rails forward a few
+   pixels a frame, and snap plus a per-frame scrollLeft write are two things
+   steering one value: every pause ended with the browser yanking the rail to
+   the nearest card. */
+.agp--native { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
 /* padding-bottom was 1rem, reserved for the scrollbar that is now hidden. */
 .agp--native .agp__track { padding-inline: 2px; }
-/* `center` centres card one on load, so the rail looks like it starts at
-   card two. `start` opens flush on the first card. */
-.agp--native .agp__track > * { scroll-snap-align: start; }
 .agp--native { scroll-padding-inline-start: 2px; }
-/* No visible scrollbar. rail.js already carries the rail forward on its own
-   every 3.2s while it is on screen, and that movement is what tells a visitor
-   there is more to the side. A scrollbar underneath says the same thing a second
+/* No visible scrollbar. drift.js already carries the rail forward continuously
+   while it is on screen, and that movement is what tells a visitor there is
+   more to the side. A scrollbar underneath says the same thing a second
    time and puts a piece of browser furniture in the middle of the page.
    Scrolling by hand, wheel, trackpad, touch and keyboard all still work, and the
    progress bar under the rail still shows the position. */
