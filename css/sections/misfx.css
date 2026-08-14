@@ -85,19 +85,18 @@
 
    Timed against the rest of the 9s loop: the report leaves the sheet at 48%
    and is travelling until 74%, so the flap is open from 62% and shut by 88%,
-   which puts the letter going in while the envelope is holding it open. It
-   takes the teal while it is open, and gives it back when it closes. */
+   which puts the letter going in while the envelope is holding it open.
+
+   No colour change, no tick, no "Delivered": the envelope opening, taking the
+   report and closing is the whole message, and a badge on top of it was saying
+   the same thing a second time in words. */
 .mis__flap { transform-origin: center top; }
 [data-reveal].in .mis__flap { animation: misFlap 9s var(--ease-out) infinite; }
 @keyframes misFlap {
-  0%, 56%   { transform: scaleY(1);    stroke: rgba(12,26,40,0.28); }
-  62%, 84%  { transform: scaleY(-1);   stroke: var(--teal-deep); }
-  90%, 100% { transform: scaleY(1);    stroke: rgba(12,26,40,0.28); }
+  0%, 56%   { transform: scaleY(1); }
+  62%, 84%  { transform: scaleY(-1); }
+  90%, 100% { transform: scaleY(1); }
 }
-.mis__done { opacity: 0; }
-[data-reveal].in .mis__done { animation: misDone 9s var(--ease-out) infinite; }
-@keyframes misDone { 0%,72% { opacity: 0; } 80%,94% { opacity: 1; } 100% { opacity: 0; } }
-.mis__donebox { fill: rgba(23,201,155,0.14); stroke: var(--teal); stroke-width: 1.2; }
 
 /* the schedule underneath: which day is sending right now */
 .mis__day { fill: rgba(12,26,40,0.14); }
@@ -112,13 +111,12 @@
 @keyframes misDay { 0%,16% { opacity: 1; } 17%,100% { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .mis__bar, .mis__row, .mis__tick, .mis__fly, .mis__done, .mis__dayon,
+  .mis__bar, .mis__row, .mis__tick, .mis__fly, .mis__dayon,
   .mis__flap { animation: none !important; }
   .mis__bar { transform: scaleY(1); }
   .mis__row { opacity: 1; transform: none; }
   .mis__tick { stroke-dashoffset: 0; }
   .mis__fly { opacity: 0; }
-  .mis__done { opacity: 1; }
   .mis__dayon { opacity: 0; }
   .mis__dayon--1 { opacity: 1; }
 }
