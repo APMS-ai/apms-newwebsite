@@ -75,13 +75,24 @@
 .mis__inbox { fill: rgba(12,26,40,0.03); stroke: rgba(12,26,40,0.16); stroke-width: 1.2; }
 .mis__flap  { stroke: rgba(12,26,40,0.28); stroke-width: 1.4; stroke-linejoin: round; }
 .mis__seam  { stroke: rgba(12,26,40,0.12); stroke-width: 1; }
-/* once it has landed, the envelope is the delivered one: the flap picks up the
-   teal so the eye reads the arrival rather than hunting for the tick */
+/* The flap opens to take the report and closes again behind it.
+
+   scaleY(-1) about the hinge is the whole trick: the flap is drawn as a V
+   pointing down into the envelope, and mirroring it about its own top edge
+   swings it up into a V pointing out of the envelope, passing through flat on
+   the way. transform-box is fill-box for this file, so `center top` resolves
+   to the middle of the flap's top edge, which is exactly where the hinge is.
+
+   Timed against the rest of the 9s loop: the report leaves the sheet at 48%
+   and is travelling until 74%, so the flap is open from 62% and shut by 88%,
+   which puts the letter going in while the envelope is holding it open. It
+   takes the teal while it is open, and gives it back when it closes. */
+.mis__flap { transform-origin: center top; }
 [data-reveal].in .mis__flap { animation: misFlap 9s var(--ease-out) infinite; }
 @keyframes misFlap {
-  0%, 72%   { stroke: rgba(12,26,40,0.28); }
-  80%, 94%  { stroke: var(--teal-deep); }
-  100%      { stroke: rgba(12,26,40,0.28); }
+  0%, 56%   { transform: scaleY(1);    stroke: rgba(12,26,40,0.28); }
+  62%, 84%  { transform: scaleY(-1);   stroke: var(--teal-deep); }
+  90%, 100% { transform: scaleY(1);    stroke: rgba(12,26,40,0.28); }
 }
 .mis__done { opacity: 0; }
 [data-reveal].in .mis__done { animation: misDone 9s var(--ease-out) infinite; }
