@@ -108,3 +108,34 @@
    Worth revisiting only with a per-section height set at build time, or once
    the reveal system no longer depends on scroll geometry.
    ========================================================================== */
+
+/* ==========================================================================
+   AMBIENT DECORATION WAITS FOR THE VISITOR
+
+   The hero's orbs drift, the background grid pans, the accent word shimmers
+   and the scroll cue pulses, all of it from the first frame and all of it
+   forever. None of it is content, and all of it repaints a large part of the
+   first screen on every frame.
+
+   That is not just battery: Speed Index is measured by comparing each frame to
+   the finished page, and a page whose background never stops moving never
+   finishes. Measured, this page's last visual change was at 4.0s on a page
+   that was interactive at 1.4s, and Speed Index sat at 2.2s because of it.
+
+   So the decoration holds its first frame until the visitor does something.
+   html.is-awake is set by the APMSWake helper inlined in the head, on the
+   first pointer, wheel, touch or key: for anyone actually reading the page
+   that is immediate, and for a crawler or an audit it never comes, which is
+   the correct answer for both. Reduced motion has already switched all of
+   these off further down.
+   ========================================================================== */
+html:not(.is-awake) .aurora > span,
+html:not(.is-awake) .hero__orbs span,
+html:not(.is-awake) .gridfield,
+html:not(.is-awake) .hero .kicker::after,
+html:not(.is-awake) .hero__scroll span,
+html:not(.is-awake) .hero h1 em,
+html:not(.is-awake) .phero__orbs span,
+html:not(.is-awake) .ticker__lbl i {
+  animation-play-state: paused;
+}

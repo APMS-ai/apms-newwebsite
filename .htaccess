@@ -131,6 +131,16 @@ ErrorDocument 404 /404.html
   <FilesMatch "\.(css|js)$">
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
+
+  # Everything under dist/ carries a content hash in its filename, so the URL
+  # changes whenever the bytes do and the file can never go stale. That is the
+  # one case where a year is safe, and it is also the biggest download on the
+  # site, so it is the one that matters. Deliberately not applied to css/ and
+  # js/, where a ?v= that somebody forgets to bump would strand a visitor on
+  # old code for twelve months.
+  <FilesMatch "^.*\.[0-9a-f]{8}\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
 </IfModule>
 
 # --------------------------------------------------------------------------
@@ -139,7 +149,16 @@ ErrorDocument 404 /404.html
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/plain
   AddOutputFilterByType DEFLATE application/javascript application/json
-  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/svg+xml text/xml application/xml
+  AddOutputFilterByType DEFLATE text/markdown text/plain
+</IfModule>
+
+# Brotli where LiteSpeed offers it: roughly 15% smaller again than gzip on
+# CSS, and the bundles under dist/ are the largest text on the site.
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
 </IfModule>
 
 # --------------------------------------------------------------------------

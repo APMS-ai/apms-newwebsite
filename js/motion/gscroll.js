@@ -26,6 +26,11 @@
 (function () {
   "use strict";
 
+  /* GSAP is fetched on the first interaction now, not at load, so this waits
+     for it rather than checking once and giving up. See js/core/gsap-late.js. */
+  if (window.APMSGsap) { window.APMSGsap(boot); } else { boot(); }
+
+  function boot() {
   var gsap = window.gsap, ST = window.ScrollTrigger;
   if (!gsap || !ST) return;
   gsap.registerPlugin(ST);
@@ -168,4 +173,5 @@
     document.fonts.ready.then(function () { ST.refresh(); });
   }
   if (window.__lenis) window.__lenis.on("scroll", ST.update);
+}
 })();

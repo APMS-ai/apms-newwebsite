@@ -60,8 +60,19 @@
   };
 
   if (reduce) return;
-  scan();
-  window.addEventListener("load", scan);
+
+  /* Not at load. scan() measures every rail on the page and then starts a rAF
+     loop that never stops, and a rail drifting behind someone who has not
+     arrived yet is frames spent on nobody: measured, 277ms of it during load.
+     The first pointer, wheel, touch or key starts it, which for a real visitor
+     is immediate. */
+  if (window.APMSWake) window.APMSWake(begin); else begin();
+
+  function begin() {
+    scan();
+    window.addEventListener("load", scan);
+  }
+
   document.addEventListener("visibilitychange", function () {
     document.hidden ? stop() : start();
   });

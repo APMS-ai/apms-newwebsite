@@ -44,7 +44,21 @@ function initRail(stage) {
      tall stack, and backfires on an already-compact grid. data-agp-native opts
      a stage out, keeping the horizontal scroller with no added height. */
   var forceNative = stage.hasAttribute("data-agp-native");
-  var canPin = !!(window.gsap && window.ScrollTrigger) && !reduce && !narrow && !forceNative;
+  /* gsap decides whether this stage can pin, and gsap now arrives with the
+     first interaction rather than at load. Asking for it later rather than
+     testing for it here is the difference between every rail on the site
+     falling back to native scrolling and none of them doing so. */
+  var mayPin = !reduce && !narrow && !forceNative;
+  var canPin = mayPin && !!(window.gsap && window.ScrollTrigger);
+  if (mayPin && !canPin && window.APMSGsap) {
+    window.APMSGsap(function () {
+      if (!window.gsap || !window.ScrollTrigger) return;
+      if (stage.classList.contains("agp--pinned")) return;
+      stage.classList.remove("agp--native");
+      canPin = true;
+      pin();
+    });
+  }
 
   /* ---------- fallback: native horizontal scroll ---------- */
   function goNative() {
@@ -85,8 +99,10 @@ function initRail(stage) {
   }
 
   if (!canPin) { goNative(); return; }
+  pin();
 
   /* ---------- pinned horizontal rail ---------- */
+  function pin() {
   stage.classList.add("agp--pinned");
   var gsap = window.gsap, ST = window.ScrollTrigger;
   gsap.registerPlugin(ST);
@@ -188,6 +204,7 @@ function initRail(stage) {
 
   /* Fonts/images settling can change card heights and throw off the pin. */
   window.addEventListener("load", function () { ST.refresh(); });
+}
 }
 })();
 

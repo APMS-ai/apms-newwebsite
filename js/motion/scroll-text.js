@@ -79,24 +79,46 @@
     el.appendChild(frag);
   }
 
+  /* A heading already on screen when the page opens must not start invisible.
+
+     Largest Contentful Paint is only recorded once the largest text is
+     actually painted, and text at opacity 0 is not painted. The hero headline
+     is the LCP element on every page here, so fading it in from nothing meant
+     LCP was not the moment the page drew the headline, it was the moment the
+     reveal finished: measured, 2.36 seconds of pure render delay behind an
+     11ms server response.
+
+     So the first screen's headings keep their opacity and move instead. Same
+     reveal to look at, drawn from the first frame. Everything below the fold
+     is unchanged: by the time it is scrolled to, the fade costs nothing. */
+  function onFirstScreen(el) {
+    var r = el.getBoundingClientRect();
+    return r.top < (window.innerHeight || 0);
+  }
+
   function prep(el) {
     try {
+      var above = onFirstScreen(el);
       splitUnits(el, !!recipe.chars);
       el.classList.add("st-split");
+      if (above) el.setAttribute("data-st-solid", "");
       var units = el.querySelectorAll(".st-w");
-      for (var i = 0; i < units.length; i++) units[i].style.opacity = "0";
+      if (!above) {
+        for (var i = 0; i < units.length; i++) units[i].style.opacity = "0";
+      }
       return units.length ? el : null;
     } catch (e) { el.classList.remove("st-split"); return null; }
   }
 
   function play(el) {
+    var solid = el.hasAttribute("data-st-solid");
     var props = {
       targets: el.querySelectorAll(".st-w"),
-      opacity: recipe.opacity,
       duration: recipe.duration,
       easing: recipe.easing,
       delay: anime.stagger(recipe.stagger)
     };
+    if (!solid) props.opacity = recipe.opacity;
     if (recipe.translateY) props.translateY = recipe.translateY;
     if (recipe.translateX) props.translateX = recipe.translateX;
     if (recipe.scale)      props.scale = recipe.scale;
@@ -116,6 +138,12 @@
   function rearm(el) {
     var units = el.querySelectorAll(".st-w");
     anime.remove(units);
+    if (el.hasAttribute("data-st-solid")) {
+      /* re-arm the movement but never the opacity: this one is on the first
+         screen and is allowed to disappear only when it is scrolled away */
+      for (var s0 = 0; s0 < units.length; s0++) units[s0].style.transform = "";
+      return;
+    }
     el.classList.remove("st-run");   /* and give the layers back */
     for (var i = 0; i < units.length; i++) {
       units[i].style.opacity = "0";

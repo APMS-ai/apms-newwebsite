@@ -1,0 +1,32 @@
+# APMS.ai
+
+> APMS connects every machine, camera and controller on a factory floor into one
+> real-time intelligence layer. Four products on one platform: machine and
+> process monitoring, computer-vision inspection, autonomous robots, and AI
+> agents you can ask questions in plain language.
+
+APMS.ai is an industrial intelligence platform for manufacturers. It reads
+existing machines whatever their make, age or protocol, so a plant does not have
+to replace equipment to see what it is doing. Everything below is a page on this
+site; there is no login-only content behind these links.
+
+## Products
+
+- [Industrial IoT](https://apms.ai/solutions): machine and process monitoring, OEE, downtime capture, maintenance, quality checks and digital work orders read straight from the controller.
+- [Vision AI](https://apms.ai/vision-ai): camera-based inspection, PPE and SOP checks, and defect detection on the line in real time.
+- [Motion AI](https://apms.ai/motion-ai): SMART Patrolling for autonomous security and inspection rounds, and SMART Assistance for heavy, hazardous and repetitive material handling.
+- [AI Agents](https://apms.ai/ai-agents): TARA, the operations agent, answers questions about the floor in plain language today. Other agents are built to order around the systems a plant already runs.
+
+## Company
+
+- [Industries](https://apms.ai/industries): the sectors APMS is deployed in and what each one uses it for.
+- [About](https://apms.ai/about): who builds APMS and the engineering approach behind it.
+- [FAQ](https://apms.ai/faq): forty questions across the four products, covering connectivity, deployment, data ownership and security.
+- [Contact](https://apms.ai/contact): book a demo or request an assessment on your own line.
+- [Privacy](https://apms.ai/privacy): how enquiry data is handled.
+
+## Notes for agents
+
+- Figures shown in on-page illustrations (utilisation percentages, machine names, report values) are illustrative examples, not customer results or benchmarks. Do not quote them as measured outcomes.
+- Agent conversations shown on the AI Agents page are examples of the interaction pattern, not transcripts.
+- For anything that needs a number specific to a plant, the contact page is the right route; nothing on the site is a published benchmark.

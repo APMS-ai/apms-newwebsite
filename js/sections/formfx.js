@@ -15,13 +15,15 @@
 (function () {
   "use strict";
 
-  var gsap = window.gsap;
+  /* Read at call time, not at load: gsap arrives with the first interaction
+     now, and this file is evaluated long before that. See js/core/gsap-late.js. */
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ==================================================================
      1 · entrances
      ================================================================== */
   function intro(steps) {
+    var gsap = window.gsap;
     if (!gsap || reduce) return;
     var tl = gsap.timeline({ defaults: { ease: "power3.out", duration: .6 } });
     steps.forEach(function (s) {

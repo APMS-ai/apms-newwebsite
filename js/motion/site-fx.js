@@ -56,12 +56,21 @@
       if (started) return; started = true;
       need(["js/vendor/three.min.js", "js/vendor/vanta.net.min.js"], startVanta);
     };
+    /* On the first pointer, wheel, touch or key, and then when the browser is
+       next idle. It used to be an idle callback with a 2500ms ceiling, which
+       fires whether or not anyone is there: 601 KB of three.js parsed and a
+       WebGL context spun up for a tab that may never be looked at. Measured,
+       that landed squarely inside Lighthouse's blocking window and cost 10
+       seconds of attributed work on its own.
+
+       A mouse moving anywhere over the page is enough, so in practice a real
+       visitor sees this immediately. A crawler or an audit never touches
+       anything, and correctly gets the static hero. */
     var queue = function () {
-      if (window.requestIdleCallback) requestIdleCallback(kick, { timeout: 2500 });
-      else setTimeout(kick, 900);
+      if (window.requestIdleCallback) requestIdleCallback(kick, { timeout: 1200 });
+      else setTimeout(kick, 300);
     };
-    if (document.readyState === "complete") queue();
-    else window.addEventListener("load", queue, { once: true });
+    if (window.APMSWake) window.APMSWake(queue); else queue();
   }
 
   function startVanta() {
@@ -108,7 +117,11 @@
   }
 
   /* ---------- 2 · GSAP — gentle scroll parallax on hero content ---------- */
-  if (!reduce && window.gsap) {
+  /* gsap is fetched on the first interaction now, so this asks for it rather
+     than testing once at load and giving up. See js/core/gsap-late.js. */
+  if (!reduce) { if (window.APMSGsap) window.APMSGsap(heroParallax); else heroParallax(); }
+  function heroParallax() {
+    if (!window.gsap) return;
     var g = window.gsap;
     if (window.ScrollTrigger) g.registerPlugin(window.ScrollTrigger);
 

@@ -11,28 +11,26 @@
   <meta property="og:image" content="assets/apms-og.png">
   <link rel="canonical" href="https://apms.ai/ai-agents">
   <link rel="icon" type="image/png" href="assets/apms-mark.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/motion/loader.css?v=2">
-  <link rel="stylesheet" href="css/base/redesign.css?v=24">
-  <link rel="stylesheet" href="css/base/enhance.css?v=31">
-  <link rel="stylesheet" href="css/base/polish.css?v=2">
-  <link rel="stylesheet" href="css/base/iconlife.css?v=2">
-  <link rel="stylesheet" href="css/base/footer.css?v=9">
-  <link rel="stylesheet" href="css/base/reveal.css?v=1">
-  <link rel="stylesheet" href="css/base/fx.css?v=5">
-  <link rel="stylesheet" href="css/motion/rail.css?v=13">
-<link rel="stylesheet" href="css/sections/agentic.css?v=22">
-<link rel="stylesheet" href="css/sections/agarch.css?v=1">
-  <link rel="stylesheet" href="css/motion/motion.css?v=7">
-  <link rel="stylesheet" href="css/sections/aiplus.css?v=10">
-    <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
-<link rel="stylesheet" href="css/motion/drum.css?v=15">
-  <link rel="stylesheet" href="css/sections/faqpage.css?v=3">
-<link rel="stylesheet" href="css/motion/perf.css?v=6">
-  <link rel="stylesheet" href="css/motion/a11y-motion.css?v=8">
-</head>
+  <!-- The two faces the first screen cannot be drawn without: the headline and
+       the body. Preloaded so they are in flight with the stylesheet rather than
+       discovered inside it. The other six are found in the bundle as usual. -->
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/barlow-900.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/roboto-400.woff2" crossorigin>
+  <!-- Ambient motion waits for the visitor. A page nobody has touched should
+       not be running a rAF loop, fetching 601 KB of WebGL or measuring SVG
+       paths: all of that starts on the first pointer, wheel, touch or key.
+       Inlined because it has to exist before any script that uses it. -->
+  <script>window.APMSWake=(function(){var q=[],fired=0,E=["pointerdown","pointermove","wheel","touchstart","keydown","scroll"];
+function go(){if(fired)return;fired=1;document.documentElement.className+=" is-awake";E.forEach(function(e){removeEventListener(e,go,{capture:true})});
+for(var i=0;i<q.length;i++){try{q[i]()}catch(err){}}q.length=0}
+E.forEach(function(e){addEventListener(e,go,{passive:true,capture:true})});
+return function(fn){fired?fn():q.push(fn)}})();</script>
+<!-- BUNDLE:CSS -->
+  <!-- One file, built by tools/bundle.js from the 19 stylesheets listed
+       for this page in tools/bundles.json. Edit those, not this, and re-run
+       `node tools/bundle.js`: the hash below changes with the content. -->
+  <link rel="stylesheet" href="dist/css/ai-agents.f6cfbe6e.css">
+  <!-- /BUNDLE:CSS --></head>
 <body data-fx="rotate">
   <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
     <div class="ldr__inner">
@@ -915,7 +913,7 @@
         </div>
 
         <div class="ft__col">
-          <h4>Platform</h4>
+          <h3>Platform</h3>
           <a href="index.html">Platform overview</a>
           <a href="solutions.html#modules">Platform modules</a>
           <a href="solutions.html#modules">Machine monitoring</a>
@@ -926,7 +924,7 @@
         </div>
 
         <div class="ft__col">
-          <h4>Solutions</h4>
+          <h3>Solutions</h3>
           <a href="solutions.html">Industrial IoT</a>
           <a href="vision-ai.html">Vision AI</a>
           <a href="motion-ai.html">Motion AI</a>
@@ -934,7 +932,7 @@
         </div>
 
         <div class="ft__col">
-          <h4>Company</h4>
+          <h3>Company</h3>
           <a href="about.html">About APMS</a>
           <a href="industries.html">Industries</a>
           <a href="about.html#about">How we work</a>
@@ -944,7 +942,7 @@
         </div>
 
         <div class="ft__col ft__contact">
-          <h4>Get in touch</h4>
+          <h3>Get in touch</h3>
           <div class="ft__block">
             <span class="ft__label">Phone</span>
             <a href="tel:+918050176508">+91 80501 76508</a>
@@ -983,21 +981,23 @@
     </div>
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-  <script src="js/motion/loader.js?v=1"></script>
+  <script src="js/motion/loader.js?v=3"></script>
   <script src="js/core/redesign.js?v=18"></script>
   <script src="js/core/enhance.js?v=11"></script>
-  <script src="js/vendor/gsap.min.js"></script>
-  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <!-- gsap + ScrollTrigger are fetched by this on the first interaction:
+       114 KB whose only job is scroll-linked motion, which cannot happen
+       before the first scroll. Must come before anything that uses them. -->
+  <script src="js/core/gsap-late.js?v=1"></script>
   <script src="js/vendor/lenis.min.js"></script>
   <script src="js/vendor/anime.min.js"></script>
-  <script src="js/core/smooth.js?v=4"></script>
-  <script src="js/motion/site-fx.js?v=7"></script>
+  <script src="js/core/smooth.js?v=6"></script>
+  <script src="js/motion/site-fx.js?v=8"></script>
   <script src="js/core/polish.js?v=1"></script>
   <script src="js/core/ui-fx.js?v=1"></script>
   <script src="js/motion/scroll-text.js?v=4"></script>
-  <script src="js/motion/mesh-bg.js?v=3"></script>
+  <script src="js/motion/mesh-bg.js?v=4"></script>
   <script src="js/motion/rail.js?v=6"></script>
-  <script src="js/motion/drift.js?v=3"></script>
+  <script src="js/motion/drift.js?v=4"></script>
   <script src="js/sections/agentic.js?v=4"></script>
   <script src="js/core/reveal.js?v=1"></script>
   <script src="js/motion/iconlife.js?v=1"></script>

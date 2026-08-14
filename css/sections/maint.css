@@ -74,7 +74,7 @@
   3%  { box-shadow: 0 0 0 0 rgba(23,201,155,.75); }
   16% { box-shadow: 0 0 0 11px rgba(23,201,155,0); }
 }
-.mstep h4 { color: #fff; font-size: .95rem; margin-bottom: .35rem; font-family: var(--display); font-weight: 800; }
+.mstep h3, .mstep h4 { color: #fff; font-size: .95rem; margin-bottom: .35rem; font-family: var(--display); font-weight: 800; }
 .mstep p { color: var(--on-dark-soft); font-size: .82rem; line-height: 1.55; }
 
 /* ==========================================================================

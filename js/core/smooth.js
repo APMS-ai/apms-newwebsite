@@ -49,7 +49,13 @@
       }
     }
   }
-  exempt();
+  /* Not yet. exempt() walks every div, section, ul and table inside main and
+     asks each one for its computed overflow and its scrollWidth, which forces
+     a layout per element: on a page with eighteen hundred of them that is half
+     a second of blocking, measured, and it was happening during load.
+
+     None of it matters until Lenis is actually intercepting gestures, and
+     Lenis does not start until the visitor does, so the sweep goes with it. */
 
   var lenis = new window.Lenis({
     /* lerp rather than a fixed duration: a duration always finishes late on a
@@ -76,15 +82,40 @@
 
   /* One rAF loop for the whole page. GSAP already runs one, so Lenis rides on
      it instead of starting a second: two loops means two layout reads per
-     frame and they fight over which one wins. */
-  if (window.gsap && window.ScrollTrigger) {
-    lenis.on("scroll", window.ScrollTrigger.update);
-    window.gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-    window.gsap.ticker.lagSmoothing(0);
-  } else {
-    var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
+     frame and they fight over which one wins.
+
+     And it does not start until the visitor does. Attaching at load meant a
+     rAF loop from the first paint onwards, so the main thread never went idle
+     for as long as the tab was open. Lighthouse attributed 23 seconds of work
+     to GSAP for a page that was, as far as anyone could see, standing still,
+     and Speed Index went with it. Nothing needs smoothing before the first
+     scroll, so nothing runs before the first scroll: until then the browser's
+     own scrolling is what you get, which is what you would have had anyway. */
+  var driving = false;
+  function drive() {
+    if (driving) return;
+    driving = true;
+    exempt();
+    /* gsap arrives on the same signal this does, so ask for it rather than
+       testing for it: whichever of the two lands second runs this. */
+    if (window.APMSGsap && !window.gsap) { window.APMSGsap(attach); return; }
+    attach();
   }
+  function attach() {
+    if (window.gsap && window.ScrollTrigger) {
+      lenis.on("scroll", window.ScrollTrigger.update);
+      window.gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+      window.gsap.ticker.lagSmoothing(0);
+    } else {
+      var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }
+  }
+  if (window.APMSWake) window.APMSWake(drive); else drive();
+  /* scrollTo is the one thing that needs the loop running whether or not the
+     visitor has touched anything yet */
+  var rawScrollTo = lenis.scrollTo.bind(lenis);
+  lenis.scrollTo = function () { drive(); return rawScrollTo.apply(null, arguments); };
 
   /* In-page anchors glide instead of jumping. */
   document.addEventListener("click", function (e) {

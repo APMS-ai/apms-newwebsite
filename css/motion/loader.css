@@ -16,9 +16,18 @@
   position: fixed; inset: 0; z-index: 2000;
   display: grid; place-items: center;
   background: #fff;
+  /* Invisible until loader.js decides the page is slow enough to need it.
+     Hidden with visibility rather than display so the mark's draw is already
+     under way if it does appear, and so nothing reflows when it does. */
+  visibility: hidden;
   /* the curtain lifts from the bottom edge */
   transform: translateY(0);
-  transition: transform .9s cubic-bezier(.76, 0, .24, 1);
+  /* .5s, not .9s. Speed Index is measured from pixels, so a curtain that
+     takes nearly a second to leave is nearly a second of the page not being
+     visible, whatever the page underneath is doing: measured, it was the
+     largest single contributor left at 2.3s. Half a second still reads as a
+     deliberate lift rather than a cut. */
+  transition: transform .5s cubic-bezier(.76, 0, .24, 1);
   will-change: transform;
 }
 .ldr__inner {
@@ -53,14 +62,19 @@
   color: rgba(7,15,25,.45);
 }
 
+.ldr.is-shown { visibility: visible; }
+
 /* ---------- leaving ---------- */
 .ldr.is-done .ldr__inner { opacity: 0; transform: translateY(-8px); }
 .ldr.is-done { transform: translateY(-100%); }
 
-/* the page underneath rises to meet it */
+/* The page underneath is already there. It used to be held at opacity 0 and
+   cross-faded in over 500ms once the curtain had gone, which meant the content
+   was invisible for the curtain's exit AND for half a second after it: the two
+   delays stacked rather than overlapping. Now the curtain lifts off a page
+   that is finished and waiting, which is both faster and a better effect,
+   because a curtain should reveal something rather than hand over to a fade. */
 html.is-loading, html.is-loading body { overflow: hidden; }
-html.is-loading main { opacity: 0; }
-main { opacity: 1; transition: opacity .5s var(--ease, ease) .1s; }
 
 @media (prefers-reduced-motion: reduce) {
   /* no curtain, no draw: it disappears and the page is simply there */
@@ -68,5 +82,4 @@ main { opacity: 1; transition: opacity .5s var(--ease, ease) .1s; }
   .ldr__mark { animation: none; opacity: 1; transform: none; }
   .ldr__bar { transition: none; }
   .ldr.is-done { display: none; }
-  html.is-loading main, main { opacity: 1; transition: none; }
 }

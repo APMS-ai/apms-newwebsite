@@ -60,7 +60,7 @@
 }
 
 /* ---------- columns: one shared baseline ---------- */
-.ft__col h4 {
+.ft__col h3, .ft__col h2, .ft__col h4 {
   color: #fff; font-size: .82rem; font-family: var(--display); font-weight: 800;
   letter-spacing: .12em; text-transform: uppercase;
   margin: 0 0 1.05rem; padding-bottom: .6rem;
@@ -80,7 +80,11 @@
 .ft__label {
   display: block; font-family: var(--display); font-weight: 700;
   font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.42); margin-bottom: .3rem;
+  /* 0.42 alpha over the footer's #070f19 resolves to #6f747a, which measures
+     4.08:1 against it. At 10.9px bold that is under the 4.5 this size needs.
+     Stated outright rather than left to an alpha over a background that has
+     changed twice: #868c94 measures 5.5:1 and is the same cool grey. */
+  color: #868c94; margin-bottom: .3rem;
 }
 /* .16rem of padding left these at 18px tall. WCAG 2.2 AA (2.5.8) asks for a
    24px minimum target, and a phone number is exactly the thing someone taps. */

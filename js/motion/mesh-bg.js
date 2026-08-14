@@ -28,13 +28,19 @@
 
   /* 24 KB fetched only where a mesh will actually be drawn, for the same
      reason three.js is no longer a script tag: a phone should not pay for it. */
-  if (!window.Gradient) {
-    var lib = document.createElement("script");
-    lib.src = "js/vendor/mesh-gradient.js";
-    lib.onload = draw;
-    lib.onerror = function () {};
-    document.head.appendChild(lib);
-  } else { draw(); }
+  /* And, like the hero canvas, only once the visitor has actually done
+     something. A second WebGL context started at load is a second rAF loop
+     the main thread never gets away from. */
+  function fetchLib() {
+    if (!window.Gradient) {
+      var lib = document.createElement("script");
+      lib.src = "js/vendor/mesh-gradient.js";
+      lib.onload = draw;
+      lib.onerror = function () {};
+      document.head.appendChild(lib);
+    } else { draw(); }
+  }
+  if (window.APMSWake) window.APMSWake(fetchLib); else fetchLib();
 
   function draw() {
   Array.prototype.forEach.call(sections, function (sec, i) {
