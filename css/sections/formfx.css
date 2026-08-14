@@ -294,6 +294,66 @@
    under it */
 .field--phone.is-ok input { padding-right: 1.9rem; }
 
-@media (max-width: 380px) {
+/* Stacking the select above the number costs 54px of height, which is the
+   difference between the form fitting a 360x780 screen and not. Side by side
+   at 360 leaves the number box 172px, which holds the longest example in the
+   list, so the stack is kept for genuinely tiny screens only. */
+@media (max-width: 339px) {
   .phone { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   The form on a phone: one screen, not three
+
+   Measured at 390x844 before this: the block from "Tell us about your line"
+   to the note under the button ran 902px against 770px of screen below the
+   fixed header. Over by 132px, so it always cost a scroll and the send button
+   was never in view with the fields.
+
+   Nothing is removed and nothing is hidden. The height comes back from four
+   places, largest first:
+
+     · 85px of nothing. Every field reserves a line for its error message at
+       all times (min-height: 1.05em x 5 fields) so that a message appearing
+       does not shift the layout. On a phone that trade is the wrong way round:
+       five permanently empty lines cost more than one shift on a failed
+       submit, which is a moment the visitor is already looking at.
+     · 54px from the message box, 130px to 76px. Three lines rather than five,
+       and it grows as you type on every browser that supports field-sizing,
+       so nobody types into a smaller box than they had.
+     · 36px from the input padding, 13.6px to 11px vertical. That still leaves
+       the boxes 44px tall, which is the minimum comfortable touch target, so
+       nothing gets harder to hit.
+     · the rest from the gaps between rows, the labels and the button.
+
+   All of it inside a media query the desktop form never matches.
+   ========================================================================== */
+@media (max-width: 620px) {
+  .form { gap: .62rem; }
+  .form__row { gap: .62rem; }
+  .form .field > label { font-size: .82rem; margin-bottom: .22rem; }
+  .form .field input, .form .field textarea, .form .phone__cc {
+    padding: .69rem .85rem;
+  }
+  /* the reserved line goes; the message still appears, it simply takes its
+     space at the moment it has something to say */
+  .form .form__err { min-height: 0; margin-top: .2rem; font-size: .78rem; }
+  /* with no reserved line under it, the tick belongs on the input's own line */
+  .form .field.is-ok::before { bottom: .82rem; }
+  .form .field--phone.is-ok::before { bottom: .82rem; }
+
+  .form #cf-msg {
+    min-height: 76px;
+    /* grows with what is typed where the browser supports it, so a short box
+       is not a small box */
+    field-sizing: content; max-height: 40vh;
+  }
+  .form .btn { padding: .8rem 1.15rem; font-size: .92rem; }
+  .form__note { font-size: .8rem; margin-top: -.1rem; }
+
+  /* The line above the form wraps to four lines at 360px and three at 390.
+     A little tighter and it is three either way, which is the last of the
+     margin needed for a 360x780 screen. Its own margin is set inline in the
+     markup, so only the type is touched here. */
+  .split > div > h2 + p { font-size: .92rem; line-height: 1.5; }
 }
