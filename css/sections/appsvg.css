@@ -19,9 +19,45 @@
    desktop column, and wide enough that the app's own type survives. */
 .appsvgwrap { width: 100%; max-width: 400px; margin-inline: auto; }
 .appsvg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* ---------- held in space, not stuck on the page ----------
+   A phone lying flat against the section reads as a sticker. It is posed in 3D
+   instead: one perspective on the column, one rotation on the wrapper. That is
+   a transform on a single element, composited, and it costs nothing per frame,
+   which is the difference between this and rendering a real handset in WebGL
+   for a picture that never moves on its own.
+
+   Nothing else writes transform on this element, so there is one owner
+   (CLAUDE.md #4). The store links below sit outside the rotated wrapper and
+   stay flat, which is what keeps the phone looking lifted off the page rather
+   than the whole block looking crooked. */
+.appwrap { perspective: 1700px; perspective-origin: 58% 42%; }
+.appsvgwrap {
+  transform: rotateY(-16deg) rotateX(5deg) rotateZ(-1.2deg);
+  transition: transform .85s var(--ease-out);
+}
+/* pick it up and look at it: on a pointer device it turns to face you */
+@media (hover: hover) and (pointer: fine) {
+  .appsvgwrap:hover { transform: rotateY(-2deg) rotateX(1deg) rotateZ(0deg); }
+}
+/* Less of a turn where the column is narrow: at 390px a 16 degree rotation
+   spends real width on foreshortening, and there is no pointer to undo it. */
+@media (max-width: 700px) {
+  .appsvgwrap { transform: rotateY(-9deg) rotateX(3deg) rotateZ(-0.6deg); }
+}
+/* The pose is a still, so it stays under reduced motion. The turn on hover is
+   travel, so that goes. */
+@media (prefers-reduced-motion: reduce) {
+  .appsvgwrap { transition: none; }
+  .appsvgwrap:hover { transform: rotateY(-16deg) rotateX(5deg) rotateZ(-1.2deg); }
+}
+
 /* The shadow belongs to the device, not to the drawing, and drop-shadow on a
-   filter is a full extra paint pass over the element's whole box. */
-.apph__body { filter: drop-shadow(0 30px 60px rgba(0,0,0,0.55)); }
+   filter is a full extra paint pass over the element's whole box.
+   Offset to the right and down, because the pose turns the phone away from a
+   light at the upper left: a shadow straight underneath a tilted object is the
+   thing that gives away a fake 3D. */
+.apph__body { filter: drop-shadow(26px 38px 58px rgba(0,0,0,0.58)); }
 /* per-element origins, not the whole board (project note 7) */
 .appsvg * { transform-box: fill-box; }
 
