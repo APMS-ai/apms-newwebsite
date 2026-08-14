@@ -175,7 +175,11 @@
 .appstore__ico { width: 22px; height: 22px; flex: none; }
 .appstore span { display: grid; line-height: 1.15; text-align: left; }
 .appstore small {
-  font-family: var(--text); font-size: .64rem; letter-spacing: .05em;
+  /* .64rem came out at 10.2px, which the audit flags and which is the one
+     line on these badges nobody can read at arm's length. .7rem is 11.2px and
+     the badge is the same size, because the line above it was never what set
+     the height. */
+  font-family: var(--text); font-size: .7rem; letter-spacing: .04em;
   text-transform: uppercase; color: var(--muted);
 }
 .appstore b { font-family: var(--display); font-weight: 800; font-size: .95rem; color: var(--ink); }
