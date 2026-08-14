@@ -94,6 +94,8 @@
   root.setAttribute("aria-label", "Independence Day greeting from APMS.ai");
   root.innerHTML =
     '<div class="iday__scrim" data-iday-dismiss></div>' +
+    '<div class="iday__sky iday__sky--rain" aria-hidden="true"></div>' +
+    '<div class="iday__sky iday__sky--cannon" aria-hidden="true"></div>' +
     '<div class="iday__card">' +
       '<div class="iday__fx iday__fx--rain" aria-hidden="true"></div>' +
       '<div class="iday__fx iday__fx--burst" aria-hidden="true"></div>' +
@@ -138,6 +140,47 @@
       pr.style.setProperty("--dur", rand(4.2, 7.5).toFixed(2) + "s");
       pr.style.setProperty("--d", rand(0, 5).toFixed(2) + "s");
       rain.appendChild(pr);
+    }
+
+    /* 64 pieces falling the whole window, behind the card */
+    var sky = root.querySelector(".iday__sky--rain");
+    for (var k = 0; k < 64; k++) {
+      var ps = document.createElement("i");
+      ps.style.setProperty("--x", rand(-2, 102).toFixed(1) + "%");
+      ps.style.setProperty("--dx", rand(-90, 90).toFixed(0) + "px");
+      ps.style.setProperty("--r", rand(-720, 720).toFixed(0) + "deg");
+      ps.style.setProperty("--c", COLOURS[k % COLOURS.length]);
+      ps.style.setProperty("--w", rand(6, 12).toFixed(0) + "px");
+      ps.style.setProperty("--h", rand(9, 18).toFixed(0) + "px");
+      ps.style.setProperty("--br", k % 4 === 0 ? "50%" : "1px");
+      ps.style.setProperty("--dur", rand(4.5, 9).toFixed(2) + "s");
+      ps.style.setProperty("--d", rand(0, 6).toFixed(2) + "s");
+      sky.appendChild(ps);
+    }
+
+    /* two cannons out of the bottom corners, fired twice: once as the card
+       lands and once at the halfway mark, so the fifteen seconds do not go
+       quiet in the middle */
+    var cannon = root.querySelector(".iday__sky--cannon");
+    for (var vol = 0; vol < 2; vol++) {
+      for (var side = 0; side < 2; side++) {
+        for (var n = 0; n < 26; n++) {
+          var pc = document.createElement("i");
+          pc.className = side ? "r" : "l";
+          /* up and inward: away from its own corner, across the window */
+          var spread = rand(0.15, 1.05);
+          pc.style.setProperty("--tx", ((side ? -1 : 1) * rand(120, 620) * spread).toFixed(0) + "px");
+          pc.style.setProperty("--ty", (-rand(240, 640)).toFixed(0) + "px");
+          pc.style.setProperty("--r", rand(-720, 720).toFixed(0) + "deg");
+          pc.style.setProperty("--c", COLOURS[(n + side) % COLOURS.length]);
+          pc.style.setProperty("--w", rand(6, 11).toFixed(0) + "px");
+          pc.style.setProperty("--h", rand(8, 16).toFixed(0) + "px");
+          pc.style.setProperty("--br", n % 3 === 0 ? "50%" : "1px");
+          pc.style.setProperty("--dur", rand(2.2, 3.4).toFixed(2) + "s");
+          pc.style.setProperty("--d", (vol * 6.5 + 0.35 + Math.random() * 0.35).toFixed(2) + "s");
+          cannon.appendChild(pc);
+        }
+      }
     }
   }
 
