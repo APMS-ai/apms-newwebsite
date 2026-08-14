@@ -15,7 +15,9 @@
 
 /* ---------- the phone: one vertical rectangle, data flowing in at the top,
    APMS Analyst glowing at its heart, the conversation living below it ---------- */
-.anl { max-width: 396px; margin-inline: auto; }
+/* iPhone 15, at its own size: a 393 x 852pt screen inside a 6px bezel, so the
+   shell is 405 x 864 and the ratio holds when it has to shrink. */
+.anl { max-width: 405px; margin-inline: auto; }
 
 /* A handset is a tall rectangle, not a wide one. The three regions stack:
    the feed diagram at the top, the questions floating in the middle, the
@@ -24,7 +26,9 @@
 .anl__phone {
   position: relative;
   display: flex; flex-direction: column;
-  min-height: 780px;
+  /* aspect-ratio rather than a fixed height, so a 360px viewport gets a
+     shorter phone of the same proportions instead of a clipped tall one */
+  width: 100%; aspect-ratio: 405 / 864;
   /* White behind the glass, and the frame that holds it stays dark: the panel
      is the handset, the white is the screen. A 6px inset border reads as the
      bezel, so the screen keeps a hard edge against the section behind it. */
@@ -33,7 +37,8 @@
      inherited colour at the shell rather than patching each child */
   color: var(--body);
   border: 6px solid #10202c;
-  border-radius: 44px; padding: 1.1rem;
+  /* 55pt is the iPhone 15's display corner, plus the 6px bezel */
+  border-radius: 61px; padding: 1.1rem;
   box-shadow: 0 0 80px -16px rgba(23,201,155,0.3), 0 30px 60px -30px rgba(0,0,0,0.6);
 }
 /* the earpiece slot: the one detail that reads as "handset" at a glance */
@@ -269,11 +274,22 @@
 
 @media (max-width: 620px) {
   .anl__lbl { font-size: 12px; }
-  /* the longest question is 43 characters and the frame is narrower here */
-  .anl__chip { font-size: .72rem; padding: .55rem .8rem; }
+  /* The longest question is 43 characters and must stay on one line, so below
+     620px the type is tied to the viewport rather than stepped once: at a
+     fixed .72rem it overflowed its own pill by 8px at 390 and 78px at 320.
+     The vw term is what the 43 characters cost; the min() keeps it from
+     growing past the desktop size as the frame widens. */
+  .anl__chips { padding-inline: .35rem; }
+  .anl__chip { font-size: min(.72rem, 3.05vw); padding: .55rem min(.8rem, 3.2vw); }
+}
+
+/* Below the iPhone's own 390 the 43 characters stop fitting on one line at any
+   size worth reading: holding the line there would mean 8px type. So the
+   longest question wraps instead, balanced across its two lines. */
+@media (max-width: 389px) {
+  .anl__chip { white-space: normal; text-wrap: balance; }
   .anl__msg { max-width: 94%; }
-  /* on a real phone the frame stops pretending to be one */
-  .anl__phone { min-height: 660px; border-radius: 36px; }
+  /* the shell already shrinks by ratio, so nothing here overrides its size */
 }
 
 /* The informative frame is the end of the sequence: all three sources have
@@ -283,7 +299,7 @@
   .anl__lbl, .anl__seed, .anl__wave--live, .anl__iris, .anl__arc, .anl__out,
   .anl__cardbox, .anl__line, .anl__badge, .anl__badgetick, .anl__dots i,
   .anl__msg { animation: none !important; }
-  .anl__lbl { fill: var(--teal-bright); }
+  .anl__lbl { fill: var(--teal-deep); }
   .anl__seed { opacity: 1; }
   .anl__wave--live { opacity: 0; }
   .anl__iris { opacity: 0; }
