@@ -15,18 +15,9 @@
    never these. They can never both be on.
    ========================================================================== */
 
-/* ==========================================================================
-   1 · The header keeps the logo and the burger, and nothing else
-
-   The demo button sat next to the logo at every width, and on a phone the
-   three of them fight for the same row. It is the first item inside the
-   burger menu already, so nothing is lost by dropping it here. This starts at
-   the width where the header switches to the burger, because that is the
-   point at which the menu holding the duplicate exists.
-   ========================================================================== */
-@media (max-width: 1040px) {
-  .hdr__cta .btn--primary { display: none; }
-}
+/* 1 · The header keeps the logo and the burger, and nothing else. That rule
+   started here and moved to redesign.css, because it is a header rule and it
+   has to apply to all eleven pages rather than to this one. */
 
 /* ==========================================================================
    2 and 5 · The hero moves on a phone too

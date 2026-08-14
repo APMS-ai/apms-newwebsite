@@ -146,11 +146,8 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; line-height: 1.0
   .hdr__cta .btn { padding: 0.58rem 0.8rem; font-size: 0.8rem; }
 }
 @media (max-width: 350px) {
-  /* At this width the logo, the button and the burger cannot all fit without
-     one of them being crushed. The demo call to action is also the first item
-     inside the burger menu, so the header keeps the logo instead. */
   .hdr__logo img { height: 27px; }
-  .hdr__cta .btn--primary { display: none; }
+  /* the demo button is hidden from 1040 down now, not just here */
 }
 .hdr__nav { display: flex; gap: 1.7rem; margin-left: auto; }
 .hdr__nav a { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color: var(--on-dark); position: relative; padding: 0.3rem 0; transition: color 0.2s; }
@@ -566,7 +563,11 @@ body.lighttop .hdr:not(.is-stuck) .burger span { background: var(--ink); }
    MOBILE NAV
    ========================================================================== */
 @media (max-width: 1040px) {
-  .hdr__nav, .hdr__cta .btn--ghost { display: none; }
+  /* The demo button goes with the nav, on every page. Below this width the
+     header is the logo, the button and the burger fighting for one row, and
+     the button is the first item inside the burger menu anyway, so the header
+     keeps the logo and the way into everything else. */
+  .hdr__nav, .hdr__cta .btn--ghost, .hdr__cta .btn--primary { display: none; }
   .burger { display: grid; gap: 5px; margin-left: auto; padding: 8px; }
   .burger span { width: 26px; height: 2px; background: #fff; transition: 0.3s; }
   .hdr.is-stuck .burger span { background: var(--ink); }
