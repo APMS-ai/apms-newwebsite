@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-83 files
+84 files
 ----------------------------------------
 
   .htaccess
@@ -72,6 +72,7 @@ stylesheets off, which shipped a site with broken styling.
   css/sections/maintnew.css
   css/sections/maintui.css
   css/sections/misfx.css
+  css/sections/mobilefx.css
   css/sections/motionfx.css
   css/sections/premiumfx.css
   css/sections/pseq.css

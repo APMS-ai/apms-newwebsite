@@ -1,0 +1,131 @@
+/* ==========================================================================
+   APMS.ai — mobilefx.css
+   Index page, small screens only.
+
+   Every rule in this file lives inside a media query that a desktop browser
+   never matches, so nothing here can change the desktop view. That is the
+   whole point of putting them in their own file rather than editing the
+   shared stylesheets: the desktop layout was signed off, and this has to be
+   provably unable to reach it.
+
+   The gate used for the backdrops is `(max-width: 899px), (pointer: coarse)`,
+   which is exactly the negation of the test site-fx.js and mesh-bg.js use to
+   decide whether to run their WebGL canvases (`fine && innerWidth >= 900`).
+   So a phone gets these and never the canvas; a desktop gets the canvas and
+   never these. They can never both be on.
+   ========================================================================== */
+
+/* ==========================================================================
+   1 · The header keeps the logo and the burger, and nothing else
+
+   The demo button sat next to the logo at every width, and on a phone the
+   three of them fight for the same row. It is the first item inside the
+   burger menu already, so nothing is lost by dropping it here. This starts at
+   the width where the header switches to the burger, because that is the
+   point at which the menu holding the duplicate exists.
+   ========================================================================== */
+@media (max-width: 1040px) {
+  .hdr__cta .btn--primary { display: none; }
+}
+
+/* ==========================================================================
+   2 and 5 · The hero moves on a phone too
+
+   Desktop gets a WebGL particle net (three.js plus vanta, 613 KB). A phone
+   does not, deliberately: it pays the most for that and benefits the least,
+   and smooth scrolling matters more than a decorative mesh. So the hero stood
+   still on a phone while the same page was alive on a laptop.
+
+   The fix is not to ship the 613 KB. It is to build the same impression out
+   of things a phone renders for free: the two blur orbs made large enough to
+   actually read, the grid drifting one cell, and a slow teal sweep behind the
+   copy. Transform and opacity only, three composited layers, no filter is
+   animated and nothing repaints.
+   ========================================================================== */
+@media (max-width: 899px), (pointer: coarse) {
+  /* the orbs were sized in vw for a wide screen: at 390px they were two
+     specks in the corners */
+  .hero__orbs span:nth-child(1) {
+    width: 96vw; height: 96vw; left: -28vw; bottom: -26vw; opacity: .58;
+  }
+  .hero__orbs span:nth-child(2) {
+    width: 82vw; height: 82vw; right: -26vw; top: -18vw; opacity: .48;
+  }
+  /* a tighter grid reads as a grid at this width */
+  .hero__grid { background-size: 40px 40px; animation: mfxGrid 24s linear infinite; }
+
+  /* the sweep: one conic gradient turning slowly behind the copy, masked to a
+     soft ellipse so it never shows an edge */
+  .hero::after {
+    content: ""; position: absolute; inset: -35% -45%; z-index: 1;
+    pointer-events: none;
+    background: conic-gradient(from 200deg at 50% 50%,
+      transparent 0deg, rgba(46,224,180,0.16) 55deg, transparent 125deg,
+      rgba(76,201,240,0.12) 215deg, transparent 300deg);
+    -webkit-mask-image: radial-gradient(58% 52% at 50% 45%, #000 25%, transparent 72%);
+            mask-image: radial-gradient(58% 52% at 50% 45%, #000 25%, transparent 72%);
+    animation: mfxSweep 30s linear infinite;
+  }
+  /* the copy stays above all of it */
+  .hero__inner { z-index: 3; }
+
+  /* A sheen across the whole heading was tried here and removed: with the
+     words split into their own spans by scroll-text.js, background-clip: text
+     on the h1 clipped the first line away entirely. The heading keeps the
+     entrance anime.js gives it and the shimmer on the accent line; the three
+     layers above are what make this part of the page move now. */
+}
+
+@keyframes mfxGrid  { to { transform: translate3d(-40px, -40px, 0); } }
+@keyframes mfxSweep { to { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   3 · The stage comes before the five points
+
+   Stacked, the section read as five numbered rows and then, far below them, a
+   diagram with nothing next to it. The diagram is what each row is describing,
+   so on a phone it goes first: heading, the thing, then the five rows that
+   explain it. Side by side on desktop this ordering does not exist.
+   ========================================================================== */
+@media (max-width: 940px) {
+  .solacc .solstage { order: -1; margin-bottom: 1.5rem; }
+}
+
+/* ==========================================================================
+   4 · The closing section keeps its gradient
+
+   mesh-bg.js draws a WebGL mesh gradient behind the last section, under the
+   same rule as the hero canvas: never on a phone. So the section that closes
+   the page was flat teal on mobile and alive on desktop. Two static blurred
+   blobs, moved by transform, give the same slow drift for no WebGL context
+   and no library.
+   ========================================================================== */
+@media (max-width: 899px), (pointer: coarse) {
+  .cta::after {
+    content: ""; position: absolute; inset: -30%; z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38% 38% at 24% 30%, rgba(46,224,180,0.55), transparent 62%),
+      radial-gradient(42% 42% at 76% 66%, rgba(23,201,155,0.45), transparent 62%),
+      radial-gradient(34% 34% at 58% 12%, rgba(76,201,240,0.28), transparent 60%);
+    /* the blur is static: animating a filter is the expensive thing, moving an
+       already blurred layer is not */
+    filter: blur(26px);
+    animation: mfxMesh 22s ease-in-out infinite alternate;
+  }
+  .cta > .container { z-index: 1; }
+}
+
+@keyframes mfxMesh {
+  from { transform: translate3d(-5%, -4%, 0) scale(1.04); }
+  to   { transform: translate3d(6%, 5%, 0) scale(1.16); }
+}
+
+/* ==========================================================================
+   Reduced motion: every one of these is continuous travel, so all of it stops.
+   The orbs, the sweep and the mesh stay on screen, they simply hold still, so
+   the page still looks like itself.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero__grid, .hero::after, .cta::after { animation: none !important; }
+}
