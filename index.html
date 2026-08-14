@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="css/sections/loop.css?v=5">
   <link rel="stylesheet" href="css/motion/drum.css?v=15">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=4">
-  <link rel="stylesheet" href="css/sections/misfx.css?v=10">
-  <link rel="stylesheet" href="css/sections/analyst.css?v=17">
+  <link rel="stylesheet" href="css/sections/misfx.css?v=11">
+  <link rel="stylesheet" href="css/sections/analyst.css?v=18">
   <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
   <link rel="stylesheet" href="css/sections/premiumfx.css?v=13">
   <link rel="stylesheet" href="css/sections/appsvg.css?v=12">
@@ -1074,19 +1074,34 @@
                  pathLength normalises the dash so the whole tick actually draws. -->
             <circle class="mis__tickbadge" cx="185" cy="52" r="14"/>
             <path class="mis__tick" pathLength="100" d="M178 52.5l5 5 10.5-11.5"/>
+            <!-- An envelope, not a panel with three grey lines in it: the report
+                 arrives by email, and a rounded rectangle says "a box" at best.
+                 Solid facets rather than outlines, so it reads as an envelope at
+                 thumbnail size. Three panels on the same 264,60 origin:
+
+                   body   the back wall, the darkest tone
+                   front  the pocket the report drops into, mid tone
+                   flap   the lid, the brightest, drawn last so it is on top
+                          when shut and clears the envelope entirely when open
+
+                 The badge is last of all, and is the only thing here that is not
+                 teal: an unread count has to separate from what it is counting. -->
+            <rect class="mis__body" x="264" y="60" width="136" height="86" rx="8"/>
+            <!-- the report in flight. Drawn between the envelope's back wall and
+                 its front pocket, so it crosses the open mouth in view and then
+                 tucks in behind the front rather than vanishing at the edge. -->
             <g class="mis__fly">
-              <rect x="188" y="92" width="34" height="26" rx="4" fill="rgba(23,201,155,0.18)" stroke="#17c99b" stroke-width="1.2"/>
-              <path d="M194 100h22M194 106h16M194 112h12" stroke="#2ee0b4" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="188" y="92" width="34" height="26" rx="4" fill="#fff" stroke="#0a7a61" stroke-width="1.2"/>
+              <path d="M194 100h22M194 106h16M194 112h12" stroke="#17c99b" stroke-width="1.6" stroke-linecap="round"/>
             </g>
-            <!-- An envelope, not a panel with three grey lines in it. The point of
-                 this half of the picture is that the report arrives by email, and a
-                 rounded rectangle says "a box" at best. The flap is drawn as its own
-                 path over the body so the two can be lit separately, and the whole
-                 thing keeps the same 264,60 origin the delivered state is drawn to. -->
-            <rect class="mis__inbox" x="264" y="60" width="136" height="86" rx="10"/>
-            <path class="mis__flap" d="M264 70 L332 112 L400 70" fill="none"/>
-            <path class="mis__seam" d="M264 136 L310 100 M400 136 L354 100" fill="none"/>
-            <text class="mis__ttl" x="332" y="52" text-anchor="middle">Inbox</text>
+            <path class="mis__front" d="M264 138 Q264 146 272 146 L392 146 Q400 146 400 138 L332 112 Z"/>
+            <path class="mis__flap" d="M264 68 Q264 60 272 60 L392 60 Q400 60 400 68 L332 112 Z"/>
+            <g class="mis__badge">
+              <circle class="mis__badgedot" cx="400" cy="62" r="15"/>
+              <text class="mis__badgenum" x="400" y="67" text-anchor="middle">1</text>
+            </g>
+            <!-- under the envelope, not over it: the open flap swings up through y=8 -->
+            <text class="mis__ttl" x="332" y="170" text-anchor="middle">Inbox</text>
                         <text class="mis__ttl" x="20" y="206">Sent every weekday</text>
             <rect class="mis__day" x="264" y="192" width="18" height="18" rx="5"/>
             <rect class="mis__dayon mis__dayon--1" x="264" y="192" width="18" height="18" rx="5"/>

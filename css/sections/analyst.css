@@ -25,16 +25,22 @@
   position: relative;
   display: flex; flex-direction: column;
   min-height: 780px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.12);
+  /* White behind the glass, and the frame that holds it stays dark: the panel
+     is the handset, the white is the screen. A 6px inset border reads as the
+     bezel, so the screen keeps a hard edge against the section behind it. */
+  background: #ffffff;
+  /* the section is .sec--dark, so text in here inherits white: reset the
+     inherited colour at the shell rather than patching each child */
+  color: var(--body);
+  border: 6px solid #10202c;
   border-radius: 44px; padding: 1.1rem;
-  box-shadow: 0 0 80px -16px rgba(23,201,155,0.3);
+  box-shadow: 0 0 80px -16px rgba(23,201,155,0.3), 0 30px 60px -30px rgba(0,0,0,0.6);
 }
 /* the earpiece slot: the one detail that reads as "handset" at a glance */
 .anl__phone::before {
   content: ""; position: absolute; top: .62rem; left: 50%;
   width: 74px; height: 5px; margin-left: -37px;
-  border-radius: 99px; background: rgba(255,255,255,0.13);
+  border-radius: 99px; background: rgba(12,26,40,0.14);
 }
 
 .anl__glow { flex: none; padding: 1.5rem 1.2rem .4rem; }
@@ -60,10 +66,10 @@
 /* ---------- the three sources ---------- */
 .anl__lbl {
   font-family: var(--display); font-weight: 800; font-size: 9.5px;
-  letter-spacing: .12em; text-transform: uppercase; fill: rgba(255,255,255,0.45);
+  letter-spacing: .12em; text-transform: uppercase; fill: var(--muted);
 }
-.anl__lead { fill: none; stroke: rgba(46,224,180,0.28); stroke-width: 1.4; }
-.anl__seed { fill: var(--teal-bright); opacity: 0; }
+.anl__lead { fill: none; stroke: rgba(23,201,155,0.45); stroke-width: 1.4; }
+.anl__seed { fill: var(--teal-deep); opacity: 0; }
 
 [data-reveal].in .anl__lbl--x { animation: none; }
 [data-reveal].in .anl__src--1 .anl__lbl  { animation: anlLbl1 4.4s linear infinite; }
@@ -73,9 +79,9 @@
 [data-reveal].in .anl__src--2 .anl__seed { animation: anlSeed2 4.4s ease-out infinite; }
 [data-reveal].in .anl__src--3 .anl__seed { animation: anlSeed3 4.4s ease-out infinite; }
 
-@keyframes anlLbl1 { 0%, 6%  { fill: rgba(255,255,255,0.45); } 9%, 92% { fill: var(--teal-bright); } 97%, 100% { fill: rgba(255,255,255,0.45); } }
-@keyframes anlLbl2 { 0%, 14% { fill: rgba(255,255,255,0.45); } 17%, 92% { fill: var(--teal-bright); } 97%, 100% { fill: rgba(255,255,255,0.45); } }
-@keyframes anlLbl3 { 0%, 22% { fill: rgba(255,255,255,0.45); } 25%, 92% { fill: var(--teal-bright); } 97%, 100% { fill: rgba(255,255,255,0.45); } }
+@keyframes anlLbl1 { 0%, 6%  { fill: var(--muted); } 9%, 92% { fill: var(--teal-deep); } 97%, 100% { fill: var(--muted); } }
+@keyframes anlLbl2 { 0%, 14% { fill: var(--muted); } 17%, 92% { fill: var(--teal-deep); } 97%, 100% { fill: var(--muted); } }
+@keyframes anlLbl3 { 0%, 22% { fill: var(--muted); } 25%, 92% { fill: var(--teal-deep); } 97%, 100% { fill: var(--muted); } }
 /* each seed flares as its source reports, then fades into the trace */
 @keyframes anlSeed1 { 0%, 6%  { opacity: 0; } 9% { opacity: 1; } 20%, 100% { opacity: 0; } }
 @keyframes anlSeed2 { 0%, 14% { opacity: 0; } 17% { opacity: 1; } 28%, 100% { opacity: 0; } }
@@ -86,7 +92,7 @@
    bright dash that travels it. The base stroke is never the thing being
    animated, so the trace can never blink to empty (CLAUDE.md #7). */
 .anl__wave { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.anl__wave--ghost { stroke: rgba(255,255,255,0.13); stroke-width: 1.6; }
+.anl__wave--ghost { stroke: rgba(12,26,40,0.16); stroke-width: 1.6; }
 .anl__wave--live  { stroke: url(#anlFade); stroke-width: 2.2;
                     stroke-dasharray: 26 100; stroke-dashoffset: 26; opacity: 0; }
 [data-reveal].in .anl__wave--live { animation: anlWave 4.4s linear infinite; }
@@ -99,10 +105,10 @@
 
 /* ---------- the aperture ---------- */
 .anl__core { opacity: .5; }
-.anl__ring { fill: rgba(4,18,28,0.55); stroke: var(--teal); stroke-width: 1.6; }
+.anl__ring { fill: var(--teal-deep); stroke: var(--teal-deep); stroke-width: 1.6; }
 /* two rings that close inward as the signal lands, rather than a halo that
    pulses outward on its own timer */
-.anl__iris { fill: none; stroke: var(--teal-bright); stroke-width: 1.2; opacity: 0;
+.anl__iris { fill: none; stroke: var(--teal-deep); stroke-width: 1.2; opacity: 0;
              transform-origin: 150px 88px; }
 [data-reveal].in .anl__iris--1 { animation: anlIris1 4.4s ease-out infinite; }
 [data-reveal].in .anl__iris--2 { animation: anlIris2 4.4s ease-out infinite; }
@@ -118,7 +124,7 @@
 }
 /* the arc closes around the ring as the three sources land: a progress bar
    that happens to be a circle, so the wait reads as work rather than a wobble */
-.anl__arc { fill: none; stroke: var(--teal-bright); stroke-width: 2.4;
+.anl__arc { fill: none; stroke: var(--teal); stroke-width: 2.4;
             stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100;
             transform-origin: 150px 88px; }
 [data-reveal].in .anl__arc { animation: anlArc 4.4s var(--ease-out) infinite; }
@@ -136,17 +142,17 @@
 [data-reveal].in .anl__out { animation: anlOut 4.4s var(--ease-out) infinite; }
 @keyframes anlOut { 0%, 56% { stroke-dashoffset: 100; } 64%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
 
-.anl__cardbox { fill: rgba(23,201,155,0.08); stroke: var(--teal); stroke-width: 1.3; opacity: 0; }
+.anl__cardbox { fill: rgba(23,201,155,0.07); stroke: var(--teal-deep); stroke-width: 1.3; opacity: 0; }
 [data-reveal].in .anl__cardbox { animation: anlCard 4.4s var(--ease-out) infinite; }
 @keyframes anlCard { 0%, 58% { opacity: 0; } 66%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
 
 /* the three lines write themselves, left to right, one after another. This is
    the whole point of the picture: what comes back is written, not another
    number on another dial. */
-.anl__line { fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 2.4;
+.anl__line { fill: none; stroke: rgba(12,26,40,0.55); stroke-width: 2.4;
              stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
-.anl__line--2 { stroke: rgba(255,255,255,0.42); }
-.anl__line--3 { stroke: rgba(255,255,255,0.30); }
+.anl__line--2 { stroke: rgba(12,26,40,0.42); }
+.anl__line--3 { stroke: rgba(12,26,40,0.28); }
 [data-reveal].in .anl__line--1 { animation: anlLine1 4.4s var(--ease-out) infinite; }
 [data-reveal].in .anl__line--2 { animation: anlLine2 4.4s var(--ease-out) infinite; }
 [data-reveal].in .anl__line--3 { animation: anlLine3 4.4s var(--ease-out) infinite; }
@@ -154,7 +160,7 @@
 @keyframes anlLine2 { 0%, 70% { stroke-dashoffset: 100; } 78%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
 @keyframes anlLine3 { 0%, 76% { stroke-dashoffset: 100; } 84%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
 
-.anl__badge { fill: var(--teal); opacity: 0; }
+.anl__badge { fill: var(--teal-deep); opacity: 0; }
 .anl__badgetick { fill: none; stroke: #04231c; stroke-width: 2.2;
                   stroke-linecap: round; stroke-linejoin: round;
                   stroke-dasharray: 100; stroke-dashoffset: 100; }
@@ -166,8 +172,8 @@
 /* ---------- the screen: the conversation, fused to the same rectangle ---------- */
 .anl__screen {
   flex: none; margin-top: auto;
-  background: rgba(0,0,0,0.22);
-  border: 1px solid rgba(255,255,255,0.10);
+  background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: 30px; overflow: hidden;
 }
 .anl__log {
@@ -188,15 +194,15 @@
   border-bottom-right-radius: 5px;
 }
 .anl__msg--ai {
-  justify-self: start; background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10); color: rgba(255,255,255,0.88);
+  justify-self: start; background: #ffffff;
+  border: 1px solid var(--line); color: var(--body);
   border-bottom-left-radius: 5px;
 }
-.anl__msg--ai b { color: var(--teal-bright); }
+.anl__msg--ai b { color: var(--teal-deep); }
 .anl__note {
   display: block; margin-top: .6rem; padding-top: .6rem;
-  border-top: 1px solid rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.5); font-size: .82rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted); font-size: .82rem;
 }
 .anl__cta {
   display: inline-block; background: var(--teal); color: #04231c;
@@ -220,20 +226,20 @@
   padding: 1rem .6rem 1.4rem; text-align: center;
 }
 .anl__chip {
-  font: inherit; font-size: .78rem; color: rgba(255,255,255,0.78);
+  font: inherit; font-size: .78rem; color: var(--body);
   white-space: nowrap; max-width: 100%;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+  background: var(--paper); border: 1px solid var(--line);
   border-radius: 999px; padding: .6rem .95rem; cursor: pointer;
   transition: transform .2s var(--ease-out), background .2s, border-color .2s;
 }
 .anl__chip:hover, .anl__chip:focus-visible {
-  background: rgba(23,201,155,0.12); border-color: var(--teal);
-  color: #fff; transform: translateY(-1px);
+  background: rgba(23,201,155,0.10); border-color: var(--teal);
+  color: var(--ink); transform: translateY(-1px);
 }
 .anl__chip:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
 .anl__dots { display: inline-flex; gap: 4px; align-items: center; }
-.anl__dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.45); }
+.anl__dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(12,26,40,0.40); }
 .anl__dots i:nth-child(1) { animation: anlDot 1.1s ease-in-out infinite; }
 .anl__dots i:nth-child(2) { animation: anlDot 1.1s ease-in-out .16s infinite; }
 .anl__dots i:nth-child(3) { animation: anlDot 1.1s ease-in-out .32s infinite; }
@@ -242,14 +248,14 @@
 /* ---------- the input ---------- */
 .anl__bar {
   display: flex; gap: .7rem; align-items: center; padding: .9rem;
-  border-top: 1px solid rgba(255,255,255,0.10); background: rgba(0,0,0,0.2);
+  border-top: 1px solid var(--line); background: #ffffff;
 }
 .anl__bar input {
-  flex: 1; min-width: 0; background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.12); border-radius: 13px;
-  padding: .9rem 1.05rem; color: #fff; font: inherit; font-size: .97rem;
+  flex: 1; min-width: 0; background: #ffffff;
+  border: 1px solid var(--line); border-radius: 13px;
+  padding: .9rem 1.05rem; color: var(--ink); font: inherit; font-size: .97rem;
 }
-.anl__bar input::placeholder { color: rgba(255,255,255,0.4); }
+.anl__bar input::placeholder { color: var(--muted); }
 .anl__bar input:focus { outline: none; border-color: var(--teal);
                         box-shadow: 0 0 0 3px rgba(23,201,155,0.16); }
 .anl__send {
