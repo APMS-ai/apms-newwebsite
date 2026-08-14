@@ -1173,3 +1173,17 @@ h3 { letter-spacing: -0.012em; }
 }
 .sec__head--center p,
 .sec__head--center .sec__lead { margin-inline: auto; }
+
+/* ==========================================================================
+   Mobile: a paragraph should fill its measure
+
+   .sec__lead carries text-wrap: balance, which makes every line roughly the
+   same length. That is right for a heading of two or three lines and wrong
+   for body copy: on a 312px column it turns four lines into four short ones
+   with a ragged hole down the right hand side. `pretty` keeps the last line
+   from being orphaned, which is the part worth having, and lets the rest of
+   the lines run to the edge of the measure.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .sec__lead, .sec__head p { text-wrap: pretty; }
+}

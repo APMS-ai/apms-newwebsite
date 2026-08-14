@@ -726,3 +726,102 @@ body.lighttop .hdr:not(.is-stuck) .burger span { background: var(--ink); }
    cannot be display:none in a way that removes it from the form; it just must
    never be seen or focused by a person. */
 .form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ==========================================================================
+   The burger menu, alive
+
+   It was a flat dark panel with seven links on it: correct and lifeless. It
+   is the first thing anyone sees on a phone after the logo, so it now opens
+   like something rather than appearing like a document.
+
+   Four things happen, all transform and opacity, all on the panel's own
+   elements, and all of them stop under reduced motion:
+
+     · a teal glow drifts behind the panel, the same trick the hero uses
+     · every link arrives in turn, from the right, 55ms apart
+     · a teal rule wipes in under each one as it lands
+     · the demo button lands last with a small overshoot
+
+   The stagger is written against nth-child rather than a class per link, so
+   adding or removing a page in the menu needs no change here. Child 1 is the
+   close button, 2 to 8 are the links, 9 is the button.
+   ========================================================================== */
+@media (max-width: 1040px) {
+  .mnav { overflow: hidden; }
+
+  /* the glow: one element, one transform, behind everything */
+  .mnav::before {
+    content: ""; position: absolute; inset: -30% -40%; z-index: 0;
+    pointer-events: none; opacity: 0;
+    background:
+      radial-gradient(38% 34% at 26% 22%, rgba(23,201,155,0.40), transparent 62%),
+      radial-gradient(40% 36% at 78% 74%, rgba(46,224,180,0.26), transparent 62%);
+    filter: blur(34px);
+    transition: opacity .5s var(--ease-out);
+  }
+  .mnav.open::before { opacity: 1; animation: mnavDrift 18s ease-in-out infinite alternate; }
+
+  /* Everything above the glow. Not a blanket `.mnav > *`: that set
+     position: relative on the close button too, which is absolutely
+     positioned in the corner, and it landed in the middle of the panel. */
+  .mnav > *:not(.mnav__close) { position: relative; z-index: 1; }
+  .mnav__close { z-index: 2; }
+
+  /* the links arrive one after another */
+  .mnav a { opacity: 0; transform: translate3d(26px, 0, 0); }
+  .mnav.open a { animation: mnavIn .5s var(--ease-out) forwards; }
+  .mnav.open a:nth-child(2) { animation-delay: .09s; }
+  .mnav.open a:nth-child(3) { animation-delay: .145s; }
+  .mnav.open a:nth-child(4) { animation-delay: .20s; }
+  .mnav.open a:nth-child(5) { animation-delay: .255s; }
+  .mnav.open a:nth-child(6) { animation-delay: .31s; }
+  .mnav.open a:nth-child(7) { animation-delay: .365s; }
+  .mnav.open a:nth-child(8) { animation-delay: .42s; }
+  /* the button lands last, and overshoots a little on the way in */
+  .mnav.open a:nth-child(9) { animation: mnavPop .52s cubic-bezier(.34,1.4,.64,1) .50s forwards; }
+
+  /* the rule under each link wipes in with it, so the list draws itself */
+  .mnav a:not(.btn) {
+    border-bottom: 0; position: relative;
+  }
+  .mnav a:not(.btn)::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, var(--teal), rgba(46,224,180,0.14) 60%, transparent);
+    transform: scaleX(0); transform-origin: left center;
+  }
+  .mnav.open a:not(.btn)::after { animation: mnavRule .55s var(--ease-out) forwards; }
+  .mnav.open a:nth-child(2)::after { animation-delay: .16s; }
+  .mnav.open a:nth-child(3)::after { animation-delay: .215s; }
+  .mnav.open a:nth-child(4)::after { animation-delay: .27s; }
+  .mnav.open a:nth-child(5)::after { animation-delay: .325s; }
+  .mnav.open a:nth-child(6)::after { animation-delay: .38s; }
+  .mnav.open a:nth-child(7)::after { animation-delay: .435s; }
+  .mnav.open a:nth-child(8)::after { animation-delay: .49s; }
+
+  /* the close button turns as it arrives */
+  .mnav__close { opacity: 0; }
+  .mnav.open .mnav__close { animation: mnavClose .45s var(--ease-out) .06s forwards; }
+
+  /* pressing a link should feel like pressing it */
+  .mnav a:not(.btn):active { color: var(--teal-bright); transform: translate3d(4px, 0, 0); }
+
+  @keyframes mnavIn    { to { opacity: 1; transform: none; } }
+  @keyframes mnavPop   { from { opacity: 0; transform: translate3d(0, 14px, 0) scale(.94); }
+                         to   { opacity: 1; transform: none; } }
+  @keyframes mnavRule  { to { transform: scaleX(1); } }
+  @keyframes mnavClose { from { opacity: 0; transform: rotate(-90deg) scale(.7); }
+                         to   { opacity: 1; transform: none; } }
+  @keyframes mnavDrift {
+    from { transform: translate3d(-4%, -3%, 0) scale(1); }
+    to   { transform: translate3d(5%, 4%, 0) scale(1.14); }
+  }
+}
+
+/* Nothing arrives, nothing drifts: the menu is simply open and readable.
+   Written as its own block rather than animation: none on the rules above,
+   because those set the resting state to invisible and it has to be undone. */
+@media (max-width: 1040px) and (prefers-reduced-motion: reduce) {
+  .mnav a, .mnav__close { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .mnav a:not(.btn)::after { transform: scaleX(1); animation: none !important; }
+  .mnav.open::before { animation: none !important; }
+}

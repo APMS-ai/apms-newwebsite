@@ -349,7 +349,9 @@
     field-sizing: content; max-height: 40vh;
   }
   .form .btn { padding: .8rem 1.15rem; font-size: .92rem; }
-  .form__note { font-size: .8rem; margin-top: -.1rem; }
+  /* -.1rem here put this line against the bottom edge of the send button.
+     The gap the rest of the form uses is .62rem, so it gets that. */
+  .form__note { font-size: .8rem; margin-top: .3rem; }
 
   /* The line above the form wraps to four lines at 360px and three at 390.
      A little tighter and it is three either way, which is the last of the

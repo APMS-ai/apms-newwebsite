@@ -500,3 +500,87 @@
   /* the parts row is hidden at this width, so its labels go with it */
   .vbot__lbl { display: none; }
 }
+
+/* ==========================================================================
+   The tall inspection line, for phones
+
+   The wide layout is 960 units across. On a 350px column that is a scale of
+   0.36, which put its 9.5px labels at 3.4px, and that is why everything but
+   the rail was hidden below 700px: the section arrived on a phone as a bare
+   line with four ticks and no words on it at all.
+
+   So there are two layouts now, swapped at 700px, the same way .modflow and
+   .aloop already do it. Same class names, so the colours, the tick geometry
+   and the two-beat sequence carry over; the head needs its own keyframes
+   because it travels down here rather than across, and the labels sit beside
+   the rail at 15 units in a 300-unit box, which renders near 16px.
+   ========================================================================== */
+.vbot__svg--tall { display: none; }
+@media (max-width: 700px) {
+  .vbot__svg { display: none; }
+  .vbot__svg--tall { display: block; max-width: 340px; }
+  /* the wide layout hid these two at this width; the tall one needs them */
+  .vbot__svg--tall .vbot__box,
+  .vbot__svg--tall .vbot__ticks path { display: block; }
+  .vbot__svg--tall .vbot__lbl {
+    display: block; font-size: 15px; letter-spacing: .01em;
+    dominant-baseline: middle;
+  }
+  .vbot__svg--tall .vbot__rail { stroke-width: 2.4; }
+  /* .vbot__cone is filled from CSS with the wide layout's gradient, and a CSS
+     fill beats the presentation attribute on the element. The wide SVG is
+     display: none at this width, so that reference resolved to nothing and the
+     head threw no light at all. The tall layout names its own gradient. */
+  .vbot__svg--tall .vbot__cone { fill: url(#vbotConeT); }
+  .vbot__svg--tall .vbot__ticks path { stroke-width: 1.6; }
+  .vbot__svg--tall .vbot__tick { stroke-width: 3; }
+}
+
+/* The head runs 78 to 348, four stations 90 apart, so it reaches station i at
+   the same fractions of the clock the wide one uses: the two layouts stay in
+   step and the sequence reads the same on either. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal].in .vbot__head--tall { animation: vbotRunTall 13s linear infinite; }
+}
+@keyframes vbotRunTall {
+  0%,   4%   { offset-distance: 0%; }
+  48%, 56%   { offset-distance: 100%; }
+  96%, 100%  { offset-distance: 0%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vbot__head--tall { animation: none !important; offset-distance: 22%; }
+}
+
+/* The scan line sweeps down its box here rather than across it, so the two
+   travel keyframes are the tall layout's own. Everything else, the box
+   lighting, the tick drawing and the label colour, is shared. */
+@media (prefers-reduced-motion: no-preference) {
+  .vbot__svg--tall .vbot__part--1 .vbot__scan { animation-name: vbotScanTall1; }
+  .vbot__svg--tall .vbot__part--2 .vbot__scan { animation-name: vbotScanTall2; }
+  .vbot__svg--tall .vbot__part--3 .vbot__scan { animation-name: vbotScanTall3; }
+  .vbot__svg--tall .vbot__part--4 .vbot__scan { animation-name: vbotScanTall4; }
+}
+@keyframes vbotScanTall1 {
+  0%, 7.1%    { opacity: 0; transform: translateX(0); }
+  7.3%        { opacity: 1; transform: translateX(0); }
+  10.1%       { opacity: 1; transform: translateX(28px); }
+  10.3%, 100% { opacity: 0; transform: translateX(28px); }
+}
+@keyframes vbotScanTall2 {
+  0%, 19.3%   { opacity: 0; transform: translateX(0); }
+  19.5%       { opacity: 1; transform: translateX(0); }
+  22.3%       { opacity: 1; transform: translateX(28px); }
+  22.5%, 100% { opacity: 0; transform: translateX(28px); }
+}
+@keyframes vbotScanTall3 {
+  0%, 31.5%   { opacity: 0; transform: translateX(0); }
+  31.7%       { opacity: 1; transform: translateX(0); }
+  34.5%       { opacity: 1; transform: translateX(28px); }
+  34.7%, 100% { opacity: 0; transform: translateX(28px); }
+}
+@keyframes vbotScanTall4 {
+  0%, 43.7%   { opacity: 0; transform: translateX(0); }
+  43.9%       { opacity: 1; transform: translateX(0); }
+  46.7%       { opacity: 1; transform: translateX(28px); }
+  46.9%, 100% { opacity: 0; transform: translateX(28px); }
+}

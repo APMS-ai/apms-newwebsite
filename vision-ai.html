@@ -15,13 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/motion/loader.css?v=2">
-  <link rel="stylesheet" href="css/base/redesign.css?v=22">
-  <link rel="stylesheet" href="css/base/enhance.css?v=29">
+  <link rel="stylesheet" href="css/base/redesign.css?v=24">
+  <link rel="stylesheet" href="css/base/enhance.css?v=30">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/motion/rail.css?v=13">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=9">
-  <link rel="stylesheet" href="css/sections/visionfx.css?v=22">
+  <link rel="stylesheet" href="css/sections/visionfx.css?v=24">
   <link rel="stylesheet" href="css/sections/visioncmp.css?v=2">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
@@ -130,6 +130,64 @@
              delays spaced to the head's real position along the rail.
              ============================================================ -->
         <div class="vbot" data-reveal>
+          <!-- The tall layout, for phones. Same class names as the wide one, so
+               the colours and the tick geometry carry over; the motion needs its
+               own keyframes because the head travels down here rather than
+               across. Rail at x=100, stations at y 78, 168, 258 and 348, and the
+               head runs down the left at x=50 with its light thrown across the
+               box and the label. -->
+          <svg class="vbot__svg vbot__svg--tall" viewBox="0 20 300 400" role="img"
+               aria-label="An inspection head travelling down the line, checking motion tracking, quality, PPE and procedure at each station">
+            <defs>
+              <linearGradient id="vbotConeT" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#2ee0b4" stop-opacity=".55"/>
+                <stop offset="0.72" stop-color="#2ee0b4" stop-opacity=".22"/>
+                <stop offset="1" stop-color="#2ee0b4" stop-opacity=".05"/>
+              </linearGradient>
+            </defs>
+
+            <path class="vbot__rail" d="M100 40 V400"/>
+            <g class="vbot__ticks">
+              <path d="M94 78 h12"/><path d="M94 168 h12"/>
+              <path d="M94 258 h12"/><path d="M94 348 h12"/>
+            </g>
+
+            <g class="vbot__part vbot__part--1">
+              <rect class="vbot__box" x="83" y="61" width="34" height="34" rx="9"/>
+              <rect class="vbot__scan" x="86" y="64" width="2" height="28" rx="1"/>
+              <path class="vbot__tick" pathLength="100" d="M92 78 l6 6 l11 -12"/>
+              <text class="vbot__lbl" x="134" y="83">Motion tracked</text>
+            </g>
+            <g class="vbot__part vbot__part--2">
+              <rect class="vbot__box" x="83" y="151" width="34" height="34" rx="9"/>
+              <rect class="vbot__scan" x="86" y="154" width="2" height="28" rx="1"/>
+              <path class="vbot__tick" pathLength="100" d="M92 168 l6 6 l11 -12"/>
+              <text class="vbot__lbl" x="134" y="173">Quality passed</text>
+            </g>
+            <g class="vbot__part vbot__part--3">
+              <rect class="vbot__box" x="83" y="241" width="34" height="34" rx="9"/>
+              <rect class="vbot__scan" x="86" y="244" width="2" height="28" rx="1"/>
+              <path class="vbot__tick" pathLength="100" d="M92 258 l6 6 l11 -12"/>
+              <text class="vbot__lbl" x="134" y="263">PPE confirmed</text>
+            </g>
+            <g class="vbot__part vbot__part--4">
+              <rect class="vbot__box" x="83" y="331" width="34" height="34" rx="9"/>
+              <rect class="vbot__scan" x="86" y="334" width="2" height="28" rx="1"/>
+              <path class="vbot__tick" pathLength="100" d="M92 348 l6 6 l11 -12"/>
+              <text class="vbot__lbl" x="134" y="353">SOP followed</text>
+            </g>
+
+            <g class="vbot__head vbot__head--tall" style="offset-path:path('M50 78 V348')">
+              <path class="vbot__cone" d="M12 0 L110 -42 L110 42 Z"/>
+              <rect class="vbot__body" x="-30" y="-16" width="42" height="32" rx="9"/>
+              <rect class="vbot__vent" x="-24" y="-9" width="4" height="18" rx="2"/>
+              <circle class="vbot__lens" cx="-5" cy="0" r="7.5"/>
+              <circle class="vbot__pupil" cx="-5" cy="0" r="3"/>
+              <path class="vbot__mast" d="M-30 0 H-42"/>
+              <circle class="vbot__beacon" cx="-45" cy="0" r="3.2"/>
+            </g>
+          </svg>
+
           <!-- viewBox starts at y=32, not 0: the content runs 41 to 148 and a
                  168-tall box left 60 units of dead air above the head -->
             <svg class="vbot__svg" viewBox="0 32 960 140" role="img"
