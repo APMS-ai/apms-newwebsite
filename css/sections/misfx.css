@@ -71,7 +71,18 @@
   74%, 100% { opacity: 0; transform: translate(150px, -14px) scale(.7); }
 }
 
-.mis__inbox { fill: rgba(12,26,40,0.03); stroke: rgba(12,26,40,0.12); stroke-width: 1; }
+/* the envelope: body, flap, and the two seams that fold up to meet it */
+.mis__inbox { fill: rgba(12,26,40,0.03); stroke: rgba(12,26,40,0.16); stroke-width: 1.2; }
+.mis__flap  { stroke: rgba(12,26,40,0.28); stroke-width: 1.4; stroke-linejoin: round; }
+.mis__seam  { stroke: rgba(12,26,40,0.12); stroke-width: 1; }
+/* once it has landed, the envelope is the delivered one: the flap picks up the
+   teal so the eye reads the arrival rather than hunting for the tick */
+[data-reveal].in .mis__flap { animation: misFlap 9s var(--ease-out) infinite; }
+@keyframes misFlap {
+  0%, 72%   { stroke: rgba(12,26,40,0.28); }
+  80%, 94%  { stroke: var(--teal-deep); }
+  100%      { stroke: rgba(12,26,40,0.28); }
+}
 .mis__done { opacity: 0; }
 [data-reveal].in .mis__done { animation: misDone 9s var(--ease-out) infinite; }
 @keyframes misDone { 0%,72% { opacity: 0; } 80%,94% { opacity: 1; } 100% { opacity: 0; } }
@@ -90,7 +101,8 @@
 @keyframes misDay { 0%,16% { opacity: 1; } 17%,100% { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .mis__bar, .mis__row, .mis__tick, .mis__fly, .mis__done, .mis__dayon { animation: none !important; }
+  .mis__bar, .mis__row, .mis__tick, .mis__fly, .mis__done, .mis__dayon,
+  .mis__flap { animation: none !important; }
   .mis__bar { transform: scaleY(1); }
   .mis__row { opacity: 1; transform: none; }
   .mis__tick { stroke-dashoffset: 0; }

@@ -81,3 +81,37 @@
   .faqnav__a { transition: none; }
   .faqnav__a:hover, .faqnav__a:focus-visible { transform: none; }
 }
+
+/* ==========================================================================
+   One white page
+
+   The four question sections alternated paper, dark, paper, dark, with a
+   darker band closing it. On a page that is nothing but forty questions the
+   alternation was doing no work: it broke a single list into four striped
+   blocks and made half the answers white-on-dark for no reason other than
+   rhythm. They are all sec--white now, so the page reads as one document.
+
+   Two things assumed a dark ground and need saying explicitly here, because
+   they were inheriting their colour from .sec--dark:
+   ========================================================================== */
+.faqsec .sec__head h2 { color: var(--ink); }
+.faqmore h2 { color: var(--ink); }
+.faqmore p  { color: var(--body); }
+
+/* The closing block used to sit on the darkest band on the page, which is what
+   separated it from the questions above. On white it needs an edge of its own,
+   so it becomes a panel rather than floating copy. */
+.faqmore {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+/* The ghost button is outlined in white for dark sections. On white it has to
+   take the ink outline the light sections use. */
+.faqmore .btn--ghost {
+  color: var(--ink); border-color: var(--line-strong, rgba(12,26,40,0.22));
+  background: transparent;
+}
+.faqmore .btn--ghost:hover { border-color: var(--teal); color: var(--teal-deep); }

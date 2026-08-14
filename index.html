@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/motion/loader.css?v=2">
   <link rel="stylesheet" href="css/base/redesign.css?v=24">
-  <link rel="stylesheet" href="css/base/enhance.css?v=30">
+  <link rel="stylesheet" href="css/base/enhance.css?v=31">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/base/iconlife.css?v=1">
   <link rel="stylesheet" href="css/base/footer.css?v=9">
@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="css/sections/loop.css?v=5">
   <link rel="stylesheet" href="css/motion/drum.css?v=15">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=4">
-  <link rel="stylesheet" href="css/sections/misfx.css?v=7">
+  <link rel="stylesheet" href="css/sections/misfx.css?v=8">
   <link rel="stylesheet" href="css/sections/analyst.css?v=16">
   <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
   <link rel="stylesheet" href="css/sections/premiumfx.css?v=13">
@@ -132,7 +132,7 @@
         <div class="hero__copy">
           <span class="kicker">Industrial Intelligence Platform</span>
           <h1>Connect Machines<em style="white-space:nowrap">Anywhere &amp; Anytime</em></h1>
-          <p class="hero__sub">APMS connects every machine, camera and controller on your floor into one real-time intelligence layer, so your team catches problems before they cost a shift, not after the report lands.</p>
+          <p class="hero__sub">Every machine, camera and controller on one live layer, so problems surface during the shift, not in the report after it.</p>
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="contact.html">Book a Demo
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -1078,8 +1078,14 @@
               <rect x="188" y="92" width="34" height="26" rx="4" fill="rgba(23,201,155,0.18)" stroke="#17c99b" stroke-width="1.2"/>
               <path d="M194 100h22M194 106h16M194 112h12" stroke="#2ee0b4" stroke-width="1.6" stroke-linecap="round"/>
             </g>
+            <!-- An envelope, not a panel with three grey lines in it. The point of
+                 this half of the picture is that the report arrives by email, and a
+                 rounded rectangle says "a box" at best. The flap is drawn as its own
+                 path over the body so the two can be lit separately, and the whole
+                 thing keeps the same 264,60 origin the delivered state is drawn to. -->
             <rect class="mis__inbox" x="264" y="60" width="136" height="86" rx="10"/>
-            <path d="M276 84h48M276 96h64M276 108h40" stroke="rgba(255,255,255,0.16)" stroke-width="2" stroke-linecap="round"/>
+            <path class="mis__flap" d="M264 70 L332 112 L400 70" fill="none"/>
+            <path class="mis__seam" d="M264 136 L310 100 M400 136 L354 100" fill="none"/>
             <text class="mis__ttl" x="264" y="52">Inbox</text>
             <g class="mis__done">
               <rect class="mis__donebox" x="264" y="60" width="136" height="86" rx="10"/>
