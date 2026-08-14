@@ -60,6 +60,15 @@
   /* the copy stays above all of it */
   .hero__inner { z-index: 3; }
 
+  /* The scroll cue is pinned 1.6rem off the bottom of a hero that is exactly
+     one screen tall, so on any phone that is not the tallest it lands on the
+     buttons: measured, its line runs through "Explore the Platform" at
+     390x780, 360x780, 360x740 and 360x640, and clears them only at 390x844
+     and 414x896. It goes here rather than being nudged, because a hint to
+     scroll is the one thing a touch screen does not need: the gesture is the
+     first thing anyone tries. Desktop keeps it, where it has the room. */
+  .hero__scroll { display: none; }
+
   /* A sheen across the whole heading was tried here and removed: with the
      words split into their own spans by scroll-text.js, background-clip: text
      on the h1 clipped the first line away entirely. The heading keeps the
