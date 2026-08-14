@@ -41,7 +41,27 @@
 
   var hero = document.querySelector(".phero") || document.querySelector(".hero");
   if (hero && !reduce && heavyOk && hasWebGL()) {
-    need(["js/vendor/three.min.js", "js/vendor/vanta.net.min.js"], startVanta);
+    /* After the page has loaded, and then only when the browser is idle.
+       three.js is 601 KB, 148 KB of it over the wire, and it was being fetched
+       while the page was still assembling itself: measured, it pushed
+       DOMContentLoaded out to 2.34s on a local server with nothing else
+       competing. It decorates the hero. It can wait for everything that does
+       not.
+
+       The 2500ms cap is there because requestIdleCallback can be a long time
+       coming on a busy page, and a hero that never fills in is worse than one
+       that fills in late. */
+    var started = false;
+    var kick = function () {
+      if (started) return; started = true;
+      need(["js/vendor/three.min.js", "js/vendor/vanta.net.min.js"], startVanta);
+    };
+    var queue = function () {
+      if (window.requestIdleCallback) requestIdleCallback(kick, { timeout: 2500 });
+      else setTimeout(kick, 900);
+    };
+    if (document.readyState === "complete") queue();
+    else window.addEventListener("load", queue, { once: true });
   }
 
   function startVanta() {

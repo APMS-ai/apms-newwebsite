@@ -23,7 +23,7 @@ editing here: the hand-kept version drifted and left five
 stylesheets off, which shipped a site with broken styling.
 
 ----------------------------------------
-84 files
+85 files
 ----------------------------------------
 
   .htaccess
@@ -41,6 +41,7 @@ stylesheets off, which shipped a site with broken styling.
   vision-ai.html
   assets/apms-logo.png
   assets/apms-mark.png
+  assets/apms-og.png
   css/base/cardmotion.css
   css/base/enhance.css
   css/base/footer.css
