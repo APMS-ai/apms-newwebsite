@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="css/motion/drum.css?v=15">
   <link rel="stylesheet" href="css/sections/maintnew.css?v=4">
   <link rel="stylesheet" href="css/sections/misfx.css?v=8">
-  <link rel="stylesheet" href="css/sections/analyst.css?v=16">
+  <link rel="stylesheet" href="css/sections/analyst.css?v=17">
   <link rel="stylesheet" href="css/base/cardmotion.css?v=3">
   <link rel="stylesheet" href="css/sections/premiumfx.css?v=13">
   <link rel="stylesheet" href="css/sections/appsvg.css?v=12">
@@ -1156,73 +1156,66 @@
         <div class="anl" data-analyst data-reveal>
           <div class="anl__phone">
             <div class="anl__glow">
-              <svg viewBox="0 0 300 176" role="img" aria-label="OEE, downtime and quality data flowing into TARA, which answers back" preserveAspectRatio="xMidYMid meet">
-                <path class="anl__feed" d="M18 18 L118.4 78.8"/>
-                <text class="anl__lbl anl__lbl--1" x="18" y="3" text-anchor="start">OEE</text>
-                <path class="anl__feed" d="M150 18 V61"/>
-                <text class="anl__lbl anl__lbl--2" x="150" y="3" text-anchor="middle">DOWNTIME</text>
-                <path class="anl__feed" d="M282 18 L181.6 78.8"/>
-                <text class="anl__lbl anl__lbl--3" x="282" y="3" text-anchor="end">QUALITY</text>
-                <!-- A light runs the lane ahead of each packet. These are separate
-                     paths laid over the feeds, so the feed itself is never the thing
-                     being animated and can never blink to empty (CLAUDE.md #7).
-                     pathLength="100" normalises all three, so one dash rule fits
-                     lanes of different real lengths. -->
-                <path class="anl__trail anl__trail--1" pathLength="100" d="M18 18 L118.4 78.8"/>
-                <path class="anl__trail anl__trail--2" pathLength="100" d="M150 18 V61"/>
-                <path class="anl__trail anl__trail--3" pathLength="100" d="M282 18 L181.6 78.8"/>
-                <circle class="anl__pkt anl__pkt--1" r="3" style="offset-path:path('M18 18 L118.4 78.8')"/>
-                <circle class="anl__pkt anl__pkt--2" r="3" style="offset-path:path('M150 18 V61')"/>
-                <circle class="anl__pkt anl__pkt--3" r="3" style="offset-path:path('M282 18 L181.6 78.8')"/>
-                <!-- a second, smaller packet per lane, half a beat behind, so the
-                     flow reads as a stream rather than three lonely dots -->
-                <circle class="anl__pkt anl__pkt--1b" r="1.9" style="offset-path:path('M18 18 L118.4 78.8')"/>
-                <circle class="anl__pkt anl__pkt--2b" r="1.9" style="offset-path:path('M150 18 V61')"/>
-                <circle class="anl__pkt anl__pkt--3b" r="1.9" style="offset-path:path('M282 18 L181.6 78.8')"/>
-                <!-- Each source now says what it is and moves in its own way, so the
-                     three lanes are not one animation repeated three times: OEE is a
-                     gauge that sweeps as it reports, downtime is two bars that stop and
-                     a ring that pulses, quality is a tick that draws. All three are on
-                     the same 4.4s clock as the packet in their own lane. -->
-                <g class="anl__src anl__src--1" transform="translate(18,18)">
-                  <circle class="anl__srcring" r="9.5"/>
-                  <path class="anl__gaugetrack" d="M-5.5 2.6 A 6 6 0 1 1 5.5 2.6"/>
-                  <path class="anl__gauge" pathLength="100" d="M-5.5 2.6 A 6 6 0 1 1 5.5 2.6"/>
-                  <rect class="anl__needle" x="-0.7" y="-3.4" width="1.4" height="6" rx="0.7"/>
+              <!-- Noise in, an answer out. The three sources feed one live trace,
+                   the trace passes through TARA's aperture, and what comes out the
+                   other side is a written answer rather than another number.
+                   viewBox 300 x 176, authored at the size it renders. -->
+              <svg viewBox="0 0 300 176" role="img" preserveAspectRatio="xMidYMid meet"
+                   aria-label="OEE, downtime and quality feeding a live signal into TARA, which writes back an answer in words">
+                <defs>
+                  <linearGradient id="anlFade" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#2ee0b4" stop-opacity="0"/>
+                    <stop offset="0.35" stop-color="#2ee0b4" stop-opacity=".85"/>
+                    <stop offset="1" stop-color="#2ee0b4" stop-opacity=".85"/>
+                  </linearGradient>
+                  <radialGradient id="anlCore" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="#2ee0b4" stop-opacity=".30"/>
+                    <stop offset="1" stop-color="#2ee0b4" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- the three sources, stacked, each with its own lead into the trace -->
+                <g class="anl__src anl__src--1">
+                  <text class="anl__lbl" x="46" y="34" text-anchor="end">OEE</text>
+                  <path class="anl__lead" d="M52 30 H66 Q74 30 74 42 V80"/>
+                  <circle class="anl__seed" cx="74" cy="80" r="2.6"/>
                 </g>
-                <g class="anl__src anl__src--2" transform="translate(150,18)">
-                  <circle class="anl__srcpulse" r="9.5"/>
-                  <circle class="anl__srcring" r="9.5"/>
-                  <rect class="anl__stopbar anl__stopbar--l" x="-3.8" y="-4" width="2.8" height="8" rx="1.2"/>
-                  <rect class="anl__stopbar anl__stopbar--r" x="1" y="-4" width="2.8" height="8" rx="1.2"/>
+                <g class="anl__src anl__src--2">
+                  <text class="anl__lbl" x="46" y="92" text-anchor="end">DOWNTIME</text>
+                  <path class="anl__lead" d="M52 88 H74"/>
+                  <circle class="anl__seed" cx="74" cy="88" r="2.6"/>
                 </g>
-                <g class="anl__src anl__src--3" transform="translate(282,18)">
-                  <circle class="anl__srcring" r="9.5"/>
-                  <path class="anl__qticktrack" d="M-4.2 0.2 L-1.2 3.4 L4.4 -3.6"/>
-                  <path class="anl__qtick" pathLength="100" d="M-4.2 0.2 L-1.2 3.4 L4.4 -3.6"/>
+                <g class="anl__src anl__src--3">
+                  <text class="anl__lbl" x="46" y="150" text-anchor="end">QUALITY</text>
+                  <path class="anl__lead" d="M52 146 H66 Q74 146 74 134 V96"/>
+                  <circle class="anl__seed" cx="74" cy="96" r="2.6"/>
                 </g>
-                <!-- TARA holds a slow scanning ring of her own, so the centre is alive
-                     between answers rather than only when the third packet lands -->
-                <circle class="anl__scan" cx="150" cy="98" r="45"/>
-                <circle class="anl__halo" cx="150" cy="98" r="38"/>
-                <circle class="anl__halo anl__halo--2" cx="150" cy="98" r="38"/>
-                <circle class="anl__orb" cx="150" cy="98" r="38"/>
-                <!-- The filled core used to sit here, a 6.5r teal disc at exactly
-                     150,98. The name now occupies that spot, so the disc was
-                     directly behind the letters and washed them out. The two halo
-                     rings already give the orb its pulse. -->
-                <rect class="anl__plate" x="112" y="86" width="76" height="26" rx="13"/>
-                <text class="anl__name anl__name--orb" x="150" y="104">TARA</text>
-                <!-- The answer coming back out. The three lanes above only showed
-                     data arriving, which is half of what the copy beside this claims:
-                     TARA is asked something and answers. The bubble is a chat reply
-                     because this whole block is a phone with a conversation in it, and
-                     it says ANSWER rather than a number, because a number here would be
-                     a result nobody can point at. -->
-                <g class="anl__ans">
-                  <path class="anl__anstail" d="M143 142 L150 134 L157 142 Z"/>
-                  <rect class="anl__ansbox" x="96" y="141" width="108" height="25" rx="8"/>
-                  <text class="anl__anslbl" x="150" y="157" text-anchor="middle">ANSWER</text>
+
+                <!-- the live trace: a static ghost so the line never blinks empty,
+                     and a bright segment that scrolls along it into the aperture -->
+                <path class="anl__wave anl__wave--ghost"
+                      d="M76 88 l6 -13 l5 22 l6 -26 l5 17 l6 -9 l5 14 l6 -19 l5 11 l6 -6 l5 9 l6 -12 l5 5 H126"/>
+                <path class="anl__wave anl__wave--live" pathLength="100"
+                      d="M76 88 l6 -13 l5 22 l6 -26 l5 17 l6 -9 l5 14 l6 -19 l5 11 l6 -6 l5 9 l6 -12 l5 5 H126"/>
+
+                <!-- the aperture -->
+                <circle class="anl__core" cx="150" cy="88" r="34" fill="url(#anlCore)"/>
+                <circle class="anl__iris anl__iris--1" cx="150" cy="88" r="26"/>
+                <circle class="anl__iris anl__iris--2" cx="150" cy="88" r="26"/>
+                <circle class="anl__ring" cx="150" cy="88" r="26"/>
+                <path class="anl__arc" pathLength="100"
+                      d="M150 62 a26 26 0 1 1 -0.1 0"/>
+                <text class="anl__name" x="150" y="92">TARA</text>
+
+                <!-- and out the other side, in words -->
+                <path class="anl__out" pathLength="100" d="M178 88 H196"/>
+                <g class="anl__card">
+                  <rect class="anl__cardbox" x="196" y="58" width="96" height="60" rx="10"/>
+                  <path class="anl__line anl__line--1" pathLength="100" d="M208 76 H272"/>
+                  <path class="anl__line anl__line--2" pathLength="100" d="M208 88 H280"/>
+                  <path class="anl__line anl__line--3" pathLength="100" d="M208 100 H250"/>
+                  <circle class="anl__badge" cx="272" cy="104" r="9"/>
+                  <path class="anl__badgetick" pathLength="100" d="M268 104 l3 3 l5.5 -6"/>
                 </g>
               </svg>
             </div>

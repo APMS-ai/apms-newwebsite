@@ -41,167 +41,127 @@
 .anl__glow svg { width: 100%; height: auto; display: block; overflow: visible; }
 .anl__glow * { transform-box: view-box; }
 
-/* Solid, and straight. At 0.14 alpha on a 1.4 stroke the three lanes were
-   barely there, and two of them were beziers that sagged toward the orb, so
-   the diagram read as vague rather than wired. Straight runs now, stopping
-   at the ring, in teal at an alpha you can actually see. */
-.anl__feed { fill: none; stroke: rgba(46,224,180,0.46); stroke-width: 2; stroke-linecap: round; }
+/* ==========================================================================
+   ONE CLOCK, 4.4s, NO DELAYS ON THE ELEMENTS THAT RESET
+
+   Noise in, an answer out, in four beats:
+
+     0 to 30%    the three sources light in turn and seed the trace
+     18 to 52%   the bright segment scrolls along the trace into the aperture
+     52 to 66%   the aperture closes on it: the iris pulses, the arc completes
+     62 to 92%   the answer writes itself, three lines then the tick
+
+   Every element carries the whole 4.4s and does nothing until its own window,
+   rather than sharing one short animation on different delays. A delay moves
+   the reset as well as the start, which is how the old version ended up
+   showing its answer before the data had arrived on the second pass.
+   ========================================================================== */
+
+/* ---------- the three sources ---------- */
 .anl__lbl {
-  font-family: var(--display); font-weight: 800; font-size: 11px;
-  letter-spacing: .14em; text-transform: uppercase; fill: rgba(255,255,255,0.5);
+  font-family: var(--display); font-weight: 800; font-size: 9.5px;
+  letter-spacing: .12em; text-transform: uppercase; fill: rgba(255,255,255,0.45);
 }
-/* the lines never animate, only what travels on them, so the diagram still
-   reads when it is paused off screen or under reduced motion */
-/* ==========================================================================
-   ONE CLOCK, 4.4s, NO DELAYS
-   Three sources report in turn, each label lights as its packet lands, the orb
-   pulses once it holds all three, then TARA answers and it clears. It used to
-   be four loops on four different animation-delays, resetting at four
-   different moments, so the answer could show before the data arrived.
-   ========================================================================== */
-.anl__pkt { fill: var(--teal-bright); }
-[data-reveal].in .anl__pkt--1 { animation: anlPkt1 4.4s linear infinite; }
-[data-reveal].in .anl__pkt--2 { animation: anlPkt2 4.4s linear infinite; }
-[data-reveal].in .anl__pkt--3 { animation: anlPkt3 4.4s linear infinite; }
+.anl__lead { fill: none; stroke: rgba(46,224,180,0.28); stroke-width: 1.4; }
+.anl__seed { fill: var(--teal-bright); opacity: 0; }
 
-@keyframes anlPkt1 {
-  0%, 4%    { opacity: 0; offset-distance: 0%; }
-  6%         { opacity: 1; offset-distance: 6%; }
-  28%         { opacity: 1; offset-distance: 94%; }
-  30%, 100%  { opacity: 0; offset-distance: 100%; }
-}
-@keyframes anlPkt2 {
-  0%, 16%    { opacity: 0; offset-distance: 0%; }
-  18%         { opacity: 1; offset-distance: 6%; }
-  40%         { opacity: 1; offset-distance: 94%; }
-  42%, 100%  { opacity: 0; offset-distance: 100%; }
-}
-@keyframes anlPkt3 {
-  0%, 28%    { opacity: 0; offset-distance: 0%; }
-  30%         { opacity: 1; offset-distance: 6%; }
-  52%         { opacity: 1; offset-distance: 94%; }
-  54%, 100%  { opacity: 0; offset-distance: 100%; }
-}
+[data-reveal].in .anl__lbl--x { animation: none; }
+[data-reveal].in .anl__src--1 .anl__lbl  { animation: anlLbl1 4.4s linear infinite; }
+[data-reveal].in .anl__src--2 .anl__lbl  { animation: anlLbl2 4.4s linear infinite; }
+[data-reveal].in .anl__src--3 .anl__lbl  { animation: anlLbl3 4.4s linear infinite; }
+[data-reveal].in .anl__src--1 .anl__seed { animation: anlSeed1 4.4s ease-out infinite; }
+[data-reveal].in .anl__src--2 .anl__seed { animation: anlSeed2 4.4s ease-out infinite; }
+[data-reveal].in .anl__src--3 .anl__seed { animation: anlSeed3 4.4s ease-out infinite; }
 
-/* each source label lights as its own packet lands, and holds to the reset */
-[data-reveal].in .anl__lbl--1 { animation: anlLbl1 4.4s linear infinite; }
-[data-reveal].in .anl__lbl--2 { animation: anlLbl2 4.4s linear infinite; }
-[data-reveal].in .anl__lbl--3 { animation: anlLbl3 4.4s linear infinite; }
+@keyframes anlLbl1 { 0%, 6%  { fill: rgba(255,255,255,0.45); } 9%, 92% { fill: var(--teal-bright); } 97%, 100% { fill: rgba(255,255,255,0.45); } }
+@keyframes anlLbl2 { 0%, 14% { fill: rgba(255,255,255,0.45); } 17%, 92% { fill: var(--teal-bright); } 97%, 100% { fill: rgba(255,255,255,0.45); } }
+@keyframes anlLbl3 { 0%, 22% { fill: rgba(255,255,255,0.45); } 25%, 92% { fill: var(--teal-bright); } 97%, 100% { fill: rgba(255,255,255,0.45); } }
+/* each seed flares as its source reports, then fades into the trace */
+@keyframes anlSeed1 { 0%, 6%  { opacity: 0; } 9% { opacity: 1; } 20%, 100% { opacity: 0; } }
+@keyframes anlSeed2 { 0%, 14% { opacity: 0; } 17% { opacity: 1; } 28%, 100% { opacity: 0; } }
+@keyframes anlSeed3 { 0%, 22% { opacity: 0; } 25% { opacity: 1; } 36%, 100% { opacity: 0; } }
 
-@keyframes anlLbl1 {
-  0%, 30%      { fill: rgba(255,255,255,0.5); }
-  32%, 92%   { fill: var(--teal-bright); }
-  98%, 100%    { fill: rgba(255,255,255,0.5); }
-}
-@keyframes anlLbl2 {
-  0%, 42%      { fill: rgba(255,255,255,0.5); }
-  44%, 92%   { fill: var(--teal-bright); }
-  98%, 100%    { fill: rgba(255,255,255,0.5); }
-}
-@keyframes anlLbl3 {
-  0%, 54%      { fill: rgba(255,255,255,0.5); }
-  56%, 92%   { fill: var(--teal-bright); }
-  98%, 100%    { fill: rgba(255,255,255,0.5); }
+/* ---------- the live trace ----------
+   Two paths on the same geometry: a static ghost that is always there, and a
+   bright dash that travels it. The base stroke is never the thing being
+   animated, so the trace can never blink to empty (CLAUDE.md #7). */
+.anl__wave { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.anl__wave--ghost { stroke: rgba(255,255,255,0.13); stroke-width: 1.6; }
+.anl__wave--live  { stroke: url(#anlFade); stroke-width: 2.2;
+                    stroke-dasharray: 26 100; stroke-dashoffset: 26; opacity: 0; }
+[data-reveal].in .anl__wave--live { animation: anlWave 4.4s linear infinite; }
+@keyframes anlWave {
+  0%, 16%   { stroke-dashoffset: 26; opacity: 0; }
+  20%       { opacity: 1; }
+  50%       { stroke-dashoffset: -100; opacity: 1; }
+  54%, 100% { stroke-dashoffset: -100; opacity: 0; }
 }
 
-/* ==========================================================================
-   THE THREE SOURCES, EACH WITH ITS OWN SIGNATURE
-   The lanes were identical: three dots on three lines, three labels lighting
-   the same way. Each source now behaves like the thing it measures, on the
-   same 4.4s clock, in the window where its own packet is travelling.
-     OEE       a gauge sweeps and its needle swings across (4% to 28%)
-     DOWNTIME  the bars stop dead and the ring pulses out (16% to 40%)
-     QUALITY   a tick draws itself (28% to 52%)
-   The rings and the gauge track are static: they are the base strokes, and
-   base strokes never animate away (CLAUDE.md #7).
-   ========================================================================== */
-.anl__srcring    { fill: rgba(4,18,28,0.72); stroke: rgba(46,224,180,0.42); stroke-width: 1.2; }
-.anl__gaugetrack { fill: none; stroke: rgba(46,224,180,0.22); stroke-width: 2; stroke-linecap: round; }
-.anl__gauge      { fill: none; stroke: var(--teal-bright); stroke-width: 2; stroke-linecap: round;
-                   stroke-dasharray: 100; stroke-dashoffset: 100; }
-.anl__needle     { fill: rgba(255,255,255,0.78);
-                   transform-box: fill-box; transform-origin: center bottom;
-                   transform: rotate(-84deg); }
-.anl__stopbar    { fill: rgba(255,255,255,0.55); }
-.anl__srcpulse   { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0;
-                   transform-box: fill-box; transform-origin: center; }
-.anl__qticktrack { fill: none; stroke: rgba(46,224,180,0.22); stroke-width: 1.8;
-                   stroke-linecap: round; stroke-linejoin: round; }
-.anl__qtick      { fill: none; stroke: var(--teal-bright); stroke-width: 1.8;
-                   stroke-linecap: round; stroke-linejoin: round;
-                   stroke-dasharray: 100; stroke-dashoffset: 100; }
-
-[data-reveal].in .anl__gauge { animation: anlGauge 4.4s var(--ease-out) infinite; }
-[data-reveal].in .anl__needle    { animation: anlNeedle 4.4s var(--ease-out) infinite; }
-[data-reveal].in .anl__stopbar   { animation: anlStop 4.4s steps(1,end) infinite; }
-[data-reveal].in .anl__stopbar--r{ animation-delay: .22s; }
-[data-reveal].in .anl__srcpulse  { animation: anlSrcPulse 4.4s ease-out infinite; }
-[data-reveal].in .anl__qtick     { animation: anlQtick 4.4s var(--ease-out) infinite; }
-
-@keyframes anlGauge  { 0%,4% { stroke-dashoffset: 100; } 28%,92% { stroke-dashoffset: 0; } 98%,100% { stroke-dashoffset: 100; } }
-@keyframes anlNeedle { 0%,4% { transform: rotate(-84deg); } 28%,92% { transform: rotate(84deg); } 98%,100% { transform: rotate(-84deg); } }
-@keyframes anlStop   { 0%,16% { fill: rgba(255,255,255,0.35); } 18%,92% { fill: var(--teal-bright); } 94%,100% { fill: rgba(255,255,255,0.35); } }
-@keyframes anlSrcPulse {
-  0%, 16%   { opacity: 0; transform: scale(.7); }
-  22%       { opacity: .55; }
-  40%, 100% { opacity: 0; transform: scale(1.7); }
+/* ---------- the aperture ---------- */
+.anl__core { opacity: .5; }
+.anl__ring { fill: rgba(4,18,28,0.55); stroke: var(--teal); stroke-width: 1.6; }
+/* two rings that close inward as the signal lands, rather than a halo that
+   pulses outward on its own timer */
+.anl__iris { fill: none; stroke: var(--teal-bright); stroke-width: 1.2; opacity: 0;
+             transform-origin: 150px 88px; }
+[data-reveal].in .anl__iris--1 { animation: anlIris1 4.4s ease-out infinite; }
+[data-reveal].in .anl__iris--2 { animation: anlIris2 4.4s ease-out infinite; }
+@keyframes anlIris1 {
+  0%, 46%   { opacity: 0; transform: scale(1.75); }
+  54%       { opacity: .65; }
+  64%, 100% { opacity: 0; transform: scale(1); }
 }
-@keyframes anlQtick  { 0%,28% { stroke-dashoffset: 100; } 46%,92% { stroke-dashoffset: 0; } 98%,100% { stroke-dashoffset: 100; } }
+@keyframes anlIris2 {
+  0%, 52%   { opacity: 0; transform: scale(1.9); }
+  60%       { opacity: .45; }
+  70%, 100% { opacity: 0; transform: scale(1); }
+}
+/* the arc closes around the ring as the three sources land: a progress bar
+   that happens to be a circle, so the wait reads as work rather than a wobble */
+.anl__arc { fill: none; stroke: var(--teal-bright); stroke-width: 2.4;
+            stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100;
+            transform-origin: 150px 88px; }
+[data-reveal].in .anl__arc { animation: anlArc 4.4s var(--ease-out) infinite; }
+@keyframes anlArc {
+  0%, 8%    { stroke-dashoffset: 100; }
+  58%, 92%  { stroke-dashoffset: 0; }
+  97%, 100% { stroke-dashoffset: 100; }
+}
+.anl__name { font-family: var(--display); font-weight: 900; font-size: 15px;
+             letter-spacing: .14em; fill: #fff; text-anchor: middle; }
 
-.anl__orb  { fill: rgba(23,201,155,0.10); stroke: var(--teal); stroke-width: 1.6; }
-/* TARA's own scanning ring: a dashed circle turning slowly, so the centre reads
-   as listening the whole time rather than only when a packet lands */
-.anl__scan { fill: none; stroke: rgba(46,224,180,0.34); stroke-width: 1.1;
-             stroke-dasharray: 3 13; stroke-linecap: round;
-             transform-origin: 150px 98px; }
-[data-reveal].in .anl__scan { animation: anlScan 16s linear infinite; }
-@keyframes anlScan { to { transform: rotate(360deg); } }
-/* .anl__core was a filled teal disc at the orb's exact centre. TARA's lettering
-   now sits there and the disc was showing through it, so the disc is gone. The
-   name gets a dark plate behind it instead: the orb's own fill is only 10% teal
-   over a section background that varies, and white 17px letters need something
-   definite behind them. */
-.anl__plate { fill: rgba(4,18,28,0.72); }
-/* the orb acknowledges the third arrival rather than pulsing on its own timer */
-.anl__halo { fill: none; stroke: var(--teal); stroke-width: 1.4; opacity: 0;
-             transform-origin: 150px 98px; }
-[data-reveal].in .anl__halo    { animation: anlHalo 4.4s ease-out infinite; }
-[data-reveal].in .anl__halo--2 { animation: anlHalo2 4.4s ease-out infinite; }
-@keyframes anlHalo {
-  0%, 54%   { opacity: 0; transform: scale(.85); }
-  62%       { opacity: .5; }
-  86%, 100% { opacity: 0; transform: scale(1.5); }
-}
-@keyframes anlHalo2 {
-  0%, 60%   { opacity: 0; transform: scale(.85); }
-  68%       { opacity: .35; }
-  90%, 100% { opacity: 0; transform: scale(1.6); }
-}
+/* ---------- and out the other side, in words ---------- */
+.anl__out { fill: none; stroke: var(--teal); stroke-width: 1.8; stroke-linecap: round;
+            stroke-dasharray: 100; stroke-dashoffset: 100; }
+[data-reveal].in .anl__out { animation: anlOut 4.4s var(--ease-out) infinite; }
+@keyframes anlOut { 0%, 56% { stroke-dashoffset: 100; } 64%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
 
-.anl__name { font-family: var(--display); font-weight: 900; font-size: 12.5px;
-             letter-spacing: .08em; fill: #fff; text-anchor: middle; }
-/* TARA is four characters, so it sits inside the orb rather than on two lines
-   underneath it the way APMS / ANALYST had to. That frees the bottom of the
-   board for the reply. */
-.anl__name--orb { font-size: 17px; letter-spacing: .14em; }
+.anl__cardbox { fill: rgba(23,201,155,0.08); stroke: var(--teal); stroke-width: 1.3; opacity: 0; }
+[data-reveal].in .anl__cardbox { animation: anlCard 4.4s var(--ease-out) infinite; }
+@keyframes anlCard { 0%, 58% { opacity: 0; } 66%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
 
-/* ---------- the answer coming back out ---------- */
-.anl__ansbox  { fill: rgba(23,201,155,0.12); stroke: var(--teal); stroke-width: 1.4; }
-.anl__anstail { fill: rgba(23,201,155,0.12); stroke: none; }
-.anl__anslbl  {
-  font-family: var(--display); font-weight: 800; font-size: 9px;
-  letter-spacing: .18em; fill: var(--teal-bright);
-}
-/* On the same 3.2s clock as the packets and with no delay of its own, showing
-   from 52% to 88% so it arrives after the inbound packets are on their way
-   rather than alongside them. */
-.anl__ans { opacity: 0; }
-[data-reveal].in .anl__ans { animation: anlAns 4.4s ease-out infinite; }
-@keyframes anlAns {
-  0%, 60%     { opacity: 0; transform: translateY(6px); }
-  70%, 92% { opacity: 1; transform: translateY(0); }
-  98%, 100% { opacity: 0; transform: translateY(0); }
-}
+/* the three lines write themselves, left to right, one after another. This is
+   the whole point of the picture: what comes back is written, not another
+   number on another dial. */
+.anl__line { fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 2.4;
+             stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+.anl__line--2 { stroke: rgba(255,255,255,0.42); }
+.anl__line--3 { stroke: rgba(255,255,255,0.30); }
+[data-reveal].in .anl__line--1 { animation: anlLine1 4.4s var(--ease-out) infinite; }
+[data-reveal].in .anl__line--2 { animation: anlLine2 4.4s var(--ease-out) infinite; }
+[data-reveal].in .anl__line--3 { animation: anlLine3 4.4s var(--ease-out) infinite; }
+@keyframes anlLine1 { 0%, 64% { stroke-dashoffset: 100; } 72%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
+@keyframes anlLine2 { 0%, 70% { stroke-dashoffset: 100; } 78%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
+@keyframes anlLine3 { 0%, 76% { stroke-dashoffset: 100; } 84%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
+
+.anl__badge { fill: var(--teal); opacity: 0; }
+.anl__badgetick { fill: none; stroke: #04231c; stroke-width: 2.2;
+                  stroke-linecap: round; stroke-linejoin: round;
+                  stroke-dasharray: 100; stroke-dashoffset: 100; }
+[data-reveal].in .anl__badge     { animation: anlBadge 4.4s var(--ease-out) infinite; }
+[data-reveal].in .anl__badgetick { animation: anlBadgeTick 4.4s var(--ease-out) infinite; }
+@keyframes anlBadge     { 0%, 80% { opacity: 0; } 86%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
+@keyframes anlBadgeTick { 0%, 84% { stroke-dashoffset: 100; } 90%, 92% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 100; } }
 
 /* ---------- the screen: the conversation, fused to the same rectangle ---------- */
 .anl__screen {
@@ -310,23 +270,18 @@
   .anl__phone { min-height: 660px; border-radius: 36px; }
 }
 
+/* The informative frame is the end of the sequence: all three sources have
+   reported, the arc is closed, and the answer is written. Nothing travels,
+   nothing scrolls, and the trace shows only its static ghost. */
 @media (prefers-reduced-motion: reduce) {
-  .anl__pkt, .anl__halo, .anl__dots i, .anl__ans, .anl__lbl,
-  .anl__gauge, .anl__needle, .anl__stopbar, .anl__srcpulse, .anl__qtick,
-  .anl__scan { animation: none !important; }
-  /* each source shown as it reads once it has reported: the gauge full, the
-     needle at its stop, the tick drawn. Nothing travels and nothing rotates. */
-  .anl__gauge { stroke-dashoffset: 0; }
-  .anl__needle { transform: rotate(84deg); }
-  .anl__stopbar { fill: var(--teal-bright); }
-  .anl__srcpulse { opacity: 0; }
-  .anl__qtick { stroke-dashoffset: 0; }
-  /* all three sources read as reported, which is the informative frame */
+  .anl__lbl, .anl__seed, .anl__wave--live, .anl__iris, .anl__arc, .anl__out,
+  .anl__cardbox, .anl__line, .anl__badge, .anl__badgetick, .anl__dots i,
+  .anl__msg { animation: none !important; }
   .anl__lbl { fill: var(--teal-bright); }
-  .anl__pkt { opacity: 1; offset-distance: 90%; }
-  /* the answer is the informative frame, so it stays: still, and already there */
-  .anl__ans { opacity: 1; transform: none; }
-  .anl__halo { opacity: 0; }
-  .anl__msg { animation: none; }
+  .anl__seed { opacity: 1; }
+  .anl__wave--live { opacity: 0; }
+  .anl__iris { opacity: 0; }
+  .anl__arc, .anl__out, .anl__line, .anl__badgetick { stroke-dashoffset: 0; }
+  .anl__cardbox, .anl__badge { opacity: 1; }
   .anl__send:hover { transform: none; }
 }
