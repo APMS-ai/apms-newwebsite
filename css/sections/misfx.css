@@ -75,12 +75,16 @@
   78%, 100% { opacity: 0; transform: translate(127px, 18px) scale(.72); }
 }
 
-/* the envelope: three solid facets of the one teal, dark at the back and
-   brightest on the lid, which is what gives a flat envelope its depth without
-   a single gradient or shadow */
-.mis__body  { fill: var(--teal-deep); }
-.mis__front { fill: var(--teal); }
-.mis__flap  { fill: var(--teal-bright); }
+/* The envelope is blue, by request, and it is the one deliberate exception to
+   the teal everywhere else on this page: mail is blue in every mail client
+   anyone here uses, and against a board full of teal charts the blue is what
+   makes it read as "this leaves the product" rather than as another widget.
+
+   Three solid facets, dark at the back and brightest on the lid, which is what
+   gives a flat envelope its depth without a single gradient or shadow. */
+.mis__body  { fill: #0b63b0; }
+.mis__front { fill: #1a86e0; }
+.mis__flap  { fill: #38b6f5; }
 /* The flap opens to take the report and closes again behind it.
 
    scaleY(-1) about the hinge is the whole trick: the flap is drawn as a V
