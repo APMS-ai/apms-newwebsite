@@ -19,9 +19,9 @@
   <link rel="stylesheet" href="css/base/enhance.css?v=31">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
   <link rel="stylesheet" href="css/motion/rail.css?v=13">
-  <link rel="stylesheet" href="css/base/iconlife.css?v=1">
+  <link rel="stylesheet" href="css/base/iconlife.css?v=2">
   <link rel="stylesheet" href="css/base/footer.css?v=9">
-  <link rel="stylesheet" href="css/sections/motionfx.css?v=16">
+  <link rel="stylesheet" href="css/sections/motionfx.css?v=17">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
   <link rel="stylesheet" href="css/motion/motion.css?v=7">
@@ -140,7 +140,9 @@
             <text class="mf__sub" x="76" y="246">Infeed</text>
             <rect class="mf__part" x="80" y="188" width="26" height="18" rx="3"/>
             <rect class="mf__part" x="112" y="188" width="26" height="18" rx="3"/>
-            <rect class="mf__part" x="144" y="188" width="26" height="18" rx="3"/>
+            <!-- the one this cycle takes: three waiting becomes two the moment
+                 the gripper closes on it -->
+            <rect class="mf__part mf__part--take" x="144" y="188" width="26" height="18" rx="3"/>
             <rect class="mf__bin" x="574" y="176" width="120" height="52" rx="7"/>
             <text class="mf__sub" x="584" y="246">Outfeed</text>
             <rect class="mf__part--set" x="588" y="188" width="26" height="18" rx="3"/>
@@ -148,9 +150,9 @@
             <rect class="mf__part--done" x="652" y="188" width="26" height="18" rx="3"/>
             <g class="mf__carriage">
               <g class="mf__grip">
-                <path class="mf__arm" d="M126 60 V126"/>
-                <path class="mf__arm" d="M112 126 H140 M112 126 V140 M140 126 V140"/>
-                <rect class="mf__load" x="115" y="128" width="22" height="15" rx="3"/>
+                <path class="mf__arm" d="M158 60 V126"/>
+                <path class="mf__arm" d="M144 126 H172 M144 126 V140 M172 126 V140"/>
+                <rect class="mf__load" x="147" y="128" width="22" height="15" rx="3"/>
               </g>
             </g>
             <text class="mf__lbl" x="300" y="200">Throughput</text>

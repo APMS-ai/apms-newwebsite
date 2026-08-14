@@ -60,9 +60,17 @@
    These are single-stroke paths, so dashing them is safe. Staggered down the
    list so it reads as a checklist being ticked rather than a block flip.
    ========================================================================== */
-.ticks li svg path,
-.mod__params li svg path,
-.why__item > svg path {
+/* Only hide the tick where something will later draw it. The dash used to be
+   unconditional, so any tick list with no [data-reveal] ancestor - every card
+   in a .drum carousel, on four pages - started at dashoffset 26 and stayed
+   there: the checks never appeared, and the list text sat indented against a
+   gap where an icon should have been. A base stroke must never be the thing
+   being animated. */
+[data-reveal] .ticks li svg path,
+.ticks.pending li svg path,
+[data-reveal] .mod__params li svg path,
+[data-reveal] .why__item > svg path,
+[data-reveal].why__item > svg path {
   stroke-dasharray: 26;
   stroke-dashoffset: 26;
 }

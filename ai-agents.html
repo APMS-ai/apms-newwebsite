@@ -18,12 +18,12 @@
   <link rel="stylesheet" href="css/base/redesign.css?v=24">
   <link rel="stylesheet" href="css/base/enhance.css?v=31">
   <link rel="stylesheet" href="css/base/polish.css?v=2">
-  <link rel="stylesheet" href="css/base/iconlife.css?v=1">
+  <link rel="stylesheet" href="css/base/iconlife.css?v=2">
   <link rel="stylesheet" href="css/base/footer.css?v=9">
   <link rel="stylesheet" href="css/base/reveal.css?v=1">
   <link rel="stylesheet" href="css/base/fx.css?v=5">
   <link rel="stylesheet" href="css/motion/rail.css?v=13">
-<link rel="stylesheet" href="css/sections/agentic.css?v=21">
+<link rel="stylesheet" href="css/sections/agentic.css?v=22">
 <link rel="stylesheet" href="css/sections/agarch.css?v=1">
   <link rel="stylesheet" href="css/motion/motion.css?v=7">
   <link rel="stylesheet" href="css/sections/aiplus.css?v=10">
@@ -120,26 +120,50 @@
              fractions along the path, not guesses.
              ============================================================ -->
           <div class="agr" data-reveal>
-            <!-- viewBox widened from "0 24 300 176": the side checkpoints are at x=50
-                 and x=250 and their labels need room outside the track. -->
-            <svg class="agr__svg" viewBox="-20 24 340 176" role="img"
-                 aria-label="An agent walking a closed round, checking in at four points in turn: invoices, orders, compliance and the service inbox, and never stopping">
-              <path class="agr__track" d="M78 45 H222 A28 28 0 0 1 250 73 V132 A28 28 0 0 1 222 160 H78 A28 28 0 0 1 50 132 V73 A28 28 0 0 1 78 45 Z"/>
-                <circle class="agr__cp agr__cp--1" cx="150" cy="45" r="5"/>
-                <text class="agr__cplbl agr__cplbl--1" x="150" y="33" text-anchor="middle">INVOICES</text>
-                <circle class="agr__cp agr__cp--2" cx="250" cy="102" r="5"/>
-                <text class="agr__cplbl agr__cplbl--2" x="264" y="106" text-anchor="start">ORDERS</text>
-                <circle class="agr__cp agr__cp--3" cx="150" cy="160" r="5"/>
-                <text class="agr__cplbl agr__cplbl--3" x="150" y="181" text-anchor="middle">COMPLIANCE</text>
-                <circle class="agr__cp agr__cp--4" cx="50" cy="102" r="5"/>
-                <text class="agr__cplbl agr__cplbl--4" x="36" y="106" text-anchor="end">INBOX</text>
-              <g class="agr__bot" style="offset-path:path('M78 45 H222 A28 28 0 0 1 250 73 V132 A28 28 0 0 1 222 160 H78 A28 28 0 0 1 50 132 V73 A28 28 0 0 1 78 45 Z')">
-                <rect class="agr__shell" x="-11" y="-11" width="22" height="22" rx="7"/>
-                <path class="agr__vent" d="M-7 0 H-4 M4 0 H7"/>
-                <circle class="agr__eye" cx="0" cy="0" r="4.4"/>
-              </g>
-              <text class="agr__lbl" x="150" y="106" text-anchor="middle">ON WATCH</text>
-              <text class="agr__sub" x="150" y="123" text-anchor="middle">never off the round</text>
+            <svg class="agq" viewBox="0 0 340 246" role="img"
+                 aria-label="An agent working a live queue: an invoice, an order, a compliance check and an inbox message, three cleared and the compliance one escalated">
+              <rect class="agq__card" x="0.75" y="0.75" width="338.5" height="244.5" rx="15"/>
+              <text class="agq__ttl" x="16" y="27">WORK QUEUE</text>
+              <circle class="agq__live" cx="104" cy="23" r="3.4"/>
+              <text class="agq__now" x="114" y="27">LIVE</text>
+
+              <!-- the row the agent has in hand right now -->
+              <rect class="agq__focus" x="8" y="44" width="324" height="40" rx="10"/>
+
+                <g class="agq__row agq__row--1">
+                  <rect class="agq__bg" x="8" y="44" width="324" height="40" rx="10"/>
+                  <rect class="agq__chip" x="16" y="55" width="76" height="17" rx="8"/>
+                  <text class="agq__kind" x="54" y="67" text-anchor="middle">INVOICE</text>
+                  <text class="agq__subj" x="102" y="68">Terms don't match the PO</text>
+                  <text class="agq__q" x="324" y="68" text-anchor="end">QUEUED</text>
+                  <text class="agq__d" x="324" y="68" text-anchor="end">CLEARED</text>
+                </g>
+                <g class="agq__row agq__row--2">
+                  <rect class="agq__bg" x="8" y="90" width="324" height="40" rx="10"/>
+                  <rect class="agq__chip" x="16" y="101" width="76" height="17" rx="8"/>
+                  <text class="agq__kind" x="54" y="113" text-anchor="middle">ORDER</text>
+                  <text class="agq__subj" x="102" y="114">Delivery date slipped</text>
+                  <text class="agq__q" x="324" y="114" text-anchor="end">QUEUED</text>
+                  <text class="agq__d" x="324" y="114" text-anchor="end">CLEARED</text>
+                </g>
+                <g class="agq__row agq__row--flag agq__row--3">
+                  <rect class="agq__bg" x="8" y="136" width="324" height="40" rx="10"/>
+                  <rect class="agq__chip" x="16" y="147" width="76" height="17" rx="8"/>
+                  <text class="agq__kind" x="54" y="159" text-anchor="middle">COMPLIANCE</text>
+                  <text class="agq__subj" x="102" y="160">Operator cert expires Friday</text>
+                  <text class="agq__q" x="324" y="160" text-anchor="end">QUEUED</text>
+                  <text class="agq__d" x="324" y="160" text-anchor="end">ESCALATED</text>
+                </g>
+                <g class="agq__row agq__row--4">
+                  <rect class="agq__bg" x="8" y="182" width="324" height="40" rx="10"/>
+                  <rect class="agq__chip" x="16" y="193" width="76" height="17" rx="8"/>
+                  <text class="agq__kind" x="54" y="205" text-anchor="middle">INBOX</text>
+                  <text class="agq__subj" x="102" y="206">Customer chasing an order</text>
+                  <text class="agq__q" x="324" y="206" text-anchor="end">QUEUED</text>
+                  <text class="agq__d" x="324" y="206" text-anchor="end">CLEARED</text>
+                </g>
+
+              <text class="agq__foot" x="16" y="238">nothing sits in the queue waiting for someone to look</text>
             </svg>
           </div>
           <div class="grid3 agwrap__list">
@@ -785,7 +809,7 @@
             </div>
           </div>
         </div>
-        <p class="sec__lead" style="margin:1.8rem auto 0;text-align:center;max-width:70ch;"><em class="ph">Illustrative conversations showing the interaction pattern. The operations agent runs today as TARA; the others are builds we scope to your systems.</em></p>
+        <p class="sec__lead" style="margin:1.8rem auto 0;text-align:center;max-width:70ch;"><em class="ph">These conversations are examples of how you would talk to an agent, not transcripts. TARA, the operations agent, is live today. The rest are built to order, scoped around the systems you already run.</em></p>
       </div>
     </section>
 

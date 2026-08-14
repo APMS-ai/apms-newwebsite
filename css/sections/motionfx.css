@@ -73,14 +73,13 @@
 .mf__rig { fill: none; stroke: rgba(255,255,255,0.22); stroke-width: 2; }
 .mf__arm { fill: none; stroke: var(--teal-bright); stroke-width: 3; stroke-linecap: round; }
 /* The carriage has to reach the outfeed, not stop halfway. The arm sits at
-   x=126 and the free outfeed slot is centred on x=665, so the traverse is
-   539 units. It used to be 214, which left the arm stranded mid-rail with the
-   part still in the gripper and the cycle visibly unfinished. */
+   x=158, over the last part in the infeed stack, and the free outfeed slot is
+   centred on x=665, so the traverse is 507 units. */
 .mf__carriage { transform-origin: center; }
 .mfx[data-reveal].in .mf__carriage { animation: mfCarriage 5.2s cubic-bezier(.6,0,.4,1) infinite; }
 @keyframes mfCarriage {
   0%, 28%   { transform: translateX(0); }
-  52%, 72%  { transform: translateX(539px); }
+  52%, 72%  { transform: translateX(507px); }
   96%, 100% { transform: translateX(0); }
 }
 /* the gripper drops to pick, and drops again to release over the outfeed */
@@ -101,6 +100,13 @@
 /* source and destination stacks */
 .mf__bin { fill: rgba(255,255,255,0.06); stroke: rgba(255,255,255,0.14); stroke-width: 1; }
 .mf__part { fill: rgba(255,255,255,0.18); }
+/* The count on each side has to change, or nothing was actually moved: the
+   infeed loses this one as the gripper closes at 19%, which is the same
+   instant the carried part appears, and gets it back at the loop reset as the
+   next part is fed in. */
+.mfx[data-reveal].in .mf__part--take { animation: mfTaken 5.2s steps(1, end) infinite; }
+@keyframes mfTaken { 0%, 18% { opacity: 1; } 19%, 99% { opacity: 0; } 100% { opacity: 1; } }
+
 /* already delivered on earlier cycles */
 .mf__part--set { fill: var(--teal); opacity: .55; }
 /* the one this cycle delivers: it lands the instant the gripper lets go */
@@ -143,7 +149,9 @@
 @media (prefers-reduced-motion: reduce) {
   .mfx[data-reveal].in * { animation: none !important; }
   .mf__wp-on, .mf__flag, .mf__flagdot, .mf__load { opacity: 0 !important; }
+  /* park on the end of a cycle: one fewer waiting, one more delivered */
   .mf__part--done { opacity: 1; }
+  .mf__part--take { opacity: 0; }
   .mf__routelit { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .7; }
   .mf__bar { stroke-dashoffset: 0; }
 }

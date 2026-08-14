@@ -47,7 +47,6 @@
 /* a ragged wrap (3 then 2) looked accidental; an even 2-column grid keeps
    both cards' chip blocks the same shape */
 .mcaps { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; margin-top: 1.2rem; }
-.mcaps li { text-align: center; }
 @media (max-width: 420px) { .mcaps { grid-template-columns: 1fr; } }
 .mcaps li {
   font-size: .76rem; color: var(--on-dark);

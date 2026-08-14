@@ -609,28 +609,21 @@
 }
 
 /* ==========================================================================
-   The agent on its round  (.agr)
+   The queue, being worked  (.agq)
 
-   Replaces the sensor-sweeping-a-signal-wall board that used to sit here. That
-   one read as Vision AI: a lens, a beam, a row of readings. An agent is better
-   said with a small machine that keeps walking a closed circuit and checking
-   in, so that is what this is.
+   Two boards have stood here and both said too little. The first was a sensor
+   sweeping a wall of readings, which read as Vision AI: a lens, a beam, a row
+   of numbers. The second was a small machine walking a dashed rectangle past
+   four words, which said "something goes round" and stopped there, in a lot of
+   white space.
 
-   582 units of circuit on a 9s loop. Each checkpoint lights at its own real
-   fraction along the path, and each is named after one of the jobs listed in
-   "Where agents earn their keep" further down the page, so the board says what
-   the round is for rather than just that there is one.
+   An agent is worth drawing at the moment it decides something. So this is the
+   queue: four things waiting, taken in turn, three cleared and the compliance
+   one escalated. The three tiles beside it claim exactly that - ask, write up,
+   follow through - and this is the picture of the third.
 
-     cp1 (150,45)  INVOICES     72.0 units -> 12.4%
-     cp2 (250,102) ORDERS      217.0       -> 37.3%
-     cp3 (150,160) COMPLIANCE  363.0       -> 62.4%
-     cp4 (50,102)  INBOX       508.9       -> 87.4%
-
-   One clock, no animation-delay. The four used to share one keyframe set offset
-   by delay, which shifts a loop's reset as well as its start: all four reset at
-   different moments and the board never showed a completed round. Now they
-   light in turn and all reset together at the top of the lap, so the round
-   fills up and starts again.
+   The rows are 46 apart from y=44, which is the only number the keyframes need:
+   the highlight steps 0, 46, 92, 138.
    ========================================================================== */
 .agwrap {
   display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
@@ -643,109 +636,84 @@
   .agr { max-width: 320px; margin-inline: auto; }
 }
 
-.agr__svg { width: 100%; height: auto; display: block; overflow: visible; }
-.agr__track {
-  fill: none; stroke: var(--line); stroke-width: 1.6;
-  stroke-dasharray: 3 5; stroke-linecap: round;
+.agq { width: 100%; height: auto; display: block; }
+.agq__card { fill: var(--white); stroke: var(--line); stroke-width: 1.5; }
+.agq__ttl, .agq__now, .agq__kind, .agq__q, .agq__d {
+  font-family: var(--display); font-weight: 800; letter-spacing: .14em;
 }
-.agr__cp { fill: var(--white); stroke: var(--line); stroke-width: 1.6; }
-.agr__shell { fill: var(--white); stroke: var(--ink); stroke-width: 1.8; }
-.agr__vent { stroke: var(--line); stroke-width: 1.6; stroke-linecap: round; fill: none; }
-.agr__eye { fill: var(--teal-deep); }
-.agr__lbl {
-  font-family: var(--display); font-weight: 800; font-size: 12px;
-  letter-spacing: .18em; fill: var(--ink);
-}
-.agr__sub {
-  font-family: var(--display); font-weight: 600; font-size: 10px;
-  letter-spacing: .1em; fill: var(--muted);
+.agq__ttl  { font-size: 9px; fill: var(--muted); }
+.agq__now  { font-size: 9px; fill: var(--teal-deep); }
+.agq__live { fill: var(--teal); }
+.agq__foot { font-family: var(--display); font-weight: 600; font-size: 8.5px;
+             letter-spacing: .06em; fill: var(--muted); }
+
+.agq__bg   { fill: var(--paper); }
+.agq__chip { fill: var(--white); stroke: var(--line); stroke-width: 1; }
+.agq__kind { font-size: 7.5px; letter-spacing: .1em; fill: var(--muted); }
+.agq__subj { font-family: var(--display); font-weight: 600; font-size: 9.5px;
+             fill: var(--body); }
+
+/* Two words in the same place, one fading into the other, because CSS cannot
+   rewrite text: QUEUED is what the row says until the agent reaches it. */
+.agq__q { font-size: 8px; fill: var(--muted); }
+.agq__d { font-size: 8px; fill: var(--teal-deep); opacity: 0; }
+.agq__row--flag .agq__d { fill: #F79009; }
+
+/* the row the agent has in hand */
+/* stroke only: the highlight is drawn under the rows so it cannot cover their
+   text, which means a fill would never be seen anyway */
+.agq__focus {
+  fill: none; stroke: var(--teal); stroke-width: 1.4;
+  opacity: 0; transform-box: view-box;
 }
 
-/* parked at the start of the circuit until the block is in view */
-.agr__bot { offset-distance: 0%; offset-rotate: 0deg; }
-.agr__cp  { transform-box: fill-box; transform-origin: center; }
+/* ==========================================================================
+   ONE 12s CLOCK, NO DELAYS
 
-/* the label sits outside the track, muted until its point is checked */
-.agr__cplbl {
-  font-family: var(--display); font-weight: 800; font-size: 8.5px;
-  letter-spacing: .1em; fill: var(--muted);
-}
-
-[data-reveal].in .agr__bot { animation: agrWalk 9s linear infinite; }
-[data-reveal].in .agr__eye { animation: agrBlinkless 2.6s ease-in-out infinite; }
-[data-reveal].in .agr__cp--1    { animation: agrCheck1 9s ease-out infinite; }
-[data-reveal].in .agr__cplbl--1 { animation: agrLabel1 9s ease-out infinite; }
-[data-reveal].in .agr__cp--2    { animation: agrCheck2 9s ease-out infinite; }
-[data-reveal].in .agr__cplbl--2 { animation: agrLabel2 9s ease-out infinite; }
-[data-reveal].in .agr__cp--3    { animation: agrCheck3 9s ease-out infinite; }
-[data-reveal].in .agr__cplbl--3 { animation: agrLabel3 9s ease-out infinite; }
-[data-reveal].in .agr__cp--4    { animation: agrCheck4 9s ease-out infinite; }
-[data-reveal].in .agr__cplbl--4 { animation: agrLabel4 9s ease-out infinite; }
-
-@keyframes agrWalk { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-/* the eye dims and lifts but never closes: it is on watch */
-@keyframes agrBlinkless { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
-
-/* INVOICES, at 12.4% of the circuit */
-@keyframes agrCheck1 {
-  0%, 12.4%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
-  14.2%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
-  16.9%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
-  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
-}
-@keyframes agrLabel1 {
-  0%, 12.4%    { fill: var(--muted); }
-  14.2%, 98%   { fill: var(--teal-deep); }
-  100%         { fill: var(--muted); }
+   The agent takes a row every 20%: 8, 28, 48, 68. Each row's QUEUED fades out
+   as it is picked up and its verdict fades in two beats later, and every row
+   holds its verdict until the queue resets at 100% so the board fills rather
+   than flickering. Delays are banned here for the usual reason: a delay moves
+   an element's reset as well as its start, so from the second lap the verdicts
+   were lit before the agent had reached them.
+   ========================================================================== */
+[data-reveal].in .agq__focus { animation: agqFocus 12s var(--ease-out) infinite; }
+[data-reveal].in .agq__live  { animation: agqLive 2.4s ease-in-out infinite; }
+@keyframes agqLive { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+@keyframes agqFocus {
+  0%,  6%    { transform: translateY(0);     opacity: 0; }
+  8%,  16%   { transform: translateY(0);     opacity: 1; }
+  26%, 36%   { transform: translateY(46px);  opacity: 1; }
+  46%, 56%   { transform: translateY(92px);  opacity: 1; }
+  66%, 76%   { transform: translateY(138px); opacity: 1; }
+  80%, 100%  { transform: translateY(138px); opacity: 0; }
 }
 
-/* ORDERS, at 37.3% of the circuit */
-@keyframes agrCheck2 {
-  0%, 37.3%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
-  39.1%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
-  41.8%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
-  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
-}
-@keyframes agrLabel2 {
-  0%, 37.3%    { fill: var(--muted); }
-  39.1%, 98%   { fill: var(--teal-deep); }
-  100%         { fill: var(--muted); }
-}
+[data-reveal].in .agq__row--1 .agq__q { animation: agqQ1 12s steps(1, end) infinite; }
+[data-reveal].in .agq__row--1 .agq__d { animation: agqD1 12s var(--ease-out) infinite; }
+@keyframes agqQ1 { 0%, 8% { opacity: 1; } 9%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes agqD1 { 0%, 10% { opacity: 0; } 13%, 96% { opacity: 1; } 100% { opacity: 0; } }
+[data-reveal].in .agq__row--2 .agq__q { animation: agqQ2 12s steps(1, end) infinite; }
+[data-reveal].in .agq__row--2 .agq__d { animation: agqD2 12s var(--ease-out) infinite; }
+@keyframes agqQ2 { 0%, 28% { opacity: 1; } 29%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes agqD2 { 0%, 30% { opacity: 0; } 33%, 96% { opacity: 1; } 100% { opacity: 0; } }
+[data-reveal].in .agq__row--3 .agq__q { animation: agqQ3 12s steps(1, end) infinite; }
+[data-reveal].in .agq__row--3 .agq__d { animation: agqD3 12s var(--ease-out) infinite; }
+@keyframes agqQ3 { 0%, 48% { opacity: 1; } 49%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes agqD3 { 0%, 50% { opacity: 0; } 53%, 96% { opacity: 1; } 100% { opacity: 0; } }
+[data-reveal].in .agq__row--4 .agq__q { animation: agqQ4 12s steps(1, end) infinite; }
+[data-reveal].in .agq__row--4 .agq__d { animation: agqD4 12s var(--ease-out) infinite; }
+@keyframes agqQ4 { 0%, 68% { opacity: 1; } 69%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes agqD4 { 0%, 70% { opacity: 0; } 73%, 96% { opacity: 1; } 100% { opacity: 0; } }
 
-/* COMPLIANCE, at 62.4% of the circuit */
-@keyframes agrCheck3 {
-  0%, 62.4%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
-  64.2%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
-  66.9%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
-  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
-}
-@keyframes agrLabel3 {
-  0%, 62.4%    { fill: var(--muted); }
-  64.2%, 98%   { fill: var(--teal-deep); }
-  100%         { fill: var(--muted); }
-}
-
-/* INBOX, at 87.5% of the circuit */
-@keyframes agrCheck4 {
-  0%, 87.5%    { fill: var(--white); stroke: var(--line); transform: scale(1); }
-  89.3%         { fill: var(--teal); stroke: var(--teal); transform: scale(1.5); }
-  92.0%, 98%   { fill: var(--teal); stroke: var(--teal); transform: scale(1); }
-  100%         { fill: var(--white); stroke: var(--line); transform: scale(1); }
-}
-@keyframes agrLabel4 {
-  0%, 87.5%    { fill: var(--muted); }
-  89.3%, 98%   { fill: var(--teal-deep); }
-  100%         { fill: var(--muted); }
-}
-
-/* Continuous travel goes first under reduced motion (CLAUDE.md #4). The agent
-   stands at a checkpoint and every checkpoint reads as visited, which is the
-   informative frame. */
+/* The travelling highlight is exactly the continuous motion that must not
+   survive reduced motion. The queue parks worked: every row has its verdict
+   and nothing is moving. */
 @media (prefers-reduced-motion: reduce) {
-  .agr__bot, .agr__eye, .agr__cp, .agr__cplbl { animation: none !important; }
-  .agr__bot { offset-distance: 12.4%; }
-  .agr__cp { fill: var(--teal); stroke: var(--teal); }
-  .agr__cplbl { fill: var(--teal-deep); }
+  .agq__focus, .agq__live, .agq__q, .agq__d { animation: none !important; }
+  .agq__focus { opacity: 0; }
+  .agq__q { opacity: 0; }
+  .agq__d { opacity: 1; }
 }
 
 /* ==========================================================================

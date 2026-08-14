@@ -65,14 +65,19 @@
 /* ---------- beat three: it leaves ---------- */
 .mis__fly { opacity: 0; }
 [data-reveal].in .mis__fly { animation: misFly 9s cubic-bezier(.5,0,.3,1) infinite; }
-/* across, then down into the pocket. It stays at full opacity until it is over
-   the open mouth, so you actually watch it go in; the fade is the last 8%, as
-   it sinks behind the front panel and the flap starts to come down. */
+.mis__flyttl { font-family: var(--display); font-weight: 800; font-size: 11px;
+               letter-spacing: .1em; fill: var(--teal-deep); }
+
+/* Across, stand upright in the open mouth for a beat so you can read what is
+   being filed, then slide down behind the front panel. The fade is only the
+   last stretch, once the sheet is already inside and the flap is coming down;
+   it never disappears in mid-air. */
 @keyframes misFly {
   0%, 48%   { opacity: 0; transform: translate(0, 0) scale(.9); }
   54%       { opacity: 1; transform: translate(20px, -6px) scale(1); }
-  68%       { opacity: 1; transform: translate(127px, -10px) scale(.86); }
-  78%, 100% { opacity: 0; transform: translate(127px, 18px) scale(.72); }
+  66%, 70%  { opacity: 1; transform: translate(126px, -18px) scale(1); }
+  79%       { opacity: 1; transform: translate(126px, 16px) scale(1); }
+  84%, 100% { opacity: 0; transform: translate(126px, 22px) scale(1); }
 }
 
 /* The envelope is blue, by request, and it is the one deliberate exception to
