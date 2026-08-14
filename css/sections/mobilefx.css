@@ -129,3 +129,15 @@
 @media (prefers-reduced-motion: reduce) {
   .hero__grid, .hero::after, .cta::after { animation: none !important; }
 }
+
+/* ==========================================================================
+   6 · A mail link inside a sentence is still a thumb target
+
+   "Questions? Email us" under the partner call to action: the link is inline,
+   so it inherits the line box and comes out 18px tall. Audited at 390x844.
+   inline-block plus padding gives it a box without moving a word of the
+   sentence around it.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .sec p > a[href^="mailto:"] { display: inline-block; padding-block: .34rem; }
+}

@@ -186,3 +186,11 @@
   .legal__toc ol { margin-top: 0.8rem; }
   .legal__body { max-width: none; }
 }
+
+/* Mobile: the contents links were 31px tall, one pixel under a thumb target.
+   Audited at 390x844. */
+@media (max-width: 900px) {
+  .legal__toc a { padding-block: .5rem; }
+  /* the links inside the policy text itself, including the bare apms.ai URL */
+  .legal__body a { display: inline-block; padding-block: .34rem; }
+}

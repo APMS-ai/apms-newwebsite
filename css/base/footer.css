@@ -153,3 +153,19 @@
 }
 .ft__badges a:hover { color: var(--teal-bright); border-color: rgba(46,224,180,0.55); }
 .ft__badges a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+/* ==========================================================================
+   Mobile: everything in the footer is a thumb target
+
+   Audited at 390x844. The category pills were 10.9px type in a 28px box, the
+   legal links 21px tall and the contact lines 26px, all under the 32px a
+   thumb needs and the pills under the 11px anything needs to be read at arm's
+   length. The type goes up and the boxes grow with padding, so nothing moves
+   and nothing reflows: on desktop none of this applies.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .ft__badges a { font-size: .76rem; padding: .5rem .7rem; }
+  .ft__col a    { padding-block: .38rem; }
+  .ft__block a  { display: inline-block; padding-block: .42rem; }
+  .ft__legal a  { display: inline-block; padding: .42rem 0; }
+}

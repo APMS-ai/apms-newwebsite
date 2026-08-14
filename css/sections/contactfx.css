@@ -60,3 +60,35 @@
   .cfx__halo { opacity: 0; }
   .cfx__pulse { visibility: hidden !important; }
 }
+
+/* ==========================================================================
+   Stacked, the two animations end up back to back
+
+   The page is two columns: the form and the three-stage flow strip on the
+   left, the signal diagram, the contact card and the numbered list on the
+   right. Stacking those columns at 900px puts the flow strip immediately
+   above the signal diagram, so a phone gets two diagrams in a row and then
+   the rest, which reads as a pile.
+
+   One goes either side of the form instead, and each lands where it means
+   something: the flow strip says what happens when you fill this in, so it
+   goes before it, and the signal reaching the APMS team says your message
+   arrived, so it stays after. Only the left column is touched; the right one
+   already begins with the diagram.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .split > div:first-child { display: flex; flex-direction: column; }
+  .split > div:first-child > h2     { order: 1; }
+  .split > div:first-child > p      { order: 2; }
+  /* tight above and below: it sits between the sentence and the first field,
+     and every pixel here comes off the form's own one-screen budget */
+  .split > div:first-child > .dflow { order: 3; margin: .35rem 0 .85rem; }
+  .split > div:first-child > .fcard { order: 4; }
+}
+
+/* Mobile: the phone and email lines in the contact card were 18px tall, which
+   is a link you have to aim at. They are inline, so inline-block plus padding
+   is what gives them a box without moving the text. Audited at 390x844. */
+@media (max-width: 900px) {
+  .irow a { display: inline-block; padding-block: .34rem; }
+}
