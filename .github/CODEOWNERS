@@ -1,0 +1,11 @@
+# Every pull request automatically requests a review from the owner listed
+# here, so nobody has to remember to add a reviewer.
+#
+# This requests a review; it does not require one. Merging is still possible
+# without approval unless branch protection is enabled on main
+# (Settings > Branches > Require a pull request before merging + Require
+# approvals), which is a deliberate choice not to enable for now.
+#
+# The pattern applies to every file in the repository.
+
+*       @prashanth-apms
