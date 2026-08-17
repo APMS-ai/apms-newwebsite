@@ -56,21 +56,43 @@
       if (started) return; started = true;
       need(["js/vendor/three.min.js", "js/vendor/vanta.net.min.js"], startVanta);
     };
-    /* On the first pointer, wheel, touch or key, and then when the browser is
-       next idle. It used to be an idle callback with a 2500ms ceiling, which
-       fires whether or not anyone is there: 601 KB of three.js parsed and a
-       WebGL context spun up for a tab that may never be looked at. Measured,
-       that landed squarely inside Lighthouse's blocking window and cost 10
-       seconds of attributed work on its own.
+    /* Started once the page has loaded, rather than on the first interaction.
 
-       A mouse moving anywhere over the page is enough, so in practice a real
-       visitor sees this immediately. A crawler or an audit never touches
-       anything, and correctly gets the static hero. */
+       Waiting for a pointer was protecting Lighthouse: a tab nobody has
+       touched should not parse 601 KB of three.js or spin up a WebGL context,
+       and an audit that never moves a mouse correctly got the static hero.
+       What it cost was the thing anybody actually looking at the page sees.
+       Measured on a 4 Mbit line with the mouse moving at 2.5s, which is what a
+       real visitor does:
+
+         first paint            1.6s
+         three.js requested     5.0s   <- waits for the mouse, then for idle
+         hero network up        5.6s
+
+       Four seconds of a flat hero sitting behind a headline that was finished
+       at 1.6s. The wake gate is only half of that; the idle callback after it
+       adds up to another 1.2s on top.
+
+       So it now hangs off DOMContentLoaded with a short idle timeout instead of
+       a long one. That is still strictly behind everything that paints the
+       page: this file is one of the scripts at the end of body, so by the time
+       it can run, the document is parsed and the stylesheet is applied.
+
+       A head preload was tried too and deliberately not kept. It fetched
+       three.js ~800ms sooner, but cost ~380ms of First Contentful Paint by
+       competing for bandwidth with the stylesheet - measured interleaved, both
+       ways, three runs each. Trading the headline against a decorative
+       background is the wrong way round.
+
+       The gates above are unchanged and still do the important filtering - a
+       phone, a narrow window, reduced motion and a machine without WebGL never
+       reach this line, so none of them pay for three.js. */
     var queue = function () {
-      if (window.requestIdleCallback) requestIdleCallback(kick, { timeout: 1200 });
-      else setTimeout(kick, 300);
+      if (window.requestIdleCallback) requestIdleCallback(kick, { timeout: 300 });
+      else setTimeout(kick, 150);
     };
-    if (window.APMSWake) window.APMSWake(queue); else queue();
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", queue, { once: true });
+    else queue();
   }
 
   function startVanta() {
