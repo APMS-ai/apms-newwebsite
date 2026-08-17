@@ -30,7 +30,10 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
        for this page in tools/bundles.json. Edit those, not this, and re-run
        `node tools/bundle.js`: the hash below changes with the content. -->
   <link rel="stylesheet" href="dist/css/about.60ce0779.css">
-  <!-- /BUNDLE:CSS --></head>
+  <!-- /BUNDLE:CSS --><!-- BUNDLE:JSPRELOAD -->
+  <link rel="preload" as="script" href="dist/js/about.0851c1d9.js">
+  <!-- /BUNDLE:JSPRELOAD -->
+</head>
 <body data-fx="char">
   <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
     <div class="ldr__inner">
@@ -485,25 +488,12 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
     </div>
   </footer>
   <button class="totop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-  <script src="js/motion/loader.js?v=3"></script>
-  <script src="js/core/redesign.js?v=18"></script>
-  <script src="js/core/enhance.js?v=11"></script>
-  <!-- gsap + ScrollTrigger are fetched by this on the first interaction:
-       114 KB whose only job is scroll-linked motion, which cannot happen
-       before the first scroll. Must come before anything that uses them. -->
-  <script src="js/core/gsap-late.js?v=1"></script>
-  <script src="js/vendor/lenis.min.js"></script>
-  <script src="js/vendor/anime.min.js"></script>
-  <script src="js/core/smooth.js?v=6"></script>
-  <script src="js/motion/site-fx.js?v=8"></script>
-  <script src="js/core/polish.js?v=1"></script>
-  <script src="js/core/ui-fx.js?v=1"></script>
-  <script src="js/motion/scroll-text.js?v=4"></script>
-  <script src="js/motion/mesh-bg.js?v=4"></script>
-  <script src="js/core/reveal.js?v=1"></script>
-  <script src="js/motion/iconlife.js?v=1"></script>
-  <script src="js/core/perf.js?v=5"></script>
-  <script src="js/motion/gscroll.js?v=3"></script>
-  <script src="js/motion/motion.js?v=7"></script>
-</body>
+<!-- BUNDLE:JS -->
+  <!-- One file, built by tools/bundle.js from the 18 scripts listed
+       for this page in tools/scripts.json, in that order. Edit those, not
+       this, and re-run `node tools/bundle.js`. `defer` is safe because the
+       bundle sits at the end of body and nothing inline waits on it; it
+       buys the parser the download rather than making it wait for it. -->
+  <script src="dist/js/about.0851c1d9.js" defer></script>
+  <!-- /BUNDLE:JS --></body>
 </html>

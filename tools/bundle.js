@@ -38,9 +38,14 @@ const crypto = require("crypto");
 const ROOT = path.join(__dirname, "..");
 const OUT_DIR = path.join(ROOT, "dist");
 const MANIFEST = JSON.parse(fs.readFileSync(path.join(__dirname, "bundles.json"), "utf8"));
+const JS_MANIFEST = JSON.parse(fs.readFileSync(path.join(__dirname, "scripts.json"), "utf8"));
 
 const OPEN = "<!-- BUNDLE:CSS -->";
 const CLOSE = "<!-- /BUNDLE:CSS -->";
+const JS_OPEN = "<!-- BUNDLE:JS -->";
+const JS_CLOSE = "<!-- /BUNDLE:JS -->";
+const PRE_OPEN = "<!-- BUNDLE:JSPRELOAD -->";
+const PRE_CLOSE = "<!-- /BUNDLE:JSPRELOAD -->";
 
 /* Conservative CSS minification: comments out, whitespace runs collapsed to a
    single space. Strings and url() are copied through untouched.
@@ -152,6 +157,95 @@ function bundlePage(file) {
   return { file, count: hrefs.length, raw: css.length, min: min.length, name };
 }
 
+/* --------------------------------------------------------------------------
+   The same problem, one floor down: index.html ended body with twenty-three
+   <script src> tags. They are not render-blocking where they sit, but they are
+   still twenty-three requests that all have to land before the page stops
+   feeling half-alive, and on a cold connection that queue is what the visitor
+   reads as lag.
+
+   So: concatenate, per page, in the page's own order, exactly as the CSS is.
+   Order is load-bearing here in a way it is not for stylesheets - gsap-late.js
+   must precede anything that uses gsap - which is why scripts.json is a list
+   and not a directory scan.
+
+   No minifier. A CSS minifier that gets a rule wrong loses a shadow; a JS one
+   that gets a scope wrong loses the page, and mod_deflate already takes the
+   whitespace. Each file is separated by a newline and a semicolon, because a
+   file ending in `})()` with no semicolon followed by one starting `(function`
+   parses as a call, and that failure is silent until the page is blank.
+   -------------------------------------------------------------------------- */
+function bundleJs(file) {
+  const htmlPath = path.join(ROOT, file);
+  if (!fs.existsSync(htmlPath)) return null;
+  const html = fs.readFileSync(htmlPath, "utf8");
+
+  const srcs = JS_MANIFEST[file];
+  if (!srcs || !srcs.length) return null;
+
+  let before, after;
+  if (html.includes(JS_OPEN)) {
+    before = html.slice(0, html.indexOf(JS_OPEN));
+    after = html.slice(html.indexOf(JS_CLOSE) + JS_CLOSE.length);
+  } else {
+    /* First run: swallow the whole run of local <script src="js/..."> tags,
+       and the comments interleaved with them, from the first to the last. */
+    const tags = [...html.matchAll(/^[ \t]*<script src="js\/[^"]+"><\/script>[ \t]*\r?\n/gm)];
+    if (!tags.length) return null;
+    const first = tags[0], last = tags[tags.length - 1];
+    before = html.slice(0, first.index);
+    after = html.slice(last.index + last[0].length);
+  }
+
+  let js = "";
+  for (const src of srcs) {
+    const p = path.join(ROOT, src);
+    if (!fs.existsSync(p)) { console.warn("  missing", src); continue; }
+    js += "\n;/* " + src + " */\n" + fs.readFileSync(p, "utf8") + "\n";
+  }
+
+  const base = path.basename(file, ".html");
+  const name = base + "." + hash(js) + ".js";
+  fs.mkdirSync(path.join(OUT_DIR, "js"), { recursive: true });
+
+  for (const f of fs.readdirSync(path.join(OUT_DIR, "js"))) {
+    if (f.startsWith(base + ".") && f !== name) fs.unlinkSync(path.join(OUT_DIR, "js", f));
+  }
+  fs.writeFileSync(path.join(OUT_DIR, "js", name), js);
+
+  const replacement =
+    JS_OPEN + "\n" +
+    "  <!-- One file, built by tools/bundle.js from the " + srcs.length + " scripts listed\n" +
+    "       for this page in tools/scripts.json, in that order. Edit those, not\n" +
+    "       this, and re-run `node tools/bundle.js`. `defer` is safe because the\n" +
+    "       bundle sits at the end of body and nothing inline waits on it; it\n" +
+    "       buys the parser the download rather than making it wait for it. -->\n" +
+    '  <script src="dist/js/' + name + '" defer></script>\n  ' +
+    JS_CLOSE;
+
+  let out = before + replacement + after;
+
+  /* The bundle is the last thing in the document, and index.html is 144 KB, so
+     the preload scanner does not find that <script> until it has streamed the
+     entire body: the download starts at the point the page is otherwise done.
+     A preload in <head> starts it next to the stylesheet instead. It goes last
+     in the head so the stylesheet, which is render-blocking, keeps priority. */
+  const preload =
+    PRE_OPEN + "\n" +
+    '  <link rel="preload" as="script" href="dist/js/' + name + '">\n  ' +
+    PRE_CLOSE;
+
+  if (out.includes(PRE_OPEN)) {
+    out = out.slice(0, out.indexOf(PRE_OPEN)) + preload +
+          out.slice(out.indexOf(PRE_CLOSE) + PRE_CLOSE.length);
+  } else {
+    out = out.replace("</head>", preload + "\n</head>");
+  }
+
+  fs.writeFileSync(htmlPath, out);
+  return { file, count: srcs.length, raw: js.length, name };
+}
+
 let totalRaw = 0, totalMin = 0;
 for (const p of Object.keys(MANIFEST)) {
   const r = bundlePage(p);
@@ -165,3 +259,17 @@ for (const p of Object.keys(MANIFEST)) {
   );
 }
 console.log("\ntotal", (totalRaw / 1024).toFixed(0), "KB ->", (totalMin / 1024).toFixed(0), "KB");
+
+console.log("\nJS");
+let jsRaw = 0, jsReq = 0;
+for (const p of Object.keys(JS_MANIFEST)) {
+  const r = bundleJs(p);
+  if (!r) { console.log(p.padEnd(18), "skipped"); continue; }
+  jsRaw += r.raw; jsReq += r.count - 1;
+  console.log(
+    r.file.padEnd(18),
+    String(r.count).padStart(2), "files ->",
+    (r.raw / 1024).toFixed(0).padStart(4), "KB", "  " + r.name
+  );
+}
+console.log("\ntotal", (jsRaw / 1024).toFixed(0), "KB in one file per page,", jsReq, "requests saved");
