@@ -12,10 +12,20 @@
    references and shipped an entirely unstyled site. It also lost
    assets/fonts/, js/core/gsap-late.js and llms.txt along the way.
 
-   DEPLOY.txt itself said "this list is generated, not hand-kept, re-run the
-   generator in the scratchpad" - but a generator in a scratchpad is a
-   generator that does not exist the next time anyone looks. That is the actual
-   bug, and it is fixed by the file you are reading being in the repository.
+   A generator already existed for this - docs/gen-deploy-manifest.py - and the
+   drift was not caused by nobody running it. It was written before the CSS was
+   bundled, and it selected files with a whitelist: `top in ('css','js','assets')
+   or p.endswith(('.html','.php'))`. dist/ is not in that list, so the bundles
+   could never appear in its output however often it ran, and llms.txt could
+   not either. Its referenced-asset check had the same blind spot - the regex
+   matched only `(?:css|js|assets)/`, so the dist/ links it was failing to list
+   were invisible to it as well.
+
+   A whitelist of folder names has to be updated every time the layout changes,
+   and it fails silently when it is not. This derives the list from the set of
+   committed files instead, so a new folder is included the moment a file in it
+   is committed, and the reference check below looks at every local href and
+   src rather than a chosen subset.
 
    The list is derived from `git ls-files`, so a file that is committed is a
    file that gets uploaded, and there is no second place to remember. Only the

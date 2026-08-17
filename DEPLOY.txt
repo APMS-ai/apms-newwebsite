@@ -25,18 +25,25 @@ Do that after adding or removing any file, and always after
 `node tools/bundle.js` changes a bundle - the hashed filename is in
 this list, so a stale list names a bundle that no longer exists.
 
-Do not edit the list by hand. It has drifted twice. The first time it
-left five stylesheets off and shipped a site with broken styling. The
-second time it listed every source file under css/ but none of the
-built bundles under dist/css/, which are the only stylesheets the
-pages actually link - so following it would have uploaded a full set
-of CSS that nothing references, and shipped an entirely unstyled
-site. assets/fonts/, js/core/gsap-late.js and llms.txt had gone
-missing too.
+Do not edit the list by hand. It has been wrong twice. The first time
+it was hand-kept and left five stylesheets off, which shipped a site
+with broken styling. The second time it listed every source file under
+css/ but none of the built bundles under dist/css/, which are the only
+stylesheets the pages actually link - so following it would have
+uploaded a full set of CSS that nothing references, and shipped an
+entirely unstyled site. assets/fonts/, js/core/gsap-late.js and
+llms.txt were missing too.
 
-The generator used to live in a scratchpad, which is why it was never
-re-run. It is in tools/ now, and it fails loudly if any page links a
-file the list does not include.
+The second failure was not neglect. A generator did exist, at
+docs/gen-deploy-manifest.py, but it was written before the CSS was
+bundled and it only ever accepted files under css/, js/ or assets/ -
+so dist/ could not appear in its output however often it was run. Its
+own safety check shared the blind spot, matching only css|js|assets
+paths, so it could not see the dist/ links it was failing to list. It
+has been removed in favour of the script above, which derives the list
+from `git ls-files` rather than from a whitelist that has to be kept
+in step with the folder layout, and which fails loudly if any page
+links a file the list does not include.
 
 ----------------------------------------
   109 files
@@ -160,9 +167,9 @@ Never upload these:
   DEPLOY.txt
   docs/EMAIL-SETUP.md
   docs/PONYTAIL.md
-  docs/gen-deploy-manifest.py
   tools/bundle.js
   tools/bundles.json
+  tools/deploy-list.js
   config.php            (not in the repository at all: it holds the
                          database and SMTP passwords. Its shape is
                          documented in the header of submit.php.)
