@@ -167,6 +167,7 @@ Never upload these:
   DEPLOY.txt
   docs/EMAIL-SETUP.md
   docs/PONYTAIL.md
+  docs/WORKFLOW.md
   tools/bundle.js
   tools/bundles.json
   tools/deploy-list.js
