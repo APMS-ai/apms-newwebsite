@@ -36,6 +36,18 @@
 /* industries.html runs eight sectors through the same component, so it needs
    two more screens of travel or the last two slides get no scroll room */
 .pseq--ind .pseq__track { height: 780vh; }
+
+/* Industries gives the picture more of the row than the other two sequences
+   do. Its plates are landscape - a welding cell, a packaging line, a bottling
+   line - and a landscape plate is bound by the width of its column long
+   before its height matters, so at the shared 1fr/1.2fr it sat small however
+   high --unit-h went. The copy here is short enough to take the narrower
+   column: a two-line heading, a kicker and four lines of body.
+
+   Scoped to .pseq--ind on purpose. The same rule on index or motion-ai would
+   squeeze copy those sequences need, and their units are portrait anyway -
+   the humanoid and the press gain nothing from a wider column. */
+.pseq--ind .pstep { grid-template-columns: 0.8fr 1.6fr; }
 .pseq__sticky {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
   display: flex; flex-direction: column; justify-content: center;
@@ -225,74 +237,8 @@ section.sec:has(> .pseq) { padding: 0; }
    behind it, and a hidden robot walking is four gaits of work for nothing.
    ========================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  .pseq .uni-leg, .pseq .uni-shin, .pseq .uni-arm, .pseq .uni-fore,
-  .pseq .uni-body, .pseq .uni-head,
   .pseq .q4-leg, .pseq .q4-low, .pseq .q4-body, .pseq .q4-head {
     transform-box: view-box;
-  }
-
-  /* ---------- humanoid: weight on one foot, then the other ---------- */
-  .pseq .uni-leg--l  { transform-origin: 252px 232px; }
-  .pseq .uni-leg--r  { transform-origin: 308px 232px; }
-  .pseq .uni-shin--l { transform-origin: 252px 302px; }
-  .pseq .uni-shin--r { transform-origin: 308px 302px; }
-  .pseq .uni-arm--l  { transform-origin: 206px 140px; }
-  .pseq .uni-arm--r  { transform-origin: 354px 140px; }
-  .pseq .uni-fore--l { transform-origin: 206px 214px; }
-  .pseq .uni-fore--r { transform-origin: 354px 214px; }
-  .pseq .uni-head    { transform-origin: 280px 108px; }
-
-  .pseq .pstep.is-active .uni-body   { animation: uniSway 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-leg--l { animation: uniStepL 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-leg--r { animation: uniStepR 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-shin--l{ animation: uniShinL 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-shin--r{ animation: uniShinR 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-arm--l { animation: uniArmL 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-arm--r { animation: uniArmR 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-fore--l{ animation: uniForeL 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-fore--r{ animation: uniForeR 2.4s ease-in-out infinite; }
-  .pseq .pstep.is-active .uni-head   { animation: uniLook 6.4s ease-in-out infinite; }
-
-  /* the hips travel over the standing foot and dip as the weight lands on it:
-     that dip is the whole reason it reads as weight rather than as a slide */
-  @keyframes uniSway {
-    0%, 100% { transform: translate(-4px, 0); }
-    25%      { transform: translate(-2px, -3px); }
-    50%      { transform: translate(4px, 0); }
-    75%      { transform: translate(2px, -3px); }
-  }
-  /* the free foot lifts while the body is over the other one */
-  @keyframes uniStepL {
-    0%, 30%   { transform: translateY(0) rotate(0deg); }
-    50%       { transform: translateY(-9px) rotate(-3.5deg); }
-    70%, 100% { transform: translateY(0) rotate(0deg); }
-  }
-  @keyframes uniStepR {
-    0%        { transform: translateY(-9px) rotate(3.5deg); }
-    20%, 80%  { transform: translateY(0) rotate(0deg); }
-    100%      { transform: translateY(-9px) rotate(3.5deg); }
-  }
-  /* the knee folds as the foot comes up and straightens before it lands */
-  @keyframes uniShinL {
-    0%, 32%   { transform: rotate(0deg); }
-    50%       { transform: rotate(7deg); }
-    68%, 100% { transform: rotate(0deg); }
-  }
-  @keyframes uniShinR {
-    0%        { transform: rotate(-7deg); }
-    18%, 82%  { transform: rotate(0deg); }
-    100%      { transform: rotate(-7deg); }
-  }
-  /* the arms counter the hips, which is what keeps a biped upright */
-  @keyframes uniArmL  { 0%, 100% { transform: rotate(5deg); }  50% { transform: rotate(-6deg); } }
-  @keyframes uniArmR  { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
-  @keyframes uniForeL { 0%, 100% { transform: rotate(3deg); }  50% { transform: rotate(-4deg); } }
-  @keyframes uniForeR { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(4deg); } }
-  /* the head is on its own slower clock: it is looking around, not balancing */
-  @keyframes uniLook {
-    0%, 30%   { transform: rotate(-3.5deg); }
-    50%, 80%  { transform: rotate(3.5deg); }
-    100%      { transform: rotate(-3.5deg); }
   }
 
   /* ---------- quadruped: a trot ---------- */
@@ -353,13 +299,379 @@ section.sec:has(> .pseq) { padding: 0; }
   }
 }
 
-/* Continuous travel, so under reduced motion neither unit moves at all: both
-   stand in exactly the pose the markup draws, which is what they looked like
-   before any of this (CLAUDE.md #4). */
+/* Continuous travel, so under reduced motion nothing moves at all: the
+   quadruped stands in exactly the pose the markup draws and the humanoid
+   holds its stage, which is what they looked like before any of this
+   (CLAUDE.md #4). */
 @media (prefers-reduced-motion: reduce) {
-  .pseq .uni-leg, .pseq .uni-shin, .pseq .uni-arm, .pseq .uni-fore,
-  .pseq .uni-body, .pseq .uni-head,
   .pseq .q4-leg, .pseq .q4-low, .pseq .q4-body, .pseq .q4-head {
     animation: none !important; transform: none !important;
+  }
+  /* the humanoid keeps its staging - the planes are layout, not motion - but
+     nothing on it moves, and the light sweep goes entirely */
+  .pseq .unit3d__scene, .pseq .unit3d__body,
+  .pseq .unit3d__glow, .pseq .unit3d__floor { animation: none !important; }
+  .pseq .unit3d__scan { display: none; }
+}
+
+/* ==========================================================================
+   The fleet slides: photographed units, staged in 3D
+   --------------------------------------------------------------------------
+   All four units are photographs of the real machines. Everything below is
+   shared, and each unit sets three things of its own on .unit3d--<name>:
+   the shape of its plate, the image the light sweep is clipped to, and how
+   much floor it stands on. A dog, a lift truck and a drone do not stand the
+   way a person does.
+
+   One still photograph cannot turn, and pretending otherwise (a horizontal
+   flip, a squash) reads as a sliding picture immediately. What it can do is
+   occupy space: the unit, its light and its ground each sit on their own
+   plane inside a perspective scene, so the slow yaw moves them by different
+   amounts and the parallax between them is what sells the depth. The float
+   and the yaw run on different clocks so the loop never visibly repeats.
+
+   The machine arrives already cut out - tools/humanoid-matte.py segments it
+   out of its studio background and its halo, so what lands on the slide is
+   the unit and nothing else. Doing that in the browser was tried and cannot
+   work: mix-blend-mode never reaches the section behind, because the 3D
+   staging makes a stacking context of every ancestor.
+   ========================================================================== */
+.pstep__viz--photo { perspective: 1400px; perspective-origin: 50% 45%; }
+/* Per unit: --unit-ratio is the finished file's shape, printed by
+   tools/unit-cutout.py; --unit-mask is the same file, for the light sweep;
+   --floor-w / --floor-b place the ground under whatever it stands on.
+
+   --unit-h is what stops the fleet looking like four machines of the same
+   size. Filling the stage height with every plate makes the two landscape
+   units enormous - the quadruped ended up wider than the copy beside it and
+   read as a horse - and it flattens the one fact the slides are making,
+   which is that these are different machines for different jobs. So each
+   plate is sized towards the real thing: the humanoid is person-height and
+   sets the scale, the quadruped comes up to your knee, the AMR to your
+   waist, and the drone is the small one because a drone is small. */
+.unit3d { width: 100%; height: 100%; display: grid; place-items: center;
+  --unit-h: 100%; --floor-w: 44%; --floor-b: 1.5%; }
+.unit3d--humanoid  { --unit-ratio: 473 / 1100; --unit-mask: url(../../assets/unit-humanoid.webp);
+  --unit-h: 100%; --floor-w: 40%; --floor-b: 0%; }
+.unit3d--quadruped { --unit-ratio: 1100 / 928;  --unit-mask: url(../../assets/unit-quadruped.webp);
+  --unit-h: 64%;  --floor-w: 60%; --floor-b: 17%; }
+.unit3d--amr       { --unit-ratio: 901 / 1100; --unit-mask: url(../../assets/unit-amr.webp);
+  --unit-h: 74%;  --floor-w: 40%; --floor-b: 11%; }
+/* the press is not fleet - it is step 01 of the pipeline story on index -
+   but it is the same photograph on the same staging, so it lives here */
+.unit3d--press     { --unit-ratio: 632 / 1100; --unit-mask: url(../../assets/unit-press.webp);
+  --unit-h: 94%;  --floor-w: 44%; --floor-b: 0%; }
+/* step 02 of the same pipeline story. An HMI panel showing live output and
+   uptime, replacing the wall-mounted edge box that was here before. Keyed off
+   pure black with tools/unit-whitekey.py --bg: the panel's bezel sits at 47-58
+   and the darkest part of its own screen at 35, so a ramp from 8 to 24 lifts
+   the ground away without touching either. No ground ring - a panel this size
+   is mounted, not stood on, and no fade either: the rounded rectangle is the
+   object's own outline, not a crop of something larger. */
+.unit3d--edge      { --unit-ratio: 1100 / 712; --unit-mask: url(../../assets/unit-edge.webp);
+  --unit-h: 66%; }
+.unit3d--edge .unit3d__floor { display: none; }
+/* steps 03-05 of the pipeline story. None of these is a machine standing on
+   a floor - a cloud, a phone and an alert going off - so none of them gets a
+   ground ring, and the alert is held well down because it is the one landscape
+   plate here: filled to the stage height it dwarfed the copy beside it, which
+   is the same trap the fleet slides hit. */
+.unit3d--cloud     { --unit-ratio: 1100 / 796; --unit-mask: url(../../assets/unit-cloud.webp);
+  --unit-h: 64%; }
+.unit3d--app       { --unit-ratio: 562 / 1100; --unit-mask: url(../../assets/unit-app.webp);
+  --unit-h: 92%; }
+.unit3d--alert     { --unit-ratio: 908 / 1049; --unit-mask: url(../../assets/unit-alert.webp);
+  --unit-h: 88%; }
+/* The industries opener: the whole welding cell - six arms on their pedestals,
+   the body-in-white on its jig, the rails - cut in one pass. It replaced an
+   earlier plate built by unioning two mattes out of a dense line photograph,
+   and the reason it is so much simpler is the source: this one is the cell on
+   a plain white sweep, which is the condition tools/unit-cutout.py was written
+   for. One connected piece, no strays, no fringe to erode - the arms come out
+   joined to each other through the body and the rails, so --largest was left
+   off. Passing it would have kept one arm and thrown the other five away.
+
+   The bottom is left as the photograph cuts it - square across the pedestals
+   and rails. It was faded once; the fades came out of every industries plate
+   so they read like the fleet units on motion-ai, which are hard-edged
+   throughout. A straight edge says "continues past the frame"; a dissolve says
+   "this picture is evaporating", and next to a hard-edged fleet it looked like
+   a different treatment. 74% is as far as
+   this goes: --unit-h drives the height and the ratio fixes the width from it,
+   and past the column's width the plate does not shrink to fit - the absolutely
+   positioned body clamps against its own aspect-ratio and renders nothing at
+   all. 82% was blank in exactly that way while 66% and 74% rendered beside it. No ground ring - the
+   cell already stands on its own pedestals and rails, which is a floor. */
+.unit3d--automotive { --unit-ratio: 1100 / 696; --unit-mask: url(../../assets/unit-automotive.webp);
+  --unit-h: 74%; }
+/* Pharma. Re-cut from a fresh source: the same cell photographed on a plain
+   white sweep at 1536x1024, which replaced an earlier file that arrived
+   already cut by Photoroom. Cutting it here is better on both counts - the
+   matte is made at full resolution rather than inherited, and one pass gave a
+   single connected piece with no strays and no fringe worth eroding.
+
+   The operator's left-hand outline is real and is left hard, because it is the
+   edge the eye reads and the plate's whole credibility sits on it. The other
+   three sides are not hers: the photograph cuts the line off square on the
+   right and bottom and clips the hopper at the top, so those are faded
+   (tools/unit-feather.py) rather than left as right angles. Her dark scrubs
+   are also why this plate must never be keyed on luminance the way Food &
+   Beverage is - the key would erase the subject first.
+
+   No ground ring: her feet are outside the frame, and a ring floating under a
+   cropped figure is worse than none. */
+.unit3d--pharma { --unit-ratio: 1100 / 788; --unit-mask: url(../../assets/unit-pharma.webp);
+  --unit-h: 82%; }
+/* Food & Beverage. Re-cut from a proper source and no longer keyed. The file
+   this replaced was a room rather than an object - a line filling its frame
+   with no background to remove - so it had to be faked with a luminance key,
+   taking the picture's own shadows to transparent because segmentation could
+   not find an edge (birefnet kept 5.8% of that frame, isnet 28.6%, both of
+   them the juice bottles alone). This source is the same line on a plain white
+   sweep, so it cuts properly: one piece, one 5px speck dropped, no fringe.
+
+   The key is gone with it, and that matters beyond tidiness - a luminance key
+   dims whatever it keeps, and this plate now carries full opacity everywhere
+   the machine is. Top, bottom and right are faded because the photograph cuts
+   the line off square there; the left edge is the machine's own outline (22px
+   of contact, i.e. a real edge) and is left hard.
+
+   It keeps the fleet-style ground ring, but narrow (32%) and tucked (13%): at
+   46% its left arc swung out past the machine and under the conveyor, where a
+   ground ellipse with nothing above it just reads as a stray line. Narrowed,
+   it sits under the filler drum, which is the part that actually looks like it
+   is standing on something. */
+.unit3d--food { --unit-ratio: 1100 / 648; --unit-mask: url(../../assets/unit-food.webp);
+  --unit-h: 68%; --floor-w: 32%; --floor-b: 13%; }
+/* Power & Energy. A solar array running back to the horizon with turbines
+   behind it, on a plain white sweep. The thin white blades against white were
+   the thing to watch - it is the same trap that made unit-cutout.py pin
+   birefnet over u2net in the first place, u2net having removed the drone's
+   propellers - and they all survived, down to the two smallest turbines in the
+   distance and the concrete footings under the panels.
+
+   Only the left is faded: the photograph cuts the array off square there
+   (583px of flat edge). Top, bottom and right came out at 3, 8 and 1 pixels
+   of contact, which is a real silhouette, not a crop, so they are left alone.
+   Near enough square, so unlike the other three plates this one is bound by
+   the stage's height rather than the column's width. No ground ring: the
+   footings are in shot and are the ground. */
+.unit3d--energy { --unit-ratio: 1086 / 1100; --unit-mask: url(../../assets/unit-energy.webp);
+  --unit-h: 94%; }
+.unit3d--energy .unit3d__floor,
+/* Metal Fabrication. A press brake, its operator and a stack of sheet, and
+   the plate that needed the most work of the set.
+
+   It arrived bright red, so the body was recoloured to mint by rotating hue and
+   keeping saturation and value (tools/unit-recolour.py) - the shading, the
+   sheen along the top bend and the shadow under the ram all live in S and V,
+   so moving H alone repaints the panel and leaves it looking like metal. The
+   operator is held out of that by his own rembg matte: an ear is the reddest
+   thing on a person, and no hue window tight enough to spare it still catches
+   panels sitting at hue 2-4.
+
+   It is keyed off the white sweep rather than segmented (tools/unit-whitekey.py)
+   because rembg answers "what is the subject", and here it answered "the man"
+   and discarded the entire machine - the mirror of the automotive cell, where
+   it kept the car body and dropped all six arms. A studio white has no such
+   ambiguity: the sweep is 253-255 and the lightest thing on the machine is 229.
+
+   The floor was cropped away before keying. The contact shadow is neutral and
+   light, so any threshold that removed it also ate into the machine, and left
+   in it read as bright white blooms under the table on a dark section. Cropping
+   costs the bottom of the table legs, which is why the bottom is faded. */
+.unit3d--metal { --unit-ratio: 1100 / 804; --unit-mask: url(../../assets/unit-metal.webp);
+  --unit-h: 84%; }
+.unit3d--metal .unit3d__floor,
+/* Heavy Machinery. A cold saw and its stock, a crane hook lowering pipe to an
+   operator - supplied already in mint, same as the first Heavy Machinery
+   source, so no recolour pass. Cut with tools/unit-whitekey.py at a lower
+   solid threshold (210, not the usual 238) because this machine sits directly
+   on the sweep rather than on a table: its own contact shadow pools under the
+   beam feet as a soft grey rather than the sharp cast shadow the press brake's
+   table left, and a threshold high enough to keep light metal also kept most
+   of that pool as semi-opaque. Bottom is faded on top of that for what the
+   threshold still let through - a shadow this soft has no clean edge to key
+   at any single level, so what remained is dissolved rather than chased
+   further with more threshold tuning. */
+.unit3d--heavy { --unit-ratio: 1100 / 825; --unit-mask: url(../../assets/unit-heavy.webp);
+  --unit-h: 84%; }
+.unit3d--heavy .unit3d__floor,
+/* Warehousing & Logistics. A pallet-rack aisle with three reach trucks and
+   their operators, cut with tools/unit-whitekey.py straight off the sweep -
+   flat runs on every side came back under 10px, so no crop and no feather.
+   No ground ring: the racking's own base plates and the trucks' wheels are
+   already a floor, and the aisle recedes far enough that a ring under any one
+   point of it would look attached to nothing.
+
+   68% - the widest plate in the set at 1.82:1, so the column's width binds it
+   early. Checked by outlining the plate box against the column: 70% has the
+   two edges meeting, so this sits just inside that. */
+.unit3d--warehouse { --unit-ratio: 1100 / 603; --unit-mask: url(../../assets/unit-warehouse.webp);
+  --unit-h: 68%; }
+.unit3d--warehouse .unit3d__floor,
+/* Plastics & Moulding. A blow-mould tool shot mid-cycle with two parisons
+   inflating - supplied already in mint like the two Heavy Machinery sources,
+   so no recolour pass. Cut with tools/unit-whitekey.py; top and bottom faded
+   where the frame clips the tooling and the machine base square. No ground
+   ring: the base plate is in shot and is the ground. */
+.unit3d--plastics { --unit-ratio: 1100 / 913; --unit-mask: url(../../assets/unit-plastics.webp);
+  --unit-h: 78%; }
+.unit3d--plastics .unit3d__floor,
+.unit3d--pharma .unit3d__floor,
+.unit3d--automotive .unit3d__floor,
+/* Result. Two engineers reading a production dashboard - the one pipeline
+   plate with people in it, which is the point: the step is about a number
+   somebody can act on. Keyed off its own off-white ground (247, not the 254
+   the others sit on) with tools/unit-whitekey.py --bg, then bottom-faded
+   because the frame cuts both men off at the waist. */
+.unit3d--result { --unit-ratio: 1100 / 755; --unit-mask: url(../../assets/unit-result.webp);
+  --unit-h: 60%; }
+.unit3d--result .unit3d__floor,
+.unit3d--cloud .unit3d__floor,
+.unit3d--app .unit3d__floor,
+.unit3d--alert .unit3d__floor { display: none; }
+
+/* the drone is the one unit that is not standing on anything */
+.unit3d--drone     { --unit-ratio: 1100 / 677;  --unit-mask: url(../../assets/unit-drone.webp);
+  --unit-h: 52%; }
+.unit3d--drone .unit3d__floor { display: none; }
+.unit3d__scene { position: relative; width: 100%; height: 100%;
+  display: grid; place-items: center; transform-style: preserve-3d; }
+
+/* The light the unit stands in: its own plane, well behind the body, so the
+   yaw slides it across the machine rather than with it. Kept low - it is a
+   floor light behind a machine, not a glow around a cut-out. */
+.unit3d__glow { position: absolute; width: calc(var(--unit-h) * 0.78); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,224,180,0.16) 0%, rgba(46,224,180,0.07) 45%, transparent 72%);
+  filter: blur(30px); transform: translateZ(-220px); pointer-events: none; }
+
+/* The plate carries the photograph's own ratio, so object-fit never has
+   anything to letterbox and the feet always land on the floor ring. It is
+   positioned rather than flowed because a percentage height needs a definite
+   box to resolve against, and the sticky stage's height is not definite the
+   whole way down the chain - flowed, the plate took the image's intrinsic
+   height instead and the machine walked off the bottom of the section. */
+.unit3d__body { position: absolute; inset: 0; margin: auto; height: var(--unit-h);
+  aspect-ratio: var(--unit-ratio); max-width: 100%; max-height: 100%;
+  transform: translateZ(0); }
+.unit3d__body img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+/* the ground: a ring laid flat under the feet, which is the one element that
+   states the floor plane outright */
+.unit3d__floor { position: absolute; bottom: var(--floor-b); width: var(--floor-w); aspect-ratio: 3 / 1; border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(46,224,180,0.22) 0%, transparent 68%);
+  border: 1px solid rgba(46,224,180,0.28);
+  transform: translateZ(-90px) rotateX(74deg); pointer-events: none; }
+
+/* A teal light passing down the machine. It is clipped to the machine itself
+   by masking with the unit's own image in luminance mode - the lit body
+   shows the band, the transparent surround hides it. Browsers without
+   mask-mode get no band rather than a rectangle sliding over the picture. */
+.unit3d__scan { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+@supports (mask-mode: luminance) or (-webkit-mask-mode: luminance) {
+  .unit3d__scan { opacity: 1; mix-blend-mode: screen;
+    background: linear-gradient(to bottom, transparent 42%, rgba(46,224,180,0.55) 50%, transparent 58%);
+    background-size: 100% 240%; background-repeat: no-repeat;
+    -webkit-mask-image: var(--unit-mask); mask-image: var(--unit-mask);
+    -webkit-mask-mode: luminance; mask-mode: luminance;
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+}
+
+/* ------------------------------------------------------------------
+   Scene plates: a photograph of a place, not a cut-out of a thing
+   ------------------------------------------------------------------
+   The unit3d staging above is for machines shot on a sweep and cut to
+   transparency - it floats them, turns them and lights them because a
+   cut-out has no context of its own to supply. A scene photograph is the
+   opposite: it is all context, edge to edge, with no background to remove.
+   Running one through that staging would be wrong twice over - there is
+   nothing to cut out, and yawing a wide room in perspective reads as a
+   photo sliding about rather than a space you are looking into.
+
+   So a scene gets a frame instead of a stage. It is held to a fixed
+   landscape ratio and cropped to fill, which keeps the slide's shape
+   steady no matter what the source photograph measures.
+
+   The two overlays are what stop a bright photograph from punching a hole
+   in a dark section. A vignette settles the corners into the background,
+   and a faint teal wash pulls a foreign photograph's white balance a few
+   degrees towards the palette the rest of the section is built from -
+   both slight, because the aim is to seat the picture, not tint it.
+   Copy sits in its own column beside this, never over it, so neither
+   overlay is carrying any text legibility. */
+.pstep__viz--scene { display: flex; align-items: center; }
+
+.scene {
+  position: relative; width: 100%; aspect-ratio: 16 / 10;
+  border-radius: 18px; overflow: hidden;
+  border: 1px solid rgba(43, 227, 176, .28);
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, .75),
+              0 0 0 1px rgba(255, 255, 255, .04) inset; }
+
+.scene img { display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; }
+
+.scene::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(120% 100% at 50% 45%, transparent 42%, rgba(6, 16, 26, .55) 100%),
+    linear-gradient(180deg, rgba(43, 227, 176, .05), rgba(9, 22, 34, .18)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* a slow push in, the still-photograph equivalent of the units' idle
+     turn: it says the scene is live without implying a camera move */
+  .pseq .pstep.is-active .scene img { animation: sceneDrift 22s ease-in-out infinite; }
+  @keyframes sceneDrift {
+    0%, 100% { transform: scale(1.02); }
+    50%      { transform: scale(1.09); }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pseq .pstep.is-active .unit3d__scene { animation: unitTurn 17s ease-in-out infinite; }
+  .pseq .pstep.is-active .unit3d__body  { animation: unitFloat 6.5s ease-in-out infinite; }
+  .pseq .pstep.is-active .unit3d__glow  { animation: unitGlow 5.2s ease-in-out infinite; }
+  .pseq .pstep.is-active .unit3d__floor { animation: unitFloor 6.5s ease-in-out infinite; }
+  .pseq .pstep.is-active .unit3d__scan  { animation: unitScan 7s linear infinite; }
+
+  /* the cursor takes the yaw over while it is on the stage; pseq.js eases
+     the angle back to zero on the way out, and this rests at zero at both
+     ends of the cycle so picking the idle turn back up is seamless */
+  .pseq .pstep.is-active .unit3d__scene.is-pointing { animation: none; }
+
+  /* small yaw either side of front-on: enough for the planes to separate,
+     small enough that the fixed lighting in the photograph stays believable */
+  @keyframes unitTurn {
+    0%, 100% { transform: rotateY(0deg)  rotateX(0deg); }
+    25%      { transform: rotateY(9deg)  rotateX(-1.5deg); }
+    75%      { transform: rotateY(-9deg) rotateX(1.5deg); }
+  }
+
+  /* the body rises and the ground ring shrinks on the same clock, which is
+     what a shadow does when the thing above it lifts */
+  /* the drone is flying, so it gets the same clock and more of everything */
+  .pseq .pstep.is-active .unit3d--drone .unit3d__body { animation-name: unitHover; }
+  @keyframes unitHover {
+    0%, 100% { transform: translate3d(0, 1.2%, 0) rotate(-0.6deg); }
+    50%      { transform: translate3d(0, -2.6%, 46px) rotate(0.6deg); }
+  }
+
+  @keyframes unitFloat {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50%      { transform: translate3d(0, -1.6%, 34px); }
+  }
+  @keyframes unitFloor {
+    0%, 100% { transform: translateZ(-90px) rotateX(74deg) scale(1); opacity: 1; }
+    50%      { transform: translateZ(-90px) rotateX(74deg) scale(0.88); opacity: 0.72; }
+  }
+  @keyframes unitGlow {
+    0%, 100% { transform: translateZ(-220px) scale(1); opacity: 0.85; }
+    50%      { transform: translateZ(-220px) scale(1.08); opacity: 1; }
+  }
+  @keyframes unitScan {
+    0%       { background-position: 0 -140%; }
+    55%, 100%{ background-position: 0 240%; }
   }
 }
