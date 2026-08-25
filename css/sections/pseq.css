@@ -47,6 +47,21 @@
    Scoped to .pseq--ind on purpose. The same rule on index or motion-ai would
    squeeze copy those sequences need, and their units are portrait anyway -
    the humanoid and the press gain nothing from a wider column. */
+/* Copy on the left, artwork on the right, and the artwork gets the larger
+   share of the row: these plates are landscape, so the column's width is what
+   limits them and a wide column is what lets them be big.
+
+   Every --unit-h below is computed, not chosen. --unit-h sets the plate's
+   height, --unit-ratio fixes its width from that, and the measured column is
+   764x682. So the ceiling for each plate is (764 / its ratio) / 682, and each
+   sits at 96% of its own ceiling. The 4% is not timidity: past the column's
+   width the absolutely positioned body clamps against its own aspect-ratio and
+   renders nothing at all, so the margin buys a silent-failure-free result at
+   viewport widths slightly different from the one measured here.
+
+   Note --unit-h is a percentage of the viz column's height (682px), not the
+   820px sticky stage. Reading it as the stage height is what made an earlier
+   set of these numbers look arbitrary. */
 .pseq--ind .pstep { grid-template-columns: 0.8fr 1.6fr; }
 .pseq__sticky {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
@@ -380,8 +395,8 @@ section.sec:has(> .pseq) { padding: 0; }
   --unit-h: 64%; }
 .unit3d--app       { --unit-ratio: 562 / 1100; --unit-mask: url(../../assets/unit-app.webp);
   --unit-h: 92%; }
-.unit3d--alert     { --unit-ratio: 908 / 1049; --unit-mask: url(../../assets/unit-alert.webp);
-  --unit-h: 88%; }
+.unit3d--alert     { --unit-ratio: 699 / 1100; --unit-mask: url(../../assets/unit-alert.webp);
+  --unit-h: 96%; }
 /* The industries opener: the whole welding cell - six arms on their pedestals,
    the body-in-white on its jig, the rails - cut in one pass. It replaced an
    earlier plate built by unioning two mattes out of a dense line photograph,
@@ -402,8 +417,8 @@ section.sec:has(> .pseq) { padding: 0; }
    positioned body clamps against its own aspect-ratio and renders nothing at
    all. 82% was blank in exactly that way while 66% and 74% rendered beside it. No ground ring - the
    cell already stands on its own pedestals and rails, which is a floor. */
-.unit3d--automotive { --unit-ratio: 1100 / 696; --unit-mask: url(../../assets/unit-automotive.webp);
-  --unit-h: 74%; }
+.unit3d--automotive { --unit-ratio: 1100 / 733; --unit-mask: url(../../assets/unit-automotive.webp);
+  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
 /* Pharma. Re-cut from a fresh source: the same cell photographed on a plain
    white sweep at 1536x1024, which replaced an earlier file that arrived
    already cut by Photoroom. Cutting it here is better on both counts - the
@@ -420,8 +435,8 @@ section.sec:has(> .pseq) { padding: 0; }
 
    No ground ring: her feet are outside the frame, and a ring floating under a
    cropped figure is worse than none. */
-.unit3d--pharma { --unit-ratio: 1100 / 788; --unit-mask: url(../../assets/unit-pharma.webp);
-  --unit-h: 82%; }
+.unit3d--pharma { --unit-ratio: 1100 / 777; --unit-mask: url(../../assets/unit-pharma.webp);
+  --unit-h: 76%; --floor-w: 44%; --floor-b: 8%; }
 /* Food & Beverage. Re-cut from a proper source and no longer keyed. The file
    this replaced was a room rather than an object - a line filling its frame
    with no background to remove - so it had to be faked with a luminance key,
@@ -441,8 +456,8 @@ section.sec:has(> .pseq) { padding: 0; }
    ground ellipse with nothing above it just reads as a stray line. Narrowed,
    it sits under the filler drum, which is the part that actually looks like it
    is standing on something. */
-.unit3d--food { --unit-ratio: 1100 / 648; --unit-mask: url(../../assets/unit-food.webp);
-  --unit-h: 68%; --floor-w: 32%; --floor-b: 13%; }
+.unit3d--food { --unit-ratio: 1100 / 733; --unit-mask: url(../../assets/unit-food.webp);
+  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
 /* Power & Energy. A solar array running back to the horizon with turbines
    behind it, on a plain white sweep. The thin white blades against white were
    the thing to watch - it is the same trap that made unit-cutout.py pin
@@ -456,9 +471,8 @@ section.sec:has(> .pseq) { padding: 0; }
    Near enough square, so unlike the other three plates this one is bound by
    the stage's height rather than the column's width. No ground ring: the
    footings are in shot and are the ground. */
-.unit3d--energy { --unit-ratio: 1086 / 1100; --unit-mask: url(../../assets/unit-energy.webp);
-  --unit-h: 94%; }
-.unit3d--energy .unit3d__floor,
+.unit3d--energy { --unit-ratio: 1100 / 739; --unit-mask: url(../../assets/unit-energy.webp);
+  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
 /* Metal Fabrication. A press brake, its operator and a stack of sheet, and
    the plate that needed the most work of the set.
 
@@ -480,9 +494,8 @@ section.sec:has(> .pseq) { padding: 0; }
    light, so any threshold that removed it also ate into the machine, and left
    in it read as bright white blooms under the table on a dark section. Cropping
    costs the bottom of the table legs, which is why the bottom is faded. */
-.unit3d--metal { --unit-ratio: 1100 / 804; --unit-mask: url(../../assets/unit-metal.webp);
-  --unit-h: 84%; }
-.unit3d--metal .unit3d__floor,
+.unit3d--metal { --unit-ratio: 1100 / 733; --unit-mask: url(../../assets/unit-metal.webp);
+  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
 /* Heavy Machinery. A cold saw and its stock, a crane hook lowering pipe to an
    operator - supplied already in mint, same as the first Heavy Machinery
    source, so no recolour pass. Cut with tools/unit-whitekey.py at a lower
@@ -494,9 +507,8 @@ section.sec:has(> .pseq) { padding: 0; }
    threshold still let through - a shadow this soft has no clean edge to key
    at any single level, so what remained is dissolved rather than chased
    further with more threshold tuning. */
-.unit3d--heavy { --unit-ratio: 1100 / 825; --unit-mask: url(../../assets/unit-heavy.webp);
-  --unit-h: 84%; }
-.unit3d--heavy .unit3d__floor,
+.unit3d--heavy { --unit-ratio: 1100 / 748; --unit-mask: url(../../assets/unit-heavy.webp);
+  --unit-h: 73%; --floor-w: 44%; --floor-b: 10%; }
 /* Warehousing & Logistics. A pallet-rack aisle with three reach trucks and
    their operators, cut with tools/unit-whitekey.py straight off the sweep -
    flat runs on every side came back under 10px, so no crop and no feather.
@@ -507,26 +519,31 @@ section.sec:has(> .pseq) { padding: 0; }
    68% - the widest plate in the set at 1.82:1, so the column's width binds it
    early. Checked by outlining the plate box against the column: 70% has the
    two edges meeting, so this sits just inside that. */
-.unit3d--warehouse { --unit-ratio: 1100 / 603; --unit-mask: url(../../assets/unit-warehouse.webp);
-  --unit-h: 68%; }
-.unit3d--warehouse .unit3d__floor,
+.unit3d--warehouse { --unit-ratio: 1100 / 717; --unit-mask: url(../../assets/unit-warehouse.webp);
+  --unit-h: 70%; --floor-w: 44%; --floor-b: 11%; }
 /* Plastics & Moulding. A blow-mould tool shot mid-cycle with two parisons
    inflating - supplied already in mint like the two Heavy Machinery sources,
    so no recolour pass. Cut with tools/unit-whitekey.py; top and bottom faded
    where the frame clips the tooling and the machine base square. No ground
    ring: the base plate is in shot and is the ground. */
-.unit3d--plastics { --unit-ratio: 1100 / 913; --unit-mask: url(../../assets/unit-plastics.webp);
-  --unit-h: 78%; }
-.unit3d--plastics .unit3d__floor,
-.unit3d--pharma .unit3d__floor,
-.unit3d--automotive .unit3d__floor,
+.unit3d--plastics { --unit-ratio: 1100 / 732; --unit-mask: url(../../assets/unit-plastics.webp);
+  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
 /* Result. Two engineers reading a production dashboard - the one pipeline
    plate with people in it, which is the point: the step is about a number
-   somebody can act on. Keyed off its own off-white ground (247, not the 254
-   the others sit on) with tools/unit-whitekey.py --bg, then bottom-faded
-   because the frame cuts both men off at the waist. */
-.unit3d--result { --unit-ratio: 1100 / 755; --unit-mask: url(../../assets/unit-result.webp);
-  --unit-h: 60%; }
+   somebody can act on.
+
+   Built from two mattes unioned at their original frame coordinates, because
+   rembg answers "what is the subject" and answered "the men", dropping the
+   monitor and leaving one of them pointing at nothing. The men come from the
+   full frame; the monitor from its own crop, then filled and closed so the
+   matte follows the bezel rather than the gaps between UI cards.
+
+   Not a convex hull, which was tried: the men occlude the screen's left side,
+   so the hull of what is visible cuts a diagonal across the top-right and
+   clipped the Down card off the dashboard. Fill-and-close keeps the real
+   outline. 59% is 96% of where this ratio's width meets the 625px column. */
+.unit3d--result { --unit-ratio: 1100 / 739; --unit-mask: url(../../assets/unit-result.webp);
+  --unit-h: 59%; }
 .unit3d--result .unit3d__floor,
 .unit3d--cloud .unit3d__floor,
 .unit3d--app .unit3d__floor,
