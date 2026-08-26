@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="is-loading">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KB8MZ3K3');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Motion AI: Patrol, Lift and Assist with Autonomous Robots | APMS.ai</title>
@@ -29,9 +36,13 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
   <!-- One file, built by tools/bundle.js from the 18 stylesheets listed
        for this page in tools/bundles.json. Edit those, not this, and re-run
        `node tools/bundle.js`: the hash below changes with the content. -->
-  <link rel="stylesheet" href="dist/css/motion-ai.d257ac7a.css">
+  <link rel="stylesheet" href="dist/css/motion-ai.c042e5b2.css">
   <!-- /BUNDLE:CSS --></head>
 <body data-fx="scale">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KB8MZ3K3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div class="ldr" id="apms-loader" role="status" aria-live="polite" aria-label="Loading">
     <div class="ldr__inner">
       <img class="ldr__mark" src="assets/apms-mark.png" alt="" width="212" height="228">
@@ -216,65 +227,30 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
               </div>
               <div class="pseq__stage">
             <div class="pstep is-active">
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Humanoid robot: works where people already work">
-
-                <circle class="fx-breathe" cx="280" cy="210" r="150" fill="url(#psGlow)"/>
-                <!-- Jointed, so it can hold its balance on the spot the way a
-                     real humanoid does: every group below turns about one
-                     actual joint, and pseq.css drives them. Drawing order is
-                     unchanged, so the stacking is exactly what it was.
-                     Hips 252,232 and 308,232. Knees 252,302 and 308,302. -->
-                <g class="uni-leg uni-leg--l">
-                  <g class="uni-shin uni-shin--l">
-                    <!-- foot, planted, centred under the shin -->
-                    <path d="M229 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
-                    <rect x="242" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                    <circle cx="252" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                  </g>
-                  <rect x="240" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                </g>
-                <g class="uni-leg uni-leg--r">
-                  <g class="uni-shin uni-shin--r">
-                    <path d="M285 372 h46 a6 6 0 0 1 6 6 v6 h-58 v-6 a6 6 0 0 1 6 -6z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8" stroke-linejoin="round"/>
-                    <rect x="298" y="302" width="20" height="72" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                    <circle cx="308" cy="302" r="7" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                  </g>
-                  <rect x="296" y="232" width="24" height="72" rx="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                </g>
-                <!-- everything above the hips rides the weight shift together -->
-                <g class="uni-body">
-                  <!-- pelvis and torso -->
-                  <rect x="228" y="206" width="104" height="34" rx="11" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                  <path d="M228 118 h104 a14 14 0 0 1 14 14 v56 a16 16 0 0 1 -16 16 h-100 a16 16 0 0 1 -16 -16 v-56 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
-                  <rect x="244" y="148" width="72" height="24" rx="7" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".5" stroke-width="1.4"/>
-                  <g fill="url(#psTeal)"><rect class="fx-bar" x="255" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d1" x="268" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d2" x="281" y="155" width="7" height="10" rx="2"/><rect class="fx-bar d3" x="294" y="155" width="7" height="10" rx="2"/></g>
-                  <!-- shoulders 206,140 and 354,140; elbows 206,214 and 354,214 -->
-                  <g class="uni-arm uni-arm--l">
-                    <circle cx="206" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                    <rect x="197" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                    <g class="uni-fore uni-fore--l">
-                      <rect x="198" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                      <path fill="none" d="M202 264 v13 M210 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
-                    </g>
-                  </g>
-                  <g class="uni-arm uni-arm--r">
-                    <circle cx="354" cy="140" r="14" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                    <rect x="345" y="152" width="18" height="62" rx="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                    <g class="uni-fore uni-fore--r">
-                      <rect x="346" y="214" width="16" height="50" rx="7" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                      <path fill="none" d="M350 264 v13 M358 264 v13" stroke="#2BE3B0" stroke-width="2" stroke-linecap="round"/>
-                    </g>
-                  </g>
-                  <!-- neck and head; the head turns about the neck at 280,108 -->
-                  <path fill="none" d="M280 118 v-10" stroke="#2BE3B0" stroke-width="2"/>
-                  <g class="uni-head">
-                    <rect x="246" y="64" width="68" height="44" rx="16" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                    <rect x="258" y="76" width="44" height="14" rx="7" fill="#0a1622"/>
-                    <circle class="fx-pulse" cx="270" cy="83" r="4" fill="#2BE3B0"/>
-                    <circle class="fx-pulse d1" cx="290" cy="83" r="4" fill="#2BE3B0"/>
-                  </g>
-                  <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="86" r="52"/></g>
-                </g></svg></div>
+              <!-- The humanoid is the one unit people picture, so it is shown
+                   as the real machine rather than line-art. A single still is
+                   still a still: the depth comes from staging it in a
+                   perspective scene - the unit on its own plane, a separate
+                   glow plane behind it and a ground ellipse below - so the
+                   slow turn and float read as a body in space, not a sliding
+                   picture. pseq.css drives it, and stops it under reduced
+                   motion. -->
+              <div class="pstep__viz pstep__viz--photo">
+                <div class="unit3d unit3d--humanoid">
+                  <div class="unit3d__scene">
+                    <div class="unit3d__glow" aria-hidden="true"></div>
+                    <div class="unit3d__body">
+                      <picture>
+                        <source srcset="assets/unit-humanoid.webp" type="image/webp">
+                        <img src="assets/unit-humanoid.png" width="473" height="1100"
+                             alt="Humanoid robot: works where people already work" loading="lazy" decoding="async">
+                      </picture>
+                      <span class="unit3d__scan" aria-hidden="true"></span>
+                    </div>
+                    <div class="unit3d__floor" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Bipedal</span>
                 <h3>Humanoid</h3><div class="pstep__sub">Works where people already work</div>
@@ -283,78 +259,22 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
             </div>
 
             <div class="pstep">
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Quadruped robot: goes where wheels give up">
-
-                <circle class="fx-breathe" cx="280" cy="230" r="150" fill="url(#psGlow)"/>
-                <!-- Four legs, each hip / knee / foot as its own pair of
-                     segments so the knee can fold. Each leg path was one
-                     three-point polyline before, which can only be moved as a
-                     rigid stick; split at the knee they trot.
-                     Hips 182,232 - 226,236 - 330,236 - 374,232.
-                     Knees 166,284 - 240,290 - 316,290 - 390,284.
-                     The head is on the right, so 330 and 374 are the front
-                     pair, and the diagonals that swing together are
-                     182 with 374, and 226 with 330. -->
-                <g class="q4-leg q4-leg--r1">
-                  <path d="M182 232 L166 284" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <g class="q4-low q4-low--r1">
-                    <path d="M166 284 L188 328" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M181 332 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
-                    <circle cx="188" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                  </g>
-                  <circle cx="166" cy="284" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                  <circle cx="182" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                </g>
-                <g class="q4-leg q4-leg--r2">
-                  <path d="M226 236 L240 290" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <g class="q4-low q4-low--r2">
-                    <path d="M240 290 L222 332" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M215 336 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
-                    <circle cx="222" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                  </g>
-                  <circle cx="240" cy="290" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                  <circle cx="226" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                </g>
-                <g class="q4-leg q4-leg--f1">
-                  <path d="M330 236 L316 290" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <g class="q4-low q4-low--f1">
-                    <path d="M316 290 L334 332" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M327 336 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
-                    <circle cx="334" cy="332" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                  </g>
-                  <circle cx="316" cy="290" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                  <circle cx="330" cy="236" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                </g>
-                <g class="q4-leg q4-leg--f2">
-                  <path d="M374 232 L390 284" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <g class="q4-low q4-low--f2">
-                    <path d="M390 284 L368 328" fill="none" stroke="#2BE3B0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M361 332 h14" fill="none" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
-                    <circle cx="368" cy="328" r="5.5" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                  </g>
-                  <circle cx="390" cy="284" r="6.5" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                  <circle cx="374" cy="232" r="10" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                </g>
-                <!-- body, head and sensors ride the bob together -->
-                <g class="q4-body">
-                  <!-- body: shallower than it was, still tapered toward the head -->
-                  <path d="M182 184 h176 l26 16 v22 a14 14 0 0 1 -14 14 h-202 a14 14 0 0 1 -14 -14 v-24 a14 14 0 0 1 14 -14z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
-                  <rect x="200" y="200" width="110" height="12" rx="6" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                  <g fill="url(#psTeal)"><rect class="fx-bar" x="208" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d1" x="224" y="203" width="9" height="7" rx="2"/><rect class="fx-bar d2" x="240" y="203" width="9" height="7" rx="2"/></g>
-                  <!-- neck and sensor head: the head holds level against the bob,
-                       which is the thing that makes these robots look uncanny -->
-                  <path fill="none" d="M382 196 l22 -22" stroke="#2BE3B0" stroke-width="4.5" stroke-linecap="round"/>
-                  <g class="q4-head">
-                    <rect x="400" y="136" width="58" height="38" rx="12" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                    <rect x="410" y="148" width="38" height="12" rx="6" fill="#0a1622"/>
-                    <circle class="fx-pulse" cx="421" cy="154" r="3.5" fill="#2BE3B0"/>
-                    <circle class="fx-pulse d1" cx="437" cy="154" r="3.5" fill="#2BE3B0"/>
-                    <!-- lidar sweep off the head -->
-                    <path class="fx-wire" d="M458 155 H520" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
-                    <path class="fx-breathe" d="M458 155 L536 112 L536 198 Z" fill="url(#psGlow)" opacity=".5"/>
-                    <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><path d="M466 137 a22 22 0 0 1 0 36"/></g>
-                  </g>
-                </g></svg></div>
+              <div class="pstep__viz pstep__viz--photo">
+                <div class="unit3d unit3d--quadruped">
+                  <div class="unit3d__scene">
+                    <div class="unit3d__glow" aria-hidden="true"></div>
+                    <div class="unit3d__body">
+                      <picture>
+                        <source srcset="assets/unit-quadruped.webp" type="image/webp">
+                        <img src="assets/unit-quadruped.png" width="1100" height="928"
+                             alt="Quadruped robot: goes where wheels give up" loading="lazy" decoding="async">
+                      </picture>
+                      <span class="unit3d__scan" aria-hidden="true"></span>
+                    </div>
+                    <div class="unit3d__floor" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Four-legged</span>
                 <h3>Quadruped</h3><div class="pstep__sub">Goes where wheels give up</div>
@@ -363,34 +283,22 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
             </div>
 
             <div class="pstep">
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="AMR robot: moves material without a driver">
-
-                <circle class="fx-breathe" cx="280" cy="220" r="150" fill="url(#psGlow)"/>
-                <!-- payload on the deck -->
-                <rect x="206" y="124" width="148" height="60" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                <path fill="none" d="M206 154 H354" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <path fill="none" d="M280 124 V184" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <!-- chassis -->
-                <rect x="166" y="196" width="228" height="64" rx="15" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                <rect x="186" y="214" width="104" height="16" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="196" y="218" width="10" height="9" rx="2"/><rect class="fx-bar d1" x="212" y="218" width="10" height="9" rx="2"/><rect class="fx-bar d2" x="228" y="218" width="10" height="9" rx="2"/><rect class="fx-bar d3" x="244" y="218" width="10" height="9" rx="2"/></g>
-                <!-- bumper and status strip -->
-                <path fill="none" d="M166 248 h228" stroke="#2BE3B0" stroke-width="2.4" stroke-linecap="round"/>
-                <circle class="fx-pulse" cx="330" cy="224" r="5" fill="#2BE3B0"/>
-                <circle class="fx-pulse d1" cx="350" cy="224" r="5" fill="#2BE3B0"/>
-                <circle class="fx-pulse d2" cx="370" cy="224" r="5" fill="#2BE3B0"/>
-                <!-- drive wheels, hubs and spokes -->
-                <g class="fx-spin"><circle cx="216" cy="290" r="26" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.2"/>
-                  <path fill="none" d="M216 264 V316 M190 290 H242 M198 272 l36 36 M234 272 l-36 36" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="1.6"/>
-                  <circle cx="216" cy="290" r="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/></g>
-                <g class="fx-spin"><circle cx="344" cy="290" r="26" fill="#0a1622" stroke="#2BE3B0" stroke-width="2.2"/>
-                  <path fill="none" d="M344 264 V316 M318 290 H370 M326 272 l36 36 M362 272 l-36 36" stroke="#2BE3B0" stroke-opacity=".55" stroke-width="1.6"/>
-                  <circle cx="344" cy="290" r="8" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/></g>
-                <!-- lidar puck and its scan -->
-                <rect x="260" y="100" width="40" height="22" rx="9" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle class="fx-pulse" cx="280" cy="111" r="4" fill="#2BE3B0"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="111" r="50"/></g>
-                <path class="fx-wire" d="M394 228 H520" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+              <div class="pstep__viz pstep__viz--photo">
+                <div class="unit3d unit3d--amr">
+                  <div class="unit3d__scene">
+                    <div class="unit3d__glow" aria-hidden="true"></div>
+                    <div class="unit3d__body">
+                      <picture>
+                        <source srcset="assets/unit-amr.webp" type="image/webp">
+                        <img src="assets/unit-amr.png" width="901" height="1100"
+                             alt="AMR: moves material without a driver" loading="lazy" decoding="async">
+                      </picture>
+                      <span class="unit3d__scan" aria-hidden="true"></span>
+                    </div>
+                    <div class="unit3d__floor" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Autonomous mobile robot</span>
                 <h3>AMR</h3><div class="pstep__sub">Moves material without a driver</div>
@@ -399,32 +307,22 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
             </div>
 
             <div class="pstep">
-              <div class="pstep__viz"><svg viewBox="0 0 560 440" role="img" aria-label="Drone robot: sees what is out of reach">
-
-                <circle class="fx-breathe" cx="280" cy="200" r="150" fill="url(#psGlow)"/>
-                <!-- arms out to four motors -->
-                <path fill="none" d="M246 176 L156 116 M314 176 L404 116 M246 208 L156 272 M314 208 L404 272" stroke="#2BE3B0" stroke-width="5" stroke-linecap="round"/>
-                <g fill="url(#psBody)" stroke="#2BE3B0" stroke-width="1.8">
-                  <rect x="136" y="104" width="28" height="16" rx="7"/><rect x="396" y="104" width="28" height="16" rx="7"/>
-                  <rect x="136" y="268" width="28" height="16" rx="7"/><rect x="396" y="268" width="28" height="16" rx="7"/>
-                </g>
-                <!-- rotor discs, centred on their motors -->
-                <g class="fx-spin"><ellipse cx="150" cy="112" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <g class="fx-spin"><ellipse cx="410" cy="112" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <g class="fx-spin"><ellipse cx="150" cy="276" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <g class="fx-spin"><ellipse cx="410" cy="276" rx="46" ry="8" fill="#2BE3B0" fill-opacity=".38"/></g>
-                <!-- fuselage -->
-                <path d="M240 158 h80 a17 17 0 0 1 17 17 v34 a17 17 0 0 1 -17 17 h-80 a17 17 0 0 1 -17 -17 v-34 a17 17 0 0 1 17 -17z" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2" stroke-linejoin="round"/>
-                <rect x="248" y="176" width="64" height="16" rx="8" fill="#0a1622" stroke="#2BE3B0" stroke-opacity=".45" stroke-width="1.4"/>
-                <g fill="url(#psTeal)"><rect class="fx-bar" x="256" y="180" width="9" height="9" rx="2"/><rect class="fx-bar d1" x="272" y="180" width="9" height="9" rx="2"/><rect class="fx-bar d2" x="288" y="180" width="9" height="9" rx="2"/></g>
-                <!-- legs and gimbal camera -->
-                <path d="M248 226 v24 h-14 M312 226 v24 h14" fill="none" stroke="#2BE3B0" stroke-width="2.2" stroke-linecap="round"/>
-                <circle cx="280" cy="244" r="17" fill="url(#psBody)" stroke="#2BE3B0" stroke-width="2"/>
-                <circle cx="280" cy="244" r="8" fill="#0a1622" stroke="#2BE3B0" stroke-width="1.8"/>
-                <circle class="fx-pulse" cx="280" cy="244" r="3.5" fill="#2BE3B0"/>
-                <!-- what the camera sees -->
-                <path d="M280 262 L238 366 H322z" fill="url(#psGlow)" opacity=".55"/>
-                <g class="fx-arc a1" fill="none" stroke="#2BE3B0" stroke-width="2"><circle cx="280" cy="366" r="28"/></g></svg></div>
+              <div class="pstep__viz pstep__viz--photo">
+                <div class="unit3d unit3d--drone">
+                  <div class="unit3d__scene">
+                    <div class="unit3d__glow" aria-hidden="true"></div>
+                    <div class="unit3d__body">
+                      <picture>
+                        <source srcset="assets/unit-drone.webp" type="image/webp">
+                        <img src="assets/unit-drone.png" width="1100" height="677"
+                             alt="Drone: sees what is out of reach" loading="lazy" decoding="async">
+                      </picture>
+                      <span class="unit3d__scan" aria-hidden="true"></span>
+                    </div>
+                    <div class="unit3d__floor" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
               <div class="pstep__copy">
                 <span class="pstep__num"><i></i>Unmanned aerial vehicle</span>
                 <h3>Drone</h3><div class="pstep__sub">Sees what is out of reach</div>
@@ -734,6 +632,6 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
   <script src="js/core/perf.js?v=5"></script>
   <script src="js/motion/gscroll.js?v=3"></script>
   <script src="js/motion/motion.js?v=7"></script>
-  <script src="js/sections/pseq.js?v=2"></script>
+  <script src="js/sections/pseq.js?v=5"></script>
 </body>
 </html>
