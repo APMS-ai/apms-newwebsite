@@ -1,0 +1,9 @@
+# Crawlers are welcome everywhere except the build scratch directories,
+# which hold work-in-progress copies of pages that already exist for real.
+User-agent: *
+Allow: /
+Disallow: /dist/
+Disallow: /tools/
+Disallow: /docs/
+
+Sitemap: https://apms.ai/sitemap.xml
