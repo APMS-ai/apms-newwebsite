@@ -150,6 +150,24 @@
 .aloop__hit { fill: transparent; }
 .aloop__n:hover .aloop__disc { stroke: var(--teal); }
 
+/* Each node is an SVG <g> that loop.js gives role="tab" and a tabindex, which
+   makes it focusable, which makes the browser draw its own focus ring the
+   moment it is clicked. On a <g> that ring is a hard black rectangle around
+   the whole group bounding box - disc, number and label together - and it
+   sits there until something else takes focus. The global :focus-visible rule
+   in redesign.css never replaces it, because a mouse click sets :focus but
+   not :focus-visible.
+
+   So: drop the ring for pointer focus, and draw our own teal one for keyboard
+   focus, where it is the only thing telling a reader where they are. The
+   radius follows the group box rather than the disc, hence 10px. */
+.aloop__n:focus { outline: none; }
+.aloop__n:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
 /* ---------- small screens: let it scroll rather than shrink the labels ---------- */
 /* The wide track is 1040 units across. It used to be min-width: 760px inside an
    overflow-x scroller below 800px, which showed a phone the first node and a
