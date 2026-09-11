@@ -122,6 +122,11 @@ ErrorDocument 404 /404.html
   ExpiresByType image/jpeg                "access plus 1 month"
   ExpiresByType image/svg+xml             "access plus 1 month"
   ExpiresByType image/x-icon              "access plus 1 month"
+  ExpiresByType image/webp                "access plus 1 month"
+  # The app walkthrough on the home page is 4.5MB, and it was being
+  # re-downloaded on every visit. Unlike CSS and JS it carries no ?v=,
+  # so a replacement clip needs a new filename or a month to pass.
+  ExpiresByType video/mp4                 "access plus 1 month"
 </IfModule>
 
 <IfModule mod_headers.c>
