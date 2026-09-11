@@ -398,19 +398,21 @@ section.sec:has(> .pseq) { padding: 0; }
    but it is the same photograph on the same staging, so it lives here */
 .unit3d--press     { --unit-ratio: 632 / 1100; --unit-mask: url(../../assets/unit-press.webp);
   --unit-h: 99%;  --floor-w: 46.3%; --floor-b: 0%; }
-/* step 02 of the same pipeline story. An HMI panel showing live output and
-   uptime, replacing the wall-mounted edge box that was here before. Keyed off
-   pure black with tools/unit-whitekey.py --bg: the panel's bezel sits at 47-58
-   and the darkest part of its own screen at 35, so a ramp from 8 to 24 lifts
-   the ground away without touching either. No ground ring - a panel this size
-   is mounted, not stood on, and no fade either: the rounded rectangle is the
-   object's own outline, not a crop of something larger.
+/* step 02 of the same pipeline story. The edge unit itself: a brushed-steel
+   enclosure with the plant's live energy dashboard on its panel and a stack
+   light on top. It arrived already cut out, so it only went through the trim,
+   pad and 1100px cap the rest of the set uses - no keying pass at all, which
+   is what the two plates before it needed.
 
-   82.2% by the one-area rule. It was 88%, which at this plate's near-square
-   0.83:1 made it the biggest thing in the pipeline by a fifth - the panel is
-   a box on a wall and it was reading like the hero of the sequence. */
-.unit3d--edge      { --unit-ratio: 916 / 1100; --unit-mask: url(../../assets/unit-edge.webp);
-  --unit-h: 82.2%; }
+   No ground ring - a cabinet this size is mounted or stood on its own feet,
+   which are in shot - and no fade either: the enclosure's outline is the
+   object's own edge, not a crop of something larger.
+
+   78.1% by the one-area rule, from this plate's 0.92:1. The plate before it
+   was 0.83:1 and sat at 82.2% for the same 512px area; nearly square means
+   less height for the same area, and the area is what is fixed. */
+.unit3d--edge      { --unit-ratio: 1015 / 1100; --unit-mask: url(../../assets/unit-edge.webp);
+  --unit-h: 78.1%; }
 .unit3d--edge .unit3d__floor { display: none; }
 /* steps 03-05 of the pipeline story. None of these is a machine standing on
    a floor - a cloud, a phone and an alert going off - so none of them gets a

@@ -148,9 +148,9 @@ links a file the list does not include.
   dist/css/ai-agents.f6cfbe6e.css
   dist/css/contact.78ba9fd4.css
   dist/css/faq.eb1f922e.css
-  dist/css/index.1e7804ba.css
-  dist/css/industries.72173820.css
-  dist/css/motion-ai.dcc953ef.css
+  dist/css/index.94c72b69.css
+  dist/css/industries.6cc0b140.css
+  dist/css/motion-ai.ea0e9264.css
   dist/css/privacy.0a9aed67.css
   dist/css/solutions.397c4e5c.css
   dist/css/vision-ai.bdbbf01f.css
