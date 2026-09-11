@@ -557,22 +557,27 @@ section.sec:has(> .pseq) { padding: 0; }
    ring: the base plate is in shot and is the ground. */
 .unit3d--plastics { --unit-ratio: 1100 / 732; --unit-mask: url(../../assets/unit-plastics.webp);
   --unit-h: 71.6%; --floor-w: 43.7%; --floor-b: 10%; }
-/* Result. Two engineers reading a production dashboard - the one pipeline
-   plate with people in it, which is the point: the step is about a number
-   somebody can act on.
+/* Result. A press cell running, with the APMS panel live on the machine, an
+   operator holding the part that just came off it and a supervisor reading
+   the same numbers on the app - the one pipeline plate with people in it,
+   which is the point: the step is about a number somebody can act on.
 
-   Built from two mattes unioned at their original frame coordinates, because
+   It arrived already cut out, so it went through the trim, pad and 1100px cap
+   and nothing else. The plate before it was a photograph of two engineers at
+   a monitor and needed two mattes unioned at their frame coordinates, because
    rembg answers "what is the subject" and answered "the men", dropping the
-   monitor and leaving one of them pointing at nothing. The men come from the
-   full frame; the monitor from its own crop, then filled and closed so the
-   matte follows the bezel rather than the gaps between UI cards.
+   monitor and leaving one of them pointing at nothing. None of that applies
+   to a supplied cutout, and the note is kept only so the next photograph does
+   not repeat the discovery.
 
-   Not a convex hull, which was tried: the men occlude the screen's left side,
-   so the hull of what is visible cuts a diagonal across the top-right and
-   clipped the Down card off the dashboard. Fill-and-close keeps the real
-   outline. 59% is 96% of where this ratio's width meets the 625px column. */
-.unit3d--result { --unit-ratio: 1100 / 739; --unit-mask: url(../../assets/unit-result.webp);
-  --unit-h: 61.5%; }
+   65.6% by the one-area rule. The plate is squarer than the one it replaces -
+   1.31:1 against 1.49:1 - so it takes more height for the same 512px area.
+   It was also the widest plate on this sequence and therefore the one that
+   set that area; the press, bound by height at 99%, sets it now, and the
+   figure has not moved. No ground ring: the machine stands on its own feet
+   and they are in shot. */
+.unit3d--result { --unit-ratio: 1100 / 840; --unit-mask: url(../../assets/unit-result.webp);
+  --unit-h: 65.6%; }
 .unit3d--result .unit3d__floor,
 .unit3d--cloud .unit3d__floor,
 .unit3d--app .unit3d__floor,
