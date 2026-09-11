@@ -36,7 +36,7 @@ return function(fn){fired?fn():q.push(fn)}})();</script>
   <!-- One file, built by tools/bundle.js from the 26 stylesheets listed
        for this page in tools/bundles.json. Edit those, not this, and re-run
        `node tools/bundle.js`: the hash below changes with the content. -->
-  <link rel="stylesheet" href="dist/css/index.94c72b69.css">
+  <link rel="stylesheet" href="dist/css/index.27d95f24.css">
   <!-- /BUNDLE:CSS --><!-- BUNDLE:JSPRELOAD -->
   <link rel="preload" as="script" href="dist/js/index.fd551d4e.js">
   <!-- /BUNDLE:JSPRELOAD -->
@@ -466,22 +466,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  The clip arrived as a 1280x960 Rotato render: a phone on a
                  white studio sweep with a drop shadow, which on this dark
                  section was a white slab with a small phone in the middle of
-                 it. Sweep and shadow are keyed out per frame, the render's
-                 watermark with them, and the frame cropped to the handset -
-                 1280x960 down to 482x870, so the phone is the picture rather
-                 than a third of it.
+                 it. Sweep, shadow and the render's watermark are keyed out
+                 per frame.
 
                  The keying is not a colour key: the app's own screen is white
                  too, and a colour key punched holes through the dashboard.
                  The background is the bright region reachable from the frame
-                 edge instead, which the app's screen is not.
+                 edge - except that this clip pushes in until the phone is
+                 clipped on every side, at which point the screen runs off the
+                 edge as well and that rule alone empties the dashboard. What
+                 separates them once both touch the edge is texture: the
+                 screen encloses dozens of small holes, one per glyph, rule
+                 and icon, and the sweep and its shadow are flat. Regions with
+                 the holes are kept.
 
-                 Whole clip, camera move and all. The crop is the union of
-                 every frame up to the point the phone slides out at the end,
-                 not of the clip: the slide-out alone reached the right edge
-                 of the source and would have forced a crop 60% wider, for
-                 1.7s of a phone leaving. Cropping through it instead is what
-                 leaving the frame looks like anyway.
+                 No crop: the push-in ends full-bleed, so the union of every
+                 frame is the whole source frame.
 
                  Two encodes of the same cut, because alpha in video is split
                  down the middle: WebM/VP9 carries it everywhere except
@@ -495,7 +495,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  the clip is not on the critical path; the plate holds its own
                  box from CSS, so nothing shifts when it arrives. -->
             <div class="appsvgwrap" data-app-video>
-              <video class="appvid" width="482" height="870"
+              <video class="appvid" width="1280" height="960"
                      autoplay muted loop playsinline preload="metadata"
                      aria-label="A walkthrough of the APMS app, showing live machine status, output and downtime across the floor">
                 <source src="assets/floor-app.webm" type="video/webm">

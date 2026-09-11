@@ -20,21 +20,21 @@
    a near-black section. Keying it out is what made the cap pointless. */
 .appsvgwrap { width: 100%; margin-inline: auto; display: flex; justify-content: center; }
 
-/* The recording, sized by height rather than width, because the crop is
-   taller than it is wide and the column is not what limits it.
+/* The recording, sized by width, because this cut is 4:3 and the column is
+   what limits it. The clip before it was a cropped portrait handset and was
+   sized by height instead.
 
-   870px is the clip's own height. Past that the browser is upscaling a
-   482px-wide source and the app's 8px type in it goes soft - the render it
-   was cut from only ever had the phone at 368px across, so there is no more
-   detail to ask for. It is held at native size at the top end and shrinks
-   from there.
+   No crop, and none available: the camera pushes in until the phone is
+   full-bleed, so the union of every frame is the whole 1280x960 source. That
+   is also why the phone is small at the start - the first second is the wide
+   shot the push-in begins from, and cropping to it would cut the close-up it
+   ends on.
 
    No plate, no radius, no border: with the background keyed out there is no
    rectangle to round off, and a border would draw a box around a handset
    that no longer has one. */
 .appvid {
-  height: clamp(460px, 68vh, 870px); width: auto;
-  max-width: 100%; aspect-ratio: 482 / 870;
+  width: 100%; max-width: 640px; aspect-ratio: 4 / 3; height: auto;
   display: block; object-fit: contain; background: none;
 }
 
