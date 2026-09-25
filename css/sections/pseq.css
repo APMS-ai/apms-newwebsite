@@ -44,20 +44,39 @@
    high --unit-h went. The copy here is short enough to take the narrower
    column: a two-line heading, a kicker and four lines of body.
 
-   Scoped to .pseq--ind on purpose. The same rule on index or motion-ai would
-   squeeze copy those sequences need, and their units are portrait anyway -
-   the humanoid and the press gain nothing from a wider column. */
+   Scoped to .pseq--ind on purpose, and still wider than the 0.95fr/1.35fr
+   the other two sequences take: motion-ai is bound by the humanoid's height
+   rather than by width, so a wider column would buy it nothing at all, and
+   index has a paragraph per step where industries has four lines. */
 /* Copy on the left, artwork on the right, and the artwork gets the larger
    share of the row: these plates are landscape, so the column's width is what
    limits them and a wide column is what lets them be big.
 
-   Every --unit-h below is computed, not chosen. --unit-h sets the plate's
-   height, --unit-ratio fixes its width from that, and the measured column is
-   764x682. So the ceiling for each plate is (764 / its ratio) / 682, and each
-   sits at 96% of its own ceiling. The 4% is not timidity: past the column's
-   width the absolutely positioned body clamps against its own aspect-ratio and
-   renders nothing at all, so the margin buys a silent-failure-free result at
-   viewport widths slightly different from the one measured here.
+   ONE SIZE PER SEQUENCE. Every --unit-h below is computed from that, not
+   chosen: within a sequence each plate covers the same area, so a portrait
+   plate is tall and narrow and a landscape one short and wide, but they carry
+   the same weight on the stage and nothing jumps as the sequence advances.
+
+   The rule, for a plate of ratio r in a column W x 682, is h = sqrt(A / r)
+   with A the sequence's one area. A is the largest area every plate in that
+   sequence can reach: the widest plate pinned to 96% of the column width, or
+   the narrowest pinned to 99% of its height, whichever binds first. That
+   gives 512px square-equivalent on index (672 wide), 598 on industries (764)
+   and 443 on motion-ai, where the person-height humanoid runs out of column
+   height before anything runs out of width.
+
+   The 4% off the width is not timidity: past the column's width the
+   absolutely positioned body clamps against its own aspect-ratio and renders
+   nothing at all, so the margin buys a silent-failure-free result at viewport
+   widths slightly different from the one measured here.
+
+   Checked as rendered, not on paper: at 1366x768, 1440x900 and 1920x1080
+   every plate on a sequence measures the same area to the pixel. On a window
+   tall enough that the column exceeds 682 - past about 1150 of viewport
+   height - the widest plates meet max-width first and lose a little height,
+   so the match opens to about 6%. That is the graceful end of the clamp
+   above and it is why the reference height is 682 rather than something
+   taller: erring short keeps every plate inside the width.
 
    Note --unit-h is a percentage of the viz column's height (682px), not the
    820px sticky stage. Reading it as the stage height is what made an earlier
@@ -76,7 +95,7 @@
 
 .pstep {
   position: absolute; inset: 0; display: grid;
-  grid-template-columns: 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3.4rem);
+  grid-template-columns: 0.95fr 1.35fr; gap: clamp(1.5rem, 4vw, 3.4rem);
   align-items: stretch; opacity: 0; transform: scale(0.9) translateY(26px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
   pointer-events: none; will-change: opacity, transform;
@@ -356,47 +375,56 @@ section.sec:has(> .pseq) { padding: 0; }
    tools/unit-cutout.py; --unit-mask is the same file, for the light sweep;
    --floor-w / --floor-b place the ground under whatever it stands on.
 
-   --unit-h is what stops the fleet looking like four machines of the same
-   size. Filling the stage height with every plate makes the two landscape
-   units enormous - the quadruped ended up wider than the copy beside it and
-   read as a horse - and it flattens the one fact the slides are making,
-   which is that these are different machines for different jobs. So each
-   plate is sized towards the real thing: the humanoid is person-height and
-   sets the scale, the quadruped comes up to your knee, the AMR to your
-   waist, and the drone is the small one because a drone is small. */
+   --unit-h comes from the one-area rule above, so every plate on a sequence
+   is the same size. It replaced a set of heights sized towards the real
+   machines - the humanoid person-height, the quadruped knee-high, the drone
+   small because a drone is small - which is a nice idea and a real loss, but
+   the plates then changed size under you as the sequence advanced and the
+   two that were furthest out (the edge panel, the warehouse aisle) read as a
+   different treatment rather than a different machine.
+
+   What the rule does keep is that filling the stage height with every plate
+   is not an option: a landscape unit taken to full height is wider than the
+   copy beside it. Equal area, not equal height, is what stops that. */
 .unit3d { width: 100%; height: 100%; display: grid; place-items: center;
   --unit-h: 100%; --floor-w: 44%; --floor-b: 1.5%; }
 .unit3d--humanoid  { --unit-ratio: 473 / 1100; --unit-mask: url(../../assets/unit-humanoid.webp);
-  --unit-h: 100%; --floor-w: 40%; --floor-b: 0%; }
+  --unit-h: 99%; --floor-w: 39.6%; --floor-b: 0%; }
 .unit3d--quadruped { --unit-ratio: 1100 / 928;  --unit-mask: url(../../assets/unit-quadruped.webp);
-  --unit-h: 64%;  --floor-w: 60%; --floor-b: 17%; }
+  --unit-h: 59.6%;  --floor-w: 55.9%; --floor-b: 17%; }
 .unit3d--amr       { --unit-ratio: 901 / 1100; --unit-mask: url(../../assets/unit-amr.webp);
-  --unit-h: 74%;  --floor-w: 40%; --floor-b: 11%; }
+  --unit-h: 71.7%;  --floor-w: 38.8%; --floor-b: 11%; }
 /* the press is not fleet - it is step 01 of the pipeline story on index -
    but it is the same photograph on the same staging, so it lives here */
 .unit3d--press     { --unit-ratio: 632 / 1100; --unit-mask: url(../../assets/unit-press.webp);
-  --unit-h: 94%;  --floor-w: 44%; --floor-b: 0%; }
-/* step 02 of the same pipeline story. An HMI panel showing live output and
-   uptime, replacing the wall-mounted edge box that was here before. Keyed off
-   pure black with tools/unit-whitekey.py --bg: the panel's bezel sits at 47-58
-   and the darkest part of its own screen at 35, so a ramp from 8 to 24 lifts
-   the ground away without touching either. No ground ring - a panel this size
-   is mounted, not stood on, and no fade either: the rounded rectangle is the
-   object's own outline, not a crop of something larger. */
-.unit3d--edge      { --unit-ratio: 1100 / 712; --unit-mask: url(../../assets/unit-edge.webp);
-  --unit-h: 66%; }
+  --unit-h: 99%;  --floor-w: 46.3%; --floor-b: 0%; }
+/* step 02 of the same pipeline story. The edge unit itself: a brushed-steel
+   enclosure with the plant's live energy dashboard on its panel and a stack
+   light on top. It arrived already cut out, so it only went through the trim,
+   pad and 1100px cap the rest of the set uses - no keying pass at all, which
+   is what the two plates before it needed.
+
+   No ground ring - a cabinet this size is mounted or stood on its own feet,
+   which are in shot - and no fade either: the enclosure's outline is the
+   object's own edge, not a crop of something larger.
+
+   78.1% by the one-area rule, from this plate's 0.92:1. The plate before it
+   was 0.83:1 and sat at 82.2% for the same 512px area; nearly square means
+   less height for the same area, and the area is what is fixed. */
+.unit3d--edge      { --unit-ratio: 1015 / 1100; --unit-mask: url(../../assets/unit-edge.webp);
+  --unit-h: 78.1%; }
 .unit3d--edge .unit3d__floor { display: none; }
 /* steps 03-05 of the pipeline story. None of these is a machine standing on
    a floor - a cloud, a phone and an alert going off - so none of them gets a
-   ground ring, and the alert is held well down because it is the one landscape
-   plate here: filled to the stage height it dwarfed the copy beside it, which
-   is the same trap the fleet slides hit. */
-.unit3d--cloud     { --unit-ratio: 1100 / 796; --unit-mask: url(../../assets/unit-cloud.webp);
-  --unit-h: 64%; }
-.unit3d--app       { --unit-ratio: 562 / 1100; --unit-mask: url(../../assets/unit-app.webp);
-  --unit-h: 92%; }
+   ground ring. The heights are the one-area rule, nothing else: the cloud is
+   landscape so it is short and wide, the phone and the alert are portrait so
+   they are tall and narrow, and all three cover the same 512px square. */
+.unit3d--cloud     { --unit-ratio: 1100 / 745; --unit-mask: url(../../assets/unit-cloud.webp);
+  --unit-h: 61.8%; }
+.unit3d--app       { --unit-ratio: 725 / 1100; --unit-mask: url(../../assets/unit-app.webp);
+  --unit-h: 92.4%; }
 .unit3d--alert     { --unit-ratio: 699 / 1100; --unit-mask: url(../../assets/unit-alert.webp);
-  --unit-h: 96%; }
+  --unit-h: 94.1%; }
 /* The industries opener: the whole welding cell - six arms on their pedestals,
    the body-in-white on its jig, the rails - cut in one pass. It replaced an
    earlier plate built by unioning two mattes out of a dense line photograph,
@@ -411,14 +439,13 @@ section.sec:has(> .pseq) { padding: 0; }
    so they read like the fleet units on motion-ai, which are hard-edged
    throughout. A straight edge says "continues past the frame"; a dissolve says
    "this picture is evaporating", and next to a hard-edged fleet it looked like
-   a different treatment. 74% is as far as
-   this goes: --unit-h drives the height and the ratio fixes the width from it,
-   and past the column's width the plate does not shrink to fit - the absolutely
-   positioned body clamps against its own aspect-ratio and renders nothing at
-   all. 82% was blank in exactly that way while 66% and 74% rendered beside it. No ground ring - the
-   cell already stands on its own pedestals and rails, which is a floor. */
+   a different treatment. The height is the sequence's one area divided by this
+   plate's ratio, and it is the plate that sets that area: at 1.5:1 it is the
+   widest on the sequence, so it reaches 96% of the column's width first and
+   every other plate here is sized to match it. No ground ring - the cell
+   already stands on its own pedestals and rails, which is a floor. */
 .unit3d--automotive { --unit-ratio: 1100 / 733; --unit-mask: url(../../assets/unit-automotive.webp);
-  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
+  --unit-h: 71.6%; --floor-w: 43.8%; --floor-b: 10%; }
 /* Pharma. Re-cut from a fresh source: the same cell photographed on a plain
    white sweep at 1536x1024, which replaced an earlier file that arrived
    already cut by Photoroom. Cutting it here is better on both counts - the
@@ -436,7 +463,7 @@ section.sec:has(> .pseq) { padding: 0; }
    No ground ring: her feet are outside the frame, and a ring floating under a
    cropped figure is worse than none. */
 .unit3d--pharma { --unit-ratio: 1100 / 777; --unit-mask: url(../../assets/unit-pharma.webp);
-  --unit-h: 76%; --floor-w: 44%; --floor-b: 8%; }
+  --unit-h: 73.7%; --floor-w: 42.7%; --floor-b: 8%; }
 /* Food & Beverage. Re-cut from a proper source and no longer keyed. The file
    this replaced was a room rather than an object - a line filling its frame
    with no background to remove - so it had to be faked with a luminance key,
@@ -457,7 +484,7 @@ section.sec:has(> .pseq) { padding: 0; }
    it sits under the filler drum, which is the part that actually looks like it
    is standing on something. */
 .unit3d--food { --unit-ratio: 1100 / 733; --unit-mask: url(../../assets/unit-food.webp);
-  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
+  --unit-h: 71.6%; --floor-w: 43.8%; --floor-b: 10%; }
 /* Power & Energy. A solar array running back to the horizon with turbines
    behind it, on a plain white sweep. The thin white blades against white were
    the thing to watch - it is the same trap that made unit-cutout.py pin
@@ -472,7 +499,7 @@ section.sec:has(> .pseq) { padding: 0; }
    the stage's height rather than the column's width. No ground ring: the
    footings are in shot and are the ground. */
 .unit3d--energy { --unit-ratio: 1100 / 739; --unit-mask: url(../../assets/unit-energy.webp);
-  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
+  --unit-h: 71.9%; --floor-w: 43.9%; --floor-b: 10%; }
 /* Metal Fabrication. A press brake, its operator and a stack of sheet, and
    the plate that needed the most work of the set.
 
@@ -495,7 +522,7 @@ section.sec:has(> .pseq) { padding: 0; }
    in it read as bright white blooms under the table on a dark section. Cropping
    costs the bottom of the table legs, which is why the bottom is faded. */
 .unit3d--metal { --unit-ratio: 1100 / 733; --unit-mask: url(../../assets/unit-metal.webp);
-  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
+  --unit-h: 71.6%; --floor-w: 43.8%; --floor-b: 10%; }
 /* Heavy Machinery. A cold saw and its stock, a crane hook lowering pipe to an
    operator - supplied already in mint, same as the first Heavy Machinery
    source, so no recolour pass. Cut with tools/unit-whitekey.py at a lower
@@ -508,7 +535,7 @@ section.sec:has(> .pseq) { padding: 0; }
    at any single level, so what remained is dissolved rather than chased
    further with more threshold tuning. */
 .unit3d--heavy { --unit-ratio: 1100 / 748; --unit-mask: url(../../assets/unit-heavy.webp);
-  --unit-h: 73%; --floor-w: 44%; --floor-b: 10%; }
+  --unit-h: 72.3%; --floor-w: 43.6%; --floor-b: 10%; }
 /* Warehousing & Logistics. A pallet-rack aisle with three reach trucks and
    their operators, cut with tools/unit-whitekey.py straight off the sweep -
    flat runs on every side came back under 10px, so no crop and no feather.
@@ -516,34 +543,41 @@ section.sec:has(> .pseq) { padding: 0; }
    already a floor, and the aisle recedes far enough that a ring under any one
    point of it would look attached to nothing.
 
-   68% - the widest plate in the set at 1.82:1, so the column's width binds it
-   early. Checked by outlining the plate box against the column: 70% has the
-   two edges meeting, so this sits just inside that. */
-.unit3d--warehouse { --unit-ratio: 1100 / 717; --unit-mask: url(../../assets/unit-warehouse.webp);
-  --unit-h: 70%; --floor-w: 44%; --floor-b: 11%; }
+   76.3% - the one-area rule, not this plate's own ceiling. At 1.32:1 it is
+   the squarest plate on the sequence and could go to 81% before its edges
+   reached the column, which is where it sat; that made it the largest thing
+   on a stage of otherwise matched plates. Held to the sequence's area it is
+   688x520 like everything else here. */
+.unit3d--warehouse { --unit-ratio: 1100 / 831; --unit-mask: url(../../assets/unit-warehouse.webp);
+  --unit-h: 76.3%; --floor-w: 41.4%; --floor-b: 11%; }
 /* Plastics & Moulding. A blow-mould tool shot mid-cycle with two parisons
    inflating - supplied already in mint like the two Heavy Machinery sources,
    so no recolour pass. Cut with tools/unit-whitekey.py; top and bottom faded
    where the frame clips the tooling and the machine base square. No ground
    ring: the base plate is in shot and is the ground. */
 .unit3d--plastics { --unit-ratio: 1100 / 732; --unit-mask: url(../../assets/unit-plastics.webp);
-  --unit-h: 72%; --floor-w: 44%; --floor-b: 10%; }
-/* Result. Two engineers reading a production dashboard - the one pipeline
-   plate with people in it, which is the point: the step is about a number
-   somebody can act on.
+  --unit-h: 71.6%; --floor-w: 43.7%; --floor-b: 10%; }
+/* Result. A press cell running, with the APMS panel live on the machine, an
+   operator holding the part that just came off it and a supervisor reading
+   the same numbers on the app - the one pipeline plate with people in it,
+   which is the point: the step is about a number somebody can act on.
 
-   Built from two mattes unioned at their original frame coordinates, because
+   It arrived already cut out, so it went through the trim, pad and 1100px cap
+   and nothing else. The plate before it was a photograph of two engineers at
+   a monitor and needed two mattes unioned at their frame coordinates, because
    rembg answers "what is the subject" and answered "the men", dropping the
-   monitor and leaving one of them pointing at nothing. The men come from the
-   full frame; the monitor from its own crop, then filled and closed so the
-   matte follows the bezel rather than the gaps between UI cards.
+   monitor and leaving one of them pointing at nothing. None of that applies
+   to a supplied cutout, and the note is kept only so the next photograph does
+   not repeat the discovery.
 
-   Not a convex hull, which was tried: the men occlude the screen's left side,
-   so the hull of what is visible cuts a diagonal across the top-right and
-   clipped the Down card off the dashboard. Fill-and-close keeps the real
-   outline. 59% is 96% of where this ratio's width meets the 625px column. */
-.unit3d--result { --unit-ratio: 1100 / 739; --unit-mask: url(../../assets/unit-result.webp);
-  --unit-h: 59%; }
+   65.6% by the one-area rule. The plate is squarer than the one it replaces -
+   1.31:1 against 1.49:1 - so it takes more height for the same 512px area.
+   It was also the widest plate on this sequence and therefore the one that
+   set that area; the press, bound by height at 99%, sets it now, and the
+   figure has not moved. No ground ring: the machine stands on its own feet
+   and they are in shot. */
+.unit3d--result { --unit-ratio: 1100 / 840; --unit-mask: url(../../assets/unit-result.webp);
+  --unit-h: 65.6%; }
 .unit3d--result .unit3d__floor,
 .unit3d--cloud .unit3d__floor,
 .unit3d--app .unit3d__floor,
@@ -551,7 +585,7 @@ section.sec:has(> .pseq) { padding: 0; }
 
 /* the drone is the one unit that is not standing on anything */
 .unit3d--drone     { --unit-ratio: 1100 / 677;  --unit-mask: url(../../assets/unit-drone.webp);
-  --unit-h: 52%; }
+  --unit-h: 50.9%; }
 .unit3d--drone .unit3d__floor { display: none; }
 .unit3d__scene { position: relative; width: 100%; height: 100%;
   display: grid; place-items: center; transform-style: preserve-3d; }

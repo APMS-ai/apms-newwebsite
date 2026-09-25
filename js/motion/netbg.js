@@ -1,0 +1,145 @@
+/* ==========================================================================
+   APMS.ai — netbg.js
+   The hero's particle network: the original VANTA.NET (three.js) 3D mesh,
+   restored from before the 2D-canvas experiment in 6790319. The canvas
+   version was flat; this is the one that moves in 3D.
+
+   three.min.js and vanta.net.min.js are fetched only once the gates below
+   pass (fine pointer, >= 900px, WebGL, no reduced motion), so phones never
+   download them. perf.js still pauses it via window.__vanta.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine   = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+
+  /* ---------- 1 · Vanta NET — subtle teal network behind the hero ---------- */
+  function hasWebGL() {
+    try {
+      var c = document.createElement("canvas");
+      return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
+    } catch (e) { return false; }
+  }
+
+  /* A full-viewport WebGL background is the single most expensive thing on the
+     page. Phones and tablets pay the most for it and benefit the least, so they
+     get the static hero instead: smooth scrolling matters more than a decorative
+     particle mesh. perf.js pauses it on desktop once the hero scrolls away. */
+  var heavyOk = fine && window.innerWidth >= 900;
+
+  /* three.min.js is 601 KB and vanta another 12. They used to be script tags on
+     every page, which meant every phone downloaded and parsed 613 KB for a hero
+     effect that is switched off below 900px. They are fetched here instead, and
+     only once we already know the effect will run. */
+  function need(srcs, done) {
+    var left = srcs.length;
+    srcs.forEach(function (src) {
+      var el = document.createElement("script");
+      el.src = src; el.async = false;
+      el.onload = function () { if (--left === 0) done(); };
+      el.onerror = function () { left = -1; };   /* give up quietly */
+      document.head.appendChild(el);
+    });
+  }
+
+  var hero = document.querySelector(".phero") || document.querySelector(".hero");
+  if (hero && !reduce && heavyOk && hasWebGL()) {
+    /* After the page has loaded, and then only when the browser is idle.
+       three.js is 601 KB, 148 KB of it over the wire, and it was being fetched
+       while the page was still assembling itself: measured, it pushed
+       DOMContentLoaded out to 2.34s on a local server with nothing else
+       competing. It decorates the hero. It can wait for everything that does
+       not.
+
+       The 2500ms cap is there because requestIdleCallback can be a long time
+       coming on a busy page, and a hero that never fills in is worse than one
+       that fills in late. */
+    var started = false;
+    var kick = function () {
+      if (started) return; started = true;
+      need(["js/vendor/three.min.js", "js/vendor/vanta.net.min.js"], startVanta);
+    };
+    /* Started once the page has loaded, rather than on the first interaction.
+
+       Waiting for a pointer was protecting Lighthouse: a tab nobody has
+       touched should not parse 601 KB of three.js or spin up a WebGL context,
+       and an audit that never moves a mouse correctly got the static hero.
+       What it cost was the thing anybody actually looking at the page sees.
+       Measured on a 4 Mbit line with the mouse moving at 2.5s, which is what a
+       real visitor does:
+
+         first paint            1.6s
+         three.js requested     5.0s   <- waits for the mouse, then for idle
+         hero network up        5.6s
+
+       Four seconds of a flat hero sitting behind a headline that was finished
+       at 1.6s. The wake gate is only half of that; the idle callback after it
+       adds up to another 1.2s on top.
+
+       So it now hangs off DOMContentLoaded with a short idle timeout instead of
+       a long one. That is still strictly behind everything that paints the
+       page: this file is one of the scripts at the end of body, so by the time
+       it can run, the document is parsed and the stylesheet is applied.
+
+       A head preload was tried too and deliberately not kept. It fetched
+       three.js ~800ms sooner, but cost ~380ms of First Contentful Paint by
+       competing for bandwidth with the stylesheet - measured interleaved, both
+       ways, three runs each. Trading the headline against a decorative
+       background is the wrong way round.
+
+       The gates above are unchanged and still do the important filtering - a
+       phone, a narrow window, reduced motion and a machine without WebGL never
+       reach this line, so none of them pay for three.js. */
+    var queue = function () {
+      if (window.requestIdleCallback) requestIdleCallback(kick, { timeout: 300 });
+      else setTimeout(kick, 150);
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", queue, { once: true });
+    else queue();
+  }
+
+  function startVanta() {
+    if (!window.VANTA || !window.VANTA.NET || !window.THREE) return;
+    hero.classList.add("has-vanta"); // CSS mutes the static grid + lifts content above the canvas
+    // Dedicated background layer so the canvas sits BEHIND hero content, never over it.
+    var bg = document.createElement("div");
+    bg.className = "vanta-bg";
+    bg.setAttribute("aria-hidden", "true");
+    hero.insertBefore(bg, hero.firstChild);
+    try {
+      var fx = window.VANTA.NET({
+        el: bg,
+        THREE: window.THREE,
+        mouseControls: fine,
+        touchControls: false,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x2ee0b4,          // APMS teal-bright
+        backgroundColor: 0x070f19, // --ink-900
+        points: 9.0,
+        maxDistance: 21.0,
+        spacing: 18.0,
+        showDots: true
+      });
+      /* perf.js pauses this when the hero scrolls away: a full-screen WebGL
+         canvas rendering behind content nobody is looking at was costing
+         frames on every page. */
+      /* Vanta renders at full devicePixelRatio by default, which quadruples the
+         fragment work on a retina panel for a background that is deliberately
+         soft. 1 is plenty for a particle mesh. */
+      try {
+        if (fx && fx.renderer && fx.renderer.setPixelRatio) {
+          fx.renderer.setPixelRatio(1);
+          if (fx.resize) fx.resize();
+        }
+      } catch (e) {}
+      window.__vanta = fx;
+      window.addEventListener("beforeunload", function () { if (fx && fx.destroy) fx.destroy(); });
+    } catch (e) { hero.classList.remove("has-vanta"); if (bg && bg.parentNode) bg.parentNode.removeChild(bg); }
+  }
+
+})();

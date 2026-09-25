@@ -55,10 +55,22 @@ const DEV_ONLY = [
   "tools/",     /* the bundler and this script */
 ];
 
+/* Configuration for GitHub itself, not part of the site in any sense. Listing
+   it under "never upload" would be noise - nobody deploying a website is going
+   to wonder whether CODEOWNERS belongs in public_html - so it is left out of
+   the file entirely rather than held back with an explanation. Without this it
+   would land in the *upload* list, because it is neither dev-only nor
+   ignored. */
+const NOT_SITE = [".github/"];
+
 function isDevOnly(f) {
   return DEV_ONLY.some(function (p) {
     return p.endsWith("/") ? f.startsWith(p) : f === p;
   });
+}
+
+function isNotSite(f) {
+  return NOT_SITE.some(function (p) { return f.startsWith(p); });
 }
 
 const tracked = execSync("git ls-files", { cwd: ROOT, encoding: "utf8" })
@@ -66,8 +78,9 @@ const tracked = execSync("git ls-files", { cwd: ROOT, encoding: "utf8" })
   .map(function (s) { return s.trim(); })
   .filter(Boolean);
 
-const upload = tracked.filter(function (f) { return !isDevOnly(f); }).sort();
-const held = tracked.filter(isDevOnly).sort();
+const site = tracked.filter(function (f) { return !isNotSite(f); });
+const upload = site.filter(function (f) { return !isDevOnly(f); }).sort();
+const held = site.filter(isDevOnly).sort();
 
 /* Sanity check, because the whole point of this file is that a wrong list is
    worse than no list: every local href/src in every page must be in `upload`.

@@ -1,155 +1,89 @@
 /* ==========================================================================
    APMS.ai — appsvg.css
-   The app's Active Machines screen, drawn from a screenshot of the real thing.
+   The app, on the dashboard section: a screen recording of the real thing,
+   held in space above its two store links.
 
-   It is deliberately the app's own layout and nothing else: two counters side
-   by side, seven status rows on a light panel, each with the line of
-   explanation the app shows under its name, the numbers in the app's status
-   colours, and the four tabs.
-
-   An earlier version dropped those explanation lines and replaced them with a
-   single bar showing the mix. That was a reasonable call when the phone was
-   capped at 320px and the lines came out at 9.6px, but the app has no such bar
-   and this is meant to be a picture of the app. The lines are back, the bar is
-   gone, and the phone is wider instead: at 400px a line renders near 8.7px,
-   which is small, and it is small on the real handset too.
+   This file used to draw the app's Active Machines screen as an SVG inside an
+   iPhone 15 frame, because there was no footage. There is now, and a drawing
+   of an app is only ever an argument that the app looks like this; the
+   recording is the app. The drawn device frame went with it - the footage is
+   of a real handset - so what is left here is the pose, the clip, and the
+   store badges.
    ========================================================================== */
 
-/* A phone has a size. Capped so it does not become a 594px-wide slab on a
-   desktop column, and wide enough that the app's own type survives. */
-.appsvgwrap { width: 100%; max-width: 400px; margin-inline: auto; }
-.appsvg { width: 100%; height: auto; display: block; overflow: visible; }
+/* No cap on the wrapper. The clip is keyed and cropped to the handset, so
+   there is no white sweep left to spread across the column and nothing for a
+   width cap to hold back; the size is set on the video, from its own pixels.
+
+   Was max-width: 560px, from when the footage still carried its studio
+   background: at full column width that background was a 600px white slab on
+   a near-black section. Keying it out is what made the cap pointless. */
+.appsvgwrap { width: 100%; margin-inline: auto; display: flex; justify-content: center; }
+
+/* The recording, sized by width, because this cut is 4:3 and the column is
+   what limits it. The clip before it was a cropped portrait handset and was
+   sized by height instead.
+
+   No crop, and none available: the camera pushes in until the phone is
+   full-bleed, so the union of every frame is the whole 1280x960 source. That
+   is also why the phone is small at the start - the first second is the wide
+   shot the push-in begins from, and cropping to it would cut the close-up it
+   ends on.
+
+   No plate, no radius, no border: with the background keyed out there is no
+   rectangle to round off, and a border would draw a box around a handset
+   that no longer has one. */
+.appvid {
+  width: 100%; max-width: 680px; aspect-ratio: 1448 / 1086; height: auto;
+  display: block; object-fit: contain; background: none;
+}
+
+/* No shadow here on purpose. The render's own shadow was keyed out with the
+   sweep it fell on, and the obvious replacement - filter: drop-shadow on the
+   video - follows the alpha channel in the WebM but traces the frame's four
+   corners in the composited MP4, so Safari would get a rectangular shadow
+   behind a cut-out phone. One look in both is worth more than the lift. */
 
 /* ---------- held in space, not stuck on the page ----------
-   A phone lying flat against the section reads as a sticker. It is posed in 3D
-   instead: one perspective on the column, one rotation on the wrapper. That is
-   a transform on a single element, composited, and it costs nothing per frame,
-   which is the difference between this and rendering a real handset in WebGL
-   for a picture that never moves on its own.
+   A plate lying flat against the section reads as a sticker. It is posed in
+   3D instead: one perspective on the column, one rotation on the wrapper.
+   That is a transform on a single element, composited, and it costs nothing
+   per frame.
+
+   Less of a turn than the drawn phone took. That was a picture of a screen
+   and could afford 16 degrees; this is a screen with the app's own type
+   running on it, and past about 10 degrees the labels in the footage start
+   to smear along the foreshortened edge.
 
    Nothing else writes transform on this element, so there is one owner
    (CLAUDE.md #4). The store links below sit outside the rotated wrapper and
-   stay flat, which is what keeps the phone looking lifted off the page rather
-   than the whole block looking crooked. */
+   stay flat, which is what keeps the plate looking lifted off the page
+   rather than the whole block looking crooked. */
 .appwrap { perspective: 1700px; perspective-origin: 58% 42%; }
 .appsvgwrap {
-  transform: rotateY(-16deg) rotateX(5deg) rotateZ(-1.2deg);
+  transform: rotateY(-10deg) rotateX(3deg) rotateZ(-0.8deg);
   transition: transform .85s var(--ease-out);
 }
-/* pick it up and look at it: on a pointer device it turns to face you */
+/* pick it up and look at it: on a pointer device it turns to face you, and
+   here that also squares the footage up to be read */
 @media (hover: hover) and (pointer: fine) {
-  .appsvgwrap:hover { transform: rotateY(-2deg) rotateX(1deg) rotateZ(0deg); }
+  .appsvgwrap:hover { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg); }
 }
-/* Less of a turn where the column is narrow: at 390px a 16 degree rotation
+/* Less again where the column is narrow: at 390px a 10 degree rotation
    spends real width on foreshortening, and there is no pointer to undo it. */
 @media (max-width: 700px) {
-  .appsvgwrap { transform: rotateY(-9deg) rotateX(3deg) rotateZ(-0.6deg); }
+  .appsvgwrap { transform: rotateY(-6deg) rotateX(2deg) rotateZ(-0.4deg); }
 }
 /* The pose is a still, so it stays under reduced motion. The turn on hover is
-   travel, so that goes. */
+   travel, so that goes. The footage itself is paused by js/sections/appvid.js,
+   which is the only place that can stop a <video>. */
 @media (prefers-reduced-motion: reduce) {
   .appsvgwrap { transition: none; }
-  .appsvgwrap:hover { transform: rotateY(-16deg) rotateX(5deg) rotateZ(-1.2deg); }
-}
-
-/* The shadow belongs to the device, not to the drawing, and drop-shadow on a
-   filter is a full extra paint pass over the element's whole box.
-   Offset to the right and down, because the pose turns the phone away from a
-   light at the upper left: a shadow straight underneath a tilted object is the
-   thing that gives away a fake 3D. */
-.apph__body { filter: drop-shadow(26px 38px 58px rgba(0,0,0,0.58)); }
-/* per-element origins, not the whole board (project note 7) */
-.appsvg * { transform-box: fill-box; }
-
-/* ---------- the device ---------- */
-.apph__body   { fill: #1c1d21; }
-.apph__rim    { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 1.2; }
-.apph__screen { fill: #05141d; }
-.apph__island { fill: #08090b; }
-.apph__lens   { fill: #10222b; stroke: rgba(120,200,230,0.30); stroke-width: 1; }
-.apph__btn    { fill: #2a2c31; }
-/* the board fills the glass, so the home indicator sits on white, not on a
-   dark screen: white on white was invisible */
-.apph__home   { fill: rgba(12,26,40,0.30); }
-
-/* ---------- the board ----------
-   The app board IS the screen: it fills the glass edge to edge and is clipped
-   to the screen's 45 radius (#appsScreenClip in the markup). Square corners of
-   its own, because the clip supplies the rounding. Before the clip existed the
-   two bottom corners overhung the rounded screen by 12 units of white. */
-.apps__card   { fill: #ffffff; stroke: none; rx: 0; }
-.apps__accent { fill: url(#appsAccent); }
-
-.apps__title { font-family: var(--display); font-weight: 800; font-size: 15.5px;
-               fill: var(--ink); letter-spacing: -0.01em; }
-.apps__sub   { font-family: var(--text); font-size: 9.6px; fill: var(--muted); }
-
-/* ---------- the two counters ---------- */
-.apps__tilebox   { fill: #ffffff; stroke: var(--line); stroke-width: 1.2; }
-.apps__tileglyph { fill: none; stroke: #2f4fb3; stroke-width: 1.7;
-                   stroke-linecap: round; stroke-linejoin: round; }
-/* the power badge on the logged-off counter */
-.apps__tilebadge { fill: #2ee0b4; }
-.apps__tilepower { fill: none; stroke: #04231c; stroke-width: 2.6;
-                   stroke-linecap: round; stroke-linejoin: round; }
-.apps__tilenum   { font-family: var(--display); font-weight: 800; font-size: 17px; }
-.apps__tilenum--g { fill: #17651f; }
-.apps__tilenum--r { fill: #d1453a; }
-.apps__tilelbl   { font-family: var(--text); font-size: 9.6px; fill: var(--ink); }
-
-/* ---------- the status list ---------- */
-.apps__list { fill: #f5f7f8; }
-/* the app's four colours: setup blue, running green, stopped red, the rest
-   neutral. The bar and the number of a row always agree. */
-.apps__rowbar      { fill: #9aa4ac; }
-.apps__rowbar--b   { fill: #16357a; }
-.apps__rowbar--g   { fill: #17651f; }
-.apps__rowbar--r   { fill: #d1453a; }
-.apps__rowlbl  { font-family: var(--display); font-weight: 700; font-size: 12px; fill: var(--ink); }
-.apps__rowdesc { font-family: var(--text); font-size: 8.4px; fill: #93a0a9; }
-.apps__rownum  { font-family: var(--display); font-weight: 800; font-size: 16.5px; fill: #9aa4ac; }
-.apps__rownum--b { fill: #16357a; }
-.apps__rownum--g { fill: #17651f; }
-.apps__rownum--r { fill: #d1453a; }
-.apps__rowrule { stroke: rgba(12,26,40,0.09); stroke-width: 1; fill: none; }
-
-/* ---------- the tab bar ---------- */
-.apps__tabrule  { stroke: var(--line); stroke-width: 1; fill: none; }
-.apps__tabglyph { fill: none; stroke: var(--muted); stroke-width: 1.8;
-                  stroke-linecap: round; stroke-linejoin: round; }
-.apps__tablbl   { font-family: var(--display); font-weight: 600; font-size: 11px; fill: var(--muted); }
-.apps__tab--on .apps__tabglyph { stroke: var(--teal-deep); }
-.apps__tab--on .apps__tablbl   { fill: var(--ink); font-weight: 800; }
-
-/* ==========================================================================
-   Motion. The rows arrive in order and the counts count up; nothing travels.
-   redesign.js animates anything with data-count through textContent, and that
-   works the same on an SVG <text> as on a <span>.
-   ========================================================================== */
-@media (prefers-reduced-motion: no-preference) {
-  .apps__row { opacity: 0; }
-  [data-reveal].in .apps__row { animation: appsRow 0.44s var(--ease-out) forwards; }
-  [data-reveal].in .apps__row--1 { animation-delay: 0.16s; }
-  [data-reveal].in .apps__row--2 { animation-delay: 0.23s; }
-  [data-reveal].in .apps__row--3 { animation-delay: 0.30s; }
-  [data-reveal].in .apps__row--4 { animation-delay: 0.37s; }
-  [data-reveal].in .apps__row--5 { animation-delay: 0.44s; }
-  [data-reveal].in .apps__row--6 { animation-delay: 0.51s; }
-  [data-reveal].in .apps__row--7 { animation-delay: 0.58s; }
-  @keyframes appsRow { to { opacity: 1; } }
-
-  .apps__tile { opacity: 0; }
-  [data-reveal].in .apps__tile { animation: appsRow 0.44s var(--ease-out) 0.06s forwards; }
-}
-
-/* Nothing here travels, so under reduced motion the only thing to do is show
-   the finished state. */
-@media (prefers-reduced-motion: reduce) {
-  .apps__row, .apps__tile { opacity: 1; }
+  .appsvgwrap:hover { transform: rotateY(-10deg) rotateX(3deg) rotateZ(-0.8deg); }
 }
 
 /* ==========================================================================
-   Get the app: the two store links under the phone.
+   Get the app: the two store links, at the end of the copy column.
 
    Solid white, not the outlined button used elsewhere on this section. These
    are store badges: they are recognised by their own colours on their own
@@ -157,8 +91,8 @@
    ghost buttons rather than as Play and the App Store.
    ========================================================================== */
 .appstores {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem;
-  margin-top: 1.4rem;
+  display: flex; flex-wrap: wrap; justify-content: flex-start; gap: .7rem;
+  margin-top: 1.8rem;
 }
 .appstore {
   display: inline-flex; align-items: center; gap: .65rem;
@@ -185,6 +119,8 @@
 .appstore b { font-family: var(--display); font-weight: 800; font-size: .95rem; color: var(--ink); }
 
 @media (max-width: 380px) {
+  /* stacked and full width where the column is narrow, and centred there
+     because at one per row a left edge on its own reads as a stray indent */
   .appstores { flex-direction: column; }
   .appstore { justify-content: center; }
 }
