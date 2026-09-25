@@ -34,7 +34,7 @@
    rectangle to round off, and a border would draw a box around a handset
    that no longer has one. */
 .appvid {
-  width: 100%; max-width: 640px; aspect-ratio: 4 / 3; height: auto;
+  width: 100%; max-width: 680px; aspect-ratio: 1448 / 1086; height: auto;
   display: block; object-fit: contain; background: none;
 }
 

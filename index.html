@@ -458,50 +458,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
           <div class="appwrap" data-reveal data-reveal-delay="1">
-            <!-- A screen recording of the app itself, in place of the drawn
-                 iPhone 15 board that used to stand here. The board was a
-                 faithful mock, but it was a still: a recording shows the app
-                 moving, which is the claim this section makes.
-
-                 The clip arrived as a 1280x960 Rotato render: a phone on a
-                 white studio sweep with a drop shadow, which on this dark
-                 section was a white slab with a small phone in the middle of
-                 it. Sweep, shadow and the render's watermark are keyed out
-                 per frame.
-
-                 The keying is not a colour key: the app's own screen is white
-                 too, and a colour key punched holes through the dashboard.
-                 The background is the bright region reachable from the frame
-                 edge - except that this clip pushes in until the phone is
-                 clipped on every side, at which point the screen runs off the
-                 edge as well and that rule alone empties the dashboard. What
-                 separates them once both touch the edge is texture: the
-                 screen encloses dozens of small holes, one per glyph, rule
-                 and icon, and the sweep and its shadow are flat. Regions with
-                 the holes are kept.
-
-                 No crop: the push-in ends full-bleed, so the union of every
-                 frame is the whole source frame.
-
-                 Two encodes of the same cut, because alpha in video is split
-                 down the middle: WebM/VP9 carries it everywhere except
-                 Safari, so the MP4 has the same cut already composited onto
-                 the plate colour behind it. Safari therefore loses the
-                 transparency and nothing else - no white box either way.
-
-                 muted + playsinline + autoplay is the only combination a
-                 browser will start on its own; loop keeps it going without a
-                 control strip over the footage. preload="metadata" only, so
-                 the clip is not on the critical path; the plate holds its own
-                 box from CSS, so nothing shifts when it arrives. -->
-            <div class="appsvgwrap" data-app-video>
-              <video class="appvid" width="1280" height="960"
-                     autoplay muted loop playsinline preload="metadata"
-                     aria-label="A walkthrough of the APMS app, showing live machine status, output and downtime across the floor">
-                <source src="assets/floor-app.webm" type="video/webm">
-                <source src="assets/floor-app.mp4" type="video/mp4">
-                <a href="assets/floor-app.mp4">A walkthrough of the APMS app (MP4)</a>
-              </video>
+            <!-- A still of the app on three handsets: login, a machine's
+                 downtime summary, and the live machine list. The studio
+                 background is keyed out (flood from the frame edge; the
+                 bezels seal the white screens off from it), so it sits on the
+                 dark section without a plate. -->
+            <div class="appsvgwrap">
+              <img class="appvid" src="assets/floor-app.webp" width="1448" height="1086"
+                   loading="lazy" decoding="async"
+                   alt="The APMS app on three phones: login, a machine's running and downtime summary, and the live list of machines with stop reasons">
             </div>
           </div>
         </div>
